@@ -21,3 +21,5 @@ global.$ = jQuery;
 require('packs/jquery-validations')
 require('devise/registrations/new')
 require('devise/sessions/new')
+require('devise/passwords/new')
+require('devise/passwords/edit')
