@@ -1,0 +1,5 @@
+.row.auth-wrap {
+  @include media(sm-max) {
+    flex-direction: column-reverse;
+  }
+}
