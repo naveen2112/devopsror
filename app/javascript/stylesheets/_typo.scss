@@ -1,0 +1,58 @@
+@import "variables";
+
+//Mixins
+@import "mixins/media-queries";
+%title {
+  font-size: 24px;
+
+  @include media(sm) {
+    font-size: 30px;
+  }
+  @include media(md) {
+    font-size: 40px;
+  }
+  font-weight: 600;
+  line-height: 1.15;
+}
+%title-sm {
+  font-size: 18px;
+  @include media(sm) {
+    font-size: 20px;
+  }
+  font-weight: 600;
+  line-height: 1.45;
+}
+%link-text {
+  font-size: 18px;
+  @include media(sm) {
+    font-size: 20px;
+  }
+  font-weight: 500;
+  line-height: 2.3;
+}
+%sider-content {
+  font-size: 18px;
+  @include media(sm) {
+    font-size: 20px;
+  }
+  line-height: 1.45;
+}
+%description {
+  font-size: 16px;
+  @include media(sm) {
+    font-size: 18px;
+  }
+  line-height: 1.61;
+}
+%sub-heading {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.81;
+}
+%Paragraph {
+  font-size: 16px;
+  line-height: 1.81;
+}
+%help-text {
+  font-size: 14px;
+}

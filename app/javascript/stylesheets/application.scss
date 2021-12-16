@@ -1,0 +1,86 @@
+@import url('//fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('//fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@import "~bootstrap/scss/bootstrap";
+
+//Style guide of the site
+@import "variables";
+
+//Mixins
+@import "mixins/media-queries";
+@import "mixins/prefixer";
+@import "mixins/button";
+@import "mixins/background";
+
+//Your styles
+//Add the files if it has global styles
+@import "general";
+@import "common";
+@import "nav";
+@import "typo";
+@import "footer";
+@import "signin";
+@import "signup";
+@import "form";
+
+
+//Typo
+.title{
+  @extend %title;
+}
+.title-sm{
+  @extend %title-sm;
+}
+.link-text{
+  @extend %link-text;
+}
+
+.sider-content{
+  @extend %sider-content;
+}
+.description{
+  @extend %description;
+}
+
+.sub-heading{
+  @extend %sub-heading;
+}
+.paragraph{
+  @extend %Paragraph;
+}
+.help-text{
+  @extend %help-text;
+}
+
+//Background color
+.bg-primary{
+  color: $primary;
+}
+.cbg-secondary{
+  color: $secondary;
+}
+.bg-dark{
+  color: $dark;
+}
+.bg-grey{
+  color: $grey;
+}
+
+//Font color
+
+
+.c-primary{
+  color: $primary;
+}
+.c-secondary{
+  color: $secondary;
+}
+.c-dark{
+  color: $dark;
+}
+.c-grey {
+  color: $grey;
+}
+.error{
+  color: $danger;
+}

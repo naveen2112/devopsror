@@ -1,0 +1,32 @@
+@import "variables";
+
+.signInFormAr {
+  .formWrap {
+    padding-top: 90px;
+
+    @include media(md-max) {
+      padding-top: 75px;
+    }
+
+    @include media(sm-max) {
+      padding-top: 55px;
+    }
+  }
+
+  .buttonWrap {
+    padding-top: 38px;
+
+    .btn-outline-primary {
+      margin-top: 15px;
+    }
+
+    .text-link {
+      margin-top: 10px;
+      display: inline-block;
+    }
+  }
+}
+
+.invalid-feedback{
+  display: block;
+}

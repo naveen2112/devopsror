@@ -1,0 +1,47 @@
+<section class="auth">
+  <div class="container-fluid">
+    <div class="row auth-wrap">
+      <div class="col-md-12 col-lg-6 col-sm-12 position-relative left-column">
+
+        <div class="signInFormAr authentication-container">
+          <div class="signInFormWrap">
+            <div class="container-wrap">
+              <h2 class="formTitle">Change your password</h2>
+
+
+              <div class="formWrap">
+
+
+                <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put, id: "users-update-password"}) do |f| %>
+                  <%= render "devise/shared/error_messages", resource: resource %>
+                  <%= f.hidden_field :reset_password_token %>
+
+                  <div class="form-group required">
+                    <label class="control-label" for="examplePassword">New password</label>
+                    <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control", placeholder: "password" %>
+                  </div>
+
+                  <div class="field">
+                    <label class="control-label" for="examplePasswordConformation">Password Confirmation</label>
+                    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "password confirmation" %>
+                  </div>
+
+                  <div class="buttonWrap">
+                    <%= f.submit "Change my password", class: "btn btn-primary btn-block" %>
+                  </div>
+
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-12 col-sm-12 col-lg-6 position-relative px-0 bg-linear">
+        <%= render "devise/shared/right_side_content" %>
+      </div>
+    </div>
+  </div>
+</section>
+
+
