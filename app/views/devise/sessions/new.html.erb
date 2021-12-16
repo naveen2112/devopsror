@@ -23,6 +23,16 @@
                     <div class="text-right">
                       <a class="text-link" href="/users/password/new">Forgot password?</a>
                     </div>
+
+                    <% if flash[:alert] == "Invalid Email or password." %>
+                      <div class="invalid-feedback mt-2 position-relative">
+                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M8.49988 6.12505V7.70838M8.49988 10.875H8.5078M3.01521 14.0417H13.9845C15.2037 14.0417 15.9653 12.722 15.3557 11.6667L9.87105 2.16671C9.26146 1.11142 7.7383 1.11142 7.12871 2.16671L1.64405 11.6667C1.03446 12.722 1.79605 14.0417 3.01521 14.0417Z" stroke="#FF3300" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Incorrect email or password! Try again.</span>
+                      </div>
+                    <% end %>
+
                     <button class="btn toggleButton" type="button">
                     <span class="icon visible">
                         <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +67,7 @@
 
       </div>
       <div class="col-md-12 col-sm-12 col-lg-6 position-relative px-0 bg-linear">
-       <%= render "devise/shared/right_side_content" %>
+        <%= render "devise/shared/right_side_content" %>
       </div>
     </div>
   </div>

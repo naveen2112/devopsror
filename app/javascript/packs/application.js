@@ -10,7 +10,7 @@ import "channels"
 import $ from 'jquery';
 import jQuery from 'jquery';
 import "bootstrap"
-import "../stylesheets/application"
+import "../stylesheets/application.scss"
 
 window.jQuery = $;
 window.$ = $;

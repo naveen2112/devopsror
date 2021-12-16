@@ -1,14 +1,15 @@
+if Rails.env == "development"
 # Mark existing migrations as safe
-StrongMigrations.start_after = 20211208050028
+  StrongMigrations.start_after = 20211208050028
 
 # Set timeouts for migrations
 # If you use PgBouncer in transaction mode, delete these lines and set timeouts on the database user
-StrongMigrations.lock_timeout = 10.seconds
-StrongMigrations.statement_timeout = 1.hour
+  StrongMigrations.lock_timeout = 10.seconds
+  StrongMigrations.statement_timeout = 1.hour
 
 # Analyze tables after indexes are added
 # Outdated statistics can sometimes hurt performance
-StrongMigrations.auto_analyze = true
+  StrongMigrations.auto_analyze = true
 
 # Set the version of the production database
 # so the right checks are run in development
@@ -24,3 +25,4 @@ StrongMigrations.auto_analyze = true
 # Make some operations safe by default
 # See https://github.com/ankane/strong_migrations#safe-by-default
 # StrongMigrations.safe_by_default = true
+end

@@ -35,6 +35,15 @@ group :development, :test do
   # Safe migrations operations
   gem 'strong_migrations'
 
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem "brakeman"
+
+  gem "rubocop"
+  gem "rubocop-performance"
+  gem "rubocop-rails"
+  gem "rubocop-rspec"
+
+  # Gems for testing
   gem 'rspec-rails', '~> 5.0.0'
   gem 'shoulda-matchers', '~> 5.0'
   gem "factory_bot_rails"
@@ -80,3 +89,5 @@ gem 'devise'
 gem "rubycritic", require: false
 
 gem 'stripe'
+
+gem 'pghero'

@@ -55,7 +55,7 @@ $(document).on('turbolinks:load', function () {
     $("#page-2").hide()
 
     // This is your test publishable API key.
-    const stripe = Stripe("pk_test_51K4by0Gm7mBiaCNXEtSq8ENz711i5Ux26UqS0GICz3KWdGx85isgpkMPMx3gNb3EIKs9TxVu02wqny3I3sbqgP7x00n9MEtZLB");
+    const stripe = Stripe(process.env.STRIPE_PUBLIC_KEY);
     var elements = stripe.elements();
 
     var cardNumber = elements.create('cardNumber');
@@ -106,13 +106,13 @@ $(document).on('turbolinks:load', function () {
         });
     })
 
-    $(document).on('click', '#user-password-confirmation-button', function () {
+    $(document).on('click', 'button#user-password-confirmation-button', function () {
 
         var input = $("#user_password_confirmation");
 
         if (input.attr("type") === "password") {
+            $("button#user-password-confirmation-button").addClass("password-visible")
             input.attr("type", "text");
-            $(this).addClass("password-visible")
         } else {
             input.attr("type", "password");
             $(this).removeClass("password-visible")
