@@ -56,6 +56,9 @@ group :development do
 
   # Kills the N+1 query problem
   gem 'bullet'
+
+  # Accessing environment variables in development
+  gem 'dotenv-rails'
 end
 
 group :test do

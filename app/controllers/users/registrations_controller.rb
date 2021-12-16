@@ -1,4 +1,11 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+
+  def create
+    super
+    response = Stripe::Customer.create(email: resource.email, card: resource.cards&.first&.token)
+    resource.update(stripe_customer_id: response.id)
+  end
+
   def validate_email
     return render plain: false unless params[:user][:email].present?
 

@@ -13,6 +13,12 @@ $(document).on('turbolinks:load', function() {
                 equalTo: "Password does not match"
             }
         },
+        highlight: function(element) {
+            $(element).addClass("invalid")
+        },
+        unhighlight: function(element) {
+            $(element).removeClass("invalid")
+        },
         errorClass: 'error',
         validClass: 'success',
         errorElement: 'div',

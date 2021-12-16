@@ -1,11 +1,5 @@
 @import "variables";
 
-.row.auth-wrap {
-  @include media(md-max) {
-    flex-direction: column-reverse;
-  }
-}
-
 .authentication-container {
   background-color: $bg-white;
   min-height: 100vh;
@@ -43,6 +37,7 @@
     font-size: 42px;
     line-height: 1.19;
     margin: 0;
+    font-weight: 700;
 
     @include media(md-max) {
       font-size: 38px;
@@ -58,6 +53,7 @@
     font-size: 18px;
     line-height: 1.5;
     margin: 0;
+    font-weight: 400;
 
     @include media(sm-max) {
       font-size: 16px;
@@ -74,6 +70,77 @@
     }
   }
 
+  .custom-checkbox {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background-color: $checkbox-background-color;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    border-radius: 4px;
+  }
+
+  .check-symbol {
+    position: absolute;
+    left: 9px;
+    top: 3px;
+    width: 7px;
+    height: 14px;
+    display: none;
+    border: solid $bg-white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .form-check-input {
+    z-index: 1;
+    width: 24px;
+    height: 24px;
+    opacity: 0;
+  }
+
+  .form-check-input:checked {
+    &~.custom-checkbox {
+      background-color: $check-box-blue;
+      border: 3px solid $check-box-border-grey;
+    }
+    &~.check-symbol {
+      display: block;
+    }
+  }
+
+  .form-check-label {
+    padding-left: 13px;
+    font-weight: 500;
+  }
+
+  .invalid-feedback {
+    padding-top: 7px;
+
+    span {
+      font-size: 14px;
+      line-height: 1.4;
+      font-weight: 500;
+      padding-left: 15px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(100% - 10px);
+      height: 2px;
+      background-color: $danger;
+      border-radius: 4px;
+    }
+  }
+
   .control-label {
     font-size: 16px;
     line-height: 1.2;
@@ -87,8 +154,7 @@
     line-height: 1.2;
     font-weight: 500;
     padding: 23px 12px;
-    color: $input-color;
-    border-radius: 2px;
+    color: $secondary-grey-title;
   }
 
   .StripeElement.StripeElement--complete{
@@ -103,6 +169,14 @@
   }
 
   .StripeElement.StripeElement--focus{
+    background-color: $input-grey-background;
+    border: none;
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 500;
+    padding: 14px 12px;
+    color: $input-color;
+    border-radius: 2px;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
   }
@@ -139,6 +213,28 @@
   }
 
 
+  .form-control.invalid {
+    border: 1px solid $danger-border;
+    box-shadow: 0 0 1px 3px rgba(255, 51, 0, 0.25);
+    & ~.invalid-feedback {
+      display: inline;
+    }
+  }
+
+  .password-field {
+    margin-bottom: 9px;
+    padding-right: 50px;
+  }
+
+  .btn-block {
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 500;
+    padding-top: 21px;
+    padding-bottom: 21px;
+  }
+
+
   .btn.btn-primary {
     background: linear-gradient(90.8deg, #94D5FD -48.38%, #63B9F6 101.54%);
     border-color: $primary-btn-border;
@@ -155,6 +251,33 @@
     &:hover {
       color: $bg-white;
       background: linear-gradient(90.8deg, #94D5FD -95.38%, #63B9F6 51.54%);
+    }
+  }
+
+  .toggleButton {
+    position: absolute;
+    top: 39px;
+    right: 0;
+    width: 24px;
+    padding: 0;
+    margin-right: 10px;
+
+    .hide {
+      display: none;
+    }
+
+    .visible {
+      display: inline;
+    }
+  }
+
+  .toggleButton.password-visible {
+    .visible {
+      display: none;
+    }
+
+    .hide {
+      display: inline;
     }
   }
 

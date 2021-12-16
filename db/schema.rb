@@ -17,10 +17,9 @@ ActiveRecord::Schema.define(version: 2021_12_14_123818) do
 
   create_table "cards", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "number"
-    t.integer "cvv"
+    t.string "last_four_digits"
     t.string "expiry"
-    t.string "card_id"
+    t.string "stripe_card_id"
     t.string "token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -47,6 +46,7 @@ ActiveRecord::Schema.define(version: 2021_12_14_123818) do
     t.integer "role", default: 0
     t.bigint "company_id"
     t.string "stripe_customer_id"
+    t.boolean "terms_and_conditions", default: false
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

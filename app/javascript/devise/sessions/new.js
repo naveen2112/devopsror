@@ -8,6 +8,12 @@ $(document).on('turbolinks:load', function() {
                 required: true
             }
         },
+        highlight: function(element) {
+            $(element).addClass("invalid")
+        },
+        unhighlight: function(element) {
+            $(element).removeClass("invalid")
+        },
         errorClass: 'error',
         validClass: 'success',
         errorElement: 'div',
@@ -21,14 +27,15 @@ $(document).on('turbolinks:load', function() {
     });
 
     $(document).on('click','.toggleButton',function(){
-        $(this).toggleClass("fa-eye fa-eye-slash");
 
         var input = $("#exampleInputPassword");
 
         if (input.attr("type") === "password") {
             input.attr("type", "text");
+            $(this).addClass("password-visible")
         } else {
             input.attr("type", "password");
+            $(this).removeClass("password-visible")
         }
     })
 })

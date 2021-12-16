@@ -6,5 +6,5 @@ class Card < ApplicationRecord
 
   #===================================================== Validations ===================================================
 
-  #validates_presence_of :number, :expiry, :token
+  validates_presence_of :last_four_digits, :expiry, :token
 end
