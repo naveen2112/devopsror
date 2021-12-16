@@ -19,4 +19,16 @@ $(document).on('turbolinks:load', function() {
             }
         }
     });
+
+    $(document).on('click','.toggleButton',function(){
+        $(this).toggleClass("fa-eye fa-eye-slash");
+
+        var input = $("#exampleInputPassword");
+
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    })
 })

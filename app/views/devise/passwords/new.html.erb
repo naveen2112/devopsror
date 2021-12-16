@@ -1,16 +1,39 @@
-<h2>Forgot your password?</h2>
+<section class="auth">
+  <div class="container-fluid">
+    <div class="row auth-wrap">
+      <div class="col-md-12 col-lg-6 col-sm-12">
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, id: "users-forgot-password" }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="signInFormAr authentication-container">
+          <div class="signInFormWrap">
+            <div class="container-wrap">
+              <h2 class="formTitle">Forgot your password?</h2>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+
+              <div class="formWrap">
+                <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :post, id: "users-forgot-password"}) do |f| %>
+                  <%= render "devise/shared/error_messages", resource: resource %>
+
+                  <div class="form-group required">
+                    <label class="control-label" for="exampleInputEmail">Enter Your email</label>
+                    <%= f.email_field :email, class: "form-control", id: "exampleInputEmail", placeholder: "Email" %>
+                  </div>
+
+                  <div class="buttonWrap">
+                    <%= f.submit "Send confirmation instruction", class: "btn btn-primary btn-block" %>
+                    <a class="btn btn-outline-primary btn-block" href="/users/sign_in" role="button">Sign in</a>
+                  </div>
+
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-12 col-sm-12 col-lg-6 position-relative px-0">
+        <%= render "devise/shared/right_side_content" %>
+      </div>
+    </div>
   </div>
+</section>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>

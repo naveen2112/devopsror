@@ -7,6 +7,7 @@ class User < ApplicationRecord
   #========================================= Relationships ============================================================
 
   belongs_to :company
+  has_many :cards, dependent: :destroy
 
   #========================================= Validations ==============================================================
 
@@ -19,4 +20,5 @@ class User < ApplicationRecord
   #============================================ Nested attributes =====================================================
 
   accepts_nested_attributes_for :company, reject_if: :all_blank
+  accepts_nested_attributes_for :cards
 end
