@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  # Pg engines routes
   mount PgHero::Engine, at: "pghero"
 
   devise_for :users, controllers: { registrations: "users/registrations" }
