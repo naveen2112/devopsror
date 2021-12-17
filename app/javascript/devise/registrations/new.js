@@ -54,13 +54,17 @@ $(document).on('turbolinks:load', function () {
     $("#page-1").show()
     $("#page-2").hide()
 
-    // This is your test publishable API key.
-    const stripe = Stripe(process.env.STRIPE_PUBLIC_KEY);
-    var elements = stripe.elements();
+    if ($("#sign-up").length)
+    {
+        // This is your test publishable API key.
+        const stripe = Stripe(process.env.STRIPE_PUBLIC_KEY);
+        var elements = stripe.elements();
 
-    var cardNumber = elements.create('cardNumber');
-    var cardExpiry = elements.create('cardExpiry');
-    var cardCvc = elements.create('cardCvc');
+        var cardNumber = elements.create('cardNumber');
+        var cardExpiry = elements.create('cardExpiry');
+        var cardCvc = elements.create('cardCvc');
+    }
+
 
     $("#sign-up-page-one").click(function () {
         if (sign_up_form.valid() == true) {
