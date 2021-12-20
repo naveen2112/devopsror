@@ -1,8 +1,15 @@
 $(document).on('turbolinks:load', function () {
+
     $("#users-forgot-password").validate({
         rules: {
             "user[email]": {
-                required: true
+                required: true,
+                remote: "/users/validate_user_email"
+            }
+        },
+        messages: {
+            "user[email]": {
+                remote: jQuery.validator.format("{0} is not in use.")
             }
         },
         highlight: function (element) {

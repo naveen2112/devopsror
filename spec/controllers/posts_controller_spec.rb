@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PostsController, type: :controller do
   let(:company) { FactoryBot.create(:company) }
-  let(:user) { FactoryBot.create(:user, company: company) }
+  let(:user) { FactoryBot.create(:user, company: company, cards_attributes: { "0": FactoryBot.attributes_for(:card) })}
 
   describe "Get #index" do
 
