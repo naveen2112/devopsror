@@ -4,7 +4,7 @@ $(document).on('turbolinks:load', function () {
         rules: {
             "user[email]": {
                 required: true,
-                remote: "/users/validate_user_email"
+                remote: "/users/validate_presence_of_email"
             }
         },
         messages: {

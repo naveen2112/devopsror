@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     get "users/validate_email", to: "users/registrations#validate_email"
     get "users/validate_organisation", to: "users/registrations#validate_organisation"
-    get "users/validate_user_email", to: "users/passwords#validate_user_email"
+    get "users/validate_presence_of_email", to: "users/passwords#validate_presence_of_email"
   end
 
   root "posts#index"

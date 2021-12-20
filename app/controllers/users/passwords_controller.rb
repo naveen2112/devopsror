@@ -1,9 +1,9 @@
 class Users::PasswordsController < Devise::PasswordsController
 
-  def validate_user_email
+  def validate_presence_of_email
     return render plain: false unless params[:user][:email].present?
 
     user = User.where("LOWER(email) = ?", params[:user][:email].downcase)
-    render plain: user.empty? ? 'false' : 'true'
+    render plain:(user.exists?).to_s
   end
 end
