@@ -33,10 +33,10 @@ $(document).on('turbolinks:load', function () {
                 equalTo: "Password does not match"
             }
         },
-        highlight: function(element) {
+        highlight: function (element) {
             $(element).addClass("invalid")
         },
-        unhighlight: function(element) {
+        unhighlight: function (element) {
             $(element).removeClass("invalid")
         },
         errorClass: 'error',
@@ -54,6 +54,7 @@ $(document).on('turbolinks:load', function () {
     $("#page-1").show()
     $("#page-2").hide()
 
+
     // This is your test publishable API key.
     const stripe = Stripe(process.env.STRIPE_PUBLIC_KEY);
     var elements = stripe.elements();
@@ -61,6 +62,7 @@ $(document).on('turbolinks:load', function () {
     var cardNumber = elements.create('cardNumber');
     var cardExpiry = elements.create('cardExpiry');
     var cardCvc = elements.create('cardCvc');
+    
 
     $("#sign-up-page-one").click(function () {
         if (sign_up_form.valid() == true) {

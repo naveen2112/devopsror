@@ -235,25 +235,6 @@
   }
 
 
-  .btn.btn-primary {
-    background: linear-gradient(90.8deg, #94D5FD -48.38%, #63B9F6 101.54%);
-    border-color: $primary-btn-border;
-    color: $bg-white;
-    &:hover {
-      background: linear-gradient(90.8deg, #94D5FD -95.38%, #63B9F6 51.54%);
-    }
-  }
-
-  .btn.btn-outline-primary {
-    border-color: $primary-btn-border;
-    color: $primary-outline-btn-color;
-    transition: background .15s ease-in-out;
-    &:hover {
-      color: $bg-white;
-      background: linear-gradient(90.8deg, #94D5FD -95.38%, #63B9F6 51.54%);
-    }
-  }
-
   .toggleButton {
     position: absolute;
     top: 39px;
