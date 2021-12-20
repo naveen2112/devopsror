@@ -55,7 +55,7 @@ $(document).on('turbolinks:load', function () {
     $("#page-2").hide()
 
 
-    if ($('#sign-up').length > 1) {
+    //if ($('#sign-up').length > 1) {
         // This is your test publishable API key.
         const stripe = Stripe(process.env.STRIPE_PUBLIC_KEY);
         var elements = stripe.elements();
@@ -63,7 +63,7 @@ $(document).on('turbolinks:load', function () {
         var cardNumber = elements.create('cardNumber');
         var cardExpiry = elements.create('cardExpiry');
         var cardCvc = elements.create('cardCvc');
-    }
+   // }
 
 
     $("#sign-up-page-one").click(function () {
