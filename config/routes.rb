@@ -12,5 +12,7 @@ Rails.application.routes.draw do
     get "users/validate_presence_of_email", to: "users/passwords#validate_presence_of_email"
   end
 
+  resources :posts
+
   root "posts#index"
 end

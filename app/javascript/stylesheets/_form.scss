@@ -288,3 +288,11 @@
     }
   }
 }
+
+.dotted-button {
+  background-color: transparent;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 1px dashed $title-light-grey;
+  border-radius: 6px;
+}
