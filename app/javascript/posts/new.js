@@ -5,8 +5,11 @@ $(document).on('turbolinks:load', function() {
                 required: true
             },
             "post[main_url]": {
-                maxlength: 240 ,
+                maxlength: 240,
                 url: true
+            },
+            "post[commentries_attributes[0]][description]": {
+                required: true
             }
         },
         highlight: function(element) {

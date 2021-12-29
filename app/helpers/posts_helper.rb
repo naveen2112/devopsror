@@ -1,6 +1,8 @@
 module PostsHelper
-  def link_to_add_row(name, f, association, **args)
-    new_object = Commentry.new
+
+  # Adding nested forms for commentries
+  def link_to_add_row(f, association, **args)
+    new_object = f.object.send(association).klass.new
     id = new_object.object_id
     fields = f.fields_for(association, new_object, child_index: id) do |builder|
       render("posts/partials/commentry_form", f: builder)

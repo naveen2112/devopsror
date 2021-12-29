@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 2021_12_28_042204) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "url"
+    t.string "url"
   end
 
   create_table "posts", force: :cascade do |t|

@@ -24,10 +24,7 @@
             $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/preview_post') %>");
             $("p#preview-post-comment").text($("#post_commentries_attributes_0__description").val())
 
-            var file = $("#post_image")[0].files[0]
-            if (file) {
-                $("#preview-post-image").attr("src", URL.createObjectURL(file))
-            }
+            $("#post_image")[0].files[0] ? $("#preview-post-image").attr("src", URL.createObjectURL($("#post_image")[0].files[0])) : $("#preview-post-image").attr("src", "<%= asset_path("post.png") %>")
 
         } else {
             $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/empty_preview') %>");

@@ -13,7 +13,7 @@ class Post < ApplicationRecord
 
   #=============================== Nested Attributes =============================================================
 
-  accepts_nested_attributes_for :commentries
+  accepts_nested_attributes_for :commentries, reject_if: :all_blank
   accepts_nested_attributes_for :tags
 
   #============================== Enum ==========================================================================

@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   belongs_to :company
   has_many :cards, dependent: :destroy
+  has_one_attached :logo
 
   #========================================= Validations ==============================================================
 
@@ -25,6 +26,10 @@ class User < ApplicationRecord
   #=========================================== Methods ================================================================
 
   def name
-    first_name + ' ' + last_name
-  end  
+    first_name + " " + last_name
+  end
+
+  def image_url
+    logo.attached? ? logo.url : "/assets/user_thumb.png"
+  end
 end

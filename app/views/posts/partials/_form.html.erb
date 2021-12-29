@@ -61,15 +61,19 @@
       </p></label>
     <%= form.url_field :main_url, class: "form-control", placeholder: "Paste your URL" %>
   </div>
+
+<!--  Commentries section-->
+
   <div class="form-group ">
-    <%= form.fields_for "commentries_attributes[0]" do |f| %>
+    <%= form.fields_for "commentries_attributes[0]" do |builder|  %>
       <div class='fields'>
         <label class="control-label">Post commentary</label>
-        <%= render 'posts/partials/commentry_form', f: f %>
+        <%= render 'posts/partials/commentry_form', f: builder %>
       </div>
-      <%= link_to_add_row('Add new commentary', f, "commentries", class: 'btn-block dotted-button add_commentary text-center')  %>
+      <%= link_to_add_row(form, :commentries, class: 'btn-block dotted-button add_commentary text-center')  %>
     <% end %>
   </div>
+
   <div class="form-group">
     <div class="position-relative custom-upload">
       <div class="custom-upload-btn">
@@ -83,6 +87,8 @@
       <%= form.file_field :image, class: "form-control" %>
     </div>
   </div>
+
+<!--  Tag section-->
 
   <div class="form-group">
     <label class="control-label">Add Tags</label>
