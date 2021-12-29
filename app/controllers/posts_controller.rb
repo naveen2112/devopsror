@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :update, :destroy]
+  before_action :set_tags, only: [:new, :create]
 
   def index
     @posts = Post.includes(:commentries, :tags, :company).all
@@ -11,9 +12,12 @@ class PostsController < ApplicationController
 
   def create
     @post = current_company.posts.new(posts_params)
+    @post.status = "draft" if params[:commit] == "Save As Draft"
 
     if @post.save
-      redirect_to posts_path, notice: "Post created Successfully."
+      respond_to do |format|
+        format.js
+      end
     else
       render :new
     end
@@ -43,7 +47,12 @@ class PostsController < ApplicationController
     @post = current_company.posts.find(params[:id])
   end
 
+  def set_tags
+    @tags = current_company.tags.all
+  end
+
   def posts_params
-    params.require(:post).permit(:title, :main_url, :notification, platform_name: [], )
+    params.require(:post).permit(:title, :main_url, :notification, :image, platform_name: [], commentries_attributes:
+                                 [:description], tag_ids: [])
   end
 end

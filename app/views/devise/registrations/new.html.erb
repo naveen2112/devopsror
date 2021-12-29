@@ -7,8 +7,8 @@
           <div class="signInFormWrap">
             <div class="container-wrap">
 
-              <h2 class="formTitle">Join US</h2>
-              <p class="formText">It’s quick and easy.</p>
+              <h2 class="formTitle">Let’s Get Started</h2>
+              <p class="formText">Enter your details below to sign up for an account.</p>
 
               <div class="progress">
                 <div class="progress-bar" role="progressbar" style="width:50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -24,6 +24,11 @@
                       <div class="form-group required">
                         <label class="control-label" for="InputOrganisationName">Organisation name</label>
                         <%= form.text_field :name, class: "form-control", placeholder: "Organisation name" %>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label" for="InputOrganisationName">Organisation url</label>
+                        <%= form.text_field :url, class: "form-control", placeholder: "Organisation url" %>
                       </div>
                     <% end %>
 
@@ -171,21 +176,21 @@
                         <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M3.80655 8C3.50233 8 3.2142 7.88399 3.02958 7.68397L0.530817 4.986C0.453562 4.90268 0.397162 4.80774 0.364839 4.70659C0.332516 4.60545 0.324906 4.50009 0.342442 4.39654C0.359979 4.29299 0.402318 4.19329 0.46704 4.10312C0.531762 4.01295 0.617598 3.93409 0.71964 3.87104C0.821645 3.80774 0.937936 3.7615 1.06185 3.73499C1.18576 3.70848 1.31486 3.70221 1.44174 3.71654C1.56862 3.73088 1.6908 3.76553 1.80126 3.81852C1.91172 3.87151 2.0083 3.9418 2.08546 4.02534L3.72962 5.79922L7.86345 0.374717C8.00054 0.195615 8.21897 0.0682581 8.47082 0.0205834C8.72267 -0.0270913 8.98738 0.00880839 9.20689 0.120408C9.66356 0.352429 9.80413 0.843904 9.5188 1.21765L4.63457 7.62397C4.55119 7.73382 4.43627 7.82538 4.29978 7.89071C4.16328 7.95604 4.00934 7.99316 3.85131 7.99886C3.83592 8 3.82193 8 3.80655 8Z" fill="#63C178"/>
                         </svg>
-                        <span class="text">You will not be billed until your trial expires in 14 days and you can cancel at any time
+                        <span class="text">After signing up you will have 20 users added to your organisation automatically
                         </span>
                       </p>
                       <p class="term position-relative">
                         <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M3.80655 8C3.50233 8 3.2142 7.88399 3.02958 7.68397L0.530817 4.986C0.453562 4.90268 0.397162 4.80774 0.364839 4.70659C0.332516 4.60545 0.324906 4.50009 0.342442 4.39654C0.359979 4.29299 0.402318 4.19329 0.46704 4.10312C0.531762 4.01295 0.617598 3.93409 0.71964 3.87104C0.821645 3.80774 0.937936 3.7615 1.06185 3.73499C1.18576 3.70848 1.31486 3.70221 1.44174 3.71654C1.56862 3.73088 1.6908 3.76553 1.80126 3.81852C1.91172 3.87151 2.0083 3.9418 2.08546 4.02534L3.72962 5.79922L7.86345 0.374717C8.00054 0.195615 8.21897 0.0682581 8.47082 0.0205834C8.72267 -0.0270913 8.98738 0.00880839 9.20689 0.120408C9.66356 0.352429 9.80413 0.843904 9.5188 1.21765L4.63457 7.62397C4.55119 7.73382 4.43627 7.82538 4.29978 7.89071C4.16328 7.95604 4.00934 7.99316 3.85131 7.99886C3.83592 8 3.82193 8 3.80655 8Z" fill="#63C178"/>
                         </svg>
-                        <span class="text">You will not be billed until your trial expires in 14 days and you can cancel at any time
+                        <span class="text">Your card will not be charged until your trial ends in 14 days and you can cancel at any time before then
                        </span>
                       </p>
                       <p class="term position-relative">
                         <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M3.80655 8C3.50233 8 3.2142 7.88399 3.02958 7.68397L0.530817 4.986C0.453562 4.90268 0.397162 4.80774 0.364839 4.70659C0.332516 4.60545 0.324906 4.50009 0.342442 4.39654C0.359979 4.29299 0.402318 4.19329 0.46704 4.10312C0.531762 4.01295 0.617598 3.93409 0.71964 3.87104C0.821645 3.80774 0.937936 3.7615 1.06185 3.73499C1.18576 3.70848 1.31486 3.70221 1.44174 3.71654C1.56862 3.73088 1.6908 3.76553 1.80126 3.81852C1.91172 3.87151 2.0083 3.9418 2.08546 4.02534L3.72962 5.79922L7.86345 0.374717C8.00054 0.195615 8.21897 0.0682581 8.47082 0.0205834C8.72267 -0.0270913 8.98738 0.00880839 9.20689 0.120408C9.66356 0.352429 9.80413 0.843904 9.5188 1.21765L4.63457 7.62397C4.55119 7.73382 4.43627 7.82538 4.29978 7.89071C4.16328 7.95604 4.00934 7.99316 3.85131 7.99886C3.83592 8 3.82193 8 3.80655 8Z" fill="#63C178"/>
                         </svg>
-                        <span class="text">You will not be billed until your trial expires in 14 days and you can cancel at any time
+                        <span class="text">You can add as many users as you like after signing up in the Team Settings screen, and after 14 days your card will be charged $10/user/month based on the number of users you have
                       </span>
                       </p>
                     </div>

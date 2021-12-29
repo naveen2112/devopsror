@@ -8,4 +8,5 @@ RSpec.describe Post, type: :model do
   it { should accept_nested_attributes_for(:tags) }
   it { should have_many(:commentries) }
   it { should have_and_belong_to_many(:tags) }
+  it { should have_one_attached(:image) }
 end

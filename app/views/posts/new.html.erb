@@ -1,128 +1,59 @@
 <div class="post-create-wrap">
   <h4 class="section-title">Create your post</h4>
   <div class="row">
-    <div class="col-sm-6 col-md-6 col-lg-6">
-      <form>
-        <div class="form-group">
-          <label class="control-label">Title <small>(internal only)</small></label>
-          <input type="text" class="form-control" id="post-title" placeholder="Title of your post"/>
-        </div>
-        <div class="form-group">
-          <label class="control-label">
-            Platforms
-            <p>
-              <small>Which platforms should this be shared on?</small>
-            </p>
-          </label>
-          <div class="row group-check-button">
-            <div class="icon-checkbox position-relative">
-              <input class="form-control" type="checkbox" id="linkedin-check">
-              <div class="custom-check">
-                                <span class="icon">
-                                    <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M5.45937 21.875H0.924219V7.27031H5.45937V21.875ZM3.18906 5.27812C1.73906 5.27812 0.5625 4.07656 0.5625 2.62656C0.5625 1.92995 0.839226 1.26188 1.3318 0.769302C1.82438 0.276726 2.49245 0 3.18906 0C3.88567 0 4.55375 0.276726 5.04632 0.769302C5.5389 1.26188 5.81562 1.92995 5.81562 2.62656C5.81562 4.07656 4.63906 5.27812 3.18906 5.27812ZM22.4328 21.875H17.9078V14.7656C17.9078 13.0711 17.8734 10.8984 15.55 10.8984C13.1922 10.8984 12.8305 12.7391 12.8305 14.6437V21.875H8.3V7.27031H12.6492V9.2625H12.7125C13.318 8.11484 14.7969 6.90391 17.0031 6.90391C21.593 6.90391 22.4367 9.92656 22.4367 13.8523V21.875H22.4328Z" fill="#0E76A8"/>
-                                    </svg>
-                                </span>
-                <span class="text">
-                                    LinkedIn
-                                </span>
-              </div>
-            </div>
-            <div class="icon-checkbox position-relative">
-              <input class="form-control" type="checkbox" id="twitter-check">
-              <div class="custom-check">
-                                <span class="icon">
-                                    <svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M25 2.59242C24.0801 3.03211 23.0916 3.32926 22.0541 3.46295C23.1132 2.77874 23.9264 1.69526 24.3093 0.404316C23.3025 1.0483 22.201 1.50203 21.0523 1.74589C20.1167 0.671474 18.7838 0 17.3085 0C14.4759 0 12.1793 2.47537 12.1793 5.52842C12.1793 5.96179 12.2247 6.38368 12.3121 6.78842C8.04941 6.55779 4.27012 4.35684 1.74033 1.012C1.29893 1.82853 1.046 2.77832 1.046 3.79137C1.046 5.70947 1.95156 7.40158 3.32773 8.39305C2.51323 8.36556 1.71665 8.12843 1.00449 7.70147C1.0042 7.72463 1.0042 7.74779 1.0042 7.77105C1.0042 10.4497 2.77217 12.6842 5.11846 13.1921C4.36317 13.4135 3.57093 13.4459 2.80225 13.2868C3.45488 15.4833 5.34912 17.0816 7.59346 17.1263C5.83809 18.6091 3.62646 19.4929 1.22354 19.4929C0.809473 19.4929 0.40127 19.4667 0 19.4157C2.26982 20.9843 4.96582 21.8996 7.8623 21.8996C17.2966 21.8996 22.4555 13.4753 22.4555 6.16958C22.4555 5.92979 22.4506 5.69137 22.4406 5.45432C23.4448 4.67188 24.3114 3.70275 25 2.59242" fill="#55ACEE"/>
-                                    </svg>
-                                </span>
-                <span class="text">
-                                    Twitter
-                                </span>
-              </div>
-            </div>
-            <div class="icon-checkbox position-relative">
-              <input class="form-control" type="checkbox" id="facebook-check">
-              <div class="custom-check">
-                                <span class="icon">
-                                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M25 12.5C25 5.59644 19.4036 0 12.5 0C5.59644 0 0 5.59644 0 12.5C0 18.739 4.57104 23.9104 10.5469 24.8481V16.1133H7.37305V12.5H10.5469V9.7461C10.5469 6.61328 12.4131 4.88281 15.2683 4.88281C16.6355 4.88281 18.0664 5.12695 18.0664 5.12695V8.20313H16.4902C14.9375 8.20313 14.4531 9.16675 14.4531 10.1563V12.5H17.9199L17.3657 16.1133H14.4531V24.8481C20.429 23.9104 25 18.739 25 12.5Z" fill="#1877F2"/>
-                                        <path d="M17.3657 16.1133L17.9199 12.5H14.4531V10.1562C14.4531 9.16772 14.9375 8.20312 16.4902 8.20312H18.0664V5.12695C18.0664 5.12695 16.636 4.88281 15.2683 4.88281C12.4131 4.88281 10.5469 6.61328 10.5469 9.74609V12.5H7.37305V16.1133H10.5469V24.8481C11.8411 25.0506 13.1589 25.0506 14.4531 24.8481V16.1133H17.3657Z" fill="white"/>
-                                    </svg>
-                                </span>
-                <span class="text">
-                                    Facebook
-                                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label">
-            Main URL
-            <p>
-              <small>You can still add other URL’s in the post commentary</small>
-            </p></label>
-          <input class="form-control" type="url" placeholder="Paste your URL"/>
-        </div>
-        <div class="form-group">
-          <label class="control-label">Post commentary</label>
-          <textarea class="form-control textarea-wrap" rows="3" placeholder="What would you like to say about this post?"></textarea>
-          <button class="btn-block dotted-button add_comentry">
-                        <span class="icon">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M10.75 6C10.75 5.58579 10.4142 5.25 10 5.25C9.58579 5.25 9.25 5.58579 9.25 6H10.75ZM9.25 14C9.25 14.4142 9.58579 14.75 10 14.75C10.4142 14.75 10.75 14.4142 10.75 14H9.25ZM6 9.25C5.58579 9.25 5.25 9.58579 5.25 10C5.25 10.4142 5.58579 10.75 6 10.75V9.25ZM14 10.75C14.4142 10.75 14.75 10.4142 14.75 10C14.75 9.58579 14.4142 9.25 14 9.25V10.75ZM12.7501 2.21925C13.1406 2.35728 13.5691 2.15259 13.7071 1.76205C13.8452 1.37151 13.6405 0.943022 13.2499 0.804987L12.7501 2.21925ZM18.1077 4.58281C17.8773 4.23859 17.4115 4.14633 17.0673 4.37674C16.723 4.60715 16.6308 5.07298 16.8612 5.41719L18.1077 4.58281ZM8 10.75C8.41421 10.75 8.75 10.4142 8.75 10C8.75 9.58579 8.41421 9.25 8 9.25V10.75ZM10 9.25C9.58579 9.25 9.25 9.58579 9.25 10C9.25 10.4142 9.58579 10.75 10 10.75V9.25ZM9.25 6V14H10.75V6H9.25ZM18.25 10C18.25 14.5563 14.5563 18.25 10 18.25V19.75C15.3848 19.75 19.75 15.3848 19.75 10H18.25ZM10 18.25C5.44365 18.25 1.75 14.5563 1.75 10H0.25C0.25 15.3848 4.61522 19.75 10 19.75V18.25ZM1.75 10C1.75 5.44365 5.44365 1.75 10 1.75V0.25C4.61522 0.25 0.25 4.61522 0.25 10H1.75ZM10 1.75C10.9656 1.75 11.8909 1.91557 12.7501 2.21925L13.2499 0.804987C12.2324 0.445355 11.1382 0.25 10 0.25V1.75ZM16.8612 5.41719C17.7384 6.7277 18.25 8.30297 18.25 10H19.75C19.75 7.99674 19.145 6.1325 18.1077 4.58281L16.8612 5.41719ZM6 10.75H8V9.25H6V10.75ZM10 10.75H14V9.25H10V10.75Z" fill="#5A6474"/>
-                            </svg>
-                        </span>
-            <span class="text">Add new commentary</span>
-          </button>
-        </div>
-        <div class="form-group">
-          <div class="row">
-            <button>
-                            <span>
-                                <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7 9C7 10.6569 8.34315 12 10 12C11.6569 12 13 10.6569 13 9C13 7.34315 11.6569 6 10 6M3 15C1.89543 15 1 14.1046 1 13V5C1 3.89543 1.89543 3 3 3H5.5C6.05228 3 6.5 2.55228 6.5 2C6.5 1.44772 6.94772 1 7.5 1H12.5C13.0523 1 13.5 1.44772 13.5 2C13.5 2.55228 13.9477 3 14.5 3H17C18.1046 3 19 3.89543 19 5M19 9V13C19 14.1046 18.1046 15 17 15H7" stroke="#5A6474" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </span>
-              <span>Upload Image</span>
-            </button>
-            <button>
-                            <span>
-                                <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14 11L19 13V3L16.5 4M1 9V2.5C1 1.94772 1.44772 1.5 2 1.5H13C13.5523 1.5 14 1.94772 14 2.5V13.5C14 14.0523 13.5523 14.5 13 14.5H2C1.44772 14.5 1 14.0523 1 13.5V13" stroke="#5A6474" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </span>
-              <span>Upload Image</span>
-            </button>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label">Add Tags</label>
-          <select class="form-control">
-            <option>Select Tag</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="control-label">Which teams should this be visible to?</label>
-          <select class="form-control">
-            <option>Which teams should this be visible to?</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <div class="switch-check-box">
-            <div class="position-relative switch">
-              <input type="checkbox"/>
-              <span class="slider"></span>
-            </div>
-            <span>Send notification email to users about this post</span>
-          </div>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary">Create post</button>
-        </div>
-      </form>
+    <div class="col-sm-6 col-md-6 col-lg-6 inner-wrap position-relative">
+      <div id="post-form">
+        <%= render "posts/partials/form" %>
+      </div>
     </div>
-    <div class="col-sm-6 col-md-6 col-lg-6"></div>
+    <div class="col-sm-6 col-md-6 col-lg-6 inner-wrap">
+      <p class="control-label">Preview</p>
+      <div id="preview-post">
+        <%= render "posts/partials/empty_preview" %>
+      </div>
+    </div>
   </div>
 </div>
+
+<script type="text/javascript">
+
+    $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/empty_preview') %>");
+
+    $(document).on("keyup", "#post_title", function () {
+        if ($(this).val().length > 0) {
+            $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/preview_post') %>");
+            $("p#preview-post-comment").text($("#post_commentries_attributes_0__description").val())
+
+            var file = $("#post_image")[0].files[0]
+            if (file) {
+                $("#preview-post-image").attr("src", URL.createObjectURL(file))
+            }
+
+        } else {
+            $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/empty_preview') %>");
+        }
+    })
+
+    $(document).on("keyup", "#post_main_url", function (){
+        $("#preview-post-link").empty()
+        var name = $(this).val().replace("http://", "")
+        $("#preview-post-link").append("<a href=" + $(this).val() + " class='post-link'>" + name + "</a>")
+    })
+
+    $(document).on("keyup", "#post_commentries_attributes_0__description", function () {
+        $("p#preview-post-comment").text($(this).val())
+    })
+
+    $("#post_image").change(function () {
+        var file = $(this)[0].files[0]
+        $("#preview-post-image").attr("src", URL.createObjectURL(file))
+    })
+
+    $(document).ready(function (){
+        $("#post_tag_ids").select2({
+            placeholder: 'Select Tags',
+            containerCssClass: "form-control"
+        })
+    })
+
+</script>

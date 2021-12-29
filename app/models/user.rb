@@ -21,4 +21,10 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :company, reject_if: :all_blank
   accepts_nested_attributes_for :cards
+
+  #=========================================== Methods ================================================================
+
+  def name
+    first_name + ' ' + last_name
+  end  
 end

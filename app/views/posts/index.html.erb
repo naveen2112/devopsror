@@ -1,21 +1,109 @@
-<div class="home_wrap">
-  <div class="center-elem">
-    <svg width="144" height="186" viewBox="0 0 144 186" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="72" cy="72.4585" r="71.5" fill="#F7F9FC"/>
-      <rect x="43.9505" y="71.0012" width="70" height="98" rx="7" transform="rotate(2.5 43.9505 71.0012)" fill="#F9FAFC" stroke="#6D7684" stroke-width="2"/>
-      <rect x="2.33604" y="65.1391" width="74" height="102" rx="9" transform="rotate(-7.5 2.33604 65.1391)" fill="#FAFAFA" stroke="#6D7684" stroke-width="2"/>
-      <path d="M4.50222 73.9316C3.92552 69.5511 7.00909 65.5325 11.3896 64.9558L66.9105 57.6463C71.291 57.0696 75.3095 60.1532 75.8862 64.5337L77.8441 79.4053L6.46011 88.8032L4.50222 73.9316Z" fill="#EEEEEE"/>
-      <rect x="90.3662" y="59.6016" width="3" height="10" rx="1.5" transform="rotate(82.5 90.3662 59.6016)" fill="#6D7684"/>
-      <rect x="62.9697" y="43.0356" width="3" height="10" rx="1.5" transform="rotate(-7.5 62.9697 43.0356)" fill="#6D7684"/>
-      <rect x="80.5474" y="45.7646" width="3" height="10" rx="1.5" transform="rotate(37.5 80.5474 45.7646)" fill="#6D7684"/>
-      <rect x="13.9224" y="91.8555" width="58" height="4" rx="2" transform="rotate(-7.5 13.9224 91.8555)" fill="#DCDCDC"/>
-      <rect x="16.5327" y="111.684" width="58" height="4" rx="2" transform="rotate(-7.5 16.5327 111.684)" fill="#DCDCDC"/>
-      <rect x="19.1431" y="131.513" width="58" height="4" rx="2" transform="rotate(-7.5 19.1431 131.513)" fill="#DCDCDC"/>
-      <rect x="14.9663" y="99.7871" width="21" height="4" rx="2" transform="rotate(-7.5 14.9663 99.7871)" fill="#EEEEEE"/>
-      <rect x="17.5771" y="119.616" width="21" height="4" rx="2" transform="rotate(-7.5 17.5771 119.616)" fill="#EEEEEE"/>
-      <rect x="20.1875" y="139.445" width="21" height="4" rx="2" transform="rotate(-7.5 20.1875 139.445)" fill="#EEEEEE"/>
-    </svg>
-    <p>no posts yet</p>
-    <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
+<div>
+  <div class="title_wrap">
+    <h3 class="title">Hi <%= current_user.name %>! Here are your posts</h3>
+    <p class="text">Hi <%= current_user.first_name %>! Here are your posts</p>
+  </div>
+  <div class="form-group">
+    <span class="icon"></span>
+    <input type="text" class="form-control" placeholder="Search for posts..."/>
+  </div>
+  <div class="post-wrap">
+    <div class="row">
+      <div class="col-sm-6 sol-md-6 col-lg-6">
+        <div class="form-group">
+          <label>Tags</label>
+          <select class="form-control">
+            <option>Select Tag</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="form-group">
+          <label>Selected Tags</label>
+          <div class="badge_wrap">
+            <span class="badge">Sales <span class="close_icon"></span></span>
+            <span class="badge">Announcements <span class="close_icon"></span></span>
+            <span class="badge">Other Tag <span class="close_icon"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 sol-md-6 col-lg-6">
+        <div class="card">
+          <div class="card-header position-relative">
+            <h5>State of CX report - 2021</h5>
+            <button>
+              <svg width="17" height="4" viewBox="0 0 17 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.8653 1.88463C16.8653 2.92548 16.0445 3.76926 15.0321 3.76926C14.0196 3.76926 13.1989 2.92548 13.1989 1.88463C13.1989 0.843777 14.0196 0 15.0321 0C16.0445 0 16.8653 0.843777 16.8653 1.88463Z" fill="#696969"/>
+                <path d="M10.2658 1.88463C10.2658 2.92548 9.44507 3.76926 8.43263 3.76926C7.42019 3.76926 6.59945 2.92548 6.59945 1.88463C6.59945 0.843777 7.42019 0 8.43263 0C9.44507 0 10.2658 0.843777 10.2658 1.88463Z" fill="#696969"/>
+                <path d="M3.66636 1.88512C3.66636 2.92597 2.84562 3.76975 1.83318 3.76975C0.820742 3.76975 0 2.92597 0 1.88512C0 0.844265 0.820742 0.000488281 1.83318 0.000488281C2.84562 0.000488281 3.66636 0.844265 3.66636 1.88512Z" fill="#696969"/>
+              </svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="post_wrap">
+              <div class="user_detail">
+                <img />-
+                <h6 class="user_name">Simon Thompson</h6>
+                <div class="comment_wrap">
+                  <div class="comments">
+                    <p>Today, customers expect personalized experiences, 24/7 support, and instant access to brands. Learn how to engage buyers more effectively in this research report for 2021 📈</p>
+                  </div>
+                  <div class="comment_button">
+                    <div class="buttons"></div>
+                    <div class="comment_count"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="post">
+                <div class="post-image">
+                  <img />
+                </div>
+                <div class="post-content">
+                  <h6 class="title">Report: The State of Customer Experience in 2021</h6>
+                  <p class="text">Today, customers expect personalized experiences, 24/7 support, and instant access to brands.</p>
+                </div>
+              </div>
+              <div class="shared-count">
+                                <span class="icon">
+                                    <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6.05923 7.79771V8.97937C5.56148 8.79845 5.02877 8.74295 4.50583 8.81755C3.9829 8.89214 3.48501 9.09464 3.05397 9.40805C2.62293 9.72146 2.27134 10.1366 2.02871 10.6187C1.78608 11.1007 1.6595 11.6356 1.6596 12.1783L0.559693 12.1778C0.559522 11.4874 0.713086 10.8061 1.00862 10.1861C1.30415 9.56617 1.73381 9.024 2.26467 8.60114C2.79553 8.17829 3.4135 7.88598 4.07123 7.74662C4.72896 7.60726 5.409 7.62454 6.05923 7.79714V7.79771ZM4.95932 7.08984C3.13623 7.08984 1.6596 5.57177 1.6596 3.69751C1.6596 1.82324 3.13623 0.305176 4.95932 0.305176C6.78242 0.305176 8.25905 1.82324 8.25905 3.69751C8.25905 5.57177 6.78242 7.08984 4.95932 7.08984ZM4.95932 5.95906C6.17472 5.95906 7.15914 4.94702 7.15914 3.69751C7.15914 2.448 6.17472 1.43595 4.95932 1.43595C3.74393 1.43595 2.75951 2.448 2.75951 3.69751C2.75951 4.94702 3.74393 5.95906 4.95932 5.95906ZM8.58132 9.35139L7.57545 8.31786L8.35364 7.51784L10.6865 9.91678L8.35364 12.3157L7.57545 11.5157L8.58132 10.4822H6.60919V9.35139H8.58132Z" fill="#697882"/>
+                                    </svg>
+                                </span>
+                <span class="text">12 other people have shared this</span>
+              </div>
+              <div class="tags">
+                <span class="badge">Sales</span>
+                <span class="Announcements"></span>
+              </div>
+              <div></div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <p></p>
+            <div class="row">
+              <div class="col-sm-6">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19.1742 9.85615C19.1742 4.41275 14.8819 0 9.58709 0C4.29228 0 0 4.41275 0 9.85615C0 14.7756 3.50584 18.8532 8.0891 19.5926V12.7052H5.65488V9.85615H8.0891V7.68472C8.0891 5.21452 9.52043 3.85006 11.7103 3.85006C12.7589 3.85006 13.8563 4.04256 13.8563 4.04256V6.4681H12.6475C11.4566 6.4681 11.0851 7.22791 11.0851 8.00812V9.85615H13.744L13.3189 12.7052H11.0851V19.5926C15.6683 18.8532 19.1742 14.7756 19.1742 9.85615Z" fill="#8692A6"/>
+                </svg>
+                <svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6.7657 16.8645C13.9995 16.8645 17.9571 10.7017 17.9571 5.35898C17.9571 5.18572 17.9534 5.00862 17.9459 4.83537C18.7158 4.26297 19.3802 3.55398 19.9079 2.74171C19.1909 3.06967 18.4296 3.28386 17.65 3.37697C18.4708 2.87116 19.0854 2.07656 19.3798 1.14047C18.6077 1.61092 17.7632 1.94279 16.8827 2.12185C16.2894 1.47376 15.505 1.04466 14.6507 0.900866C13.7964 0.757077 12.9198 0.906615 12.1565 1.32636C11.3932 1.74611 10.7856 2.41268 10.4277 3.22302C10.0698 4.03337 9.98159 4.94235 10.1766 5.80943C8.61308 5.72877 7.0835 5.31121 5.68702 4.58382C4.29053 3.85643 3.05833 2.83545 2.07028 1.58707C1.5681 2.47719 1.41443 3.53048 1.64051 4.53289C1.86658 5.5353 2.45543 6.4116 3.28739 6.9837C2.66281 6.96331 2.05191 6.79043 1.50516 6.47934V6.52939C1.5046 7.4635 1.81872 8.36898 2.39411 9.09192C2.96951 9.81485 3.77067 10.3106 4.66141 10.495C4.08284 10.6577 3.4756 10.6814 2.88668 10.5643C3.13803 11.3676 3.62706 12.0702 4.28554 12.5741C4.94401 13.0779 5.73906 13.3578 6.55973 13.3748C5.16647 14.4999 3.44539 15.1102 1.67369 15.1073C1.35949 15.1068 1.0456 15.087 0.733704 15.048C2.53356 16.2351 4.62728 16.8656 6.7657 16.8645Z" fill="#8692A6"/>
+                </svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.7548 0H1.41559C0.632897 0 0 0.63526 0 1.42067V18.2878C0 19.0732 0.632897 19.7123 1.41559 19.7123H17.7548C18.5375 19.7123 19.1742 19.0732 19.1742 18.2916V1.42067C19.1742 0.63526 18.5375 0 17.7548 0ZM5.68859 16.7978H2.84242V7.38826H5.68859V16.7978ZM4.2655 6.10619C3.35174 6.10619 2.61398 5.34773 2.61398 4.41217C2.61398 3.4766 3.35174 2.71814 4.2655 2.71814C5.17553 2.71814 5.91329 3.4766 5.91329 4.41217C5.91329 5.34388 5.17553 6.10619 4.2655 6.10619ZM16.3392 16.7978H13.4968V12.2239C13.4968 11.1344 13.4781 9.7291 12.0176 9.7291C10.5383 9.7291 10.3136 10.9188 10.3136 12.1469V16.7978H7.47493V7.38826H10.2013V8.67418H10.2387C10.6169 7.93497 11.5457 7.15341 12.9276 7.15341C15.8075 7.15341 16.3392 9.10154 16.3392 11.6349V16.7978Z" fill="#8692A6"/>
+                </svg>
+              </div>
+              <div class="col-sm-6">
+                <button class="btn btn-primary">Share</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 sol-md-6 col-lg-6" >
+        <div class="card"></div>
+      </div>
+    </div>
   </div>
 </div>

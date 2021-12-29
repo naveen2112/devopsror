@@ -1,7 +1,12 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
 
   # Pg engines routes
   mount PgHero::Engine, at: "pghero"
+
+  # Sidekiq activities
+  mount Sidekiq::Web => '/sidekiq'
 
   devise_for :users, controllers: { registrations: "users/registrations",
                                     passwords: "users/passwords"}

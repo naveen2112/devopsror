@@ -6,6 +6,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.text :platform_name, array: true, default: []
       t.string :main_url
       t.boolean :notification, default: false
+      t.integer :status, default: 0
 
 
       t.timestamps

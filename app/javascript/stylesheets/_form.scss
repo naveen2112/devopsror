@@ -147,16 +147,6 @@
     color: $input-label;
   }
 
-  .form-control {
-    background-color: $input-grey-background;
-    border: none;
-    font-size: 14px;
-    line-height: 1.2;
-    font-weight: 500;
-    padding: 23px 12px;
-    color: $secondary-grey-title;
-  }
-
   .StripeElement.StripeElement--complete{
     background-color: $input-grey-background;
     border: none;
@@ -212,15 +202,6 @@
     color: $input-color;
   }
 
-
-  .form-control.invalid {
-    border: 1px solid $danger-border;
-    box-shadow: 0 0 1px 3px rgba(255, 51, 0, 0.25);
-    & ~.invalid-feedback {
-      display: inline;
-    }
-  }
-
   .password-field {
     margin-bottom: 9px;
     padding-right: 50px;
@@ -233,7 +214,6 @@
     padding-top: 21px;
     padding-bottom: 21px;
   }
-
 
   .toggleButton {
     position: absolute;
@@ -295,4 +275,14 @@
   padding-bottom: 15px;
   border: 1px dashed $title-light-grey;
   border-radius: 6px;
+}
+
+.form-control {
+  background-color: $input-grey-background;
+  border: none;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 500;
+  padding: 23px 12px;
+  color: $secondary-grey-title;
 }

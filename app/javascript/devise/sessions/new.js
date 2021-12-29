@@ -1,4 +1,5 @@
 $(document).on('turbolinks:load', function() {
+    let sign_in_form = $("#sign-in")
     $("#sign-in").validate({
         rules: {
             "user[email]": {
@@ -25,6 +26,12 @@ $(document).on('turbolinks:load', function() {
             }
         }
     });
+
+    $(document).on( "keypress", function(event) {
+        if (event.which == 13 && sign_in_form.valid() == true) {
+            $("#sign-in").get(0).submit()
+        }
+    })
 
     $(document).on('click','.toggleButton',function(){
 
