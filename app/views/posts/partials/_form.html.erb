@@ -12,7 +12,7 @@
     </label>
     <div class="row group-check-button">
       <div class="icon-checkbox position-relative">
-        <input value="linked_in" class="form-control" type="checkbox" name="post[platform_name][]" id="post_platform_name">
+        <input value="linked_in" class="form-control" type="hidden" name="post[platform_name][]" id="post_platform_name">
         <div class="custom-check">
                                 <span class="icon">
                                     <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,33 +24,7 @@
                                 </span>
         </div>
       </div>
-      <div class="icon-checkbox position-relative">
-        <input value="twitter" class="form-control" type="checkbox" name="post[platform_name][]" id="post_platform_name">
-        <div class="custom-check">
-                                <span class="icon">
-                                    <svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M25 2.59242C24.0801 3.03211 23.0916 3.32926 22.0541 3.46295C23.1132 2.77874 23.9264 1.69526 24.3093 0.404316C23.3025 1.0483 22.201 1.50203 21.0523 1.74589C20.1167 0.671474 18.7838 0 17.3085 0C14.4759 0 12.1793 2.47537 12.1793 5.52842C12.1793 5.96179 12.2247 6.38368 12.3121 6.78842C8.04941 6.55779 4.27012 4.35684 1.74033 1.012C1.29893 1.82853 1.046 2.77832 1.046 3.79137C1.046 5.70947 1.95156 7.40158 3.32773 8.39305C2.51323 8.36556 1.71665 8.12843 1.00449 7.70147C1.0042 7.72463 1.0042 7.74779 1.0042 7.77105C1.0042 10.4497 2.77217 12.6842 5.11846 13.1921C4.36317 13.4135 3.57093 13.4459 2.80225 13.2868C3.45488 15.4833 5.34912 17.0816 7.59346 17.1263C5.83809 18.6091 3.62646 19.4929 1.22354 19.4929C0.809473 19.4929 0.40127 19.4667 0 19.4157C2.26982 20.9843 4.96582 21.8996 7.8623 21.8996C17.2966 21.8996 22.4555 13.4753 22.4555 6.16958C22.4555 5.92979 22.4506 5.69137 22.4406 5.45432C23.4448 4.67188 24.3114 3.70275 25 2.59242" fill="#55ACEE"/>
-                                    </svg>
-                                </span>
-          <span class="text">
-                                    Twitter
-                                </span>
-        </div>
-      </div>
-      <div class="icon-checkbox position-relative">
-        <input value="facebook" class="form-control" type="checkbox" name="post[platform_name][]" id="post_platform_name">
-        <div class="custom-check">
-                                <span class="icon facebook">
-                                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M25 12.5C25 5.59644 19.4036 0 12.5 0C5.59644 0 0 5.59644 0 12.5C0 18.739 4.57104 23.9104 10.5469 24.8481V16.1133H7.37305V12.5H10.5469V9.7461C10.5469 6.61328 12.4131 4.88281 15.2683 4.88281C16.6355 4.88281 18.0664 5.12695 18.0664 5.12695V8.20313H16.4902C14.9375 8.20313 14.4531 9.16675 14.4531 10.1563V12.5H17.9199L17.3657 16.1133H14.4531V24.8481C20.429 23.9104 25 18.739 25 12.5Z" fill="#1877F2"/>
-                                        <path d="M17.3657 16.1133L17.9199 12.5H14.4531V10.1562C14.4531 9.16772 14.9375 8.20312 16.4902 8.20312H18.0664V5.12695C18.0664 5.12695 16.636 4.88281 15.2683 4.88281C12.4131 4.88281 10.5469 6.61328 10.5469 9.74609V12.5H7.37305V16.1133H10.5469V24.8481C11.8411 25.0506 13.1589 25.0506 14.4531 24.8481V16.1133H17.3657Z" fill="white"/>
-                                    </svg>
-                                </span>
-          <span class="text">
-                                    Facebook
-                                </span>
-        </div>
-      </div>
+
     </div>
   </div>
   <div class="form-group">
@@ -65,7 +39,7 @@
 <!--  Commentries section-->
 
   <div class="form-group ">
-    <%= form.fields_for "commentries_attributes[0]" do |builder|  %>
+    <%= form.fields_for "commentries_attributes[1]" do |builder|  %>
       <div class='fields'>
         <label class="control-label">Post commentary</label>
         <%= render 'posts/partials/commentry_form', f: builder %>

@@ -7,15 +7,18 @@ $(document).on('turbolinks:load', function() {
             },
             "user[email]": {
                 required: true,
-                remote: "/users/validate_email"
+                remote: "/users/validate_email_without_current_user"
             },
             "user[company_attributes][name]": {
                 required: true,
-                remote: "/users/validate_organisation"
+                remote: "/users/validate_organisation_without_current_company"
             }
         },
         messages: {
             "user[email]": {
+                remote: jQuery.validator.format("{0} is already in use.")
+            },
+            "user[company_attributes][name]": {
                 remote: jQuery.validator.format("{0} is already in use.")
             }
         },

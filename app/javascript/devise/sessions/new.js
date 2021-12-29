@@ -6,7 +6,9 @@ $(document).on('turbolinks:load', function() {
                 required: true
             },
             "user[password]": {
-                required: true
+                required: true,
+                minlength: 6,
+                maxlength: 60
             }
         },
         highlight: function(element) {

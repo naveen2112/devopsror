@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :users, only: [:update] do
     collection do
       get :profile
+      get :validate_email_without_current_user
+      get :validate_organisation_without_current_company
     end
   end
 

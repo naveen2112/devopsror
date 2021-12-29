@@ -22,7 +22,7 @@ class Post < ApplicationRecord
 
   #============================== Callbacks ======================================================================
 
-  after_create :send_email, if: -> { notification && status == "posted" }
+  after_create_commit :send_email, if: -> { notification && status == "posted" }
 
   #============================== Methods ========================================================================
 

@@ -81,18 +81,18 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%,-50%);
-      border: 1px solid $terms-text-color;
+      //border: 1px solid $terms-text-color;
       border-radius: 6px;
       display: flex;
       align-items: center;
-      justify-content: center;
       .text {
         font-size: 14px;
         letter-spacing: 0.3px;
         line-height: 1.2;
         font-weight: 700;
         color: $secondary-grey-title;
-        margin-left: 11px;
+        margin-left: 5px;
+        padding-top: 14px;
       }
     }
 
@@ -138,9 +138,6 @@
       };
       line-height: 1;
     }
-  }
-  .add_commentary:hover{
-    text-decoration: none;
   }
 
   .custom-upload {
@@ -215,35 +212,6 @@
     margin-bottom: 20px;
   }
 
-  .dropdown {
-    .btn {
-      width: 100%;
-      text-align: left;
-      padding: 12px 23px;
-      font: {
-        size: 14px;
-        weight: 400;
-      };
-      color: $secondary-grey-title;
-      line-height: 1.7;
-      background-color: rgba(243, 244, 248, 0.5);
-      border-color: transparent;
-
-      &::after {
-        position: absolute;
-        top: 50%;
-        right: 23px;
-        transform: translateY(-50%);
-      }
-    }
-    .dropdown-menu {
-      width: 100%;
-      margin-top: 13px;
-      border: 1px solid rgba(162, 213, 242, 0.29);
-      box-shadow: 0px 8px 24px -4px rgba(27, 46, 94, 0.08);
-      border-radius: 8px;
-    }
-  }
   .buttonWrap {
     margin-bottom: 0;
     .d-flex {
@@ -500,6 +468,18 @@
   .card_buttons {
     .twitter_button_wrap {
       display: none;
+    }
+  }
+}
+
+.post-list {
+  .card {
+    padding-bottom: 0;
+
+    .post_title {
+      font: {
+        size: 18px;
+      };
     }
   }
 }

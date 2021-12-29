@@ -16,10 +16,14 @@ $(document).on('turbolinks:load', function () {
                 remote: "/users/validate_organisation"
             },
             "user[password]": {
-                required: true
+                required: true,
+                minlength: 6,
+                maxlength: 60
             },
             "user[password_confirmation]": {
-                equalTo: "#user_password"
+                equalTo: "#user_password",
+                minlength: 6,
+                maxlength: 60
             }
         },
         messages: {
