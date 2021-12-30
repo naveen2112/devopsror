@@ -23,7 +23,7 @@
                     </svg>
                 </span>
         <div class="user_detail row">
-          <img  class="thumb" src="<%= asset_path("user_thumb.png") %>" />
+          <img  class="thumb" src="<%= current_user.image_url %>" />
           <div>
             <h6 class="user-name"><%= current_user.name %></h6>
             <p class="job-description">Founder</p>

@@ -51,7 +51,7 @@ class PostsController < ApplicationController
   def validate_title
     return render plain: false unless params[:post][:title].present?
 
-    post = Post.where("LOWER(title) = ?", params[:post][:title].downcase)
+    post = current_company.posts.where("LOWER(title) = ?", params[:post][:title].downcase)
     render plain: post.empty? ? 'true' : 'false'
   end
 
