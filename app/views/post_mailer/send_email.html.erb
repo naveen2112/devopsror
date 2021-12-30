@@ -1,0 +1,126 @@
+<div style="max-width: 680px;margin-left: auto;margin-right: auto;min-width: 680px; width: 680px; background-color: #fff;border-radius: 40px;overflow: hidden">
+  <table style="width: 100%;height: 100%;border-spacing: 0px; padding: 75px 70px 0;">
+    <tbody>
+    <tr>
+      <td style="display: flex;justify-content: space-between;align-items: center">
+        <div style="display: flex;align-items: center">
+          <span style="padding-right: 15px">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="16" fill="#3751FF"/>
+              <path d="M11 10C11 9.44772 11.4477 9 12 9H15.9905C18.2127 9 19.9333 9.60955 21.1524 10.8287C22.3841 12.0478 23 13.765 23 15.9803C23 18.2088 22.3841 19.9391 21.1524 21.1713C19.9333 22.3904 18.2127 23 15.9905 23H12C11.4477 23 11 22.5523 11 22V10Z" fill="url(#paint0_linear_35_3009)"/>
+              <defs>
+                <linearGradient id="paint0_linear_35_3009" x1="11" y1="9" x2="23" y2="23" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="white" stop-opacity="0.7"/>
+                  <stop offset="1" stop-color="white"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </span>
+          <span style="font-size: 16px;font-weight: 500;color: #000000; line-height: 1.1">SoVocal</span>
+        </div>
+        <a href="<%= ENV["APP_URL"] %>/users/sign_in" style="display: flex;align-items: center; text-decoration: none;">
+          <span style="font-size: 15px;font-weight: 500;color: #75C4FA; line-height: 1.2">Visit website</span>
+          <span style="padding-left: 5px">
+                                    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6.77416 6.59406L1.61434 11.7537C1.28611 12.0821 0.753948 12.0821 0.42588 11.7537C0.0977861 11.4256 0.0977861 10.8935 0.42588 10.5654L4.99152 5.99991L0.426013 1.43457C0.0979188 1.10635 0.0979188 0.574263 0.426013 0.24617C0.754107 -0.0820565 1.28624 -0.0820565 1.61447 0.24617L6.77429 5.4059C6.93834 5.57002 7.02027 5.7849 7.02027 5.99989C7.02027 6.21498 6.93818 6.43002 6.77416 6.59406Z" fill="#75C4FA"/>
+                                    </svg>
+                                </span>
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-top: 68px;">
+        <p style="font-size:48px; line-height: 1.2; color: #0C1014; font-weight: 700; margin: 0;">Hi <%= @user.name %>,</p>
+        <p style="font-size: 18px;line-height: 1.5;font-weight: 400;color: #515759;margin: 18px 0 0;">Your team has created a new post for you to share on social media!</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-top: 38px;">
+        <a style="font-size: 18px;display:inline-block;line-height: 1.2;font-weight: 500; padding: 14px 27px; background: linear-gradient(90.25deg, #82CBFB 0.17%, #66BBF7 99.78%); border-radius: 10px; color: #fff; text-decoration: none;" href="<%= ENV["APP_URL"] %>/posts">Click here to view posts</a>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-top: 30px">
+        <p style="font-size: 18px;line-height: 1.5;color: #515759; font-weight: 300; margin: 0;">Happy sharing,</p>
+        <p style="font-size: 18px;line-height: 1.5;color: #515759;margin: 0;"><strong>SoVocal</strong></p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div style="padding: 75px 70px 53px;" >
+    <hr style="color: #DFE1E4; margin: 0; opacity: 0.3; border-width: 1px;">
+  </div>
+  <table style="width: 100%;height: 100%;border-spacing: 0px; padding: 0 70px;">
+    <tbody>
+    <tr>
+      <td style="width: 90px">
+        <img style="width: 100%" src="<%= @post.image.url %>" alt="post thumb" />
+      </td>
+
+      <td style="width: 359px; padding-left: 20px">
+        <p style="margin: 0; font-size: 18px;font-weight: 700;line-height: 1.2;color: #0C1014;"><%= @post.title %></p>
+        <p style="margin: 0; padding-top: 10px; font-size: 14px;line-height: 1.4;font-weight: 400; color: #515759;"><%= @post.commentries.first.description %></p>
+      </td>
+
+      <td style="padding-left: 38px">
+        <a href="#">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="22" cy="22" r="20.75" stroke="#1890FF" stroke-width="1.5"/>
+            <g clip-path="url(#clip0_34_2866)">
+              <path d="M19.337 31.236L19.3369 31.236C18.9851 31.588 18.415 31.5879 18.0635 31.2361L18.0634 31.236C17.7118 30.8844 17.7118 30.3141 18.0633 29.9626L17.71 29.6093L18.0633 29.9626L25.6728 22.3534L26.0263 21.9999L25.6728 21.6463L18.0636 14.0375C18.0636 14.0374 18.0636 14.0374 18.0636 14.0374C17.712 13.6855 17.7121 13.1153 18.0636 12.7638L18.0636 12.7638C18.4152 12.4121 18.9854 12.412 19.3372 12.7638L19.3372 12.7638L27.9368 21.3633C27.9369 21.3633 27.9369 21.3634 27.9369 21.3634C28.1128 21.5394 28.2004 21.7687 28.2004 21.9998C28.2004 22.2311 28.1126 22.4607 27.9367 22.6366L19.337 31.236Z" fill="#1890FF" stroke="#1890FF"/>
+            </g>
+            <defs>
+              <clipPath id="clip0_34_2866">
+                <rect width="20" height="20" fill="white" transform="translate(13 12)"/>
+              </clipPath>
+            </defs>
+          </svg>
+        </a>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td style="padding-top: 55px" colspan="3">
+        <a href="<%= ENV["APP_URL"] %>/posts" style="text-decoration:none; color: #fff; text-align: center; padding: 14px 0; display:block;background:linear-gradient(270deg, #82CBFC 0%, #68BCF8 106.82%);border-radius:10px;width: 100%; font-size: 18px;line-height: 1.2;font-weight: 500; max-width: 440px;margin-right: auto;margin-left: auto" href="#">Explore more about posts</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div style="padding: 60px 70px 0;">
+    <hr style="color: #DFE1E4; margin: 0; opacity: 0.3; border-width: 1px;">
+  </div>
+  <table style="width: 100%;height: 100%;border-spacing: 0px; padding: 0 70px 75px;">
+    <tbody>
+    <tr>
+      <td style="padding-top: 45px">
+        <p style="margin: 0 auto; max-width: 434px; font-size: 14px;line-height: 1.8;font-weight: 400;text-align: center;color: #B1BCC0;">If you prefer not to receive emails like this, you may unsubscribe
+          (c) 2019 ServerSharing. All rights reserved.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-top: 35px;">
+        <div style="width: 100%; max-width: 130px; margin-right: auto;margin-left: auto; display: flex;justify-content: space-between;align-items: center">
+          <a href="#" style="text-decoration: none;">
+            <svg width="13" height="23" viewBox="0 0 13 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.25 7.90625H7.9375V5.03125C7.9375 4.23775 8.5815 3.59375 9.375 3.59375H10.8125V0H7.9375C5.55556 0 3.625 1.93056 3.625 4.3125V7.90625H0.75V11.5H3.625V23H7.9375V11.5H10.8125L12.25 7.90625Z" fill="#B1BCC0"/>
+            </svg>
+          </a>
+          <a href="#" style="text-decoration: none;">
+            <svg width="23" height="19" viewBox="0 0 23 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M23 2.36856C22.1447 2.74375 21.2333 2.99244 20.2831 3.11319C21.2606 2.52956 22.0067 1.61244 22.3574 0.507C21.4461 1.05037 20.4398 1.43419 19.3674 1.64838C18.5021 0.726938 17.2687 0.15625 15.9232 0.15625C13.3127 0.15625 11.2111 2.27513 11.2111 4.87269C11.2111 5.24644 11.2427 5.60581 11.3203 5.94794C7.40025 5.75675 3.93156 3.87794 1.60137 1.01588C1.19456 1.72169 0.955938 2.52956 0.955938 3.39925C0.955938 5.03225 1.79688 6.47981 3.05037 7.31787C2.29281 7.3035 1.54962 7.08356 0.92 6.73712C0.92 6.7515 0.92 6.77019 0.92 6.78887C0.92 9.08025 2.55444 10.9835 4.69775 11.4219C4.31394 11.5269 3.89562 11.5772 3.4615 11.5772C3.15963 11.5772 2.85487 11.5599 2.56881 11.4967C3.17975 13.364 4.91338 14.7368 6.97475 14.7814C5.3705 16.0363 3.33356 16.7924 1.12844 16.7924C0.74175 16.7924 0.370875 16.7752 0 16.7277C2.08869 18.0747 4.56406 18.8438 7.2335 18.8438C15.9102 18.8438 20.654 11.6562 20.654 5.42613C20.654 5.21769 20.6468 5.01644 20.6367 4.81663C21.5726 4.1525 22.3589 3.32306 23 2.36856Z" fill="#B1BCC0"/>
+            </svg>
+          </a>
+          <a href="#" style="text-decoration: none;">
+            <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.8125 0H7.1875C3.21856 0 0 3.21856 0 7.1875V15.8125C0 19.7814 3.21856 23 7.1875 23H15.8125C19.7814 23 23 19.7814 23 15.8125V7.1875C23 3.21856 19.7814 0 15.8125 0ZM20.8438 15.8125C20.8438 18.5869 18.5869 20.8438 15.8125 20.8438H7.1875C4.41313 20.8438 2.15625 18.5869 2.15625 15.8125V7.1875C2.15625 4.41313 4.41313 2.15625 7.1875 2.15625H15.8125C18.5869 2.15625 20.8438 4.41313 20.8438 7.1875V15.8125Z" fill="#B1BCC0"/>
+              <path d="M11.5 5.75C8.32456 5.75 5.75 8.32456 5.75 11.5C5.75 14.6754 8.32456 17.25 11.5 17.25C14.6754 17.25 17.25 14.6754 17.25 11.5C17.25 8.32456 14.6754 5.75 11.5 5.75ZM11.5 15.0938C9.51912 15.0938 7.90625 13.4809 7.90625 11.5C7.90625 9.51769 9.51912 7.90625 11.5 7.90625C13.4809 7.90625 15.0938 9.51769 15.0938 11.5C15.0938 13.4809 13.4809 15.0938 11.5 15.0938Z" fill="#B1BCC0"/>
+              <path d="M17.6812 6.08486C18.1044 6.08486 18.4474 5.74183 18.4474 5.31867C18.4474 4.89552 18.1044 4.55249 17.6812 4.55249C17.2581 4.55249 16.915 4.89552 16.915 5.31867C16.915 5.74183 17.2581 6.08486 17.6812 6.08486Z" fill="#B1BCC0"/>
+            </svg>
+          </a>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

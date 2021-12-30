@@ -1,11 +1,19 @@
 $(document).on('turbolinks:load', function() {
+    let sign_in_form = $("#sign-in")
     $("#sign-in").validate({
         rules: {
             "user[email]": {
                 required: true
             },
             "user[password]": {
-                required: true
+                required: true,
+                minlength: 6,
+                maxlength: 60
+            }
+        },
+        messages: {
+            "user[password]": {
+                maxlength: "Please enter not more than 60 characters."
             }
         },
         highlight: function(element) {
@@ -25,6 +33,12 @@ $(document).on('turbolinks:load', function() {
             }
         }
     });
+
+    $("#sign-in").on( "keypress", function(event) {
+        if (event.which == 13) {
+            $("#sign-in").submit()
+        }
+    })
 
     $(document).on('click','.toggleButton',function(){
 

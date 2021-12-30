@@ -2,13 +2,20 @@ $(document).on('turbolinks:load', function() {
     $("#users-update-password").validate({
         rules: {
             "user[password]": {
-                required: true
+                required: true,
+                minlength: 6,
+                maxlength: 60
             },
             "user[password_confirmation]": {
-                equalTo: "#user_password"
+                equalTo: "#user_password",
+                minlength: 6,
+                maxlength: 60
             }
         },
         messages:{
+            "user[password]": {
+                maxlength: "Please enter not more than 60 characters."
+            },
             "user[password_confirmation]": {
                 equalTo: "Password does not match"
             }

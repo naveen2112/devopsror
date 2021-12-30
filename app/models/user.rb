@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   belongs_to :company
   has_many :cards, dependent: :destroy
+  has_one_attached :logo
 
   #========================================= Validations ==============================================================
 
@@ -21,4 +22,14 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :company, reject_if: :all_blank
   accepts_nested_attributes_for :cards
+
+  #=========================================== Methods ================================================================
+
+  def name
+    first_name + " " + last_name
+  end
+
+  def image_url
+    logo.attached? ? logo.url : "/assets/user_thumb.png"
+  end
 end

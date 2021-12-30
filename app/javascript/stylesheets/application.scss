@@ -22,6 +22,9 @@
 @import "signin";
 @import "signup";
 @import "form";
+@import "post";
+@import "setting";
+
 
 
 //Typo
@@ -78,9 +81,10 @@
 .c-dark{
   color: $dark;
 }
-.c-grey {
+.c-grey{
   color: $grey;
 }
+
 .error{
   color: $danger;
 }

@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+#====================================== Tags ========================================================================
+
+Company.all.each do |company|
+  company.tags.find_or_create_by(name: "Sales")
+  company.tags.find_or_create_by(name: "Announcement")
+  company.tags.find_or_create_by(name: "Other Tag")
+end

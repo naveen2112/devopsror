@@ -1,0 +1,81 @@
+<%= form_with(model: @post, local: false, html: { id: "new-post" }) do |form| %>
+  <div class="form-group">
+    <label class="control-label">Title <small>(internal only)</small></label>
+    <%= form.text_field :title, class: "form-control", placeholder: "Title of your post" %>
+  </div>
+  <div class="form-group">
+    <label class="control-label">
+      Platforms
+      <p class="d-flex with-social-icon align-items-center">
+        <small>Your text Your post will be shared on:</small>
+        <span class="custom-check d-flex">
+                                <span class="icon">
+                                    <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5.45937 21.875H0.924219V7.27031H5.45937V21.875ZM3.18906 5.27812C1.73906 5.27812 0.5625 4.07656 0.5625 2.62656C0.5625 1.92995 0.839226 1.26188 1.3318 0.769302C1.82438 0.276726 2.49245 0 3.18906 0C3.88567 0 4.55375 0.276726 5.04632 0.769302C5.5389 1.26188 5.81562 1.92995 5.81562 2.62656C5.81562 4.07656 4.63906 5.27812 3.18906 5.27812ZM22.4328 21.875H17.9078V14.7656C17.9078 13.0711 17.8734 10.8984 15.55 10.8984C13.1922 10.8984 12.8305 12.7391 12.8305 14.6437V21.875H8.3V7.27031H12.6492V9.2625H12.7125C13.318 8.11484 14.7969 6.90391 17.0031 6.90391C21.593 6.90391 22.4367 9.92656 22.4367 13.8523V21.875H22.4328Z" fill="#0E76A8"/>
+                                    </svg>
+                                </span>
+          <span class="text">
+                                    LinkedIn
+                                </span>
+        </span>
+        <input value="linked_in" class="form-control" type="hidden" name="post[platform_name][]" id="post_platform_name">
+      </p>
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="control-label">
+      Main URL
+      <p>
+        <small>You can still add other URL’s in the post commentary</small>
+      </p></label>
+    <%= form.url_field :main_url, class: "form-control", placeholder: "Paste your URL" %>
+  </div>
+
+<!--  Commentries section-->
+
+  <div class="form-group ">
+    <%= form.fields_for "commentries_attributes[1]" do |builder|  %>
+      <div class='fields'>
+        <label class="control-label">Post commentary</label>
+        <%= render 'posts/partials/commentry_form', f: builder %>
+      </div>
+      <%= link_to_add_row(form, :commentries, class: 'btn-block dotted-button add_commentary text-center')  %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <div class="position-relative custom-upload">
+      <div class="custom-upload-btn">
+                                <span>
+                                    <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 9C7 10.6569 8.34315 12 10 12C11.6569 12 13 10.6569 13 9C13 7.34315 11.6569 6 10 6M3 15C1.89543 15 1 14.1046 1 13V5C1 3.89543 1.89543 3 3 3H5.5C6.05228 3 6.5 2.55228 6.5 2C6.5 1.44772 6.94772 1 7.5 1H12.5C13.0523 1 13.5 1.44772 13.5 2C13.5 2.55228 13.9477 3 14.5 3H17C18.1046 3 19 3.89543 19 5M19 9V13C19 14.1046 18.1046 15 17 15H7" stroke="#5A6474" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+        <span class="text">Upload Image</span>
+      </div>
+      <%= form.file_field :image, class: "form-control" %>
+    </div>
+  </div>
+
+<!--  Tag section-->
+
+  <div class="form-group">
+    <label class="control-label">Add Tags</label>
+
+    <%= form.select :tag_ids, options_for_select(@tags.collect { |tag| [tag.name, tag.id] },
+                                                   selected: @post.tag_ids), {},
+                 class: "form-control", multiple: true %>
+  </div>
+
+  <div class="custom-control custom-switch form-group">
+    <%= form.check_box :notification, class: "custom-control-input", id: "switch1" %>
+    <label class="custom-control-label" for="switch1"><span>Send notification email to users about this post</span></label>
+  </div>
+
+  <div class="form-group buttonWrap update">
+    <div class="d-flex">
+      <%= form.submit "Create Post", class: "btn btn-block btn-primary" %>
+      <%= form.submit "Save As Draft", class: "btn btn-block btn-outline-primary" %>
+    </div>
+  </div>
+<% end %>

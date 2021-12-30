@@ -11,6 +11,8 @@ import $ from 'jquery';
 import jQuery from 'jquery';
 import "bootstrap"
 import "../stylesheets/application.scss"
+import 'select2'
+import 'select2/dist/css/select2.css'
 
 window.jQuery = $;
 window.$ = $;
@@ -30,3 +32,6 @@ require('devise/registrations/new')
 require('devise/sessions/new')
 require('devise/passwords/new')
 require('devise/passwords/edit')
+require('posts/new')
+require('users/profile')
+require('posts/index')

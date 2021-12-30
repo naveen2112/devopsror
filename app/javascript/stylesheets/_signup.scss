@@ -49,6 +49,7 @@
   }
 
   .card_names {
+    margin-top: 41px;
     p {
       font-size: 16px;
       font-weight: 600;
@@ -73,85 +74,86 @@
       margin-left: 24px;
     }
   }
-}
 
-.card {
-  margin: 70px auto 40px;
-  border-radius: 15px;
-  max-width: 414px;
-  box-shadow: 0px 7px 41px rgba(100, 101, 102, 0.34);
-  padding: 20px 30px 39px;
 
-  &::before {
-    content: "";
-    position: absolute;
-    top:10%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 92%;
-    height: 93%;
-    background-color: $bg-white;
-    opacity: 0.9;
+  .card {
+    margin: 70px auto 40px;
     border-radius: 15px;
-    z-index: 2;
-  }
+    max-width: 414px;
+    box-shadow: 0px 7px 41px rgba(100, 101, 102, 0.34);
+    padding: 20px 30px 39px;
 
-  &::after {
-    content: "";
-    position: absolute;
-    top: 21%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 84%;
-    height: 84%;
-    background-color: $bg-white;
-    opacity: 0.3;
-    border-radius: 15px;
-    z-index: 1;
-  }
-
-  .card-body {
-    z-index: 3;
-    padding: 0;
-
-    .card-title {
-      font-size: 24px;
-      font-weight: 700;
-      line-height: 1.8;
-      text-align: center;
-      color: $secondary-grey-title;
+    &::before {
+      content: "";
+      position: absolute;
+      top:10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 92%;
+      height: 93%;
+      background-color: $bg-white;
+      opacity: 0.9;
+      border-radius: 15px;
+      z-index: 2;
     }
 
-    .card-subtitle {
-      font-size: 18px;
-      line-height: 2.4;
-      font-weight: 500;
-      text-align: center;
-      color: $secondary-grey-title;
-      margin-bottom: 25px;
-      letter-spacing: -0.64px;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 21%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 84%;
+      height: 84%;
+      background-color: $bg-white;
+      opacity: 0.3;
+      border-radius: 15px;
+      z-index: 1;
+    }
 
-      @include media(xlg-max) {
+    .card-body {
+      z-index: 3;
+      padding: 0;
+
+      .card-title {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.8;
+        text-align: center;
+        color: $secondary-grey-title;
+      }
+
+      .card-subtitle {
+        font-size: 18px;
+        line-height: 2.4;
+        font-weight: 500;
+        text-align: center;
+        color: $secondary-grey-title;
+        margin-bottom: 25px;
+        letter-spacing: -0.64px;
+
+        @include media(xlg-max) {
+          font-size: 16px;
+        }
+      }
+
+      .card-text {
         font-size: 16px;
-      }
-    }
+        line-height: 1.2;
+        font-weight: 400;
+        color: $terms-text-color;
+        padding-left: 25px;
+        margin-bottom: 25px;
 
-    .card-text {
-      font-size: 16px;
-      line-height: 1.2;
-      font-weight: 400;
-      color: $terms-text-color;
-      padding-left: 25px;
-      margin-bottom: 25px;
+        &:last-child {
+          margin-bottom: 0;
+        }
 
-      &:last-child {
-        margin-bottom: 0;
-      }
-
-      svg {
-        position: absolute;
-        left: 0;
-        top: 6px;
+        svg {
+          position: absolute;
+          left: 0;
+          top: 6px;
+        }
       }
     }
   }

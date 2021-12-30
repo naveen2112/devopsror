@@ -15,11 +15,18 @@ $(document).on('turbolinks:load', function () {
                 required: true,
                 remote: "/users/validate_organisation"
             },
-            "user[password]": {
+            "user[company_attributes][url]": {
                 required: true
             },
+            "user[password]": {
+                required: true,
+                minlength: 6,
+                maxlength: 60
+            },
             "user[password_confirmation]": {
-                equalTo: "#user_password"
+                equalTo: "#user_password",
+                minlength: 6,
+                maxlength: 60
             }
         },
         messages: {
@@ -28,6 +35,9 @@ $(document).on('turbolinks:load', function () {
             },
             "user[company_attributes][name]": {
                 remote: jQuery.validator.format("{0} is already in use.")
+            },
+            "user[password]": {
+                maxlength: "Please enter not more than 60 characters."
             },
             "user[password_confirmation]": {
                 equalTo: "Password does not match"
@@ -51,11 +61,22 @@ $(document).on('turbolinks:load', function () {
         }
     });
 
+    $("#sign-up").on("keypress", function (event) {
+        if (event.which == 13) {
+            var $form = $('#sign-up');
+            $form.submit()
+        }
+    })
+
+
     $("#page-1").show()
     $("#page-2").hide()
 
 
-    if ($('#sign-up').length > 1) {
+    if ($("#sign-up").length > 0) {
+
+
+        //if ($('#sign-up').length > 1) {
         // This is your test publishable API key.
         const stripe = Stripe(process.env.STRIPE_PUBLIC_KEY);
         var elements = stripe.elements();
@@ -63,52 +84,53 @@ $(document).on('turbolinks:load', function () {
         var cardNumber = elements.create('cardNumber');
         var cardExpiry = elements.create('cardExpiry');
         var cardCvc = elements.create('cardCvc');
-    }
+        // }
 
 
-    $("#sign-up-page-one").click(function () {
-        if (sign_up_form.valid() == true) {
+        $("#sign-up-page-one").click(function () {
+            if (sign_up_form.valid() == true) {
 
-            cardNumber.mount('#card-number');
-            cardExpiry.mount('#card-expiry');
-            cardCvc.mount('#card-cvc');
+                cardNumber.mount('#card-number');
+                cardExpiry.mount('#card-expiry');
+                cardCvc.mount('#card-cvc');
 
-            $("#page-1").hide()
-            $("#page-2").show()
+                $("#page-1").hide()
+                $("#page-2").show()
 
-        }
-    })
-
-    $("#sign-up-page-two").click(function () {
-        $("#page-1").show()
-        $("#page-2").hide()
-    })
-
-    $("#sign-up").submit(function (event) {
-        event.preventDefault()
-
-        var $form = $('#sign-up');
-
-        stripe.createToken(cardNumber, cardCvc, cardExpiry).then(function (result) {
-            if (result.error) {
-                // Inform the user if there was an error.
-                var errorElement = document.getElementById('card-errors');
-                errorElement.textContent = result.error.message;
-            } else {
-                // Send the token to your server.
-                cardNumber.unmount('#card-number');
-                cardExpiry.unmount('#card-expiry');
-                cardCvc.unmount('#card-cvc');
-
-                $("#user_cards_attributes_0__last_four_digits").val(result.token.card.last4)
-                $("#user_cards_attributes_0__expiry").val(result.token.card.exp_month.toString() + "/" + result.token.card.exp_year.toString())
-                $("#user_cards_attributes_0__token").val(result.token.id)
-                $("#user_cards_attributes_0__stripe_card_id").val(result.token.card.id)
-
-                $form.get(0).submit();
             }
-        });
-    })
+        })
+
+        $("#sign-up-page-two").click(function () {
+            $("#page-1").show()
+            $("#page-2").hide()
+        })
+
+        $("#sign-up").submit(function (event) {
+            event.preventDefault()
+
+            var $form = $('#sign-up');
+
+            stripe.createToken(cardNumber, cardCvc, cardExpiry).then(function (result) {
+                if (result.error) {
+                    // Inform the user if there was an error.
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    // Send the token to your server.
+                    cardNumber.unmount('#card-number');
+                    cardExpiry.unmount('#card-expiry');
+                    cardCvc.unmount('#card-cvc');
+
+                    $("#user_cards_attributes_0__last_four_digits").val(result.token.card.last4)
+                    $("#user_cards_attributes_0__expiry").val(result.token.card.exp_month.toString() + "/" + result.token.card.exp_year.toString())
+                    $("#user_cards_attributes_0__token").val(result.token.id)
+                    $("#user_cards_attributes_0__stripe_card_id").val(result.token.card.id)
+
+                    $form.get(0).submit();
+                }
+            });
+        })
+    }
 
     $(document).on('click', 'button#user-password-confirmation-button', function () {
 
