@@ -8,5 +8,5 @@ class Tag < ApplicationRecord
   #=============================== Validations ===================================================================
 
   validates :name, presence: true
-  validates_presence_of :name, scope: :post_id
+  validates_uniqueness_of :name, on: :save
 end
