@@ -61,10 +61,10 @@ $(document).on('turbolinks:load', function () {
         }
     });
 
-    $(document).on( "keypress", function(event) {
-        if (event.which == 13 && sign_up_form.valid() == true) {
+    $("#sign-up").on( "keypress", function(event) {
+        if (event.which == 13) {
             var $form = $('#sign-up');
-            $form.get(0).submit()
+            $form.submit()
         }
     })
 

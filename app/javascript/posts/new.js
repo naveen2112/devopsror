@@ -9,7 +9,7 @@ $(document).on('turbolinks:load', function () {
                 maxlength: 240,
                 url: true
             },
-            "post[commentries_attributes[0]][description]": {
+            "post[commentries_attributes[1]][description]": {
                 required: true
             }
         },
@@ -35,5 +35,12 @@ $(document).on('turbolinks:load', function () {
             }
         }
     });
+
+    $("#new-post").on( "keypress", function(event) {
+        if (event.which == 13) {
+            var $form = $('#new-post');
+            $form.submit()
+        }
+    })
 
 })

@@ -27,6 +27,6 @@ class Post < ApplicationRecord
   #============================== Methods ========================================================================
 
   def send_email
-    PostsNotificationJob.perform_later(id)
+    PostsNotificationJob.set(wait: 5.seconds).perform_later(id)
   end
 end
