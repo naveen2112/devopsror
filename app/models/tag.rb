@@ -7,5 +7,5 @@ class Tag < ApplicationRecord
 
   #=============================== Validations ===================================================================
 
-  validates_presence_of :name
+  validates :name, presence: true
 end

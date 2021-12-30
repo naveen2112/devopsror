@@ -1,8 +1,9 @@
-$(document).on('turbolinks:load', function() {
+$(document).on('turbolinks:load', function () {
     $("#new-post").validate({
         rules: {
             "post[title]": {
-                required: true
+                required: true,
+                remote: "validate_title"
             },
             "post[main_url]": {
                 maxlength: 240,
@@ -12,10 +13,15 @@ $(document).on('turbolinks:load', function() {
                 required: true
             }
         },
-        highlight: function(element) {
+        messages: {
+            "post[title]": {
+                remote: jQuery.validator.format("{0} is already in use.")
+            }
+        },
+        highlight: function (element) {
             $(element).addClass("invalid")
         },
-        unhighlight: function(element) {
+        unhighlight: function (element) {
             $(element).removeClass("invalid")
         },
         errorClass: 'error',

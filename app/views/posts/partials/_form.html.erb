@@ -6,14 +6,9 @@
   <div class="form-group">
     <label class="control-label">
       Platforms
-      <p>
-        <small>Which platforms should this be shared on?</small>
-      </p>
-    </label>
-    <div class="row group-check-button">
-      <div class="icon-checkbox position-relative">
-        <input value="linked_in" class="form-control" type="hidden" name="post[platform_name][]" id="post_platform_name">
-        <div class="custom-check">
+      <p class="d-flex with-social-icon align-items-center">
+        <small>Your text Your post will be shared on:</small>
+        <span class="custom-check d-flex">
                                 <span class="icon">
                                     <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M5.45937 21.875H0.924219V7.27031H5.45937V21.875ZM3.18906 5.27812C1.73906 5.27812 0.5625 4.07656 0.5625 2.62656C0.5625 1.92995 0.839226 1.26188 1.3318 0.769302C1.82438 0.276726 2.49245 0 3.18906 0C3.88567 0 4.55375 0.276726 5.04632 0.769302C5.5389 1.26188 5.81562 1.92995 5.81562 2.62656C5.81562 4.07656 4.63906 5.27812 3.18906 5.27812ZM22.4328 21.875H17.9078V14.7656C17.9078 13.0711 17.8734 10.8984 15.55 10.8984C13.1922 10.8984 12.8305 12.7391 12.8305 14.6437V21.875H8.3V7.27031H12.6492V9.2625H12.7125C13.318 8.11484 14.7969 6.90391 17.0031 6.90391C21.593 6.90391 22.4367 9.92656 22.4367 13.8523V21.875H22.4328Z" fill="#0E76A8"/>
@@ -22,10 +17,10 @@
           <span class="text">
                                     LinkedIn
                                 </span>
-        </div>
-      </div>
-
-    </div>
+        </span>
+        <input value="linked_in" class="form-control" type="hidden" name="post[platform_name][]" id="post_platform_name">
+      </p>
+    </label>
   </div>
   <div class="form-group">
     <label class="control-label">

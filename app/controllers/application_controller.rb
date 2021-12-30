@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :current_company
 
   def current_company
-    current_user&.company
+    @current_company ||= current_user&.company
   end
 
   helper_method :current_company

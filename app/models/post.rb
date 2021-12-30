@@ -9,7 +9,7 @@ class Post < ApplicationRecord
 
   #================================ Validations ==================================================================
 
-  validates_presence_of :title
+  validates :title, presence: true, uniqueness: true
 
   #=============================== Nested Attributes =============================================================
 

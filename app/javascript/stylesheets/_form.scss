@@ -141,12 +141,6 @@
     }
   }
 
-  .control-label {
-    font-size: 16px;
-    line-height: 1.2;
-    color: $input-label;
-  }
-
   .StripeElement.StripeElement--complete{
     background-color: $input-grey-background;
     border: none;
@@ -202,15 +196,13 @@
     color: $input-color;
   }
 
+
   .password-field {
     margin-bottom: 9px;
     padding-right: 50px;
   }
 
   .btn-block {
-    font-size: 16px;
-    line-height: 1.2;
-    font-weight: 500;
     padding-top: 21px;
     padding-bottom: 21px;
   }

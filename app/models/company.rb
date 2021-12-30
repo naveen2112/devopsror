@@ -13,8 +13,8 @@ class Company < ApplicationRecord
   #===================================== Methods ====================================================================
 
   def create_tags
-    Tag.create(name: "Sales", company_id: id)
-    Tag.create(name: "Announcement", company_id: id)
-    Tag.create(name: "Other Tag", company_id: id)
+    ["Sales", "Announcement", "Other Tag"].each do |name|
+      Tag.create(name: name, company_id: id)
+    end
   end
 end

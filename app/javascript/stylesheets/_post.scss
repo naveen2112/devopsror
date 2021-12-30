@@ -59,9 +59,28 @@
     p {
       margin-top: 9px;
       margin-bottom: 0;
+
+      .custom-check {
+        padding-left: 15px;
+        align-items: center;
+        .text {
+          font-size: 14px;
+          letter-spacing: 0.3px;
+          line-height: 1.2;
+          font-weight: 700;
+          color: #6D7684;
+          margin-left: 5px;
+          padding-top: 6px;
+        }
+      }
     }
     small {
       font-weight: 400;
+    }
+    .with-social-icon{
+      small{
+        padding-top: 8px;
+      }
     }
   }
 
@@ -314,6 +333,7 @@
         transform: translate(-50%, -50%);
       }
     }
+
     .card-body {
       padding-top: 25px;
       padding-bottom: 25px;
@@ -473,13 +493,159 @@
 }
 
 .post-list {
+  .setting-button {
+    position: absolute;
+    right: 50px;
+    top: 5px;
+  }
+  >.row {
+    margin-right: 0;
+    margin-left: 0;
+
+    >.left-column {
+      padding-left: 0;
+      padding-right: 35px;
+    }
+    >.right-column {
+      padding-left: 35px;
+      padding-right: 0;
+    }
+  }
+  .title_wrap {
+    .title {
+      font: {
+        size: 24px;
+        weight: 700;
+      };
+      line-height: 1;
+      color: $secondary-grey-title;
+      margin-bottom: 11px;
+    }
+    .text {
+      font: {
+        size: 16px;
+        weight: 400;
+      }
+      line-height: 0.8;
+      color: $terms-text-color;
+    }
+  }
+
+  .search-wrap {
+    margin-top: 25px;
+    margin-bottom: 22px;
+    max-width: 948px;
+    .form-control {
+      padding: 16px 16px 16px 69px;
+      height: auto;
+    }
+    .icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 21px;
+    }
+  }
+
+  .tag-label {
+    font: {
+      size: 16px;
+      weight: 600;
+    };
+    line-height: 0.8;
+    color: $secondary-grey-title;
+  }
+
+  .tags-list {
+    .badge_wrap {
+      margin-top: 16px;
+      .badge {
+        margin-top: 10px;
+      }
+    }
+  }
+  .dropdown-toggle {
+    margin-top: 21px;
+  }
   .card {
     padding-bottom: 0;
+    .post-info {
+      top: 15px;
+    }
+    .comment_navigation_wrap {
+      .row {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+    .card-body {
+      padding: 16px 33px;
+    }
 
     .post_title {
       font: {
         size: 18px;
+        weight: 600;
       };
+      line-height: 1.2;
+      color: $post-title-grey;
+      margin-bottom: 22px;
+      padding-right: 30px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
+
+    .post_image_wrap {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .social-media-wrap {
+      margin-top: 22px;
+
+      .control-label {
+        font: {
+          size: 11px;
+          weight: 500;
+        };
+        line-height: 1.2;
+        color: $terms-text-color;
+        margin-bottom: 5px;
+      }
+      .d-flex {
+        justify-content: space-between;
+        align-items: center;
+
+        .icon-wrap {
+          span {
+            padding-right: 16px;
+            &:last-child {
+              padding-right: 0;
+            }
+          }
+        }
+      }
+      .btn {
+        padding: 6px 34px;
+      }
+    }
+  }
+  .empty-list {
+    display: none;
+    .home_wrap {
+      min-width: 100%;
+      width: 100%;
+      height: 100%;
+      min-height: calc(100vh - 144px);
+    }
+  }
+}
+
+.empty-post {
+  .list {
+    display: none;
+  }
+  .empty-list {
+    display: block;
   }
 }

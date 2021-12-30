@@ -25,7 +25,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts
+  resources :posts do
+    collection do
+      get :validate_title
+    end
+  end
 
   root "posts#index"
 end

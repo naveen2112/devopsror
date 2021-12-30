@@ -10,7 +10,7 @@
 #====================================== Tags ========================================================================
 
 Company.all.each do |company|
-  company.tags.create(name: "Sales")
-  company.tags.create(name: "Announcement")
-  company.tags.create(name: "Other Tag")
+  company.tags.find_or_create_by(name: "Sales")
+  company.tags.find_or_create_by(name: "Announcement")
+  company.tags.find_or_create_by(name: "Other Tag")
 end

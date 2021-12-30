@@ -15,6 +15,9 @@ $(document).on('turbolinks:load', function () {
                 required: true,
                 remote: "/users/validate_organisation"
             },
+            "user[company_attributes][url]": {
+                required: true
+            },
             "user[password]": {
                 required: true,
                 minlength: 6,
