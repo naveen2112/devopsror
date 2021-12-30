@@ -61,7 +61,7 @@ $(document).on('turbolinks:load', function () {
         }
     });
 
-    $("#sign-up").on( "keypress", function(event) {
+    $("#sign-up").on("keypress", function (event) {
         if (event.which == 13) {
             var $form = $('#sign-up');
             $form.submit()
@@ -73,60 +73,64 @@ $(document).on('turbolinks:load', function () {
     $("#page-2").hide()
 
 
-    //if ($('#sign-up').length > 1) {
-    // This is your test publishable API key.
-    const stripe = Stripe(process.env.STRIPE_PUBLIC_KEY);
-    var elements = stripe.elements();
-
-    var cardNumber = elements.create('cardNumber');
-    var cardExpiry = elements.create('cardExpiry');
-    var cardCvc = elements.create('cardCvc');
-    // }
+    if ($("#sign-up").length > 0) {
 
 
-    $("#sign-up-page-one").click(function () {
-        if (sign_up_form.valid() == true) {
+        //if ($('#sign-up').length > 1) {
+        // This is your test publishable API key.
+        const stripe = Stripe(process.env.STRIPE_PUBLIC_KEY);
+        var elements = stripe.elements();
 
-            cardNumber.mount('#card-number');
-            cardExpiry.mount('#card-expiry');
-            cardCvc.mount('#card-cvc');
+        var cardNumber = elements.create('cardNumber');
+        var cardExpiry = elements.create('cardExpiry');
+        var cardCvc = elements.create('cardCvc');
+        // }
 
-            $("#page-1").hide()
-            $("#page-2").show()
 
-        }
-    })
+        $("#sign-up-page-one").click(function () {
+            if (sign_up_form.valid() == true) {
 
-    $("#sign-up-page-two").click(function () {
-        $("#page-1").show()
-        $("#page-2").hide()
-    })
+                cardNumber.mount('#card-number');
+                cardExpiry.mount('#card-expiry');
+                cardCvc.mount('#card-cvc');
 
-    $("#sign-up").submit(function (event) {
-        event.preventDefault()
+                $("#page-1").hide()
+                $("#page-2").show()
 
-        var $form = $('#sign-up');
-
-        stripe.createToken(cardNumber, cardCvc, cardExpiry).then(function (result) {
-            if (result.error) {
-                // Inform the user if there was an error.
-                var errorElement = document.getElementById('card-errors');
-                errorElement.textContent = result.error.message;
-            } else {
-                // Send the token to your server.
-                cardNumber.unmount('#card-number');
-                cardExpiry.unmount('#card-expiry');
-                cardCvc.unmount('#card-cvc');
-
-                $("#user_cards_attributes_0__last_four_digits").val(result.token.card.last4)
-                $("#user_cards_attributes_0__expiry").val(result.token.card.exp_month.toString() + "/" + result.token.card.exp_year.toString())
-                $("#user_cards_attributes_0__token").val(result.token.id)
-                $("#user_cards_attributes_0__stripe_card_id").val(result.token.card.id)
-
-                $form.get(0).submit();
             }
-        });
-    })
+        })
+
+        $("#sign-up-page-two").click(function () {
+            $("#page-1").show()
+            $("#page-2").hide()
+        })
+
+        $("#sign-up").submit(function (event) {
+            event.preventDefault()
+
+            var $form = $('#sign-up');
+
+            stripe.createToken(cardNumber, cardCvc, cardExpiry).then(function (result) {
+                if (result.error) {
+                    // Inform the user if there was an error.
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    // Send the token to your server.
+                    cardNumber.unmount('#card-number');
+                    cardExpiry.unmount('#card-expiry');
+                    cardCvc.unmount('#card-cvc');
+
+                    $("#user_cards_attributes_0__last_four_digits").val(result.token.card.last4)
+                    $("#user_cards_attributes_0__expiry").val(result.token.card.exp_month.toString() + "/" + result.token.card.exp_year.toString())
+                    $("#user_cards_attributes_0__token").val(result.token.id)
+                    $("#user_cards_attributes_0__stripe_card_id").val(result.token.card.id)
+
+                    $form.get(0).submit();
+                }
+            });
+        })
+    }
 
     $(document).on('click', 'button#user-password-confirmation-button', function () {
 
