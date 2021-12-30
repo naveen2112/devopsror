@@ -1,3 +1,4 @@
+require 'activerecord-import'
 class Company < ApplicationRecord
 
   #============================================ Relationships =========================================================
@@ -13,8 +14,7 @@ class Company < ApplicationRecord
   #===================================== Methods ====================================================================
 
   def create_tags
-    ["Sales", "Announcement", "Other Tag"].each do |name|
-      Tag.create(name: name, company_id: id)
-    end
+    content = [{name: "Sales", company_id: id}, {name: "Announcement", company_id: id}, {name: "Other Tag", company_id: id}]
+    Tag.import content, validate: true
   end
 end

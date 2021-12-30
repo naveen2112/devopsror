@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>SoVocal</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <head>
+     <title>SoVocal</title>
+     <meta name="viewport" content="width=device-width,initial-scale=1">
+     <%= csrf_meta_tags %>
+     <%= csp_meta_tag %>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <% if controller_name == "registrations" || controller_name == "sessions" %>
-  <script src="https://js.stripe.com/v3/"></script>
-  <% end %>
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-</head>
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <% if controller_name == "registrations" || controller_name == "sessions" %>
+       <script src="https://js.stripe.com/v3/"></script>
+     <% end %>
+     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
 
-<body>
-<% if current_user.present? %>
-  <div>
-    <div class="sideBar">
-      <%= render "shared/sidebar" %>
-    </div>
-    <div class="dashboard_wrap">
-      <%= yield %>
-    </div>
-  </div>
-<% else %>
-  <%= yield %>
-<% end %>
-</body>
+  <body>
+     <% if current_user.present? %>
+       <div>
+         <div class="sideBar">
+           <%= render "shared/sidebar" %>
+         </div>
+         <div class="dashboard_wrap">
+           <%= yield %>
+         </div>
+       </div>
+     <% else %>
+        <%= yield %>
+     <% end %>
+  </body>
 </html>

@@ -22,7 +22,6 @@ class PostsController < ApplicationController
         format.js
       end
     else
-      p @post.errors.full_messages
       render :new
     end
   end
