@@ -13,6 +13,9 @@ $(document).on('turbolinks:load', function() {
             }
         },
         messages:{
+            "user[password]": {
+                maxlength: "Please enter not more than 60 characters."
+            },
             "user[password_confirmation]": {
                 equalTo: "Password does not match"
             }

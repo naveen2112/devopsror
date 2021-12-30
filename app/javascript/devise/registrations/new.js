@@ -36,6 +36,9 @@ $(document).on('turbolinks:load', function () {
             "user[company_attributes][name]": {
                 remote: jQuery.validator.format("{0} is already in use.")
             },
+            "user[password]": {
+                maxlength: "Please enter not more than 60 characters."
+            },
             "user[password_confirmation]": {
                 equalTo: "Password does not match"
             }

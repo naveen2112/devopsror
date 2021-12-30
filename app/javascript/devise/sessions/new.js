@@ -11,6 +11,11 @@ $(document).on('turbolinks:load', function() {
                 maxlength: 60
             }
         },
+        messages: {
+            "user[password]": {
+                maxlength: "Please enter not more than 60 characters."
+            }
+        },
         highlight: function(element) {
             $(element).addClass("invalid")
         },
