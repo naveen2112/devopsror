@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   end
 
   resources :posts do
+    member do
+      get :send_email_notification
+    end
     collection do
       get :validate_title
     end

@@ -1,10 +1,16 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:edit, :update, :destroy]
-  before_action :set_tags, only: [:new, :create]
+  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification]
+  before_action :set_tags, only: [:new, :create, :edit, :update]
 
   # GET /posts
   def index
-    @posts = current_company.posts.includes(:commentries, :tags, :company).all
+    if params[:search].present? || params[:tag_ids].present?
+      @posts = current_company.posts.joins(:commentries, :tags, :company).where("title ILIKE ? OR
+                                                     commentries.description ILIKE ?", params[:search], params[:search])
+      @posts.where(tag_ids: params[:tag_ids]) if params[:tag_ids].present?
+    else
+      @posts = current_company.posts.includes(:commentries, :tags, :company).all
+    end
   end
 
   # GET /posts/new
@@ -15,6 +21,7 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = current_company.posts.new(posts_params)
+    @post.created_by = current_user
     @post.status = "draft" if params[:commit] == "Save As Draft"
 
     if @post.save
@@ -55,6 +62,11 @@ class PostsController < ApplicationController
     render plain: post.empty? ? 'true' : 'false'
   end
 
+  # GET /posts/:id/send_email_notification
+  def send_email_notification
+    @post.send_email
+  end
+
   private
 
   def set_post
@@ -67,6 +79,6 @@ class PostsController < ApplicationController
 
   def posts_params
     params.require(:post).permit(:title, :main_url, :notification, :image, platform_name: [], commentries_attributes:
-                                 [:description], tag_ids: [])
+      [:description], tag_ids: [])
   end
 end

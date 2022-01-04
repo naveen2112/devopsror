@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   #================================= Relationships ===============================================================
 
   belongs_to :company
+  belongs_to :created_by, class_name: "User", foreign_key: :created_by
   has_many :commentries, dependent: :destroy
   has_and_belongs_to_many :tags, join_table: :posts_tags
   has_one_attached :image
