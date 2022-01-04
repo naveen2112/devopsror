@@ -52,7 +52,7 @@
           </div>
           <div class="post_comments">
             <p class="comment">
-              <%= post.commentries.first.description %>
+              <%= post.commentries&.first&.description %>
             </p>
             <div class="comment_navigation_wrap">
               <div class="row">
@@ -82,7 +82,7 @@
             <img src="<%= post.image.url %>">
             <div class="post-desc">
               <p class="title">Report: The State of Customer Experience in 2021</p>
-              <p class="text"><%= post.commentries.first.description %></p>
+              <p class="text"><%= post.commentries&.first&.description %></p>
               <a href="<%= post.main_url %>" class="post-link"><%= post.main_url.gsub("http://", "") %></a>
             </div>
           </div>
