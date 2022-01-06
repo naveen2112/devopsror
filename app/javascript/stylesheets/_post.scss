@@ -61,7 +61,7 @@
       margin-bottom: 0;
 
       .custom-check {
-        padding-left: 15px;
+        padding-left: 10px;
         align-items: center;
         .text {
           font-size: 14px;
@@ -76,11 +76,6 @@
     }
     small {
       font-weight: 400;
-    }
-    .with-social-icon{
-      small{
-        padding-top: 8px;
-      }
     }
   }
 
@@ -124,6 +119,7 @@
       opacity: 0;
       z-index: 1;
       cursor: pointer;
+
 
       &:checked~.custom-check {
         background-color: $primary-blue-bg;
@@ -197,6 +193,7 @@
     .custom-control-label {
       span {
         margin-left: 15px;
+        color: #90A1B5;
       }
       &::before {
         width: 36px;
@@ -269,7 +266,7 @@
       };
       line-height: 1.2;
       margin-top: 44px;
-      margin-inside: 20px;
+      margin-bottom: 20px;
     }
     .text {
       font: {
@@ -367,6 +364,36 @@
         }
       }
     }
+  }
+  .form-control {
+    background-color: #F3F4F8;
+    &::-webkit-input-placeholder {
+      color: $secondary-grey-title;
+      opacity: 0.3;
+      font-weight: 400;
+    }
+
+    &:-moz-placeholder {
+      color: $secondary-grey-title;
+      opacity: 0.3;
+      font-weight: 400;
+    }
+
+    &::-moz-placeholder {
+      color: $secondary-grey-title;
+      opacity: 0.3;
+      font-weight: 400;
+    }
+
+    &:-ms-input-placeholder {
+      color: $secondary-grey-title;
+      opacity: 0.3;
+      font-weight: 400;
+    }
+
+  }
+  .small {
+    font-weight: 300;
   }
 }
 
@@ -490,6 +517,11 @@
       display: none;
     }
   }
+
+  img{
+    border-radius: 0 !important;
+  }
+
 }
 
 .post-list {
@@ -497,6 +529,9 @@
     position: absolute;
     right: 50px;
     top: 5px;
+    &:focus,&:focus-visible {
+      outline: none;
+    }
   }
   >.row {
     margin-right: 0;
@@ -559,13 +594,11 @@
   .tags-list {
     .badge_wrap {
       margin-top: 16px;
+      margin-bottom: 10px;
       .badge {
         margin-top: 10px;
       }
     }
-  }
-  .dropdown-toggle {
-    margin-top: 21px;
   }
   .card {
     padding-bottom: 0;
@@ -631,7 +664,6 @@
     }
   }
   .empty-list {
-    display: none;
     .home_wrap {
       min-width: 100%;
       width: 100%;

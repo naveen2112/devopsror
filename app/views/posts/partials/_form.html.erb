@@ -1,4 +1,4 @@
-<%= form_with(model: @post, local: false, html: { id: "new-post" }) do |form| %>
+<%= form_with(model: @post, local: true, html: { id: "new-post" }) do |form| %>
 
   <div class="form-group">
     <label class="control-label">Title <small>(internal only)</small></label>
@@ -40,6 +40,11 @@
     <%= form.fields_for "commentries_attributes[1]" do |builder| %>
       <div class='fields'>
         <label class="control-label">Post commentary</label>
+
+        <% @post.commentries.each_with_index  do |commentry, index| %>
+          <textarea class="form-control mt-3 mb-3" name="[commentries_attributes][<%= index %>][description]"><%= commentry.description %></textarea>
+        <% end %>
+
         <%= render 'posts/partials/commentry_form', f: builder %>
       </div>
       <%= link_to_add_row(form, :commentries, class: 'btn-block dotted-button add_commentary text-center') %>

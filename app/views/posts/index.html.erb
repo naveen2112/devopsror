@@ -1,115 +1,74 @@
 <div class="post-list position-relative">
-  <!-- class="empty-post" for empty layout -->
-  <div class="title_wrap">
-    <h3 class="title">Hi <%= current_user.first_name %>! Here are your posts</h3>
-  </div>
-  <div class="list">
-    <form id="posts-search-form" method="get" action="/posts">
-      <div class="form-group search-wrap position-relative">
+  <% if @posts.size > 0 %>
+    <!-- class="empty-post" for empty layout -->
+    <div class="title_wrap">
+      <h3 class="title">Hi <%= current_user.first_name %>! Here are your posts</h3>
+    </div>
+    <div class="list">
+      <form id="posts-search-form" method="get" action="/posts">
+        <div class="form-group search-wrap position-relative">
             <span class="icon">
                 <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="14.5" cy="14.5" r="9.5" stroke="#6ABEF8" stroke-width="2"/>
                     <path d="M21 22L25.7929 26.7929" stroke="#6ABEF8" stroke-width="2"/>
                 </svg>
             </span>
-        <input type="text" class="form-control" id="search-bar" name="search" placeholder="Search for posts..."/>
-      </div>
-    </form>
+          <input type="text" class="form-control" id="search-bar" name="search" placeholder="Search for posts..."/>
+        </div>
+      </form>
 
-    <div class="row">
-      <div class="col-6 left-column">
-        <div class="dropdown form-group">
-          <label class="tag-label">Tags</label>
-          <button class="btn dropdown-toggle position-relative" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Select Tags
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <div class="dropdown-items">
-              <a class="dropdown-item selected" href="#">
-                Select Tags
-                <span class="select-icon">
-                                    <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.86326 12.4999C5.58726 12.4999 5.32326 12.3859 5.13426 12.1849L0.27126 7.00587C-0.10774 6.60387 -0.0867401 5.97087 0.31526 5.59287C0.71826 5.21487 1.35126 5.23487 1.72826 5.63687L5.85326 10.0279L14.2613 0.825869C14.6353 0.416869 15.2673 0.389869 15.6753 0.761869C16.0823 1.13387 16.1103 1.76687 15.7383 2.17387L6.60126 12.1739C6.41426 12.3799 6.14826 12.4979 5.87026 12.4999H5.86326Z" fill="#67BCF7"/>
-                                    </svg>
-                                </span>
-              </a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
+      <div class="row">
+        <div class="col-6 left-column">
+          <div class="dropdown form-group">
+            <label class="tag-label">Tags</label>
+            <select id="customSelectPostTag">
+              <option>Action</option>
+              <option>Another action</option>
+              <option>Something else here</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6 right-column">
+          <div class="tags-list">
+            <label class="tag-label">Selected Tags</label>
+            <div class="badge_wrap" id="selected_post_tag"></div>
           </div>
         </div>
       </div>
-      <div class="col-6 right-column">
-        <div class="tags-list">
-          <label class="tag-label">Selected Tags</label>
-          <div class="badge_wrap">
-                        <span class="badge green">
-                            Sales
-                            <span class="close_icon">
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.80471 7.86216C9.06538 8.12283 9.06538 8.54416 8.80471 8.80483C8.67471 8.93483 8.50404 9.00016 8.33337 9.00016C8.16271 9.00016 7.99204 8.93483 7.86204 8.80483L7.00004 7.94283L6.13804 8.80483C6.00804 8.93483 5.83737 9.00016 5.66671 9.00016C5.49604 9.00016 5.32537 8.93483 5.19537 8.80483C4.93471 8.54416 4.93471 8.12283 5.19537 7.86216L6.05737 7.00016L5.19537 6.13816C4.93471 5.8775 4.93471 5.45616 5.19537 5.1955C5.45604 4.93483 5.87737 4.93483 6.13804 5.1955L7.00004 6.0575L7.86204 5.1955C8.12271 4.93483 8.54404 4.93483 8.80471 5.1955C9.06538 5.45616 9.06538 5.8775 8.80471 6.13816L7.94271 7.00016L8.80471 7.86216ZM7.00004 0.333496C3.32404 0.333496 0.333374 3.32416 0.333374 7.00016C0.333374 10.6762 3.32404 13.6668 7.00004 13.6668C10.676 13.6668 13.6667 10.6762 13.6667 7.00016C13.6667 3.32416 10.676 0.333496 7.00004 0.333496Z" fill="#82CBFB"/>
-                                </svg>
-                            </span>
-                        </span>
-            <span class="badge orange">
-                            Announcements
-                            <span class="close_icon">
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.80471 7.86216C9.06538 8.12283 9.06538 8.54416 8.80471 8.80483C8.67471 8.93483 8.50404 9.00016 8.33337 9.00016C8.16271 9.00016 7.99204 8.93483 7.86204 8.80483L7.00004 7.94283L6.13804 8.80483C6.00804 8.93483 5.83737 9.00016 5.66671 9.00016C5.49604 9.00016 5.32537 8.93483 5.19537 8.80483C4.93471 8.54416 4.93471 8.12283 5.19537 7.86216L6.05737 7.00016L5.19537 6.13816C4.93471 5.8775 4.93471 5.45616 5.19537 5.1955C5.45604 4.93483 5.87737 4.93483 6.13804 5.1955L7.00004 6.0575L7.86204 5.1955C8.12271 4.93483 8.54404 4.93483 8.80471 5.1955C9.06538 5.45616 9.06538 5.8775 8.80471 6.13816L7.94271 7.00016L8.80471 7.86216ZM7.00004 0.333496C3.32404 0.333496 0.333374 3.32416 0.333374 7.00016C0.333374 10.6762 3.32404 13.6668 7.00004 13.6668C10.676 13.6668 13.6667 10.6762 13.6667 7.00016C13.6667 3.32416 10.676 0.333496 7.00004 0.333496Z" fill="#82CBFB"/>
-                                </svg>
-                            </span>
-                        </span>
-            <span class="badge purple">
-                            Other Tag
-                            <span class="close_icon">
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.80471 7.86216C9.06538 8.12283 9.06538 8.54416 8.80471 8.80483C8.67471 8.93483 8.50404 9.00016 8.33337 9.00016C8.16271 9.00016 7.99204 8.93483 7.86204 8.80483L7.00004 7.94283L6.13804 8.80483C6.00804 8.93483 5.83737 9.00016 5.66671 9.00016C5.49604 9.00016 5.32537 8.93483 5.19537 8.80483C4.93471 8.54416 4.93471 8.12283 5.19537 7.86216L6.05737 7.00016L5.19537 6.13816C4.93471 5.8775 4.93471 5.45616 5.19537 5.1955C5.45604 4.93483 5.87737 4.93483 6.13804 5.1955L7.00004 6.0575L7.86204 5.1955C8.12271 4.93483 8.54404 4.93483 8.80471 5.1955C9.06538 5.45616 9.06538 5.8775 8.80471 6.13816L7.94271 7.00016L8.80471 7.86216ZM7.00004 0.333496C3.32404 0.333496 0.333374 3.32416 0.333374 7.00016C0.333374 10.6762 3.32404 13.6668 7.00004 13.6668C10.676 13.6668 13.6667 10.6762 13.6667 7.00016C13.6667 3.32416 10.676 0.333496 7.00004 0.333496Z" fill="#82CBFB"/>
-                                </svg>
-                            </span>
-                        </span>
-          </div>
+
+      <div id="posts-list">
+        <%= render "posts/partials/index" %>
+      </div>
+    </div>
+  <% else %>
+    <div class="empty-list">
+      <div class="home_wrap">
+        <div class="center-elem">
+          <svg width="144" height="186" viewBox="0 0 144 186" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="72" cy="72.4585" r="71.5" fill="#F7F9FC"/>
+            <rect x="43.9505" y="71.0012" width="70" height="98" rx="7" transform="rotate(2.5 43.9505 71.0012)" fill="#F9FAFC" stroke="#6D7684" stroke-width="2"/>
+            <rect x="2.33604" y="65.1391" width="74" height="102" rx="9" transform="rotate(-7.5 2.33604 65.1391)" fill="#FAFAFA" stroke="#6D7684" stroke-width="2"/>
+            <path d="M4.50222 73.9316C3.92552 69.5511 7.00909 65.5325 11.3896 64.9558L66.9105 57.6463C71.291 57.0696 75.3095 60.1532 75.8862 64.5337L77.8441 79.4053L6.46011 88.8032L4.50222 73.9316Z" fill="#EEEEEE"/>
+            <rect x="90.3662" y="59.6016" width="3" height="10" rx="1.5" transform="rotate(82.5 90.3662 59.6016)" fill="#6D7684"/>
+            <rect x="62.9697" y="43.0356" width="3" height="10" rx="1.5" transform="rotate(-7.5 62.9697 43.0356)" fill="#6D7684"/>
+            <rect x="80.5474" y="45.7646" width="3" height="10" rx="1.5" transform="rotate(37.5 80.5474 45.7646)" fill="#6D7684"/>
+            <rect x="13.9224" y="91.8555" width="58" height="4" rx="2" transform="rotate(-7.5 13.9224 91.8555)" fill="#DCDCDC"/>
+            <rect x="16.5327" y="111.684" width="58" height="4" rx="2" transform="rotate(-7.5 16.5327 111.684)" fill="#DCDCDC"/>
+            <rect x="19.1431" y="131.513" width="58" height="4" rx="2" transform="rotate(-7.5 19.1431 131.513)" fill="#DCDCDC"/>
+            <rect x="14.9663" y="99.7871" width="21" height="4" rx="2" transform="rotate(-7.5 14.9663 99.7871)" fill="#EEEEEE"/>
+            <rect x="17.5771" y="119.616" width="21" height="4" rx="2" transform="rotate(-7.5 17.5771 119.616)" fill="#EEEEEE"/>
+            <rect x="20.1875" y="139.445" width="21" height="4" rx="2" transform="rotate(-7.5 20.1875 139.445)" fill="#EEEEEE"/>
+          </svg>
+          <p>no posts yet</p>
+          <a class="btn btn-primary" href="/posts/new">Create a new post</a>
         </div>
       </div>
     </div>
-
-    <div id="posts-list">
-      <%= render "posts/partials/index" %>
-    </div>
-  </div>
-  <div class="empty-list">
-    <div class="home_wrap">
-      <div class="center-elem">
-        <svg width="144" height="186" viewBox="0 0 144 186" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="72" cy="72.4585" r="71.5" fill="#F7F9FC"/>
-          <rect x="43.9505" y="71.0012" width="70" height="98" rx="7" transform="rotate(2.5 43.9505 71.0012)" fill="#F9FAFC" stroke="#6D7684" stroke-width="2"/>
-          <rect x="2.33604" y="65.1391" width="74" height="102" rx="9" transform="rotate(-7.5 2.33604 65.1391)" fill="#FAFAFA" stroke="#6D7684" stroke-width="2"/>
-          <path d="M4.50222 73.9316C3.92552 69.5511 7.00909 65.5325 11.3896 64.9558L66.9105 57.6463C71.291 57.0696 75.3095 60.1532 75.8862 64.5337L77.8441 79.4053L6.46011 88.8032L4.50222 73.9316Z" fill="#EEEEEE"/>
-          <rect x="90.3662" y="59.6016" width="3" height="10" rx="1.5" transform="rotate(82.5 90.3662 59.6016)" fill="#6D7684"/>
-          <rect x="62.9697" y="43.0356" width="3" height="10" rx="1.5" transform="rotate(-7.5 62.9697 43.0356)" fill="#6D7684"/>
-          <rect x="80.5474" y="45.7646" width="3" height="10" rx="1.5" transform="rotate(37.5 80.5474 45.7646)" fill="#6D7684"/>
-          <rect x="13.9224" y="91.8555" width="58" height="4" rx="2" transform="rotate(-7.5 13.9224 91.8555)" fill="#DCDCDC"/>
-          <rect x="16.5327" y="111.684" width="58" height="4" rx="2" transform="rotate(-7.5 16.5327 111.684)" fill="#DCDCDC"/>
-          <rect x="19.1431" y="131.513" width="58" height="4" rx="2" transform="rotate(-7.5 19.1431 131.513)" fill="#DCDCDC"/>
-          <rect x="14.9663" y="99.7871" width="21" height="4" rx="2" transform="rotate(-7.5 14.9663 99.7871)" fill="#EEEEEE"/>
-          <rect x="17.5771" y="119.616" width="21" height="4" rx="2" transform="rotate(-7.5 17.5771 119.616)" fill="#EEEEEE"/>
-          <rect x="20.1875" y="139.445" width="21" height="4" rx="2" transform="rotate(-7.5 20.1875 139.445)" fill="#EEEEEE"/>
-        </svg>
-        <p>no posts yet</p>
-        <button class="btn btn-primary">Create a new post</button>
-      </div>
-    </div>
-  </div>
+  <% end %>
 </div>
 
 <script type="text/javascript">
+
     $(document).ready(function () {
         <% @posts.each do |post| %>
         $(document).on("click", "#post-edit-delete-<%= post.id %>", function () {
@@ -128,4 +87,25 @@
             $.get($("#posts-search-form").attr("actions"), $("#posts-search-form").serialize(), null, "script")
         })
     })
+
+    // Cycling through the commentries
+
+    <% @posts.each do |post| %>
+
+    for (var i = 0; i < <%= post.commentries.size %>; i++) {
+        $(".comment-<%= post.id %>-<%= post.commentries.size %>-" + i).hide()
+    }
+
+    $(".comment-<%= post.id %>-<%= post.commentries.size %>-0").show()
+
+    $("#post-next-commentry-<%= post.id %>").click(function () {
+
+        var cycle_count = parseInt($("#post-commetries-count-<%= post.id %>").text()) + 1
+        $("#post-commetries-count-<%= post.id %>").text(cycle_count)
+
+        for (var i = 0; i < cycle_count; i++) {
+            $(".comment-<%= post.id %>-<%= post.commentries.size %>-" + i).show()
+        }
+    })
+    <% end %>
 </script>

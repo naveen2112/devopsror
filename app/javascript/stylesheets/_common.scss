@@ -219,7 +219,22 @@ img {
 
     >.position-relative {
       height: 100%;
-      min-height: 450px;
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 56px);
+      .nav_wrap {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        overflow: auto;
+      }
+      .link_wrap {
+        max-height: calc(100vh - 56px - 170px);
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        overflow: auto;
+      }
     }
 
     .row {
@@ -423,18 +438,22 @@ img {
 .form-control {
   &::-webkit-input-placeholder {
     color: $placeholder-color;
+    font-weight: 400;
   }
 
   &:-moz-placeholder {
     color: $placeholder-color;
+    font-weight: 400;
   }
 
   &::-moz-placeholder {
     color: $placeholder-color;
+    font-weight: 400;
   }
 
   &:-ms-input-placeholder {
     color: $placeholder-color;
+    font-weight: 400;
   }
 }
 
@@ -523,12 +542,18 @@ img {
     .icon {
       padding-right: 17px;
     }
+    &:focus,&:focus-visible {
+      outline: none;
+    }
   }
 }
 
 .show-post-option {
   .post-options {
     display: block;
+  }
+  .badge {
+    font-size: 14px;
   }
 }
 
@@ -556,6 +581,9 @@ img {
     top: 21px;
     right: 25px;
     cursor: pointer;
+    &:focus, &:focus-visible {
+      outline: unset;
+    }
   }
 
   .user_detail {
@@ -688,9 +716,14 @@ img {
     margin-left: -20px;
     margin-right: -20px;
     margin-top: 20px;
-
+    background-color: $input-bg;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    img {
+      border-radius: 11px;
+    }
     .post-desc {
-      background-color: $post-description-background;
+      background-color: $input-bg;
       padding: 14px 51px 7px;
       border-radius: 0 0 10px 10px;
       display: flex;
@@ -765,6 +798,9 @@ img {
 
   &:hover {
     opacity: 0.8;
+  }
+  &:focus,&:focus-visible {
+    outline: none;
   }
 }
 
@@ -871,6 +907,20 @@ img {
   }
 }
 
+.custom-dropdown-select {
+  background: #F9FAFC;
+  border: 1px solid rgba(225, 227, 230, 0.5);
+  border-radius: 8px;
+  .category-label {
+    color: #6D7684!important;
+  }
+  .dropdown-menu {
+    margin-top: 0;
+    .group-header {
+      display: none!important;
+    }
+  }
+}
 .form-control.invalid {
   border: 1px solid $danger-border;
   box-shadow: 0 0 1px 3px rgba(255, 51, 0, 0.25);

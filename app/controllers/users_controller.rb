@@ -9,6 +9,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def unsubscribe
+    current_user.update(subscribe: false)
+    redirect_to posts_path
+  end
+
   def validate_email_without_current_user
     return render plain: false unless params[:user][:email].present?
 

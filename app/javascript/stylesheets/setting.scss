@@ -48,11 +48,13 @@
         margin-bottom: 0;
       }
       .image_wrap {
-        max-width: 122px;
+        width: 122px;
+        height: 122px;
         margin: 50px auto 0;
         img {
           border-radius: 50%;
           width: 100%;
+          height: 100%;
         }
         input {
           position: absolute;
@@ -74,7 +76,6 @@
 
     .btn-primary {
       min-width: 253px;
-      margin-top: 32px;
     }
     .btn-primary.update {
       .hide-text {
@@ -85,6 +86,7 @@
 
   .form-control {
     padding-right: 55px;
+    background-color: #F3F4F8;
   }
 
   .edit-button {
@@ -97,5 +99,11 @@
 
   .alert-wrap {
     margin-top: 76px;
+  }
+  .form-group {
+    margin-bottom: 45px;
+    .control-label {
+      color: #90A1B5;
+    }
   }
 }

@@ -10,6 +10,10 @@ class User < ApplicationRecord
   has_many :cards, dependent: :destroy
   has_one_attached :logo
 
+  #========================================= Scope ==================================================================
+
+  scope :subscribers, -> { where(subscribe: true) }
+
   #========================================= Validations ==============================================================
 
   validates_presence_of :first_name

@@ -1,12 +1,12 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification]
+  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show]
   before_action :set_tags, only: [:new, :create, :edit, :update]
 
   # GET /posts
   def index
     if params[:search].present? || params[:tag_ids].present?
-      @posts = current_company.posts.joins(:commentries, :tags, :company).where("title ILIKE ? OR
-                                                     commentries.description ILIKE ?", params[:search], params[:search])
+      @posts = current_company.posts.joins(:commentries, :tags, :company).where("title ILIKE ? OR main_url OR
+                                                     commentries.description ILIKE ?", params[:search], params[:search], params[:search])
       @posts.where(tag_ids: params[:tag_ids]) if params[:tag_ids].present?
     else
       @posts = current_company.posts.includes(:commentries, :tags, :company).all
@@ -18,6 +18,9 @@ class PostsController < ApplicationController
     @post = current_company.posts.new
   end
 
+  # GET /posts/:id
+  def show; end
+
   # POST /posts
   def create
     @post = current_company.posts.new(posts_params)
@@ -25,9 +28,7 @@ class PostsController < ApplicationController
     @post.status = "draft" if params[:commit] == "Save As Draft"
 
     if @post.save
-      respond_to do |format|
-        format.js
-      end
+      redirect_to posts_path
     else
       render :new
     end
