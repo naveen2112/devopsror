@@ -84,7 +84,6 @@
           <div class="post_image_wrap">
             <img src="<%= post.image.url %>">
             <div class="post-desc">
-              <p class="title">Report: The State of Customer Experience in 2021</p>
               <p class="text"><%= post.commentries&.first&.description %></p>
               <a href="<%= post.main_url %>" class="post-link"><%= post.main_url.gsub("http://", "") %></a>
             </div>
@@ -103,7 +102,7 @@
             <% end %>
           </div>
           <div class="social-media-wrap">
-            <p class="control-label">Available Platforms</p>
+            <p class="control-label">Available Platform</p>
             <div class="d-flex">
               <div class="icon-wrap">
                     <span>
@@ -113,7 +112,8 @@
                     </span>
               </div>
               <% if post.draft? %>
-                <a href="/posts/<%= post.id %>/edit" class="btn btn-outline-primary text-success">draft</a>
+
+                <a href="/posts/<%= post.id %>/edit" class="btn btn-outline-primary">Draft</a>
               <% else %>
                 <a href="/posts/<%= post.id %>" class="btn btn-primary">Share</a>
               <% end %>
