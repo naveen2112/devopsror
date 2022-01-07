@@ -22,7 +22,7 @@
           <div class="dropdown form-group">
             <label class="tag-label">Tags</label>
             <form action="/posts" method="get">
-              <select id="customSelectPostTag" name="tag_ids" onchange="this.form.submit()">
+              <select id="customSelectPostTag">
                <% current_company.tags.each do |tag| %>
                   <option value="<%= tag.id %>"><%= tag.name %></option>
                 <% end %>
@@ -41,6 +41,7 @@
       <div id="posts-list">
         <%= render "posts/partials/index" %>
       </div>
+
     </div>
   <% else %>
     <div class="empty-list">
@@ -69,7 +70,8 @@
   <% end %>
 </div>
 
-<script type="text/javascript">
+
+<script>
 
     $(document).ready(function () {
         <% @posts.each do |post| %>
@@ -108,6 +110,14 @@
         for (var i = 0; i < cycle_count; i++) {
             $(".comment-<%= post.id %>-<%= post.commentries.size %>-" + i).show()
         }
+
+        if(cycle_count >= <%= post.commentries.size %>){
+            $(this).hide()
+        }
     })
     <% end %>
 </script>
+
+
+<%= render "shared/custom-multiselect" %>
+<%= render "shared/custom" %>

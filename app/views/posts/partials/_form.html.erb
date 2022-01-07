@@ -42,7 +42,7 @@
         <label class="control-label">Post commentary</label>
 
         <% @post.commentries.each_with_index  do |commentry, index| %>
-          <textarea class="form-control mt-3 mb-3" name="[commentries_attributes][<%= index %>][description]"><%= commentry.description %></textarea>
+          <textarea class="form-control mt-3 mb-3" name="[commentries_attributes][<%= index %>][description]" rows="5"><%= commentry.description %></textarea>
         <% end %>
 
         <%= render 'posts/partials/commentry_form', f: builder %>

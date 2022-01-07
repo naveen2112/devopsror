@@ -13,6 +13,10 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates_uniqueness_of :title, scope: :company_id
 
+  #================================= Scope ======================================================================
+
+  scope :with_includes, -> { includes(:posts_tags, :commentries, :tags, image_attachment: :blob) }
+
   #=============================== Nested Attributes =============================================================
 
   accepts_nested_attributes_for :commentries, reject_if: :all_blank

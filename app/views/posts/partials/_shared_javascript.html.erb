@@ -1,5 +1,4 @@
 <script type="text/javascript">
-    $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/empty_preview') %>");
 
     $(document).on("keyup", "#post_title", function () {
         if ($(this).val().length > 0) {

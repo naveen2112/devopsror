@@ -1,13 +1,16 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show]
   before_action :set_tags, only: [:new, :create, :edit, :update]
 
   # GET /posts
   def index
-    @posts = current_company.posts.includes(:image_attachment, :posts_tags, :commentries, :tags).order("created_at DESC")
+    @posts = current_company.posts.order("posts.created_at DESC").with_includes
+
     if params[:search].present? || params[:tag_ids].present?
       if params[:search].present?
-        @posts = @posts.joins(:commentries).where("title ILIKE ? OR main_url ? OR
+        @posts = @posts.joins(:commentries).where("title ILIKE ? OR main_url ILIKE ? OR
                                                      commentries.description ILIKE ?", params[:search], params[:search], params[:search])
       end
       @posts = @posts.where(tags: { id: params[:tag_ids] }) if params[:tag_ids].present?

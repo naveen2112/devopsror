@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
+
+  # GET /users/profile
   def profile; end
 
+  # PUT /users/:id
   def update
     if current_user.update(users_params)
       redirect_to profile_users_path, notice: "Your profile update successfully."
@@ -9,11 +14,13 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/unsubscribe
   def unsubscribe
     current_user.update(subscribe: false)
     redirect_to posts_path
   end
 
+  # GET /users/validate_email_without_current_user
   def validate_email_without_current_user
     return render plain: false unless params[:user][:email].present?
 
@@ -21,6 +28,7 @@ class UsersController < ApplicationController
     render plain: user.empty? ? 'true' : 'false'
   end
 
+  # GET /users/validate_organisation_without_current_company
   def validate_organisation_without_current_company
     return render plain: false unless params[:user][:company_attributes][:name].present?
 
