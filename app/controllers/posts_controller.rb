@@ -4,12 +4,15 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
+    @posts = current_company.posts.includes(:image_attachment, :posts_tags, :commentries, :tags).order("created_at DESC")
     if params[:search].present? || params[:tag_ids].present?
-      @posts = current_company.posts.joins(:commentries, :tags, :company).where("title ILIKE ? OR main_url OR
+      if params[:search].present?
+        @posts = @posts.joins(:commentries).where("title ILIKE ? OR main_url ? OR
                                                      commentries.description ILIKE ?", params[:search], params[:search], params[:search])
-      @posts.where(tag_ids: params[:tag_ids]) if params[:tag_ids].present?
+      end
+      @posts = @posts.where(tags: { id: params[:tag_ids] }) if params[:tag_ids].present?
     else
-      @posts = current_company.posts.includes(:commentries, :tags, :company).all
+      @posts = @posts.all
     end
   end
 

@@ -1,3 +1,29 @@
+$(document).on('click', '.user-password-confirmation-button', function () {
+
+    var input = $("#user_password_confirmation");
+
+    if (input.attr("type") === "password") {
+        $(this).addClass("password-visible")
+        input.attr("type", "text");
+    } else {
+        input.attr("type", "password");
+        $(this).removeClass("password-visible")
+    }
+})
+
+$(document).on('click', '.user-password-button', function () {
+
+    var input = $("#user_password");
+
+    if (input.attr("type") === "password") {
+        input.attr("type", "text");
+        $(this).addClass("password-visible")
+    } else {
+        input.attr("type", "password");
+        $(this).removeClass("password-visible")
+    }
+})
+
 $(document).on('turbolinks:load', function () {
 
     let sign_up_form = $("#sign-up");
@@ -131,31 +157,4 @@ $(document).on('turbolinks:load', function () {
             });
         })
     }
-
-    $(document).on('click', 'button#user-password-confirmation-button', function () {
-
-        var input = $("#user_password_confirmation");
-
-        if (input.attr("type") === "password") {
-            $("button#user-password-confirmation-button").addClass("password-visible")
-            input.attr("type", "text");
-        } else {
-            input.attr("type", "password");
-            $(this).removeClass("password-visible")
-        }
-    })
-
-    $(document).on('click', '#user-password-button', function () {
-
-        var input = $("#user_password");
-
-        if (input.attr("type") === "password") {
-            input.attr("type", "text");
-            $(this).addClass("password-visible")
-        } else {
-            input.attr("type", "password");
-            $(this).removeClass("password-visible")
-        }
-    })
-
 })

@@ -207,7 +207,7 @@
     padding-bottom: 21px;
   }
 
-  .toggleButton {
+  .toggleButton, .user-password-button, .user-password-confirmation-button, .passwords-users-password-confirmation, .passwords-users-password {
     position: absolute;
     top: 39px;
     right: 0;
@@ -224,7 +224,8 @@
     }
   }
 
-  .toggleButton.password-visible {
+  .toggleButton.password-visible, .user-password-button.password-visible, user-password-confirmation-button.password-visible
+  .passwords-users-password-confirmation.password-visible, passwords-users-password.password-visible{
     .visible {
       display: none;
     }

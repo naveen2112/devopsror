@@ -43,7 +43,7 @@
           </svg>
         </button>
         <div class="card-body">
-          <h5 class="post_title"><%= post.title %> - 2021</h5>
+          <h5 class="post_title"><%= post.title %></h5>
           <div class="user_detail row">
             <img class="thumb" src="<%= current_user.logo.url %>"/>
             <div>
@@ -111,7 +111,11 @@
                       </svg>
                     </span>
               </div>
-              <a href="/posts/<%= post.id %>" class="btn btn-primary">Share</a>
+              <% if post.draft? %>
+                <span class="badge green"><%= post.status %></span>
+              <% else %>
+                <a href="/posts/<%= post.id %>" class="btn btn-primary">Share</a>
+              <% end %>
             </div>
           </div>
         </div>

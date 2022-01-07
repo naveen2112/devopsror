@@ -21,11 +21,13 @@
         <div class="col-6 left-column">
           <div class="dropdown form-group">
             <label class="tag-label">Tags</label>
-            <select id="customSelectPostTag">
-              <option>Action</option>
-              <option>Another action</option>
-              <option>Something else here</option>
-            </select>
+            <form action="/posts" method="get">
+              <select id="customSelectPostTag" name="tag_ids" onchange="this.form.submit()">
+               <% current_company.tags.each do |tag| %>
+                  <option value="<%= tag.id %>"><%= tag.name %></option>
+                <% end %>
+              </select>
+            </form>
           </div>
         </div>
         <div class="col-6 right-column">

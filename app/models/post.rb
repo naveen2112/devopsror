@@ -20,11 +20,11 @@ class Post < ApplicationRecord
 
   #============================== Enum ==========================================================================
 
-  enum status: [:posted, :draft]
+  enum status: [:live, :draft]
 
   #============================== Callbacks ======================================================================
 
-  after_create_commit :send_email, if: -> { notification && status == "posted" }
+  after_create_commit :send_email, if: -> { notification && status == "live" }
 
   #============================== Methods ========================================================================
 
