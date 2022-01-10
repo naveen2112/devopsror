@@ -14,7 +14,8 @@
             closeIcon: false,
             inputType: "checkbox",
             defaultSelectArray: [],
-            groupList: true
+            groupList: true,
+            commonGroup:'',
         }, options);
         $('#' + settings.renderId).wrap('<div class = "' + settings.parentClass + '"></div>');
         $('#' + settings.renderId).hide();
@@ -32,6 +33,7 @@
                 }
                 else {
                     list = list + '<div style="display: none" class = "group-header ' + dataList.className + '" >' + addGroupInput + '<a class = "btn header-label collapsed" data-toggle = "collapse" data-target = "#collapse' + dataList.value + settings.renderId + '" aria-expanded = "false" aria-controls = "dataTarget' + dataList.value + settings.renderId + '">' + dataList.name + '</a></div><div class = "customDropdown-group collapse" id = "collapse' + dataList.value + settings.renderId + '" aria-labelledby = "#heading' + key + settings.renderId + '">';
+                    settings.commonGroup=dataList.value;
                 }
                 var listItem = "";
                 $.each(dataList[dataList.name], function(k, list) {
@@ -104,27 +106,40 @@
                 $inputboxes.parent().removeClass('checkedList');
             }
         });
-        $('.' + settings.parentClass + ' .custom-dropdownmenu .customDropdown-group input').on("change", function() {
-            var $outerdiv = $(this).parent().parent();
-            var $inputbox = $outerdiv.find("input");
-            var $checkboxesTotal = $inputbox.length;
-            var countCheckedCheckboxes = $inputbox.filter(':checked').length;
-            if (countCheckedCheckboxes === $checkboxesTotal) {
-                $outerdiv.prev().find("input").prop('checked', true);
-            } else {
-                $outerdiv.prev().find("input").prop('checked', false);
-            }
-        });
+        InputCheck();
+        function InputCheck(){
+            $('.' + settings.parentClass + ' .custom-dropdownmenu .customDropdown-group input').on("change", function() {
+                var $outerdiv = $(this).parent().parent();
+                var $inputbox = $outerdiv.find("input");
+                var $checkboxesTotal = $inputbox.length;
+                var countCheckedCheckboxes = $inputbox.filter(':checked').length;
+                if (countCheckedCheckboxes === $checkboxesTotal) {
+                    $outerdiv.prev().find("input").prop('checked', true);
+                } else {
+                    $outerdiv.prev().find("input").prop('checked', false);
+                }
+                AddCheck();
+                var selectedValue=[];
+                createArray(selectedValue);
+                createArray1(selectedValue);
+                //Append text
+                if (settings.AppendText) {
+                    textAppend(selectedValue);
+                }
+            });
+        }
+
         //search option
         $('#' + settings.renderId + 'search').keyup(function(e) {
             var searchText = $(this).val().toLowerCase();
+            var FindSearch=$(this).val();
             list = $(this).parent().parent().find(".collapseContent .dropdown-item");
             headerList = $(this).parent().parent().find(".collapseContent .header-label");
             if (searchText !== "") {
+                //to check Header Text
                 headerList.each(function(i, obj) {
                     var headerName = $(this).text().toLowerCase();
                     if (headerName.indexOf(searchText) > -1) {
-                        $(this).parent().show();
                         $(this).parent().next().find(".dropdown-item").each(function(i, j) {
                             $(this).show();
                         })
@@ -132,6 +147,7 @@
                         $(this).parent().hide();
                     }
                 });
+                //to check list Text
                 list.each(function(i, obj) {
                     var dataName = $(this).find('label').text().toLowerCase();
                     if (dataName.indexOf(searchText) > -1) {
@@ -141,19 +157,29 @@
                         $(this).hide();
                     }
                 });
-                headerList.each(function(i, obj) {
-                    var headerName = $(this).text().toLowerCase();
-                    if (headerName.indexOf(searchText) > -1) {
-                        $(this).parent().show();
-                        $(this).parent().find("input").show();
-                        $(this).parent().next().find(".dropdown-item").each(function(i, j) {
-                            $(this).show();
-                        })
-                    } else {
-                        $(this).parent().find("input").hide();
-                    }
-                });
+                //to Extra check
+                var arrayList = settings.DropDownList[0][settings.commonGroup];
+                let dropdownItemValues = arrayList.filter(item => item.value);
+                var ArrayName = dropdownItemValues.map(item => item.name);
+                if(!ArrayName.includes(FindSearch)) {
+                    $('.add-option').remove();
+                    $('.customDropdown-group').prepend('<a class="add-option"><span>Create ' + settings.commonGroup + ': ' + FindSearch + '</span></a>')
+                    $('.add-option').on ('click', function () {
+                        $('.customDropdown-group').append('<a class = "dropdown-item class-' + FindSearch + '"><input id = "checkbox' + FindSearch + settings.renderId + '" name = "dropdown-input" type="checkbox" value = "' + FindSearch + '" /><label for = "checkbox' + FindSearch + settings.renderId + '">' + FindSearch + '</label></a>');
+                        var object = {
+                            "name": FindSearch,
+                            "value": FindSearch,
+                            "className": 'class-'+FindSearch
+                        };
+                        arrayList.push(object);
+                        $('.add-option').remove();
+                        InputCheck();
+                    });
+                }else {
+                    $('.add-option').remove();
+                }
             } else {
+                $('.add-option').remove();
                 list.each(function(i, obj) {
                     $(this).show();
                 });
@@ -192,7 +218,6 @@
                 }
             });
             $('#' + settings.renderId).val(selectedArray);
-            // settings.selectedArray =selectedArray;
             return selectedValue;
         }
 

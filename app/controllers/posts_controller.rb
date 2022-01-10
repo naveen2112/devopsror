@@ -36,6 +36,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to posts_path
     else
+      p @post.errors.full_messages
       render :new
     end
   end
@@ -86,6 +87,6 @@ class PostsController < ApplicationController
 
   def posts_params
     params.require(:post).permit(:title, :main_url, :notification, :image, platform_name: [], commentries_attributes:
-      [:description], tag_ids: [])
+      [:description], tag_ids: [], tags_attributes: [:name, :company_id])
   end
 end

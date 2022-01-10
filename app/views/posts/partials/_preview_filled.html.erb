@@ -30,15 +30,13 @@
           </div>
         </div>
         <div class="post_comments" id="preview-post-comment-list">
-          <% @post.commentries.each_with_index do |commentry, index| %>
-            <p class="comment-<%= @post.commentries.size %>-<%= index %>">
-              <%= commentry.description %>
+            <p class="comment">
+              <%= @post.commentries&.first&.description %>
             </p>
-          <% end %>
           <div class="comment_navigation_wrap">
             <div class="row">
-              <div class="button_wrap single_button">
-                <button class="previous_button transparent-button position-relative">
+              <div class="button_wrap post-commentries-previous-button single_button">
+                <button class="previous_button transparent-button position-relative" id="post-previous-commentry">
                                     <span>
                                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M12.4583 8.5L4.54167 8.5L7.70833 5.33333M7.70833 11.6667L6.125 10.0833M14.8844 5.33333C15.3584 6.28726 15.625 7.3625 15.625 8.5C15.625 12.435 12.435 15.625 8.5 15.625C4.56497 15.625 1.375 12.435 1.375 8.5C1.375 4.56497 4.56497 1.375 8.5 1.375C9.9647 1.375 11.3262 1.81696 12.4583 2.57481" stroke="#90A1B5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -62,7 +60,6 @@
         <div class="post_image_wrap">
           <img src="<%= @post.image.url %>" alt="no image" id="preview-post-image" style="height: 13rem;">
           <div class="post-desc">
-            <p class="title">Report: The State of Customer Experience in 2021</p>
             <%= @post.commentries.first.description %>
             <a href="<%= @post.main_url %>" class="post-link"><%= @post.main_url.gsub("http://", "") %></a>
           </div>
@@ -135,20 +132,57 @@
 
 <script type="text/javascript">
 
-    for (var i = 0; i < <%= @post.commentries.size %>; i++) {
-        $(".comment-<%= @post.commentries.size %>-" + i).hide()
-    }
-
-    $(".comment-<%= @post.commentries.size %>-0").show()
 
     $("#post-next-commentry").click(function () {
 
         var cycle_count = parseInt($(".preview-commentries-count").text()) + 1
         $(".preview-commentries-count").text(cycle_count)
 
-        for (var i = 0; i < cycle_count; i++) {
-            $(".comment-<%= @post.commentries.size %>-" + i).show()
+        $(".comment").empty()
+        var commentries = []
+
+        <% @post.commentries.each do |commentry| %>
+          commentries.push("<%= commentry.description %>")
+        <% end %>
+
+        var comment_count = cycle_count - 1
+        if(comment_count == 0){
+            $(".post-commentries-previous-button").addClass("single_button")
+        }
+        else{
+            $(".post-commentries-previous-button").removeClass("single_button")
+            $(".comment").append(commentries[comment_count])
+        }
+
+        if(cycle_count >= <%= @post.commentries.size %>){
+            $(this).hide()
+        }
+        else{
+            $("#post-previous-commentry").show()
         }
     })
 
+    $("#post-previous-commentry").click(function (){
+        var cycle_count = parseInt($(".preview-commentries-count").text()) - 1
+        $(".preview-commentries-count").text(cycle_count)
+
+        $(".comment").empty()
+        var commentries = []
+
+        <% @post.commentries.each do |commentry| %>
+          commentries.push("<%= commentry.description %>")
+        <% end %>
+
+        var comment_count = cycle_count - 1
+        $(".comment").empty()
+
+        $(".comment").append(commentries[comment_count])
+
+        if(comment_count == 0){
+            $(this).hide()
+        }
+        else{
+            $("#post-next-commentry").show()
+        }
+    })
 </script>
