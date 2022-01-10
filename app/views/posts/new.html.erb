@@ -15,8 +15,19 @@
   </div>
 </div>
 
-<script type="text/javascript">
+<script>
     $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/empty_preview') %>");
+
+    <% unless @post.new_record? %>
+      <% @post.tags.each do |tag| %>
+        $("#close_icon-<%= tag.id %>").click(function () {
+        var id_remove = $("#edit-form-tag-id-<%= tag.id %>").val()
+        $("#edit-remove-tag-<%= tag.id %>").remove()
+        var tag_ids = <%= @post.tag_ids %>
+            $("#posts-tags-ids").val(tag_ids.pop(id_remove))
+       })
+      <% end %>
+    <% end %>
 </script>
 
 <%= render "posts/partials/shared_javascript" %>
