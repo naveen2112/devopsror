@@ -23,7 +23,7 @@
             <label class="tag-label">Tags</label>
             <form action="/posts" method="get">
               <select id="customSelectPostTag">
-               <% current_company.tags.each do |tag| %>
+                <% current_company.tags.each do |tag| %>
                   <option value="<%= tag.id %>"><%= tag.name %></option>
                 <% end %>
               </select>
@@ -62,6 +62,45 @@
                 $("#post-cards-<%= post.id %>").addClass("show-post-option")
             }
         })
+
+        $("#post-next-commentry-<%= post.id %>").click(function () {
+            post_commentry_button("next")
+        })
+
+        $("#post-previous-commentry-<%= post.id %>").click(function () {
+            post_commentry_button("prevoius")
+        })
+
+        function post_commentry_button(button) {
+
+            var cycle_count = button == "next" ? (parseInt($("#post-commetries-count-<%= post.id %>").text()) + 1) : (parseInt($("#post-commetries-count-<%= post.id %>").text()) - 1)
+            $("#post-commetries-count-<%= post.id %>").text(cycle_count)
+
+            $(".comment-<%= post.id %>").empty()
+            var commentries = []
+
+            <% post.commentries.each do |commentry| %>
+            commentries.push("<%= commentry.description %>")
+            <% end %>
+
+            var comment_count = cycle_count - 1
+            if (comment_count == 0) {
+                $(".post-commentries-previous-button").addClass("single_button")
+                $(".comment-<%= post.id %>").append(commentries[comment_count])
+            } else {
+                $(".post-commentries-previous-button").removeClass("single_button")
+                $(".comment-<%= post.id %>").append(commentries[comment_count])
+            }
+
+            if (cycle_count >= <%= post.commentries.size %>) {
+                $("#post-next-commentry-<%= post.id %>").hide()
+                $("#post-previous-commentry-<%= post.id %>").show()
+            } else {
+                $("#post-previous-commentry-<%= post.id %>").hide()
+                $("#post-next-commentry-<%= post.id %>").show()
+            }
+        }
+
         <% end %>
 
 
@@ -74,57 +113,8 @@
 
     <% @posts.each do |post| %>
 
-    $("#post-next-commentry-<%= post.id %>").click(function () {
 
-        var cycle_count = parseInt($("#post-commetries-count-<%= post.id %>").text()) + 1
-        $("#post-commetries-count-<%= post.id %>").text(cycle_count)
 
-        $(".comment-<%= post.id %>").empty()
-       var commentries = []
-
-        <% post.commentries.each do |commentry| %>
-           commentries.push("<%= commentry.description %>")
-        <% end %>
-
-        var comment_count = cycle_count - 1
-        if(comment_count == 0){
-            $(".post-commentries-previous-button").addClass("single_button")
-        }
-        else{
-            $(".post-commentries-previous-button").removeClass("single_button")
-            $(".comment-<%= post.id %>").append(commentries[comment_count])
-        }
-
-        if(cycle_count >= <%= post.commentries.size %>){
-            $(this).hide()
-        }
-        else{
-            $("#post-previous-commentry-<%= post.id %>").show()
-        }
-    })
-
-    $("#post-previous-commentry-<%= post.id %>").click(function (){
-        var cycle_count = parseInt($("#post-commetries-count-<%= post.id %>").text()) - 1
-        $("#post-commetries-count-<%= post.id %>").text(cycle_count)
-
-        $(".comment-<%= post.id %>").empty()
-        var commentries = []
-
-        <% post.commentries.each do |commentry| %>
-          commentries.push("<%= commentry.description %>")
-        <% end %>
-
-        var comment_count = cycle_count - 1
-        $(".comment-<%= post.id %>").empty()
-        $(".comment-<%= post.id %>").append(commentries[comment_count])
-
-        if(comment_count == 0){
-            $(this).hide()
-        }
-        else{
-            $("#post-next-commentry-<%= post.id %>").show()
-        }
-    })
 
     <% end %>
 </script>

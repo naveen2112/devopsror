@@ -47,7 +47,7 @@
           <div class="card-body">
             <h5 class="post_title"><%= post.title %></h5>
             <div class="user_detail row">
-              <img class="thumb" src="<%= current_user.logo.url %>"/>
+              <img class="thumb" src="<%= current_user.image_url %>"/>
               <div>
                 <h6 class="user-name"><%= current_user.name %></h6>
               </div>
@@ -83,7 +83,11 @@
               </div>
             </div>
             <div class="post_image_wrap">
-              <img src="<%= post.image.url %>">
+              <% if post.image.attached? %>
+                <img src="<%= post.image.url %>">
+              <% else %>
+                <img src="<%= asset_path("post.png") %>">
+              <% end %>
               <div class="post-desc">
                 <p class="text"><%= post.commentries&.first&.description %></p>
                 <a href="<%= post.main_url %>" class="post-link"><%= post.main_url.gsub("http://", "") %></a>
@@ -113,7 +117,6 @@
                     </span>
                 </div>
                 <% if post.draft? %>
-
                   <a href="/posts/<%= post.id %>/edit" class="btn btn-outline-primary">Draft</a>
                 <% else %>
                   <a href="/posts/<%= post.id %>" class="btn btn-primary">Share</a>

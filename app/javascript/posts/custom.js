@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).on('turbolinks:load', function () {
     $('.selected_tag').hide();
     //tags List Start
     var customSelectTags;

@@ -1,7 +1,7 @@
 <%= form_with(model: @post, local: true, html: { id:  @post.new_record? ? "new-post" : "edit-post" }) do |form| %>
 
   <div class="form-group">
-    <label class="control-label">Title <small>(internal only)</small></label>
+    <label class="control-label">Title</label>
     <%= form.text_field :title, class: "form-control", placeholder: "Title of your post" %>
   </div>
   <input type="hidden" value="<%= current_company.id %>" id="tag-company-id">
