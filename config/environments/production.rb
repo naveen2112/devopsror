@@ -77,6 +77,7 @@ Rails.application.configure do
 
   # mailer host
   config.action_mailer.default_url_options = { host: ENV['APP_URL'] }
+  config.action_mailer.asset_host = { host: ENV['APP_URL'] }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
 
