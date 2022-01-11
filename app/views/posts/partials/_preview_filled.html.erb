@@ -46,19 +46,21 @@
                                         Previous
                                     </span>
                 </button>
-                <button class="next_button transparent-button" id="post-next-commentry">
-                  <span class="text">Next <span class="hide_text">commentary</span></span>
-                  <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.54167 8.5L12.4583 8.5L9.29167 11.6667M9.29167 5.33333L10.875 6.91667M2.11562 11.6667C1.64156 10.7127 1.375 9.6375 1.375 8.5C1.375 4.56497 4.56497 1.375 8.5 1.375C12.435 1.375 15.625 4.56497 15.625 8.5C15.625 12.435 12.435 15.625 8.5 15.625C7.0353 15.625 5.67383 15.183 4.54167 14.4252" stroke="#90A1B5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
+                <% if @post.commentries.size > 1 %>
+                  <button class="next_button transparent-button" id="post-next-commentry">
+                    <span class="text">Next <span class="hide_text">commentary</span></span>
+                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4.54167 8.5L12.4583 8.5L9.29167 11.6667M9.29167 5.33333L10.875 6.91667M2.11562 11.6667C1.64156 10.7127 1.375 9.6375 1.375 8.5C1.375 4.56497 4.56497 1.375 8.5 1.375C12.435 1.375 15.625 4.56497 15.625 8.5C15.625 12.435 12.435 15.625 8.5 15.625C7.0353 15.625 5.67383 15.183 4.54167 14.4252" stroke="#90A1B5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                <% end %>
               </div>
               <span class="pagination"><span class="preview-commentries-count">1</span>/<%= @post.commentries.size %></span>
             </div>
           </div>
         </div>
         <div class="post_image_wrap">
-          <img src="<%= @post.image.url %>" alt="no image" id="preview-post-image" style="height: 13rem;">
+          <img src="<%= @post.image.url %>" alt="<%= asset_path("user_thumb.png") %>" id="preview-post-image" style="height: 13rem;">
           <div class="post-desc">
             <%= @post.commentries.first.description %>
             <a href="<%= @post.main_url %>" class="post-link"><%= @post.main_url.gsub("http://", "") %></a>

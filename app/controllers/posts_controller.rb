@@ -1,10 +1,7 @@
-# frozen_string_literal: true
-
 class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show]
   before_action :set_tags, only: [:new, :create, :edit, :update]
 
-  # GET /posts
   def index
     @posts = current_company.posts.order("posts.created_at DESC").with_includes
 
@@ -19,15 +16,12 @@ class PostsController < ApplicationController
     end
   end
 
-  # GET /posts/new
   def new
     @post = current_company.posts.new
   end
 
-  # GET /posts/:id
   def show; end
 
-  # POST /posts
   def create
     @post = current_company.posts.new(posts_params)
     @post.created_by = current_user
@@ -36,15 +30,12 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to posts_path
     else
-      p @post.errors.full_messages
       render :new
     end
   end
 
-  # GET /posts/:id/edit
   def edit; end
 
-  # PUT /posts/:id
   def update
     if @post.update(posts_params)
       redirect_to posts_path, notice: "Post updated Successfully."
@@ -53,7 +44,6 @@ class PostsController < ApplicationController
     end
   end
 
-  # DELETE /posts/:id
   def destroy
     if @post.destroy
       redirect_to posts_path, notice: "Post destroyed Successfully."
@@ -62,7 +52,6 @@ class PostsController < ApplicationController
     end
   end
 
-  # GET /posts/validate_title
   def validate_title
     return render plain: false unless params[:post][:title].present?
 
@@ -70,7 +59,6 @@ class PostsController < ApplicationController
     render plain: post.empty? ? 'true' : 'false'
   end
 
-  # GET /posts/:id/send_email_notification
   def send_email_notification
     @post.send_email
   end

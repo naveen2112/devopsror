@@ -38,7 +38,7 @@
             $("#preview-post-comment-1").text($("#post_commentries_attributes_1__description").val())
             $("#preview-post-comment-one-1").text($("#post_commentries_attributes_1__description").val())
 
-            $("#post_image")[0].files[0] ? $("#preview-post-image").attr("src", URL.createObjectURL($("#post_image")[0].files[0])) : $("#preview-post-image").attr("src", "<%= asset_path("post.png") %>")
+            $("#post_image")[0].files[0] ? $("#preview-post-image").attr("src", URL.createObjectURL($("#post_image")[0].files[0])) : $("#preview-post-image").attr("src", "<%= asset_path("user_thumb.png") %>")
 
         } else {
             $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/empty_preview') %>");

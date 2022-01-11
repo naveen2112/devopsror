@@ -66,7 +66,6 @@
           <textarea class="form-control mt-3 mb-3" name="[commentries_attributes][<%= index %>][description]" rows="5"><%= commentry.description %></textarea>
         <% end %>
         <%= render 'posts/partials/commentry_form', f: builder %>
-
       </div>
       <%= link_to_add_row(form, :commentries, class: 'btn-block dotted-button add_commentary text-center') %>
     <% end %>
