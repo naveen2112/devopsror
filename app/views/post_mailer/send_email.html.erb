@@ -46,7 +46,11 @@
     <tbody>
     <tr>
       <td style="width: 90px">
-        <img style="width: 100%" src="<%= @post.image.url %>" alt="<%= email_image_tag("user_thumb.png") %>" />
+        <% if @post.image.attached? %>
+          <img style="width: 100%" src="<%= @post.image.url %>"  />
+        <% else %>
+          <%= email_image_tag("user_thumb.png") %>
+        <% end %>
       </td>
 
       <td style="width: 359px; padding-left: 20px">
