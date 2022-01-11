@@ -47,11 +47,6 @@
 
     $(document).ready(function () {
 
-        $("#post_tag_ids").select2({
-            placeholder: 'Select Tags',
-            containerCssClass: "form-control"
-        })
-
         var commentries_array = [1]
 
         $('form').on('click', '.add_fields', function (event) {
@@ -65,18 +60,6 @@
             $('.fields').append($(this).data('fields').replace(regexp, commentries_count));
             return event.preventDefault();
         });
-
-        var i = 1
-
-        while (i <= commentries_array.length) {
-
-            $(document).on("keyup", "#post_commentries_attributes_" + i + "__description", function () {
-                $("p#preview-post-comment-" + 1).text($(this).val())
-                $("p#preview-post-comment-one-" + 1).text($(this).val().slice(0, 50))
-            })
-
-            i = i + 1
-        }
 
     })
 </script>

@@ -24,7 +24,7 @@ class PostsController < ApplicationController
 
   def create
     @post = current_company.posts.new(posts_params)
-    @post.created_by = current_user
+    @post.user = current_user
     @post.status = "draft" if params[:commit] == "Save As Draft"
 
     if @post.save

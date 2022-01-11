@@ -36,4 +36,8 @@ class User < ApplicationRecord
   def image_url
     logo.attached? ? logo.url : "/assets/user_thumb.png"
   end
+
+  def admin?
+    role == "admin"
+  end
 end

@@ -28,7 +28,7 @@
     </tr>
     <tr>
       <td style="padding-top: 38px;">
-        <a style="font-size: 18px;display:inline-block;line-height: 1.2;font-weight: 500; padding: 14px 27px; background: linear-gradient(90.25deg, #82CBFB 0.17%, #66BBF7 99.78%); border-radius: 10px; color: #fff; text-decoration: none;" href="<%= ENV["APP_URL"] %>/posts">Click here to view posts</a>
+        <%= link_to "Click here to view posts", posts_url, style: "font-size: 18px;display:inline-block;line-height: 1.2;font-weight: 500; padding: 14px 27px; background: linear-gradient(90.25deg, #82CBFB 0.17%, #66BBF7 99.78%); border-radius: 10px; color: #fff; text-decoration: none;" %>
       </td>
     </tr>
     <tr>
@@ -55,7 +55,7 @@
       </td>
 
       <td style="padding-left: 38px">
-        <a href="<%= ENV["APP_URL"] %>/posts">
+        <%= link_to posts_url do %>
           <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="22" cy="22" r="20.75" stroke="#1890FF" stroke-width="1.5"/>
             <g clip-path="url(#clip0_34_2866)">
@@ -67,7 +67,7 @@
               </clipPath>
             </defs>
           </svg>
-        </a>
+        <% end %>
       </td>
     </tr>
 
@@ -80,7 +80,7 @@
     <tbody>
     <tr>
       <td style="padding-top: 45px">
-        <p style="margin: 0 auto; max-width: 434px; font-size: 14px;line-height: 1.8;font-weight: 400;text-align: center;color: #B1BCC0;">If you prefer not to receive emails like this, you may <a href="<%= ENV["APP_URL"] %>/users/unsubscribe">unsubscribe</a>
+        <p style="margin: 0 auto; max-width: 434px; font-size: 14px;line-height: 1.8;font-weight: 400;text-align: center;color: #B1BCC0;">If you prefer not to receive emails like this, you may <%= link_to "unsubscribe", unsubscribe_users_url %>
           (c) 2019 ServerSharing. All rights reserved.</p>
       </td>
     </tr>

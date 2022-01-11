@@ -1,4 +1,4 @@
-$(document).on('click', '.passwords-users-password', function () {
+$(document).on('click', '.users-password', function () {
 
     var input = $("#user_password");
 
@@ -11,7 +11,7 @@ $(document).on('click', '.passwords-users-password', function () {
     }
 })
 
-$(document).on('click', '.passwords-users-password-confirmation', function () {
+$(document).on('click', '.users-password-confirmation', function () {
 
     var input = $("#user_password_confirmation");
 

@@ -46,7 +46,7 @@
           </div>
         </div>
 
-        <% if current_user.role == "admin" %>
+        <% if current_user.admin? %>
           <%= form.fields_for "company_attributes" do |f| %>
             <%= f.hidden_field :id, value: current_company.id %>
             <div class="form-group">
