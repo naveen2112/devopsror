@@ -10,6 +10,7 @@ $(document).on('turbolinks:load', function () {
                 url: true
             },
             "post[commentries_attributes[1]][description]": {
+                maxlength: 3000,
                 required: function(element) {
                     if($("#post_main_url").val().length > 0){
                         return false;

@@ -1,5 +1,14 @@
 <script>
 
+  $(document).ready(function (){
+      $('[data-toggle="popover"]').popover({
+          trigger: 'hover',
+          html: true,
+          offset: 155
+      })
+  })
+
+
     $(document).on("keyup", "#post_title", function () {
         render_html()
         $("#preview-post-title").text($(this).val())

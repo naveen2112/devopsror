@@ -674,6 +674,39 @@
   }
 }
 
+.post-commentary-label {
+  .icon {
+    margin-left: 12px;
+  }
+  .popover {
+    border: 1px solid rgba(162, 213, 242, 0.29) !important;
+    box-shadow: 0px 8px 24px -4px rgba(27, 46, 94, 0.08);
+    border-radius: 8px;
+    max-width: 386px !important;
+
+    .arrow {
+      opacity: 0;
+    }
+    .popover-body {
+      padding: 25px !important;
+
+      p {
+        font: {
+          size: 14px;
+          weight: 500;
+          family: 'Inter', sans-serif;
+        };
+        line-height: 1.6;
+        color: $secondary-grey-title;
+        margin-top: 16px;
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
 .empty-post {
   .list {
     display: none;

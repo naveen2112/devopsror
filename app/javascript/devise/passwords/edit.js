@@ -25,6 +25,7 @@ $(document).on('click', '.passwords-users-password-confirmation', function () {
 })
 
 $(document).on('turbolinks:load', function() {
+
     $("#users-update-password").validate({
         rules: {
             "user[password]": {
