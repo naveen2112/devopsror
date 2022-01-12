@@ -24,6 +24,9 @@ $(document).on('turbolinks:load', function () {
         messages: {
             "post[title]": {
                 remote: jQuery.validator.format("{0} is already in use.")
+            },
+            "post[main_url]": {
+                maxlength: "Please enter not more than 3000 characters"
             }
         },
         highlight: function (element) {
