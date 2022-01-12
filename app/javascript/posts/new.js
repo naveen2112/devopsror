@@ -10,7 +10,6 @@ $(document).on('turbolinks:load', function () {
                 url: true
             },
             "post[commentries_attributes[1]][description]": {
-                maxlength: 3000,
                 required: function(element) {
                     if($("#post_main_url").val().length > 0){
                         return false;
@@ -25,7 +24,7 @@ $(document).on('turbolinks:load', function () {
             "post[title]": {
                 remote: jQuery.validator.format("{0} is already in use.")
             },
-            "post[main_url]": {
+            "post[commentries_attributes[1]][description]": {
                 maxlength: "Please enter not more than 3000 characters"
             }
         },
