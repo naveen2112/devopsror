@@ -17,11 +17,6 @@ import 'select2/dist/css/select2.css'
 window.jQuery = $;
 window.$ = $;
 
-document.addEventListener('turbolinks:load', () => {
-$('[data-toggle="tooltip"]').tooltip()
-    $('[data-toggle="popover"]').popover()
-})
-
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
@@ -33,5 +28,7 @@ require('devise/sessions/new')
 require('devise/passwords/new')
 require('devise/passwords/edit')
 require('posts/new')
+require('posts/edit')
 require('users/profile')
-require('posts/index')
+require("posts/custom-multiselect")
+require("posts/custom")

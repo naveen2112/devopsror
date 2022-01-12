@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def profile; end
 
   def update
@@ -7,6 +8,11 @@ class UsersController < ApplicationController
     else
       render :profile
     end
+  end
+
+  def unsubscribe
+    current_user.update(subscribe: false)
+    redirect_to posts_path
   end
 
   def validate_email_without_current_user

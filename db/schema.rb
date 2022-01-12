@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_28_042204) do
+ActiveRecord::Schema.define(version: 2022_01_06_091700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2021_12_28_042204) do
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "created_by"
     t.index ["company_id"], name: "index_posts_on_company_id"
   end
 
@@ -111,6 +112,7 @@ ActiveRecord::Schema.define(version: 2021_12_28_042204) do
     t.bigint "company_id"
     t.string "stripe_customer_id"
     t.boolean "terms_and_conditions", default: false
+    t.boolean "subscribe", default: true
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

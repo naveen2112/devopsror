@@ -207,7 +207,7 @@
     padding-bottom: 21px;
   }
 
-  .toggleButton {
+  .toggleButton, .user-password-button, .user-password-confirmation-button, .passwords-users-password-confirmation, .passwords-users-password {
     position: absolute;
     top: 39px;
     right: 0;
@@ -224,7 +224,8 @@
     }
   }
 
-  .toggleButton.password-visible {
+  .toggleButton.password-visible, .user-password-button.password-visible, user-password-confirmation-button.password-visible
+  .passwords-users-password-confirmation.password-visible, passwords-users-password.password-visible{
     .visible {
       display: none;
     }
@@ -263,8 +264,8 @@
 
 .dotted-button {
   background-color: transparent;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   border: 1px dashed $title-light-grey;
   border-radius: 6px;
 }
@@ -275,6 +276,6 @@
   font-size: 14px;
   line-height: 1.2;
   font-weight: 500;
-  padding: 23px 12px;
+  padding: 24px 12px;
   color: $secondary-grey-title;
 }

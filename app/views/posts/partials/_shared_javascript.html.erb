@@ -1,0 +1,67 @@
+<script>
+
+  $(document).ready(function (){
+      $('[data-toggle="popover"]').popover({
+          trigger: 'hover',
+          html: true,
+          offset: 155
+      })
+  })
+
+
+    $(document).on("keyup", "#post_title", function () {
+        render_html()
+        $("#preview-post-title").text($(this).val())
+    })
+
+    $(document).on("keyup", "#post_main_url", function () {
+        render_html()
+    })
+
+    $(document).on("keyup", "#post_commentries_attributes_1__description", function (){
+        render_html()
+    })
+
+    $("#post_image").change(function () {
+       render_html()
+    })
+
+    function render_html(){
+
+        if ($("#post_title").val().length > 0 || $("#post_main_url").val().length > 0 || $("#post_commentries_attributes_1__description").val().length > 0 || $("#post_image")[0].files[0]) {
+            $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/preview_post') %>");
+
+            $("#preview-post-link").empty()
+            var name = $("#post_main_url").val().replace("http://", "")
+            $("#preview-post-link").append("<a href=" + $("#post_main_url").val() + " class='post-link'>" + name + "</a>")
+
+            $("#preview-post-comment-1").text($("#post_commentries_attributes_1__description").val())
+            $("#preview-post-comment-one-1").text($("#post_commentries_attributes_1__description").val())
+
+                if($("#post_image")[0].files[0]){
+                    $("#preview-post-image").empty()
+                    $("#preview-post-image").append(` <img src='${URL.createObjectURL($("#post_image")[0].files[0])}' style='height: 13rem;'/>`)
+                }
+
+
+        } else {
+            $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/empty_preview') %>");
+        }
+    }
+
+    $(document).ready(function () {
+
+        var commentries_array = [1]
+
+        $('form').on('click', '.add_fields', function (event) {
+           var commentries_count = parseInt($(".preview-commentries-count").text()) + 1
+            $(".preview-commentries-count").text(commentries_count)
+
+            var regexp;
+            regexp = new RegExp($(this).data('id'), 'g');
+            $('.fields').append($(this).data('fields').replace(regexp, commentries_count));
+            return event.preventDefault();
+        });
+
+    })
+</script>

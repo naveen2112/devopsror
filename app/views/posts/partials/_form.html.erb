@@ -1,13 +1,16 @@
-<%= form_with(model: @post, local: false, html: { id: "new-post" }) do |form| %>
+<%= form_with(model: @post, local: true, html: { id:  @post.new_record? ? "new-post" : "edit-post" }) do |form| %>
+
   <div class="form-group">
-    <label class="control-label">Title <small>(internal only)</small></label>
+    <label class="control-label">Title</label>
     <%= form.text_field :title, class: "form-control", placeholder: "Title of your post" %>
   </div>
+  <input type="hidden" value="<%= current_company.id %>" id="tag-company-id">
+
   <div class="form-group">
     <label class="control-label">
-      Platforms
+      Platform
       <p class="d-flex with-social-icon align-items-center">
-        <small>Your text Your post will be shared on:</small>
+        <small>Your post will be shared on:</small>
         <span class="custom-check d-flex">
                                 <span class="icon">
                                     <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,6 +25,7 @@
       </p>
     </label>
   </div>
+
   <div class="form-group">
     <label class="control-label">
       Main URL
@@ -31,15 +35,44 @@
     <%= form.url_field :main_url, class: "form-control", placeholder: "Paste your URL" %>
   </div>
 
-<!--  Commentries section-->
+  <!--  Commentries section-->
 
   <div class="form-group ">
-    <%= form.fields_for "commentries_attributes[1]" do |builder|  %>
+    <%= form.fields_for "commentries_attributes[1]" do |builder| %>
       <div class='fields'>
-        <label class="control-label">Post commentary</label>
+        <div class="control-label post-commentary-label">
+          <span>Post commentary</span>
+          <span
+            type="button"
+            data-container=".post-commentary-label"
+            class="icon"
+            data-toggle="popover"
+            data-content="<p>1. The size limit for an upload is 5 MB.</p>
+                    <p>2. We recommend that the photo is at least 552 (width) x 276 (height) pixels.</p>
+                    <p>3. The photo frame ratio ranges from 3:1 to 2:3 (width/height). If the ratio is larger, the image will be centred and cropped.</p>
+                    <p>4. Uploaded photos can't be resized.</p>
+                    <p>5. Uploaded photos/videos can’t be edited.</p>
+                    <p>6. Small, low-resolution photos may appear in a low-quality.</p>"
+          >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="12" fill="#F9FAFC"/>
+                    <circle cx="12" cy="12" r="11.5" stroke="#E1E3E6" stroke-opacity="0.5"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C11.4477 6 11 6.44772 11 7C11 7.55228 11.4477 8 12 8C12.5523 8 13 7.55228 13 7C13 6.44772 12.5523 6 12 6ZM12 10C11.4477 10 11 10.4477 11 11V17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V11C13 10.4477 12.5523 10 12 10Z" fill="#707070"/>
+                </svg>
+            </span>
+        </div>
+
+        <% @post.commentries.each_with_index do |commentry, index| %>
+          <div class="post-commentary-fields">
+            <textarea class="form-control mt-3 mb-3" name="[commentries_attributes][<%= index %>][description]" rows="5"><%= commentry.description %></textarea>
+          </div>
+        <% end %>
         <%= render 'posts/partials/commentry_form', f: builder %>
       </div>
-      <%= link_to_add_row(form, :commentries, class: 'btn-block dotted-button add_commentary text-center')  %>
+      <div class="control-label text-right">
+        <small>Maximum 3000 characters allowed</small>
+      </div>
+        <%= link_to_add_row(form, :commentries, class: 'btn-block dotted-button add_commentary text-center') %>
     <% end %>
   </div>
 
@@ -57,25 +90,54 @@
     </div>
   </div>
 
-<!--  Tag section-->
+  <!--  Tag section-->
 
   <div class="form-group">
     <label class="control-label">Add Tags</label>
-
-    <%= form.select :tag_ids, options_for_select(@tags.collect { |tag| [tag.name, tag.id] },
-                                                   selected: @post.tag_ids), {},
-                 class: "form-control", multiple: true %>
+    <select id="customSelectTag">
+      <% current_company.tags.each do |tag| %>
+        <option value="<%= tag.id %>"><%= tag.name %></option>
+      <% end %>
+    </select>
+    <div class="selected_tag">
+      <span id="new-tags-name"></span>
+      <label class="control-label">
+        <small>Selected Tags</small>
+      </label>
+      <div class="badge_wrap">
+        <div class="row" id="selected_tag">
+          <% unless @post.new_record? %>
+            <% @post.tags.each do |tag| %>
+              <input type="hidden" value="<%= tag.id %>" id="edit-form-tag-id-<%= tag.id %>">
+              <div class="badge badge-primary" id="edit-remove-tag-<%= tag.id %>">
+                <span><%= tag.name %></span><span class="close_icon-<%= tag.id %>"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.80471 7.86216C9.06538 8.12283 9.06538 8.54416 8.80471 8.80483C8.67471 8.93483 8.50404 9.00016 8.33337 9.00016C8.16271 9.00016 7.99204 8.93483 7.86204 8.80483L7.00004 7.94283L6.13804 8.80483C6.00804 8.93483 5.83737 9.00016 5.66671 9.00016C5.49604 9.00016 5.32537 8.93483 5.19537 8.80483C4.93471 8.54416 4.93471 8.12283 5.19537 7.86216L6.05737 7.00016L5.19537 6.13816C4.93471 5.8775 4.93471 5.45616 5.19537 5.1955C5.45604 4.93483 5.87737 4.93483 6.13804 5.1955L7.00004 6.0575L7.86204 5.1955C8.12271 4.93483 8.54404 4.93483 8.80471 5.1955C9.06538 5.45616 9.06538 5.8775 8.80471 6.13816L7.94271 7.00016L8.80471 7.86216ZM7.00004 0.333496C3.32404 0.333496 0.333374 3.32416 0.333374 7.00016C0.333374 10.6762 3.32404 13.6668 7.00004 13.6668C10.676 13.6668 13.6667 10.6762 13.6667 7.00016C13.6667 3.32416 10.676 0.333496 7.00004 0.333496Z" fill="#82CBFB"></path></svg></span>
+              </div>
+            <% end %>
+            <input type="hidden" value="<%= @post.tag_ids %>" name="post[tag_ids]" id="posts-tags-ids">
+          <% else %>
+            <input type="hidden" name="post[tag_ids][]" id="posts-tags-ids">
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="custom-control custom-switch form-group">
-    <%= form.check_box :notification, class: "custom-control-input", id: "switch1" %>
-    <label class="custom-control-label" for="switch1"><span>Send notification email to users about this post</span></label>
-  </div>
+  <% if @post.new_record? %>
+    <div class="custom-control custom-switch form-group">
+      <%= form.check_box :notification, class: "custom-control-input", id: "switch1" %>
+      <label class="custom-control-label" for="switch1"><span>Send notification email to users about this post</span></label>
+    </div>
+  <% end %>
 
   <div class="form-group buttonWrap update">
     <div class="d-flex">
-      <%= form.submit "Create Post", class: "btn btn-block btn-primary" %>
+      <% if @post.new_record? %>
+        <%= form.submit "Create Post", class: "btn btn-block btn-primary" %>
+      <% else %>
+        <%= form.submit "Update Post", class: "btn btn-block btn-primary" %>
+      <% end %>
       <%= form.submit "Save As Draft", class: "btn btn-block btn-outline-primary" %>
     </div>
   </div>
+
 <% end %>

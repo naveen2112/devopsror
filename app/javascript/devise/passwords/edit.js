@@ -1,4 +1,31 @@
+$(document).on('click', '.users-password', function () {
+
+    var input = $("#user_password");
+
+    if (input.attr("type") === "password") {
+        $(this).addClass("password-visible")
+        input.attr("type", "text");
+    } else {
+        input.attr("type", "password");
+        $(this).removeClass("password-visible")
+    }
+})
+
+$(document).on('click', '.users-password-confirmation', function () {
+
+    var input = $("#user_password_confirmation");
+
+    if (input.attr("type") === "password") {
+        input.attr("type", "text");
+        $(this).addClass("password-visible")
+    } else {
+        input.attr("type", "password");
+        $(this).removeClass("password-visible")
+    }
+})
+
 $(document).on('turbolinks:load', function() {
+
     $("#users-update-password").validate({
         rules: {
             "user[password]": {
