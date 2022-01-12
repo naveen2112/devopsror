@@ -80,7 +80,7 @@
             var commentries = []
 
             <% post.commentries.each do |commentry| %>
-            commentries.push("<%= commentry.description %>")
+            commentries.push(`<%= commentry.description %>`)
             <% end %>
 
             var comment_count = cycle_count - 1
