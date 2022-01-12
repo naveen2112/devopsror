@@ -95,8 +95,11 @@
             if (cycle_count >= <%= post.commentries.size %>) {
                 $("#post-next-commentry-<%= post.id %>").hide()
                 $("#post-previous-commentry-<%= post.id %>").show()
-            } else {
+            } else if(cycle_count <= 1) {
                 $("#post-previous-commentry-<%= post.id %>").hide()
+                $("#post-next-commentry-<%= post.id %>").show()
+            }else {
+                $("#post-previous-commentry-<%= post.id %>").show()
                 $("#post-next-commentry-<%= post.id %>").show()
             }
         }

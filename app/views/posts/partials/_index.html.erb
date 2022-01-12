@@ -85,8 +85,6 @@
             <div class="post_image_wrap">
               <% if post.image.attached? %>
                 <img src="<%= post.image.url %>">
-              <% else %>
-                <img src="<%= asset_path("user_thumb.png") %>">
               <% end %>
               <div class="post-desc">
                 <p class="text"><%= post.commentries&.first&.description %></p>

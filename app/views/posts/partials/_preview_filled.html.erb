@@ -16,7 +16,7 @@
       </div>
       <div class="card-body position-relative">
         <h5 class="ml-3" id="preview-post-title"><%= @post.title %></h5>
-                <span class="post-info">
+        <span class="post-info">
                     <svg width="17" height="4" viewBox="0 0 17 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16.8653 1.88463C16.8653 2.92548 16.0446 3.76926 15.0322 3.76926C14.0197 3.76926 13.199 2.92548 13.199 1.88463C13.199 0.843777 14.0197 0 15.0322 0C16.0446 0 16.8653 0.843777 16.8653 1.88463Z" fill="#696969"/>
                         <path d="M10.2657 1.88463C10.2657 2.92548 9.44498 3.76926 8.43254 3.76926C7.42011 3.76926 6.59937 2.92548 6.59937 1.88463C6.59937 0.843777 7.42011 0 8.43254 0C9.44498 0 10.2657 0.843777 10.2657 1.88463Z" fill="#696969"/>
@@ -61,7 +61,9 @@
           </div>
         </div>
         <div class="post_image_wrap">
-          <img src="<%= @post.image.url %>" alt="<%= asset_path("user_thumb.png") %>" id="preview-post-image" style="height: 13rem;">
+          <% if @post.image.attached? %>
+            <img src="<%= @post.image.url %>" alt="" id="preview-post-image" style="height: 13rem;">
+          <% end %>
           <div class="post-desc">
             <%= @post.commentries.first.description %>
             <a href="<%= @post.main_url %>" class="post-link"><%= @post.main_url.gsub("http://", "") %></a>
@@ -167,8 +169,11 @@
             if (cycle_count >= <%= @post.commentries.size %>) {
                 $("#post-next-commentry").hide()
                 $("#post-previous-commentry").show()
-            } else {
+            } else if (cycle_count <= 1) {
                 $("#post-previous-commentry").hide()
+                $("#post-next-commentry").show()
+            } else {
+                $("#post-previous-commentry").show()
                 $("#post-next-commentry").show()
             }
         }

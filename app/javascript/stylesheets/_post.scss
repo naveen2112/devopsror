@@ -224,8 +224,19 @@
     }
   }
 
-  .textarea-wrap {
-    margin-bottom: 20px;
+  .post-commentary-fields {
+    .textarea-wrap {
+      margin-bottom: 20px;
+      margin-top: 5px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .post-commentary-fields+.control-label {
+    margin: 5px 0 20px;
   }
 
   .buttonWrap {

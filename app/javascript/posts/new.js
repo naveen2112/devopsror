@@ -50,5 +50,4 @@ $(document).on('turbolinks:load', function () {
             $form.submit()
         }
     })
-
 })

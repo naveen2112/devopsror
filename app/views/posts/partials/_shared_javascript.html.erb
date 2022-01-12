@@ -38,7 +38,11 @@
             $("#preview-post-comment-1").text($("#post_commentries_attributes_1__description").val())
             $("#preview-post-comment-one-1").text($("#post_commentries_attributes_1__description").val())
 
-            $("#post_image")[0].files[0] ? $("#preview-post-image").attr("src", URL.createObjectURL($("#post_image")[0].files[0])) : $("#preview-post-image").attr("src", "<%= asset_path("user_thumb.png") %>")
+                if($("#post_image")[0].files[0]){
+                    $("#preview-post-image").empty()
+                    $("#preview-post-image").append(` <img src='${URL.createObjectURL($("#post_image")[0].files[0])}' style='height: 13rem;'/>`)
+                }
+
 
         } else {
             $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/empty_preview') %>");
@@ -50,10 +54,8 @@
         var commentries_array = [1]
 
         $('form').on('click', '.add_fields', function (event) {
-            var commentries_count = parseInt($(".preview-commentries-count").text()) + 1
+           var commentries_count = parseInt($(".preview-commentries-count").text()) + 1
             $(".preview-commentries-count").text(commentries_count)
-            commentries_array.push(commentries_count)
-            $("#preview-post-comment-list").append(`<p class='comment' id='preview-post-comment-${commentries_count}'></p>`)
 
             var regexp;
             regexp = new RegExp($(this).data('id'), 'g');
