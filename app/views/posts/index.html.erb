@@ -63,6 +63,7 @@
             }
         })
 
+
         $("#post-next-commentry-<%= post.id %>").click(function () {
             post_commentry_button("next")
         })
@@ -85,10 +86,10 @@
 
             var comment_count = cycle_count - 1
             if (comment_count == 0) {
-                $(".post-commentries-previous-button").addClass("single_button")
+                $(".post-commentries-previous-button-<%= post.id %>").addClass("single_button")
                 $(".comment-<%= post.id %>").append(commentries[comment_count])
             } else {
-                $(".post-commentries-previous-button").removeClass("single_button")
+                $(".post-commentries-previous-button-<%= post.id %>").removeClass("single_button")
                 $(".comment-<%= post.id %>").append(commentries[comment_count])
             }
 
