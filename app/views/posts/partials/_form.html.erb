@@ -1,7 +1,7 @@
 <%= form_with(model: @post, local: true, html: { id:  @post.new_record? ? "new-post" : "edit-post" }) do |form| %>
 
   <div class="form-group">
-    <label class="control-label">Title</label>
+    <label class="control-label"><span class="primary-label">Title</span></label>
     <%= form.text_field :title, class: "form-control", placeholder: "Title of your post" %>
   </div>
   <input type="hidden" value="<%= current_company.id %>" id="tag-company-id">
@@ -28,7 +28,7 @@
 
   <div class="form-group">
     <label class="control-label">
-      Main URL
+      <span class="primary-label">Main URL</span>
       <p>
         <small>You can still add other URL’s in the post commentary</small>
       </p></label>
@@ -40,26 +40,8 @@
   <div class="form-group ">
     <%= form.fields_for "commentries_attributes[1]" do |builder| %>
       <div class='fields'>
-        <div class="control-label post-commentary-label">
-          <span>Post commentary</span>
-          <span
-            type="button"
-            data-container=".post-commentary-label"
-            class="icon"
-            data-toggle="popover"
-            data-content="<p>1. The size limit for an upload is 5 MB.</p>
-                    <p>2. We recommend that the photo is at least 552 (width) x 276 (height) pixels.</p>
-                    <p>3. The photo frame ratio ranges from 3:1 to 2:3 (width/height). If the ratio is larger, the image will be centred and cropped.</p>
-                    <p>4. Uploaded photos can't be resized.</p>
-                    <p>5. Uploaded photos/videos can’t be edited.</p>
-                    <p>6. Small, low-resolution photos may appear in a low-quality.</p>"
-          >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="12" fill="#F9FAFC"/>
-                    <circle cx="12" cy="12" r="11.5" stroke="#E1E3E6" stroke-opacity="0.5"/>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C11.4477 6 11 6.44772 11 7C11 7.55228 11.4477 8 12 8C12.5523 8 13 7.55228 13 7C13 6.44772 12.5523 6 12 6ZM12 10C11.4477 10 11 10.4477 11 11V17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V11C13 10.4477 12.5523 10 12 10Z" fill="#707070"/>
-                </svg>
-            </span>
+        <div class="control-label">
+          <span class="primary-label">Post commentary</span>
         </div>
 
         <% @post.commentries.each_with_index do |commentry, index| %>
@@ -85,6 +67,26 @@
                                     </svg>
                                 </span>
         <span class="text">Upload Image</span>
+
+        <span
+          type="button"
+          data-container=".post-commentary-label"
+          class="icon"
+          data-toggle="popover"
+          data-content="<p>1. The size limit for an upload is 5 MB.</p>
+                    <p>2. We recommend that the photo is at least 552 (width) x 276 (height) pixels.</p>
+                    <p>3. The photo frame ratio ranges from 3:1 to 2:3 (width/height). If the ratio is larger, the image will be centred and cropped.</p>
+                    <p>4. Uploaded photos can't be resized.</p>
+                    <p>5. Uploaded photos/videos can’t be edited.</p>
+                    <p>6. Small, low-resolution photos may appear in a low-quality.</p>"
+        >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="12" fill="#F9FAFC"/>
+                    <circle cx="12" cy="12" r="11.5" stroke="#E1E3E6" stroke-opacity="0.5"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C11.4477 6 11 6.44772 11 7C11 7.55228 11.4477 8 12 8C12.5523 8 13 7.55228 13 7C13 6.44772 12.5523 6 12 6ZM12 10C11.4477 10 11 10.4477 11 11V17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V11C13 10.4477 12.5523 10 12 10Z" fill="#707070"/>
+                </svg>
+            </span>
+
       </div>
       <%= form.file_field :image, class: "form-control" %>
     </div>
@@ -93,7 +95,7 @@
   <!--  Tag section-->
 
   <div class="form-group">
-    <label class="control-label">Add Tags</label>
+    <label class="control-label"><span class="primary-label">Add Tags</span></label>
     <select id="customSelectTag">
       <% current_company.tags.each do |tag| %>
         <option value="<%= tag.id %>"><%= tag.name %></option>

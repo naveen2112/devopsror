@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_06_091700) do
+ActiveRecord::Schema.define(version: 2022_01_19_100321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,15 @@ ActiveRecord::Schema.define(version: 2022_01_06_091700) do
     t.string "url"
   end
 
+  create_table "integrated_accounts", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "platform"
+    t.jsonb "data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_integrated_accounts_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.bigint "company_id"
     t.string "title"
@@ -113,6 +122,7 @@ ActiveRecord::Schema.define(version: 2022_01_06_091700) do
     t.string "stripe_customer_id"
     t.boolean "terms_and_conditions", default: false
     t.boolean "subscribe", default: true
+    t.string "linked_in_id"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   belongs_to :company
   has_many :cards, dependent: :destroy
+  has_many :integrated_accounts, dependent: :destroy
   has_one_attached :logo
 
   #========================================= Scope ==================================================================
@@ -35,5 +36,9 @@ class User < ApplicationRecord
 
   def image_url
     logo.attached? ? logo.url : "/assets/user_thumb.png"
+  end
+
+  def linked_in_code
+    integrated_accounts.with_platform("linked_in")&.first.nil? ? nil : integrated_accounts.with_platform("linked_in")&.last.data['access_token']
   end
 end

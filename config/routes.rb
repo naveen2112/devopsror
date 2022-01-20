@@ -29,9 +29,18 @@ Rails.application.routes.draw do
   resources :posts do
     member do
       get :send_email_notification
+      get :destroy_new
     end
     collection do
       get :validate_title
+    end
+  end
+
+  resources :linkedin, only: [] do
+    collection do
+      get :callback
+      get :share
+      get :integrate
     end
   end
 

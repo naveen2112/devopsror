@@ -68,7 +68,7 @@ $(document).on('turbolinks:load', function () {
             $(renderDropdown).on('click', function () {
                 $(renderDropdown).addClass('open');
             });
-            $('.' + settings.parentClass + ' .custom-dropdown-select .category-label').on('click', function (event) {
+            $('.' + settings.parentClass + ' .custom-dropdown-select').on('click', function(event) {
                 if ($(renderDropdown).hasClass('open')) {
                     $(renderDropdown).removeClass('open');
                     $(renderDropdown).removeClass('show');

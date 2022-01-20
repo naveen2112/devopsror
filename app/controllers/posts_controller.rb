@@ -20,7 +20,9 @@ class PostsController < ApplicationController
     @post = current_company.posts.new
   end
 
-  def show; end
+  def show
+    session["post_id"] = @post.id
+  end
 
   def create
     @post = current_company.posts.new(posts_params)

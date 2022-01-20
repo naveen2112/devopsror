@@ -185,6 +185,13 @@
         line-height: 1.23;
         padding-left: 16px;
         vertical-align: middle;
+        .icon {
+          position: absolute;
+          top: 50%;
+          right: 0;
+          margin-right: -30px;
+          transform: translateY(-50%);
+        }
       }
     }
   }
