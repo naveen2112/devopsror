@@ -80,7 +80,7 @@
             var <%= "commentries_#{post.id}" %> = []
 
             <% post.commentries.each do |commentry| %>
-              <%= "commentries_#{post.id}" %>.push("<%= commentry.description %>")
+              <%= "commentries_#{post.id}" %>.push("<%= commentry.description.to_s %>")
             <% end %>
 
             var <%= "comment_count_#{post.id}" %> = <%= "cycle_count_#{post.id}" %> - 1
