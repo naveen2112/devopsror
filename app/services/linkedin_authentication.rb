@@ -39,8 +39,7 @@ module LinkedinAuthentication
   def share_post(post_id, user_id)
     post = Post.find(post_id)
     user = User.find(user_id)
-    p user.linked_in_id
-    headers = { 'Content-Type': 'application/json', "Authorization": "Bearer #{user.linked_in_code}"  }
+    headers = { 'Content-Type': 'application/json', "Authorization": "Bearer #{decrypt(user.linked_in_code)}"  }
     url = "https://api.linkedin.com/v2/shares"
     request_body = {
       "content": {
@@ -64,7 +63,7 @@ module LinkedinAuthentication
       "distribution": {
         "linkedInDistributionTarget": {}
       },
-      "owner": "urn:li:person:#{user.linked_in_id}",
+      "owner": "urn:li:person:#{decrypt(user.linked_in_id)}",
       "subject": post.title,
       "text": {
         "text": post.commentries.first.description
