@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show]
+  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :destroy_new]
   before_action :set_tags, only: [:new, :create, :edit, :update]
 
   def index
@@ -46,9 +46,17 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy_new
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def destroy
     if @post.destroy
-      redirect_to posts_path, notice: "Post destroyed Successfully."
+      respond_to do |format|
+        format.js
+      end
     else
       redirect_to posts_path, alert: "Something went wrong, please try later."
     end
