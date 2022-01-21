@@ -27,7 +27,7 @@ module LinkedinAuthentication
     send_request(url, headers, "get")
   end
 
-  def share_post(post_id, user_id)
+  def share_post(post_id, user_id, commentry)
     post = current_company.posts.find(post_id)
     user = current_company.users.find(user_id)
     headers = { 'Content-Type': 'application/json', "Authorization": "Bearer #{Encryptor.decrypt(user.linked_in_code)}"  }
@@ -57,7 +57,7 @@ module LinkedinAuthentication
       "owner": "urn:li:person:#{Encryptor.decrypt(user.linked_in_id)}",
       "subject": post.title,
       "text": {
-        "text": post.commentries.first.description
+        "text": commentry
       }
     }
     send_request(url, headers, "post",  request_body)

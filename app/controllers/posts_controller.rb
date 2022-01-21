@@ -18,7 +18,7 @@ class PostsController < ApplicationController
   end
 
   def share
-    share_post(@post.id, current_user.id)
+    share_post(@post.id, current_user.id, params[:commentry])
     @post.increment!(:shared_count)
     redirect_to posts_path
   end
