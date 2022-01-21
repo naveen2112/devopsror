@@ -1,2 +1,0 @@
-$(".dashboard_wrap").addClass("show-alert")
-$("#alert-popup").html("<%= escape_javascript (render partial: 'shared/alert', locals: { text: "post", url: "/posts/" + @post.id.to_s  }) %>")

@@ -19,10 +19,10 @@
               <input type="checkbox" class="custom-control-input" id="switch1" name="example">
               <label class="custom-control-label" for="switch1"></label>
               <span class="down-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7 10L9.5 12.5M12 15L17 10" stroke="#697882" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 10L9.5 12.5M12 15L17 10" stroke="#697882" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             </div>
           </div>
         </div>
@@ -43,7 +43,7 @@
               <span class="media-name d-inline-block align-bottom">@Simon Thompson</span>
             </div>
             <div class="custom-control custom-switch position-relative">
-              <input type="checkbox" class="custom-control-input" id="switch2" name="example">
+              <input type="checkbox" class="custom-control-input" id="switch3" name="example">
               <label class="custom-control-label" for="switch2"></label>
               <span class="down-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -76,20 +76,44 @@
               <span class="media-name d-inline-block align-bottom">Connect to Linkedin</span>
             </div>
             <div class="custom-control custom-switch position-relative">
-              <input type="checkbox" class="custom-control-input" id="switch2" name="example">
+              <input type="checkbox" <%= "checked" unless current_user.linked_in_code.nil? %>  class="custom-control-input" id="switch2" name="linked_in_share_switch"/>
               <label class="custom-control-label" for="switch2"></label>
               <span class="down-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7 10L9.5 12.5M12 15L17 10" stroke="#697882" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 10L9.5 12.5M12 15L17 10" stroke="#697882" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             </div>
           </div>
         </div>
       </div>
     <% end %>
     <div class="buttonWrap">
-      <a href="/linkedin/integrate" class="btn btn-primary btn-block">Share</a>
+      <a  href="/posts/<%= @post.id %>/share" id="share-button" class="btn btn-primary btn-block">Share</a>
     </div>
   </form>
 </div>
+
+
+<script>
+  $(document).ready(function (){
+
+      console.log($("#switch2").is(":checked"))
+      $("#switch2").is(":checked") ? $("#share-button").removeAttr("style") : $("#share-button").css("pointer-events", "none")
+
+      $("input[name=linked_in_share_switch]").change(function (){
+          if($("input[name=linked_in_share_switch]").is(":checked")){
+              $("#share-button").attr("disabled", "false")
+              window.open("<%= linked_in_authorizaion_url %>")
+          }
+          else{
+              $("#share-button").attr("disabled", "true")
+          }
+
+      })
+
+      $("#share-button").click(function (){
+
+      })
+  })
+</script>

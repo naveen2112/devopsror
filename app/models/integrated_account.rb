@@ -10,5 +10,5 @@ class IntegratedAccount < ApplicationRecord
 
   #================================== Enum ==========================================================================
 
-  enum platform: [:facebook, :twitter, :linked_in]
+  enum platform: {linked_in: 1, facebook: 2, twitter: 3}
 end

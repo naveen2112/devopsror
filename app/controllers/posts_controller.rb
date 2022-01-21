@@ -1,5 +1,6 @@
+include LinkedinAuthentication
 class PostsController < ApplicationController
-  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :destroy_new]
+  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share]
   before_action :set_tags, only: [:new, :create, :edit, :update]
 
   def index
@@ -14,6 +15,12 @@ class PostsController < ApplicationController
     else
       @posts = @posts.all
     end
+  end
+
+  def share
+    share_post(@post.id, current_user.id)
+    @post.increment!(:shared_count)
+    redirect_to posts_path
   end
 
   def new
@@ -43,12 +50,6 @@ class PostsController < ApplicationController
       redirect_to posts_path, notice: "Post updated Successfully."
     else
       render :edit
-    end
-  end
-
-  def destroy_new
-    respond_to do |format|
-      format.js
     end
   end
 

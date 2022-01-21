@@ -1,2 +1,6 @@
-$("#posts-list").html("<%= escape_javascript(render("posts/partials/index")) %>");
+<% if @posts.count == 0 %>
+  $("#posts-list").html("<%= escape_javascript(render("posts/partials/no_posts")) %>");
+<% else %>
+  $("#posts-list").html("<%= escape_javascript(render("posts/partials/index")) %>");
+<% end %>
 
