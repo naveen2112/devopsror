@@ -89,7 +89,7 @@
       </div>
     <% end %>
     <div class="buttonWrap">
-      <a  href="/posts/<%= @post.id %>/share" id="share-button" class="btn btn-primary btn-block">Share</a>
+      <button id="share-button" class="btn btn-primary btn-block">Share</button>
     </div>
   </form>
 </div>
@@ -98,10 +98,9 @@
 <script>
   $(document).ready(function (){
 
-      console.log($("#switch2").is(":checked"))
-      $("#switch2").is(":checked") ? $("#share-button").removeAttr("style") : $("#share-button").css("pointer-events", "none")
+      $("#switch2").is(":checked") ? $("#share-button").removeAttr("disabled") : $("#share-button").attr("disabled", "true")
 
-      $("input[name=linked_in_share_switch]").change(function (){
+      $("input[name=linked_in_share_switch]").click(function (){
           if($("input[name=linked_in_share_switch]").is(":checked")){
               $("#share-button").attr("disabled", "false")
               window.open("<%= linked_in_authorizaion_url %>")
@@ -112,8 +111,15 @@
 
       })
 
-      $("#share-button").click(function (){
-
+      $("#share-button").click(function (e){
+          e.preventDefault()
+console.log("hello")
+          $.ajax({
+              url: "/posts/<%= @post.id %>/share",
+              method: "post",
+              headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
+              data: { commentry: $(".comment").text().replace(" ", "") }
+          });
       })
   })
 </script>
