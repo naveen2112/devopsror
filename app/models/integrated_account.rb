@@ -11,4 +11,8 @@ class IntegratedAccount < ApplicationRecord
   #================================== Enum ==========================================================================
 
   enum platform: {linked_in: 1, facebook: 2, twitter: 3}
+
+  #================================== Validations ==================================================================
+
+  validates_presence_of :data
 end

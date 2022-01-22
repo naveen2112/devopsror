@@ -6,7 +6,14 @@ module LinkedinAuthentication
     uri = URI.parse(uri)
     https = Net::HTTP.new(uri.host, uri.port)
     https.use_ssl = true
-    response = request_type == "post" ? https.post(uri, request_body.to_json, headers) : https.get(uri, headers)
+
+    response = if request_type == "post"
+                 https.post(uri, request_body.to_json, headers)
+               elsif request_type == "put"
+                 https.put(uri, request_body.to_json, headers)
+               else
+                 https.get(uri, headers)
+               end
     response.body
   end
 
