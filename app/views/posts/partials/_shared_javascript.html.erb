@@ -50,7 +50,6 @@
                         $("#upload-image-text").hide()
                         $("#remove-image-text").show()
                         $("#preview-post-image").append(` <img src='${URL.createObjectURL($("#post_image")[0].files[0])}' style='height: 13rem;'/>`)
-                        $("#post_image").attr("type", "button")
                         $("#preview-image-button").css("z-index", "2")
                     }
                 }
@@ -65,7 +64,6 @@
 
         $("#preview-image-button").click(function (){
             $("#post_image").val("")
-            $("#post_image").attr("type", "file")
             $("#preview-post-image").empty()
             $("#remove-image-text").hide()
             $("#upload-image-text").show()
