@@ -83,10 +83,12 @@
             <% if post.image.attached? %>
               <img src="<%= post.image.url %>">
             <% end %>
-            <div class="post-desc">
-              <p class="text"><%= post.commentries&.first&.description %></p>
-              <a href="<%= post.main_url %>" class="post-link"><%= post.main_url.gsub("http://", "") %></a>
-            </div>
+            <p class="text"><%= post.commentries&.first&.description %></p>
+            <% unless post.main_url.nil? %>
+              <div class="post-desc">
+                <a href="<%= post.main_url %>" class="post-link"><%= post.main_url.gsub("http://", "") %></a>
+              </div>
+            <% end %>
           </div>
           <div class="shared-count">
             <% if post.shared_count > 1 %>

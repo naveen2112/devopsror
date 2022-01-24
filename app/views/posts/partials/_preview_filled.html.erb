@@ -65,7 +65,7 @@
           <% end %>
           <div class="post-desc">
             <%= @post.commentries.first.description %>
-            <a href="<%= @post.main_url %>" class="post-link"><%= @post.main_url.gsub("http://", "") %></a>
+            <a href="<%= @post.main_url %>" class="post-link"><%= @post.main_url&.gsub("http://", "") %></a>
           </div>
         </div>
       </div>
