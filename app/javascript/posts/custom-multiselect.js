@@ -50,6 +50,7 @@ $(document).on('turbolinks:load', function () {
                 var customDropdown = "";
                 var parentClass = settings.parentClass;
                 if (key === "DropDownList") {
+                    $('.' + parentClass).empty()
                     $('.' + parentClass).append('<div class = "custom-dropdown-select gfk-custom-' + settings.inputType + '-group"><label class = "category-label" for = "multiselect">' + settings.btnLabel + '</label><span class = "multiselect-btn dropdown-toggle" data-toggle = "dropdown" aria-haspopup="true" aria-expanded = "false" id = "' + settings.renderId + 'DropDownButton"></span><div class = "dropdown-menu custom-dropdownmenu"><div class = "input-group"><input type = "search" id = "' + settings.renderId + 'search" class = "search-input" placeholder = "' + settings.SearchPlaceHolder + '" /><span class = "input-group-addon input-group-addon-btn bg-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><g fill="none" fill-rule="evenodd" stroke="#307fe2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" transform="translate(1 1)"><circle cx="6.667" cy="6.667" r="6.667"/><path d="M16 16l-4.622-4.622"/></g></svg></span></div><div class = "collapseContent"></div></div>');
                     customDropdown = createDropdown(settings.DropDownList);
                 }
