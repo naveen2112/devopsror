@@ -6,7 +6,7 @@
      <%= csrf_meta_tags %>
      <%= csp_meta_tag %>
 
-    <%= favicon_link_tag 'favicon-16x16.png', rel: 'icon', type: 'image/png', sizes: '16x16' %>
+    <%= favicon_link_tag 'logo_favicon.png', rel: 'icon', type: 'image/png', sizes: '16x16' %>
 
      <link rel="preconnect" href="https://fonts.googleapis.com">
      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,8 @@
          <div class="sideBar">
            <%= render "shared/sidebar" %>
          </div>
-         <div class="dashboard_wrap">
+         <div class="dashboard_wrap position-relative">
+           <div id="alert-popup"></div>
            <%= yield %>
          </div>
        </div>

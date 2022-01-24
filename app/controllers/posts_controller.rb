@@ -1,5 +1,6 @@
+include LinkedinAuthentication
 class PostsController < ApplicationController
-  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show]
+  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share]
   before_action :set_tags, only: [:new, :create, :edit, :update]
 
   def index
@@ -16,11 +17,19 @@ class PostsController < ApplicationController
     end
   end
 
+  def share
+    share_post(@post.id, current_user.id, params[:commentry])
+    @post.increment!(:shared_count)
+    redirect_to posts_path
+  end
+
   def new
     @post = current_company.posts.new
   end
 
-  def show; end
+  def show
+    session["post_id"] = @post.id
+  end
 
   def create
     @post = current_company.posts.new(posts_params)
@@ -46,7 +55,9 @@ class PostsController < ApplicationController
 
   def destroy
     if @post.destroy
-      redirect_to posts_path, notice: "Post destroyed Successfully."
+      respond_to do |format|
+        format.js
+      end
     else
       redirect_to posts_path, alert: "Something went wrong, please try later."
     end

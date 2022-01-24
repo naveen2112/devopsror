@@ -52,7 +52,21 @@
 <script>
 
     $(document).ready(function () {
+
         <% @posts.each do |post| %>
+
+        $("#posts-delete-button-<%= post.id %>").click(function(){
+            $(".dashboard_wrap").addClass("show-alert")
+            $("#alert-popup").html("<%= escape_javascript (render partial: 'shared/alert', locals: { text: "post", url: "/posts/" + post.id.to_s  }) %>")
+
+            $.ajax({
+                url: "/posts/" + <%= post.id %>,
+                method: "delete",
+                dataType: 'script'
+            });
+
+        })
+
         $(document).on("click", "#post-edit-delete-<%= post.id %>", function () {
             var classes = $("#post-cards-<%= post.id %>").attr("class")
 
@@ -80,7 +94,7 @@
             var <%= "commentries_#{post.id}" %> = []
 
             <% post.commentries.each do |commentry| %>
-              <%= "commentries_#{post.id}" %>.push(`<%= commentry.description %>`)
+              <%= "commentries_#{post.id}" %>.push(`<%= commentry.description.to_s %>`)
             <% end %>
 
             var <%= "comment_count_#{post.id}" %> = <%= "cycle_count_#{post.id}" %> - 1

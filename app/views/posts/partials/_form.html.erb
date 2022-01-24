@@ -1,7 +1,7 @@
 <%= form_with(model: @post, local: true, html: { id:  @post.new_record? ? "new-post" : "edit-post" }) do |form| %>
 
   <div class="form-group">
-    <label class="control-label">Title</label>
+    <label class="control-label"><span class="primary-label">Title</span></label>
     <%= form.text_field :title, class: "form-control", placeholder: "Title of your post" %>
   </div>
   <input type="hidden" value="<%= current_company.id %>" id="tag-company-id">
@@ -11,24 +11,26 @@
       Platform
       <p class="d-flex with-social-icon align-items-center">
         <small>Your post will be shared on:</small>
-        <span class="custom-check d-flex">
-                                <span class="icon">
-                                    <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M5.45937 21.875H0.924219V7.27031H5.45937V21.875ZM3.18906 5.27812C1.73906 5.27812 0.5625 4.07656 0.5625 2.62656C0.5625 1.92995 0.839226 1.26188 1.3318 0.769302C1.82438 0.276726 2.49245 0 3.18906 0C3.88567 0 4.55375 0.276726 5.04632 0.769302C5.5389 1.26188 5.81562 1.92995 5.81562 2.62656C5.81562 4.07656 4.63906 5.27812 3.18906 5.27812ZM22.4328 21.875H17.9078V14.7656C17.9078 13.0711 17.8734 10.8984 15.55 10.8984C13.1922 10.8984 12.8305 12.7391 12.8305 14.6437V21.875H8.3V7.27031H12.6492V9.2625H12.7125C13.318 8.11484 14.7969 6.90391 17.0031 6.90391C21.593 6.90391 22.4367 9.92656 22.4367 13.8523V21.875H22.4328Z" fill="#0E76A8"/>
-                                    </svg>
-                                </span>
-          <span class="text">
-                                    LinkedIn
-                                </span>
-        </span>
         <input value="linked_in" class="form-control" type="hidden" name="post[platform_name][]" id="post_platform_name">
       </p>
     </label>
+    <div class="row group-check-button">
+      <div class="icon-checkbox position-relative">
+        <div class="custom-check">
+                    <span class="icon">
+                        <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.45937 21.875H0.924219V7.27031H5.45937V21.875ZM3.18906 5.27812C1.73906 5.27812 0.5625 4.07656 0.5625 2.62656C0.5625 1.92995 0.839226 1.26188 1.3318 0.769302C1.82438 0.276726 2.49245 0 3.18906 0C3.88567 0 4.55375 0.276726 5.04632 0.769302C5.5389 1.26188 5.81562 1.92995 5.81562 2.62656C5.81562 4.07656 4.63906 5.27812 3.18906 5.27812ZM22.4328 21.875H17.9078V14.7656C17.9078 13.0711 17.8734 10.8984 15.55 10.8984C13.1922 10.8984 12.8305 12.7391 12.8305 14.6437V21.875H8.3V7.27031H12.6492V9.2625H12.7125C13.318 8.11484 14.7969 6.90391 17.0031 6.90391C21.593 6.90391 22.4367 9.92656 22.4367 13.8523V21.875H22.4328Z" fill="#0E76A8"/>
+                        </svg>
+                    </span>
+          <span class="text">LinkedIn</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="form-group">
     <label class="control-label">
-      Main URL
+      <span class="primary-label">Main URL</span>
       <p>
         <small>You can still add other URL’s in the post commentary</small>
       </p></label>
@@ -40,26 +42,8 @@
   <div class="form-group ">
     <%= form.fields_for "commentries_attributes[1]" do |builder| %>
       <div class='fields'>
-        <div class="control-label post-commentary-label">
-          <span>Post commentary</span>
-          <span
-            type="button"
-            data-container=".post-commentary-label"
-            class="icon"
-            data-toggle="popover"
-            data-content="<p>1. The size limit for an upload is 5 MB.</p>
-                    <p>2. We recommend that the photo is at least 552 (width) x 276 (height) pixels.</p>
-                    <p>3. The photo frame ratio ranges from 3:1 to 2:3 (width/height). If the ratio is larger, the image will be centred and cropped.</p>
-                    <p>4. Uploaded photos can't be resized.</p>
-                    <p>5. Uploaded photos/videos can’t be edited.</p>
-                    <p>6. Small, low-resolution photos may appear in a low-quality.</p>"
-          >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="12" fill="#F9FAFC"/>
-                    <circle cx="12" cy="12" r="11.5" stroke="#E1E3E6" stroke-opacity="0.5"/>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C11.4477 6 11 6.44772 11 7C11 7.55228 11.4477 8 12 8C12.5523 8 13 7.55228 13 7C13 6.44772 12.5523 6 12 6ZM12 10C11.4477 10 11 10.4477 11 11V17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V11C13 10.4477 12.5523 10 12 10Z" fill="#707070"/>
-                </svg>
-            </span>
+        <div class="control-label">
+          <span class="primary-label">Post commentary</span>
         </div>
 
         <% @post.commentries.each_with_index do |commentry, index| %>
@@ -78,22 +62,43 @@
 
   <div class="form-group">
     <div class="position-relative custom-upload">
-      <div class="custom-upload-btn">
-                                <span>
-                                    <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div class="custom-upload-btn" id="preview-image-button">
+        <span>
+          <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M7 9C7 10.6569 8.34315 12 10 12C11.6569 12 13 10.6569 13 9C13 7.34315 11.6569 6 10 6M3 15C1.89543 15 1 14.1046 1 13V5C1 3.89543 1.89543 3 3 3H5.5C6.05228 3 6.5 2.55228 6.5 2C6.5 1.44772 6.94772 1 7.5 1H12.5C13.0523 1 13.5 1.44772 13.5 2C13.5 2.55228 13.9477 3 14.5 3H17C18.1046 3 19 3.89543 19 5M19 9V13C19 14.1046 18.1046 15 17 15H7" stroke="#5A6474" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </span>
-        <span class="text">Upload Image</span>
+          </svg>
+        </span>
+        <span class="text" id="upload-image-text">Upload Image</span>
+        <span class="text" id="remove-image-text">Remove Image</span>
+
+        <span
+          type="button"
+          data-container=".custom-upload"
+          class="icon"
+          data-toggle="popover"
+          data-content="<p class='mb-0'>1. The size limit for an upload is 5 MB.</p>
+                    <p class='mb-0'>2. We recommend that the photo is at least 552 (width) x 276 (height) pixels.</p>
+                    <p class='mb-0'>3. The photo frame ratio ranges from 3:1 to 2:3 (width/height). If the ratio is larger, the image will be centred and cropped.</p>
+                    <p class='mb-0'>4. Uploaded photos can't be resized.</p>
+                    <p class='mb-0'>5. Uploaded photos/videos can’t be edited.</p>
+                    <p class='mb-0'>6. Small, low-resolution photos may appear in a low-quality.</p>"
+        >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="12" fill="#F9FAFC"/>
+                    <circle cx="12" cy="12" r="11.5" stroke="#E1E3E6" stroke-opacity="0.5"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C11.4477 6 11 6.44772 11 7C11 7.55228 11.4477 8 12 8C12.5523 8 13 7.55228 13 7C13 6.44772 12.5523 6 12 6ZM12 10C11.4477 10 11 10.4477 11 11V17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V11C13 10.4477 12.5523 10 12 10Z" fill="#707070"/>
+                </svg>
+            </span>
+
       </div>
-      <%= form.file_field :image, class: "form-control" %>
+      <span id="post-image-input"><%= form.file_field :image, class: "form-control" %></span>
     </div>
   </div>
 
   <!--  Tag section-->
 
   <div class="form-group">
-    <label class="control-label">Add Tags</label>
+    <label class="control-label"><span class="primary-label">Add Tags</span></label>
     <select id="customSelectTag">
       <% current_company.tags.each do |tag| %>
         <option value="<%= tag.id %>"><%= tag.name %></option>
@@ -105,18 +110,18 @@
         <small>Selected Tags</small>
       </label>
       <div class="badge_wrap">
-        <div class="row" id="selected_tag">
-          <% unless @post.new_record? %>
-            <% @post.tags.each do |tag| %>
-              <input type="hidden" value="<%= tag.id %>" id="edit-form-tag-id-<%= tag.id %>">
-              <div class="badge badge-primary" id="edit-remove-tag-<%= tag.id %>">
-                <span><%= tag.name %></span><span class="close_icon-<%= tag.id %>"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.80471 7.86216C9.06538 8.12283 9.06538 8.54416 8.80471 8.80483C8.67471 8.93483 8.50404 9.00016 8.33337 9.00016C8.16271 9.00016 7.99204 8.93483 7.86204 8.80483L7.00004 7.94283L6.13804 8.80483C6.00804 8.93483 5.83737 9.00016 5.66671 9.00016C5.49604 9.00016 5.32537 8.93483 5.19537 8.80483C4.93471 8.54416 4.93471 8.12283 5.19537 7.86216L6.05737 7.00016L5.19537 6.13816C4.93471 5.8775 4.93471 5.45616 5.19537 5.1955C5.45604 4.93483 5.87737 4.93483 6.13804 5.1955L7.00004 6.0575L7.86204 5.1955C8.12271 4.93483 8.54404 4.93483 8.80471 5.1955C9.06538 5.45616 9.06538 5.8775 8.80471 6.13816L7.94271 7.00016L8.80471 7.86216ZM7.00004 0.333496C3.32404 0.333496 0.333374 3.32416 0.333374 7.00016C0.333374 10.6762 3.32404 13.6668 7.00004 13.6668C10.676 13.6668 13.6667 10.6762 13.6667 7.00016C13.6667 3.32416 10.676 0.333496 7.00004 0.333496Z" fill="#82CBFB"></path></svg></span>
-              </div>
-            <% end %>
-            <input type="hidden" value="<%= @post.tag_ids %>" name="post[tag_ids]" id="posts-tags-ids">
-          <% else %>
-            <input type="hidden" name="post[tag_ids][]" id="posts-tags-ids">
+        <% unless @post.new_record? %>
+          <% @post.tags.each do |tag| %>
+            <input type="hidden" value="<%= tag.id %>" id="edit-form-tag-id-<%= tag.id %>">
+            <div class="badge badge-primary" id="edit-remove-tag-<%= tag.id %>">
+              <span><%= tag.name %></span><span class="close_icon-<%= tag.id %>"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.80471 7.86216C9.06538 8.12283 9.06538 8.54416 8.80471 8.80483C8.67471 8.93483 8.50404 9.00016 8.33337 9.00016C8.16271 9.00016 7.99204 8.93483 7.86204 8.80483L7.00004 7.94283L6.13804 8.80483C6.00804 8.93483 5.83737 9.00016 5.66671 9.00016C5.49604 9.00016 5.32537 8.93483 5.19537 8.80483C4.93471 8.54416 4.93471 8.12283 5.19537 7.86216L6.05737 7.00016L5.19537 6.13816C4.93471 5.8775 4.93471 5.45616 5.19537 5.1955C5.45604 4.93483 5.87737 4.93483 6.13804 5.1955L7.00004 6.0575L7.86204 5.1955C8.12271 4.93483 8.54404 4.93483 8.80471 5.1955C9.06538 5.45616 9.06538 5.8775 8.80471 6.13816L7.94271 7.00016L8.80471 7.86216ZM7.00004 0.333496C3.32404 0.333496 0.333374 3.32416 0.333374 7.00016C0.333374 10.6762 3.32404 13.6668 7.00004 13.6668C10.676 13.6668 13.6667 10.6762 13.6667 7.00016C13.6667 3.32416 10.676 0.333496 7.00004 0.333496Z" fill="#82CBFB"></path></svg></span>
+            </div>
           <% end %>
+          <input type="hidden" value="<%= @post.tag_ids %>" name="post[tag_ids]" id="posts-tags-ids">
+        <% else %>
+          <input type="hidden" name="post[tag_ids][]" id="posts-tags-ids">
+        <% end %>
+        <div class="row" id="selected_tag">
         </div>
       </div>
     </div>

@@ -50,7 +50,7 @@
           <%= form.fields_for "company_attributes" do |f| %>
             <%= f.hidden_field :id, value: current_company.id %>
             <div class="form-group">
-              <label class="control-label">organisation name</label>
+              <label class="control-label">Organisation Name</label>
               <div class="position-relative">
                 <%= f.text_field :name, class: "form-control", value: current_company.name %>
                 <button class="transparent-button edit-button">
@@ -62,7 +62,7 @@
             </div>
 
             <div class="form-group">
-              <label class="control-label">organisation URL</label>
+              <label class="control-label">Organisation URL</label>
               <div class="position-relative">
                 <%= f.url_field :url, class: "form-control", value: current_company.url %>
                 <button class="transparent-button edit-button">
@@ -74,6 +74,11 @@
             </div>
           <% end %>
         <% end %>
+
+        <div class="custom-control custom-switch form-group">
+          <%= form.check_box :subscribe, class: "custom-control-input", id: "email-notification" %>
+          <label class="custom-control-label" for="email-notification"><span>Receive email notification</span></label>
+        </div>
       </div>
 
         <div class="picture_wrap">
