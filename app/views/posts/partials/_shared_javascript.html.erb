@@ -33,6 +33,13 @@
         if ($("#post_title").val().length > 0 || $("#post_main_url").val().length > 0 || $("#post_commentries_attributes_1__description").val().length > 0 || $("#post_image")[0].files[0]) {
             $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/preview_post') %>");
 
+            if(commentries_count > 1){
+                $(".post-next-commentry-button").hide()
+            }
+            else {
+                $(".post-next-commentry-button").show()
+            }
+
             $(".preview-commentries-count").text(commentries_count)
 
             $("#preview-post-link").empty()
