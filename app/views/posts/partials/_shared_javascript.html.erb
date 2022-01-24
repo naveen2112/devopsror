@@ -41,12 +41,18 @@
             $("#preview-post-comment-one-1").text($("#post_commentries_attributes_1__description").val())
 
                 if($("#post_image")[0].files[0]){
-                    $("#preview-post-image").empty()
-                    $("#upload-image-text").hide()
-                    $("#remove-image-text").show()
-                    $("#preview-post-image").append(` <img src='${URL.createObjectURL($("#post_image")[0].files[0])}' style='height: 13rem;'/>`)
-                    $("#post_image").attr("type", "button")
-                    $("#preview-image-button").css("z-index", "2")
+
+                    if($("#post_image")[0].files[0].size > 5242880) {
+                        alert("Please upload image less than 5 mb")
+                    }
+                    else{
+                        $("#preview-post-image").empty()
+                        $("#upload-image-text").hide()
+                        $("#remove-image-text").show()
+                        $("#preview-post-image").append(` <img src='${URL.createObjectURL($("#post_image")[0].files[0])}' style='height: 13rem;'/>`)
+                        $("#post_image").attr("type", "button")
+                        $("#preview-image-button").css("z-index", "2")
+                    }
                 }
 
 
