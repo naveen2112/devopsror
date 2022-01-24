@@ -84,7 +84,7 @@
               <img src="<%= post.image.url %>">
             <% end %>
             <p class="text"><%= post.commentries&.first&.description %></p>
-            <% unless post.main_url.nil? %>
+            <% unless post.main_url.nil? || post.main_url.blank? %>
               <div class="post-desc">
                 <a href="<%= post.main_url %>" class="post-link"><%= post.main_url.gsub("http://", "") %></a>
               </div>
