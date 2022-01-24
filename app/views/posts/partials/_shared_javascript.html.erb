@@ -10,7 +10,7 @@
       $("#remove-image-text").hide()
   })
 
-
+   var commentries_count = 1
     $(document).on("keyup", "#post_title", function () {
         render_html()
         $("#preview-post-title").text($(this).val())
@@ -33,12 +33,11 @@
         if ($("#post_title").val().length > 0 || $("#post_main_url").val().length > 0 || $("#post_commentries_attributes_1__description").val().length > 0 || $("#post_image")[0].files[0]) {
             $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/preview_post') %>");
 
-            var commentries_count = parseInt($(".preview-commentries-count").text()) + 1
             $(".preview-commentries-count").text(commentries_count)
 
             $("#preview-post-link").empty()
             var name = $("#post_main_url").val().replace("http://", "")
-            $("#preview-post-link").append("<a href=" + $("#post_main_url").val() + " class='post-link'>" + name + "</a>")
+            $("#preview-post-link").append("<div class='post-desc'><a href=" + $("#post_main_url").val() + " class='post-link'>" + name + "</a></div>")
 
             $("#preview-post-comment-1").text($("#post_commentries_attributes_1__description").val())
             $("#preview-post-comment-one-1").text($("#post_commentries_attributes_1__description").val())
@@ -77,7 +76,7 @@
 
         $('form').on('click', '.add_fields', function (event) {
             $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/preview_post') %>");
-            var commentries_count = parseInt($(".preview-commentries-count").text()) + 1
+            commentries_count += 1
             $(".preview-commentries-count").text(commentries_count)
 
             var regexp;

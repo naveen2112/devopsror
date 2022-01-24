@@ -63,10 +63,12 @@
           <% if @post.image.attached? %>
             <img src="<%= @post.image.url %>" alt="" id="preview-post-image" style="height: 13rem;">
           <% end %>
-          <div class="post-desc">
-            <%= @post.commentries.first.description %>
-            <a href="<%= @post.main_url %>" class="post-link"><%= @post.main_url&.gsub("http://", "") %></a>
-          </div>
+          <p class="text"> <%= @post.commentries.first.description %></p>
+          <% unless @post.main_url.nil? || @post.main_url.blank? %>
+            <div class="post-desc">
+              <a href="<%= @post.main_url %>" class="post-link"><%= @post.main_url&.gsub("http://", "") %></a>
+            </div>
+          <% end %>
         </div>
       </div>
 
