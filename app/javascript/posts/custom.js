@@ -197,8 +197,6 @@ $(document).on('turbolinks:load', function () {
     })
 
     function filterTags(value, search) {
-        console.log(value)
-
         $.ajax({
             url: "/posts",
             method: "get",
