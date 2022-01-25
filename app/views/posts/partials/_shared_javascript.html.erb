@@ -40,7 +40,12 @@
             if (commentries_count == 1) {
                 $(".post-next-commentry-button").hide()
             } else {
-                $(".post-next-commentry-button").show()
+                if($("#post_commentries_attributes_1__description").val().length > 0){
+                    $(".post-next-commentry-button").show()
+                }
+                else{
+                    $(".post-next-commentry-button").hide()
+                }
             }
 
 
@@ -92,7 +97,12 @@
             if (commentries_count == 1) {
                 $(".post-next-commentry-button").hide()
             } else {
-                $(".post-next-commentry-button").show()
+                if($("#post_commentries_attributes_1__description").val().length > 0){
+                    $(".post-next-commentry-button").show()
+                }
+                else{
+                    $(".post-next-commentry-button").hide()
+                }
             }
 
             var regexp;
