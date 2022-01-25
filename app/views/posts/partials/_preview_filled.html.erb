@@ -55,7 +55,9 @@
                   </button>
                 <% end %>
               </div>
-              <span class="pagination"><span class="preview-commentries-count">1</span>/<%= @post.commentries.size %></span>
+              <% if @post.commentries.size > 1 %>
+                <span class="pagination"><span class="preview-commentries-count">1</span>/<%= @post.commentries.size %></span>
+              <% end %>
             </div>
           </div>
         </div>
@@ -63,7 +65,7 @@
           <% if @post.image.attached? %>
             <img src="<%= @post.image.url %>" alt="" id="preview-post-image" style="height: 13rem;">
           <% end %>
-          <p class="text"> <%= @post.commentries.first.description %></p>
+          <p class="text"> <%= @post.commentries.first&.description %></p>
           <% unless @post.main_url.nil? || @post.main_url.blank? %>
             <div class="post-desc">
               <a href="<%= @post.main_url %>" class="post-link"><%= @post.main_url&.gsub("http://", "") %></a>

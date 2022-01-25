@@ -33,11 +33,16 @@
         if ($("#post_title").val().length > 0 || $("#post_main_url").val().length > 0 || $("#post_commentries_attributes_1__description").val().length > 0 || $("#post_image")[0].files[0]) {
             $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/preview_post') %>");
 
+            if($("#post_commentries_attributes_1__description").val().length > 0){
+                $(".preview-post-pagination").html(`<span class="current-commentry-index">1</span>/ <span class="preview-commentries-count">1</span>`)
+            }
+
             if (commentries_count == 1) {
                 $(".post-next-commentry-button").hide()
             } else {
                 $(".post-next-commentry-button").show()
             }
+
 
             $(".preview-commentries-count").text(commentries_count)
 
@@ -79,12 +84,16 @@
             $("#preview-image-button").removeAttr("style")
         })
 
-        var commentries_array = [1]
-
         $('form').on('click', '.add_fields', function (event) {
-            $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/preview_post') %>");
             commentries_count += 1
+
             $(".preview-commentries-count").text(commentries_count)
+
+            if (commentries_count == 1) {
+                $(".post-next-commentry-button").hide()
+            } else {
+                $(".post-next-commentry-button").show()
+            }
 
             var regexp;
             regexp = new RegExp($(this).data('id'), 'g');
