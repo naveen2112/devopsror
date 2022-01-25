@@ -1,6 +1,6 @@
 include LinkedinAuthentication
 class PostsController < ApplicationController
-  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share]
+  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share, :validate_tag]
   before_action :set_tags, only: [:new, :create, :edit, :update]
 
   def index
@@ -41,6 +41,13 @@ class PostsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def validate_tag
+    return render plain: false unless params[:tag_ids].present?
+
+    @tags = @post.tags.where(id: params[:tag_ids].split(","))
+    render json: @tags
   end
 
   def edit; end

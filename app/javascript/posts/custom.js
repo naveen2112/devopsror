@@ -37,10 +37,35 @@ $(document).on('turbolinks:load', function () {
         defaultSelectArray: [],
         onSelectFunction: function (list, value) {
 
+            if($("#post-id").val()){
+
+                $.ajax({
+                    url: `validate_tag?tag_ids=${value.Tag}`,
+                    type: 'GET',
+                    success: function(res) {
+                       if(! res.length == 0){
+                           var tag_names = []
+                           $.each(res, function (index, value) {
+                              tag_names.push(value.name)
+                           })
+                           alert(`Tag with name ${tag_names.join(", ")} already exists`)
+                       }
+                       else{
+                           getSelectedTags(list)
+                       }
+                    }
+                });
+            }
+            else{
+                getSelectedTags(list)
+            }
+
             var tags_ids = []
             var tag_name = []
+            $("#posts-tags-ids").empty()
             $.each(value.Tag, function (index, value) {
                 if ($.isNumeric(value)) {
+                    $("#posts-tags-ids").append(`<input type="hidden" name="post[tag_ids][]" value="${value}">`)
                     tags_ids.push(value)
                 } else {
                     var number = Math.floor((Math.random() * 10) + 1);
@@ -50,10 +75,6 @@ $(document).on('turbolinks:load', function () {
                  <input type="hidden"  value='${company_id}' name='post[tags_attributes][${number}][company_id]' >`)
                 }
             })
-
-            $("#posts-tags-ids").val(tags_ids)
-
-            getSelectedTags(list)
         }
     });
 
@@ -192,7 +213,6 @@ $(document).on('turbolinks:load', function () {
     }
 
     $('#posts-search-form #search-bar').keyup(function () {
-        console.log($("#posts-tags-ids").val().split(","))
         filterTags($("#posts-tags-ids").val().split(","), $("#search-bar").val())
     })
 

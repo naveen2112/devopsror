@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :posts do
     member do
       get :send_email_notification
+      get :validate_tag
       post :share
     end
     collection do
