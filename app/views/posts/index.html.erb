@@ -21,6 +21,7 @@
         <div class="col-6 left-column">
           <div class="dropdown form-group">
             <label class="tag-label">Tags</label>
+            <input type="hidden" id="posts-tags-ids">
             <form action="/posts" method="get">
               <select id="customSelectPostTag">
                 <% current_company.tags.each do |tag| %>
@@ -119,10 +120,5 @@
         }
 
         <% end %>
-
-
-        $('#posts-search-form #search-bar').keyup(function () {
-            $.get($("#posts-search-form").attr("actions"), $("#posts-search-form").serialize(), null, "script")
-        })
     })
 </script>

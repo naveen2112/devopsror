@@ -168,7 +168,8 @@ $(document).on('turbolinks:load', function () {
         DropDownList: dropDownList,
         defaultSelectArray: [],
         onSelectFunction: function (list, value) {
-            filterTags(value)
+            $("#posts-tags-ids").val(value.Tag)
+            filterTags(value.Tag, $("#search-bar").val())
             getSelectedPostTags(list)
         }
     });
@@ -190,13 +191,19 @@ $(document).on('turbolinks:load', function () {
         }
     }
 
-    function filterTags(value) {
+    $('#posts-search-form #search-bar').keyup(function () {
+        console.log($("#posts-tags-ids").val().split(","))
+        filterTags($("#posts-tags-ids").val().split(","), $("#search-bar").val())
+    })
+
+    function filterTags(value, search) {
+        console.log(value)
 
         $.ajax({
             url: "/posts",
             method: "get",
             dataType: 'script',
-            data: {tag_ids: value.Tag}
+            data: {tag_ids: value, search: search}
         });
     }
 

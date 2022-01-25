@@ -40,7 +40,7 @@
   <!--  Commentries section-->
 
   <div class="form-group ">
-    <%= form.fields_for "commentries_attributes[1]" do |builder| %>
+    <%= form.fields_for "commentries_attributes[#{@post.new_record? ? 1 : 2 }]" do |builder| %>
       <div class='fields'>
         <div class="control-label">
           <span class="primary-label">Post commentary</span>

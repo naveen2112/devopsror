@@ -41,9 +41,11 @@
 
             $(".preview-commentries-count").text(commentries_count)
 
-            $("#preview-post-link").empty()
-            var name = $("#post_main_url").val().replace("http://", "")
-            $("#preview-post-link").append("<div class='post-desc'><a href=" + $("#post_main_url").val() + " class='post-link'>" + name + "</a></div>")
+            if($("#post_main_url").val().length > 0) {
+                $("#preview-post-link").empty()
+                var name = $("#post_main_url").val().replace("http://", "")
+                $("#preview-post-link").append("<div class='post-desc'><a href=" + $("#post_main_url").val() + " class='post-link'>" + name + "</a></div>")
+            }
 
             $("#preview-post-comment-1").text($("#post_commentries_attributes_1__description").val())
             $("#preview-post-comment-one-1").text($("#post_commentries_attributes_1__description").val())
