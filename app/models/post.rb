@@ -14,7 +14,7 @@ class Post < ApplicationRecord
 
   #================================= Scope ======================================================================
 
-  scope :with_includes, -> { includes(:posts_tags, :commentries, :tags, image_attachment: :blob) }
+  scope :with_includes, -> { preload(:posts_tags, :commentries, :tags, image_attachment: :blob) }
 
   #=============================== Nested Attributes =============================================================
 

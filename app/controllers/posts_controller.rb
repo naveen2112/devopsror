@@ -11,7 +11,7 @@ class PostsController < ApplicationController
         @posts = @posts.joins(:commentries).where("title ILIKE :search OR main_url ILIKE :search OR
                                                      commentries.description ILIKE :search", {search: "%#{params[:search]}%"})
       end
-      @posts = @posts.where(tags: { id: params[:tag_ids] }) unless params[:tag_ids].reject(&:blank?).empty? if params[:tag_ids].present?
+      @posts = @posts.joins(:tags).where(tags: { id: params[:tag_ids] }) unless params[:tag_ids].reject(&:blank?).empty? if params[:tag_ids].present?
     else
       @posts = @posts.all
     end
