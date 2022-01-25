@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function () {
-    $('.selected_tag').hide();
+
     //tags List Start
     var customSelectTags;
     //converting data into json value
