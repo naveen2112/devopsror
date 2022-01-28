@@ -39,6 +39,6 @@ class User < ApplicationRecord
   end
 
   def linked_in_code
-    integrated_accounts.with_platform("linked_in")&.first.nil? ? nil : integrated_accounts.with_platform("linked_in")&.last.data['referesh_token']
+    integrated_accounts.with_platform("linked_in")&.first.nil? ? nil : integrated_accounts.with_platform("linked_in")&.last.data['access_token']
   end
 end

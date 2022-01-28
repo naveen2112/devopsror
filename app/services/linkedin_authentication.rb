@@ -34,18 +34,10 @@ module LinkedinAuthentication
     send_request(url, headers, "get")
   end
 
-  def  get_referesh_token(token)
-    headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
-    url = "https://www.linkedin.com/oauth/v2/accessToken?grant_type=refresh_token&redirect_uri=#{ENV["LINKEDIN_REDIRECT_URL"]}&referesh_token=#{token}&client_id=#{ENV["LINKEDIN_CLIENT_ID"]}&client_secret=#{ENV["LINKEDIN_CLIENT_SECRET"]}"
-    response = send_request(url, headers, "post")
-    response["referesh_token"]
-  end
-
   def share_post(post_id, user_id, commentry)
     post = current_company.posts.find(post_id)
     user = current_company.users.find(user_id)
-    token = get_referesh_token(Encryptor.decrypt(user.linked_in_code))
-    headers = { 'Content-Type': 'application/json', "Authorization": "Bearer #{token}"  }
+    headers = { 'Content-Type': 'application/json', "Authorization": "Bearer #{Encryptor.decrypt(user.linked_in_code)}"  }
     url = "https://api.linkedin.com/v2/shares"
     request_body = {
       "content": {
