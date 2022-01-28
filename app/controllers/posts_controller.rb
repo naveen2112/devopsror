@@ -53,6 +53,8 @@ class PostsController < ApplicationController
   def edit; end
 
   def update
+    @post.update(status: "live") if params["commit"]  == "Update Post"
+
     if @post.update(posts_params)
       redirect_to posts_path, notice: "Post updated Successfully."
     else
@@ -92,7 +94,7 @@ class PostsController < ApplicationController
   end
 
   def posts_params
-    params.require(:post).permit(:title, :main_url, :notification, :image, platform_name: [], commentries_attributes:
+    params.require(:post).permit(:title, :main_url, :notification, :status, :image, platform_name: [], commentries_attributes:
       [:description], tag_ids: [], tags_attributes: [:name, :company_id])
   end
 end

@@ -95,7 +95,9 @@ $(document).on('turbolinks:load', function () {
                     let event = new Event("custom-event:closed", {
                         bubbles: true, // only bubbles and cancelable
                     });
-                    document.querySelector('#' + settings.renderId).dispatchEvent(event)
+                   if(document.querySelector('#' + settings.renderId) != null) {
+                       document.querySelector('#' + settings.renderId).dispatchEvent(event)
+                   }
                 }
             });
             //multi
