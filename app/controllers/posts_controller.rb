@@ -9,7 +9,7 @@ class PostsController < ApplicationController
     if params[:search].present? || params[:tag_ids].present?
       if params[:search].present?
         @posts = @posts.joins(:commentries).where("title ILIKE :search OR main_url ILIKE :search OR
-                                                     commentries.description ILIKE :search", {search: "%#{params[:search]}%"})
+                                                     commentries.description ILIKE :search", {search: "%#{params[:search]}%"}).uniq
       end
       @posts = @posts.joins(:tags).where(tags: { id: params[:tag_ids] }) unless params[:tag_ids].reject(&:blank?).empty? if params[:tag_ids].present?
     else

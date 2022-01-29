@@ -130,3 +130,62 @@
   <% end %>
 </div>
 
+<script>
+  $(document).ready(function (){
+
+      <% @posts.each do |post| %>
+
+      $(document).on("click", "#post-edit-delete-<%= post.id %>", function () {
+          var classes = $("#post-cards-<%= post.id %>").attr("class")
+
+          if (classes.split(" ").includes('show-post-option')) {
+              $("#post-cards-<%= post.id %>").removeClass("show-post-option")
+          } else {
+              $("#post-cards-<%= post.id %>").addClass("show-post-option")
+          }
+      })
+
+      $("#post-next-commentry-<%= post.id %>").click(function () {
+          <%= "post_commentry_button_#{post.id}" %>("next")
+      })
+
+      $("#post-previous-commentry-<%= post.id %>").click(function () {
+          <%= "post_commentry_button_#{post.id}" %>("prevoius")
+      })
+
+      function <%= "post_commentry_button_#{post.id}" %>(button) {
+
+          var <%= "cycle_count_#{post.id}" %> = button == "next" ? (parseInt($("#post-commetries-count-<%= post.id %>").text()) + 1) : (parseInt($("#post-commetries-count-<%= post.id %>").text()) - 1)
+          $("#post-commetries-count-<%= post.id %>").text(<%= "cycle_count_#{post.id}" %>)
+
+          $(".comment-<%= post.id %>").empty()
+          var <%= "commentries_#{post.id}" %> = []
+
+          <% post.commentries.each do |commentry| %>
+          <%= "commentries_#{post.id}" %>.push(`<%= commentry.description.to_s %>`)
+          <% end %>
+
+          var <%= "comment_count_#{post.id}" %> = <%= "cycle_count_#{post.id}" %> - 1
+          if ("<%= "comment_count_#{post.id}" %>" == 0) {
+              $(".post-commentries-previous-button-<%= post.id %>").addClass("single_button")
+              $(".comment-<%= post.id %>").append(<%= "commentries_#{post.id}" %>[<%= "comment_count_#{post.id}" %>])
+          } else {
+              $(".post-commentries-previous-button-<%= post.id %>").removeClass("single_button")
+              $(".comment-<%= post.id %>").append(<%= "commentries_#{post.id}" %>[<%= "comment_count_#{post.id}" %>])
+          }
+
+          if (<%= "cycle_count_#{post.id}" %> >= <%= post.commentries.size %>) {
+              $("#post-next-commentry-<%= post.id %>").hide()
+              $("#post-previous-commentry-<%= post.id %>").show()
+          } else if(<%= "cycle_count_#{post.id}" %> <= 1) {
+              $("#post-previous-commentry-<%= post.id %>").hide()
+              $("#post-next-commentry-<%= post.id %>").show()
+          }else {
+              $("#post-previous-commentry-<%= post.id %>").show()
+              $("#post-next-commentry-<%= post.id %>").show()
+          }
+      }
+      <% end %>
+
+  })
+</script>
