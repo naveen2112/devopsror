@@ -47,7 +47,6 @@ module LinkedinAuthentication
             "thumbnails": [
               {
                 "imageSpecificContent": {
-                  "size":141287,
                   "width":1600,
                   "height":900
                 },

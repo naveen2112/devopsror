@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get :unsubscribe
       get :validate_email_without_current_user
       get :validate_organisation_without_current_company
+      get :delete_account
     end
   end
 

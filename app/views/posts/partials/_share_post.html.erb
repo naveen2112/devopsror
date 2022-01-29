@@ -91,6 +91,11 @@
               window.open("<%= linked_in_authorizaion_url %>")
           }
           else{
+              $.ajax({
+                  url: "/users/delete_account",
+                  method: "get",
+                  dataType: 'script'
+              });
               $("#share-button").attr("disabled", "true")
           }
 
