@@ -131,12 +131,8 @@
 </div>
 
 <script>
-  $(document).ready(function (){
+    $( window ).on( "load", function() {
       post_list()
-
-      $(document).ajaxComplete(function () {
-          post_list()
-      });
   })
 
   function post_list(){
