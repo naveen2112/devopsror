@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :set_tags, only: [:new, :create, :edit, :update]
 
   def index
-    @posts = current_company.posts.order("posts.created_at DESC").with_includes
+    @posts = current_company.posts.order("posts.updated_at DESC").with_includes
 
     if params[:search].present? || params[:tag_ids].present?
       @posts = @posts.joins(:tags).where(tags: { id: params[:tag_ids] }) unless params[:tag_ids].reject(&:blank?).empty? if params[:tag_ids].present?
