@@ -43,7 +43,7 @@ module LinkedinAuthentication
       "content": {
         "contentEntities": [
           {
-            "entityLocation": ENV["APP_URL"],
+            "entityLocation": post.main_url,
             "thumbnails": [
               {
                 "imageSpecificContent": {

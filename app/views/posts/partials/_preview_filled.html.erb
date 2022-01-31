@@ -140,6 +140,13 @@
 
 <script>
     $(document).ready(function () {
+
+        <% if @post.commentries.size > 1 %>
+          $("#post-next-commentry").show()
+        <% else %>
+          $("#post-next-commentry").hide()
+        <% end %>
+
         $("#post-next-commentry").click(function () {
             post_commentry("next")
         })
@@ -158,7 +165,7 @@
             var commentries = []
 
             <% @post.commentries.each do |commentry| %>
-            commentries.push(`<%= commentry.description %>`)
+              commentries.push(`<%= commentry.description %>`)
             <% end %>
 
             var comment_count = cycle_count - 1
