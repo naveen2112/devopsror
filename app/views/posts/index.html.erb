@@ -50,24 +50,4 @@
 </div>
 
 
-<script>
 
-    $(document).ready(function () {
-
-        <% @posts.each do |post| %>
-
-        $("#posts-delete-button-<%= post.id %>").click(function(){
-            $(".dashboard_wrap").addClass("show-alert")
-            $("#alert-popup").html("<%= escape_javascript (render partial: 'shared/alert', locals: { text: "post", url: "/posts/" + post.id.to_s  }) %>")
-
-            $.ajax({
-                url: "/posts/" + <%= post.id %>,
-                method: "delete",
-                dataType: 'script'
-            });
-
-        })
-
-        <% end %>
-    })
-</script>

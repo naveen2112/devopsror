@@ -139,11 +139,20 @@
 
         function post_commentry(button) {
 
+            <% if @post.new_record? %>
             var commentries_array = [$("#post_commentries_attributes_1__description").val()]
             var commetry_count = $(".preview-commentries-count").text()
             for (var i = 2; i <= commetry_count; i++) {
                 commentries_array.push($(`#post_commentries_attributes_${i}_description`).val())
             }
+            <% else %>
+            var commentries_array = []
+            var commetry_count = <%= @post.commentries.size %>
+
+            for (var i = 1; i <= commetry_count; i++) {
+                commentries_array.push($(`#post_commentries_attributes_${i}__description`).val())
+            }
+            <% end %>
 
             if (commetry_count > 1) {
                 $(".post-next-commentry-button").show()

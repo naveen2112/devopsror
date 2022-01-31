@@ -11,10 +11,10 @@
 
         var commentries_count = <%= @post.new_record? ? 1 : @post.commentries.size %>
 
-        $(document).on("keyup", "#post_title", function () {
-            render_html()
-            $("#preview-post-title").text($(this).val())
-        })
+            $(document).on("keyup", "#post_title", function () {
+                render_html()
+                $("#preview-post-title").text($(this).val())
+            })
 
         $(document).on("keyup", "#post_main_url", function () {
             render_html()
@@ -55,12 +55,10 @@
                     $("#preview-post-link").append("<div class='post-desc'><a href=" + $("#post_main_url").val() + " class='post-link'>" + name + "</a></div>")
                 }
 
-                <% if @post.new_record? %>
-                  $("#preview-post-comment-1").text($("#post_commentries_attributes_1__description").val())
-                  $("#preview-post-comment-one-1").text($("#post_commentries_attributes_1__description").val())
-                <% else %>
-                  $("#preview-post-comment-1").text(`<%= @post.commentries&.first&.description %>`)
-                <% end %>
+
+                $("#preview-post-comment-1").text($("#post_commentries_attributes_1__description").val())
+                $("#preview-post-comment-one-1").text($("#post_commentries_attributes_1__description").val())
+
 
                 <% unless @post.image.url.nil? %>
                   $("#preview-post-image").html(` <img src='<%= @post.image.url %>' style='height: 13rem;'/>`)
