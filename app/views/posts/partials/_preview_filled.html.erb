@@ -154,19 +154,22 @@
             $(".preview-commentries-count").text(cycle_count)
 
             $(".comment").empty()
+            $(".share-content").empty()
             var commentries = []
 
             <% @post.commentries.each do |commentry| %>
-            commentries.push("<%= commentry.description %>")
+            commentries.push(`<%= commentry.description %>`)
             <% end %>
 
             var comment_count = cycle_count - 1
             if (comment_count == 0) {
                 $(".post-commentries-previous-button").addClass("single_button")
                 $(".comment").append(commentries[comment_count])
+                $(".share-content").append(`<p>${commentries[comment_count]}</p>`)
             } else {
                 $(".post-commentries-previous-button").removeClass("single_button")
                 $(".comment").append(commentries[comment_count])
+                $(".share-content").append(`<p>${commentries[comment_count]}</p>`)
             }
 
             if (cycle_count >= <%= @post.commentries.size %>) {
