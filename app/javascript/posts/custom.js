@@ -64,6 +64,7 @@ $(document).on('turbolinks:load', function () {
             var tags_ids = []
             var tag_name = []
             $("#posts-tags-ids").empty()
+
             $.each(value.Tag, function (index, value) {
                 if ($.isNumeric(value)) {
                     $("#posts-tags-ids").append(`<input type="hidden" name="post[tag_ids][]" value="${value}">`)
@@ -72,10 +73,15 @@ $(document).on('turbolinks:load', function () {
                     var number = Math.floor((Math.random() * 10) + 1);
                     var company_id = $("#tag-company-id").val()
                     tag_name.push(value)
-                    $("#new-tags-name").append(`<input type='hidden' value='${value}' name='post[tags_attributes][${number}][name]'> <br>
+                    $("#new-tags-name").empty()
+                    $.each(tag_name, function (index, value) {
+                        $("#new-tags-name").append(`<input type='hidden' value='${value}' name='post[tags_attributes][${number}][name]'> <br>
                  <input type="hidden"  value='${company_id}' name='post[tags_attributes][${number}][company_id]' >`)
+                    })
                 }
             })
+
+
         }
     });
 
