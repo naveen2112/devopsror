@@ -10,8 +10,10 @@
         <% if @post.new_record? %>
           $("#remove-image-text").hide()
         <% else %>
+        <% if @post.image.attached? %>
           $("#upload-image-text").hide()
           $("#preview-image-button").css("z-index", "2")
+        <% end %>
         <% end %>
 
         var commentries_count = <%= @post.new_record? ? 1 : @post.commentries.size %>
@@ -66,7 +68,7 @@
 
 
                 <% unless @post.image.url.nil? %>
-                  $("#preview-post-image").html(` <img src='<%= @post.image.url %>' style='height: 13rem;'/>`)
+                $("#preview-post-image").html(` <img src='<%= @post.image.url %>' style='height: 13rem;'/>`)
                 <% end %>
 
                 if ($("#post_image")[0].files[0]) {
