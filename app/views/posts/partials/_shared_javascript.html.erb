@@ -13,6 +13,8 @@
         <% if @post.image.attached? %>
           $("#upload-image-text").hide()
           $("#preview-image-button").css("z-index", "2")
+        <% else %>
+          $("#remove-image-text").hide()
         <% end %>
         <% end %>
 
