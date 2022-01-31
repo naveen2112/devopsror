@@ -7,7 +7,12 @@
             offset: 155
         })
 
-        $("#remove-image-text").hide()
+        <% if @post.new_record? %>
+          $("#remove-image-text").hide()
+        <% else %>
+          $("#upload-image-text").hide()
+          $("#preview-image-button").css("z-index", "2")
+        <% end %>
 
         var commentries_count = <%= @post.new_record? ? 1 : @post.commentries.size %>
 
