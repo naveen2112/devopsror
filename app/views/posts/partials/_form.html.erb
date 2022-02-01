@@ -51,7 +51,7 @@
           <% index += 1 %>
           <div class="post-commentary-fields">
             <input type="hidden" name="post[commentries_attributes][<%= index %>][id]" value="<%= commentry.id %>">
-            <textarea class="form-control mt-3 mb-3" name="post[commentries_attributes][<%= index %>][description]" rows="5" id="post_commentries_attributes_<%= index %>__description"><%= commentry.description %></textarea>
+            <textarea class="form-control mt-3 mb-3" name="post[commentries_attributes][<%= index %>][description]" rows="5" maxlength="3000" id="post_commentries_attributes_<%= index %>__description"><%= commentry.description %></textarea>
           </div>
         <% end %>
         <%= render 'posts/partials/commentry_form', f: builder %>
