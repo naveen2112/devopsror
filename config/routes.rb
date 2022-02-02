@@ -2,19 +2,34 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
   # Pg engines routes
   mount PgHero::Engine, at: "pghero"
 
   # Sidekiq activities
   mount Sidekiq::Web => '/sidekiq'
 
-  devise_for :users, controllers: { registrations: "users/registrations",
+  devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions",
                                     passwords: "users/passwords"}
 
   devise_scope :user do
     get "users/validate_email", to: "users/registrations#validate_email"
     get "users/validate_organisation", to: "users/registrations#validate_organisation"
     get "users/validate_presence_of_email", to: "users/passwords#validate_presence_of_email"
+  end
+
+  resources :members, only: [:index, :update, :destroy, :create] do
+    member do
+      post :confirm
+      get :confirm_sign_up
+    end
+    collection do
+      post :import
+      get :batch_event
+      get :resend_invite
+    end
   end
 
   resources :users, only: [:update] do

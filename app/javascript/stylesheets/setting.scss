@@ -51,8 +51,8 @@
         width: 122px;
         height: 122px;
         margin: 50px auto 0;
+        border-radius: 50%;
         img {
-          border-radius: 50%;
           width: 100%;
           height: 100%;
         }
@@ -100,10 +100,414 @@
   .alert-wrap {
     margin-top: 76px;
   }
-  .form-group {
-    margin-bottom: 45px;
-    .control-label {
-      color: #90A1B5;
+}
+
+.billing-wrap {
+  margin-top: 72px;
+  max-width: 562px;
+  .user-available-wrap {
+    p {
+      margin-bottom: 0;
+    }
+    .second-lev-title {
+      font: {
+        size: 16px;
+        weight: 500;
+      };
+      line-height: 1;
+      color: $terms-text-color;
+    }
+    .count {
+      font: {
+        size: 36px;
+        weight: 700;
+      };
+      line-height: 1;
+      color: $user-name;
+      margin-top: 15px;
+    }
+    .error-msg {
+      .text {
+        font: {
+          size: 14px;
+        };
+        color: $danger-text-color;
+        line-height: 0.7;
+      }
+      margin-top: 10px;
+    }
+    .btn {
+      margin-top: 35px;
+      border-radius: 5px;
+      padding: 7px 45px;
+    }
+  }
+  .form-wrap {
+    margin-top: 32px;
+    border-top: 0.8px solid rgba(216, 216, 216, 0.6);
+    padding-top: 36px;
+
+    .card_names {
+      p{
+        margin-bottom: 0;
+        .icon {
+          padding-right: 14px;
+        }
+      }
+    }
+    .card-secure-text {
+      margin-top: 25px;
+      margin-bottom: 35px;
+    }
+  }
+}
+.member-wrap {
+  .action-btn{
+    .btn {
+      &:last-child{
+        margin-left: 21px;
+      }
+    }
+  }
+  .search-wrap {
+    max-width: none;
+  }
+
+  .table-btn {
+    padding-right: 35px;
+    .btn {
+      &:last-child {
+        margin-left: 19px;
+      }
+    }
+  }
+
+  .members-table {
+    margin-top: 20px;
+
+    table {
+      width: 100%;
+      box-shadow: 0px 81px 119px rgba(0, 0, 0, 0.07);
+      border-radius: 10px;
+      background-color: rgba(251, 251, 251, 0.5);
+
+      th {
+        p {
+          font: {
+            size: 14px;
+            weight: 500;
+          };
+          line-height: 1.7;
+          letter-spacing: 0.01em;
+          margin-bottom: 10px;
+          color: $title-light-grey;
+        }
+      }
+
+      tbody {
+        tr {
+          &:first-child {
+            td {
+              padding-top: 23px;
+            }
+          }
+          &:last-child {
+            td {
+              padding-bottom: 50px;
+            }
+          }
+        }
+
+        td {
+          padding-top: 38px;
+          &:first-child {
+            padding-left: 17px;
+          }
+
+          .form-check-input {
+            margin-top: -14px;
+          }
+
+          .check-symbol {
+            top: -8px;
+          }
+
+          .user-wrap {
+            .user-img {
+              width: 41px;
+              height: 41px;
+              display: inline-block;
+
+              img {
+                width: 100%;
+                height: 100%;
+              }
+            }
+
+            .user-name {
+              font: {
+                size: 14px;
+                weight: 700;
+              }
+              line-height: 1.2;
+              color: $post-share-color;
+              padding-left: 20px;
+              letter-spacing: 0.01em;
+            }
+          }
+
+          .checked-icon {
+            display: none;
+          }
+
+          .msg-icon {
+            padding-left: 23px;
+          }
+
+          .sent {
+            .checked-icon {
+              display: inline;
+            }
+
+            .unchecked-icon {
+              display: none;
+            }
+          }
+
+          .email {
+            font: {
+              size: 14px;
+              weight: 600;
+              family: 'Mulish', sans-serif;
+            };
+            line-height: 1.2;
+            letter-spacing: 0.01em;
+            color: $table-mail-color;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+
+          .role {
+            font: {
+              size: 14px;
+              weight: 600;
+              family: 'Mulish', sans-serif;
+            };
+            line-height: 1.3;
+            color: $table-mail-color;
+          }
+
+          .edit {
+            padding-right: 24px;
+          }
+        }
+      }
+    }
+  }
+
+  .members-count {
+    margin-top: 86px;
+    max-width: 280px;
+    margin-left: auto;
+
+    .progress {
+      height: 3px;
+      .progress-bar {
+        background-color: $primary-blue-bg;
+      }
+    }
+
+    .text {
+      margin-top: 25px;
+      font: {
+        size: 16px;
+        weight: 300;
+      };
+      line-height: 0.8;
+      color: $terms-text-color;
+    }
+  }
+}
+
+.add-member {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 726px;
+  transform: translate(-50%, -50%);
+  background-color: $bg-white;
+  box-shadow: 0px 8px 24px rgba(27, 46, 94, 0.08);
+  border-radius: 8px;
+  padding: 34px 32px 34px 52px;
+
+  .add-member-title {
+    font: {
+      size: 24px;
+      weight: 600;
+    };
+    line-height: 1.2;
+    color: $secondary-grey-title;
+  }
+
+  .form-wrap {
+    margin-top: 59px;
+    .form-group {
+      margin-bottom: 38px;
+      .control-label {
+        color: $terms-text-color;
+        font-weight: 600;
+      }
+      .custom-control-label {
+        span {
+          color: $terms-text-color;
+          font: {
+            size: 14px;
+          };
+          line-height: 1.5;
+        }
+      }
+    }
+    .custom-radio-btn-group {
+      margin-top: 24px;
+      .custom-radio{
+        margin-right: 25px;
+      }
+    }
+    .btn-wrap {
+      padding-top: 50px;
+      .btn {
+        min-width: 253px;
+      }
+    }
+
+    .multiple-member-form {
+      .example-csv {
+        padding: 24px 27px 32px 24px;
+        background-color: rgba(243, 244, 248, 0.5);
+        border-radius: 6px;
+        .title {
+          font: {
+            size: 16px;
+            weight: 600;
+          };
+          line-height: 0.8;
+          color: $terms-text-color;
+        }
+        .description {
+          margin-top: 13px;
+          font: {
+            size: 16px;
+            weight: 300;
+          };
+          line-height: 0.8;
+          color: $terms-text-color;
+        }
+        .image-wrap {
+          margin-top: 24px;
+          margin-bottom: 27px;
+          img {
+            box-shadow: 0px 81px 119px rgba(0, 0, 0, 0.07);
+            z-index: 2;
+            position: relative;
+          }
+          &::after {
+            content: "";
+            position: absolute;
+            left: 22px;
+            top: 27px;
+            width:calc(100% - 35px);
+            height: 100%;
+            background: $input-grey-background;
+            box-shadow: 0px 81px 119px rgba(0, 0, 0, 0.07);
+            border-radius: 10px;
+            z-index: 1;
+          }
+        }
+      }
+      .upload-btn {
+        width: 100%;
+        max-width: 365px;
+        margin: 41px auto 39px;
+        background-color: $input-bg;
+        border:  1px solid $terms-text-color;
+        border-radius: 10px;
+        text-align: center;
+        padding: 11px;
+        display: flex;
+        align-items: end;
+        justify-content: center;
+
+        .text {
+          font: {
+            size: 14px;
+            weight: 500;
+          };
+          line-height: 1.3;
+          color: $dotted_button_color;
+          margin-left: 30px;
+        }
+        input {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          z-index: 2;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+        }
+      }
+      .uploaded {
+        border: 1px dashed #8692A6;
+        border-radius: 6px;
+        width: 100%;
+        max-width: 443px;
+        margin: 28px auto 31px;
+        padding: 25px 34px;
+        background-color: rgba(249, 250, 252, 0.5);
+        p {
+          padding-right: 45px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        button {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 31px;
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+.show-add-form {
+  .add-member {
+    display: block;
+    .multiple-member-form {
+      display: none;
+    }
+  }
+  &.multiple {
+    .add-member{
+      padding: 18px 47px 44px 37px;
+      .form-wrap {
+        margin-top: 50px;
+        .multiple-member-form {
+          display: block;
+        }
+        .single-user-form {
+          display: none;
+        }
+        .custom-control {
+          margin-bottom: 9px;
+        }
+      }
     }
   }
 }

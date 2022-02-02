@@ -7,11 +7,11 @@ class PostsController < ApplicationController
     @posts = current_company.posts.order("posts.updated_at DESC").with_includes
 
     if params[:search].present? || params[:tag_ids].present?
-      @posts = @posts.joins(:tags).where(tags: { id: params[:tag_ids] }) unless params[:tag_ids].reject(&:blank?).empty? if params[:tag_ids].present?
+      @posts = @posts.joins(:tags).where(tags: { id: params[:tag_ids] }).distinct unless params[:tag_ids].reject(&:blank?).empty? if params[:tag_ids].present?
 
       if params[:search].present?
         @posts = @posts.joins(:commentries).where("title ILIKE :search OR main_url ILIKE :search OR
-                                                     commentries.description ILIKE :search", {search: "%#{params[:search]}%"}).uniq
+                                                     commentries.description ILIKE :search", {search: "%#{params[:search]}%"}).distinct
       end
     else
       @posts = @posts.all

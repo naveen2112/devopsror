@@ -70,31 +70,6 @@
     }
   }
 
-  .custom-checkbox {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    background-color: $checkbox-background-color;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    border-radius: 4px;
-  }
-
-  .check-symbol {
-    position: absolute;
-    left: 9px;
-    top: 3px;
-    width: 7px;
-    height: 14px;
-    display: none;
-    border: solid $bg-white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-
   .form-check-input {
     z-index: 1;
     width: 24px;

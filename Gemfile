@@ -99,3 +99,9 @@ gem 'aws-sdk-s3', require: false
 gem 'activerecord-import'
 
 gem 'linkedin'
+
+gem 'activeadmin'
+
+gem 'cancancan'
+
+gem 'smarter_csv'
