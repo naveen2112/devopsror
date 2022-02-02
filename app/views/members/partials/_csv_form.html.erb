@@ -10,6 +10,8 @@
   <div class="form-wrap">
     <%= form_for current_company.imports.new, url: import_members_path, method: :post do |form| %>
 
+      <%= form.hidden_field :user_id, value: current_user.id %>
+
       <div class="multiple-member-form">
         <div class="example-csv">
           <p class="title mb-0">Your CSV needs to be arranged in this order</p>
@@ -35,6 +37,11 @@
             </svg>
           </button>
         </div>
+      </div>
+
+      <div class="custom-control custom-switch form-group">
+        <%= form.check_box :invite, class: "custom-control-input", id: "switch1" %>
+        <label class="custom-control-label" for="switch1"><span>Send email invitation to users</span></label>
       </div>
 
       <div class="text-center btn-wrap">

@@ -1,4 +1,5 @@
 class LinkedinController < ApplicationController
+  load_and_authorize_resource
   include LinkedinAuthentication
 
   def callback

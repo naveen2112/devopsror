@@ -24,11 +24,11 @@ Rails.application.routes.draw do
     member do
       post :confirm
       get :confirm_sign_up
+      get :resend_invite
     end
     collection do
       post :import
       get :batch_event
-      get :resend_invite
     end
   end
 

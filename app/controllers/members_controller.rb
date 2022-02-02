@@ -1,8 +1,9 @@
 class MembersController < ApplicationController
+  load_and_authorize_resource :user
   before_action :set_company, only: [:confirm_sign_up, :confirm]
   before_action :set_user, only: [:confirm_sign_up, :confirm]
   skip_before_action :authenticate_user!, only: [:confirm_sign_up, :confirm]
-  before_action :set_member, only: [:update, :destroy]
+  before_action :set_member, only: [:update, :destroy, :resend_invite]
 
   def index
     users = current_company.users.includes(:logo_attachment)
@@ -15,6 +16,7 @@ class MembersController < ApplicationController
     if params["send_invite_email"].present?
       @users.each do |user|
         user.send_invite_email
+        user.update(invite: true)
       end
     else
       @users.destroy_all
@@ -42,6 +44,8 @@ class MembersController < ApplicationController
 
   def resend_invite
     @user.send_invite_email
+    @user.update(invite: true)
+    redirect_to members_path
   end
 
   def import
@@ -84,7 +88,7 @@ class MembersController < ApplicationController
   end
 
   def imports_params
-    params.require(:import).permit(:file)
+    params.require(:import).permit(:file, :user_id, :invite)
   end
 
     def confirm_params

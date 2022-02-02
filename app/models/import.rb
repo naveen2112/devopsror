@@ -1,9 +1,16 @@
+require 'csv'
+require 'open-uri'
 class Import < ApplicationRecord
 
   #============================== Relationships =======================================================================
 
   belongs_to :company
   has_one_attached :file
+  has_one_attached :error_file
+
+  #=============================== Attribute Accessors ==============================================================
+
+  attr_accessor :current_user
 
   #============================ Enum =================================================================================
 
@@ -16,6 +23,7 @@ class Import < ApplicationRecord
   #=========================== Methods ==============================================================================
 
   def process_import
-    ImportJob.perform_later(id)
+    user = company.users.find(user_id)
+    ImportJob.set(wait: 8.seconds).perform_later(id, company_id, user.email)
   end
 end
