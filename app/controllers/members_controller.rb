@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-  load_and_authorize_resource :user
+  load_and_authorize_resource :user, except: [:confirm_sign_up, :confirm]
   before_action :set_company, only: [:confirm_sign_up, :confirm]
   before_action :set_user, only: [:confirm_sign_up, :confirm]
   skip_before_action :authenticate_user!, only: [:confirm_sign_up, :confirm]
