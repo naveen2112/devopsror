@@ -1,5 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Import, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to(:company) }
+  it { should have_one_attached(:file) }
+  it { should have_one_attached(:error_file) }
 end

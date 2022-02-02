@@ -1,5 +1,3 @@
-require 'csv'
-require 'open-uri'
 class Import < ApplicationRecord
 
   #============================== Relationships =======================================================================
