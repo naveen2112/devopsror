@@ -1,8 +1,10 @@
 class ImportMailer < ApplicationMailer
 
-  def send_import_email(import, email)
+  def send_import_email(import, email, total_records_count=nil, error_records_count=nil)
     @status = import.status
     @email = email
+    @total_records_count = total_records_count
+    @error_records_count = error_records_count
 
     attachments['error_list.csv'] = URI.open(import.error_file.url).read if import.failed?
 

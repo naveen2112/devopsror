@@ -19,7 +19,6 @@ class MembersController < ApplicationController
     if params["send_invite_email"].present?
       @users.each do |user|
         user.send_invite_email
-        user.update(invite: true)
       end
     else
       @users.destroy_all
@@ -31,6 +30,7 @@ class MembersController < ApplicationController
 
   def confirm
     if @user.update(confirm_params)
+      @user.update(status: "accepted")
       redirect_to root_path
     else
       render :confirm_sign_up
@@ -47,7 +47,6 @@ class MembersController < ApplicationController
 
   def resend_invite
     @user.send_invite_email
-    @user.update(invite: true)
     redirect_to members_path
   end
 
@@ -95,6 +94,6 @@ class MembersController < ApplicationController
   end
 
   def users_params
-    params.require(:user).permit(:first_name, :last_name, :email, :role, :invite)
+    params.require(:user).permit(:first_name, :last_name, :email, :role, :send_invite)
   end
 end

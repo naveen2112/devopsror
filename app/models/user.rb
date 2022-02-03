@@ -16,6 +16,10 @@ class User < ApplicationRecord
 
   after_create :send_invite_email, if: -> { self.poster? || self.editor? }
 
+  #==================================== Attribute Accessors =======================================================
+
+  attr_accessor :send_invite
+
   #========================================= Scope ==================================================================
 
   scope :subscribers, -> { where(subscribe: true) }
@@ -26,7 +30,8 @@ class User < ApplicationRecord
 
   #======================================== Enum ======================================================================
 
-  enum role: [:admin, :editor,  :poster]
+  enum role: { admin: 0, poster: 1, editor: 2 }
+  enum status: { invited: 0, accepted: 1 }
 
   #============================================ Nested attributes =====================================================
 
@@ -44,7 +49,7 @@ class User < ApplicationRecord
   end
 
   def send_invite_email
-    UserMailer.invite_email(company_id, id).deliver_later if invite
+    UserMailer.invite_email(company_id, id).deliver_later if send_invite
   end
 
   def linked_in_code
