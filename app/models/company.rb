@@ -24,7 +24,7 @@ class Company < ApplicationRecord
   end
 
   def total_posts
-    posts.size
+    posts.count
   end
 
   def total_login_count
@@ -34,10 +34,10 @@ class Company < ApplicationRecord
   def total_users_connected_one_social_account
     total_users = []
 
-    users.each do |user|
+    User.all.each do |user|
       total_users << user if user.social_account_integrated > 0
     end
 
-    total_users.size
+    total_users.count
   end
 end

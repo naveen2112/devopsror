@@ -7,6 +7,7 @@ class User < ApplicationRecord
   #========================================= Relationships ============================================================
 
   belongs_to :company
+  has_many :posts, foreign_key: :created_by
   has_many :cards, dependent: :destroy
   has_many :integrated_accounts, dependent: :destroy
   has_one_attached :logo
@@ -51,10 +52,10 @@ class User < ApplicationRecord
   end
 
   def social_account_integrated
-    integrated_accounts.pluck(:platform).uniq.size
+    integrated_accounts.pluck(:platform).uniq.count
   end
 
   def total_posts
-    company.posts.where(created_by: id).size
+    posts.count
   end
 end

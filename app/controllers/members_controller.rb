@@ -1,14 +1,17 @@
 class MembersController < ApplicationController
   load_and_authorize_resource :user, except: [:confirm_sign_up, :confirm]
   before_action :set_company, only: [:confirm_sign_up, :confirm]
-  before_action :set_user, only: [:confirm_sign_up, :confirm]
   skip_before_action :authenticate_user!, only: [:confirm_sign_up, :confirm]
-  before_action :set_member, only: [:update, :destroy, :resend_invite]
+  before_action :set_member, only: [:update, :destroy, :resend_invite, :confirm_sign_up, :confirm]
 
   def index
     users = current_company.users.includes(:logo_attachment)
-    @users = params[:search].present? ? users.where("email ILIKE :search OR first_name ILIKE :search OR
-                                                     last_name ILIKE :search", { search: "%#{params[:search]}%" }) : users
+    @users = if params[:search].present?
+               users.where("email ILIKE :search OR first_name ILIKE :search OR
+                                                     last_name ILIKE :search", { search: "%#{params[:search]}%" })
+             else
+               users
+             end
   end
 
   def batch_event
@@ -57,9 +60,9 @@ class MembersController < ApplicationController
 
   def update
     if @user.update(users_params)
-      redirect_to members_path, notice: "Member updated Successfully."
+      redirect_to members_path
     else
-      redirect_to members_path, alert: "Something went wrong, please try later."
+      redirect_to members_path
     end
   end
 
@@ -69,22 +72,18 @@ class MembersController < ApplicationController
         format.js
       end
     else
-      redirect_to posts_path, alert: "Something went wrong, please try later."
+      redirect_to posts_path
     end
   end
 
   private
 
   def set_member
-    @user = current_company.users.find(params[:id])
+    @user = @company.users.find(params[:id])
   end
 
   def set_company
     @company = Company.find(params[:company_id])
-  end
-
-  def set_user
-    @user = @company.users.find(params[:id])
   end
 
   def imports_params

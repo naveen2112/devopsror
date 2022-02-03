@@ -19,7 +19,7 @@ class ImportJob < ApplicationJob
 
     if errors_data.size == 0
       import.update(status: "success")
-      ImportMailer.send_import_email(import, "kishore@gmail.com").deliver_later
+      ImportMailer.send_import_email(import, email).deliver_later
     else
       create_error_csv_from_hash(errors_data, import, email)
     end
