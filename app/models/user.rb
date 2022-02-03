@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   #========================================= Callbacks =============================================================
 
-  after_create :send_invite_email, if: -> { self.poster? || self.editor? }
+  after_create :send_invite_email, if: -> { self.poster? || self.editor? && send_invite }
 
   #==================================== Attribute Accessors =======================================================
 
@@ -49,7 +49,7 @@ class User < ApplicationRecord
   end
 
   def send_invite_email
-    UserMailer.invite_email(company_id, id).deliver_later if send_invite
+    UserMailer.invite_email(company_id, id).deliver_later
   end
 
   def linked_in_code

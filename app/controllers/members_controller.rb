@@ -78,7 +78,11 @@ class MembersController < ApplicationController
   private
 
   def set_member
-    @user = @company.users.find(params[:id])
+    @user =  if @company.nil?
+               current_company.users.find(params[:id])
+             else
+               @company.users.find(params[:id])
+             end
   end
 
   def set_company
