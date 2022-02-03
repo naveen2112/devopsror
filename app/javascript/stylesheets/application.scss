@@ -89,3 +89,7 @@
 .error{
   color: $danger;
 }
+
+::-ms-reveal {
+  display: none !important;
+}

@@ -8,7 +8,7 @@ class MembersController < ApplicationController
   def index
     users = current_company.users.includes(:logo_attachment)
     @users = params[:search].present? ? users.where("email ILIKE :search OR first_name ILIKE :search OR
-                                                     last_name ILIKE :search", {search: "%#{params[:search]}%"}) : users
+                                                     last_name ILIKE :search", { search: "%#{params[:search]}%" }) : users
   end
 
   def batch_event
@@ -91,9 +91,9 @@ class MembersController < ApplicationController
     params.require(:import).permit(:file, :user_id, :invite)
   end
 
-    def confirm_params
-      params.require(:user).permit(:password, :password_confirmation)
-    end
+  def confirm_params
+    params.require(:user).permit(:password, :password_confirmation)
+  end
 
   def users_params
     params.require(:user).permit(:first_name, :last_name, :email, :role, :invite)
