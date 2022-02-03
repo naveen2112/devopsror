@@ -18,6 +18,7 @@ class PostsController < ApplicationController
     else
       @posts = @posts.all
     end
+    @posts = @posts.page(params[:page]).per_page(8)
   end
 
   def share

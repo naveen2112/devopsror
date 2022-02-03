@@ -1,6 +1,15 @@
 <% if @posts.count == 0 %>
-  $("#posts-list").html("<%= escape_javascript(render("posts/partials/no_posts")) %>");
+  $("#posts-list").html("<%= j render("posts/partials/no_posts") %>");
+  $("#paginate-infinite-scrolling .pagination").empty();
 <% else %>
-  $("#posts-list").html("<%= escape_javascript(render("posts/partials/index")) %>");
+  <% if params[:page].blank? %>
+    $("#posts-list").html("<%= j render("posts/partials/index") %>");
+  <% else %>
+    $("#posts-list").append('<%= j render("posts/partials/index") %>');
+  <% end %>
+  <% if @posts.next_page %>
+    $("#paginate-infinite-scrolling .pagination").replaceWith('<%= j will_paginate(@posts) %>');
+  <% else %>
+    $("#paginate-infinite-scrolling .pagination").empty();
+  <% end %>
 <% end %>
-
