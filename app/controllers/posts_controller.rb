@@ -1,25 +1,27 @@
 include LinkedinAuthentication
 class PostsController < ApplicationController
-  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share]
+  load_and_authorize_resource
+  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share, :validate_tag]
   before_action :set_tags, only: [:new, :create, :edit, :update]
 
   def index
-    @posts = current_company.posts.order("posts.created_at DESC").with_includes
+    @posts = current_company.posts.order("posts.updated_at DESC").with_includes
 
     if params[:search].present? || params[:tag_ids].present?
+      @posts = @posts.joins(:tags).where(tags: { id: params[:tag_ids] }).distinct unless params[:tag_ids].reject(&:blank?).empty? if params[:tag_ids].present?
+
       if params[:search].present?
         @posts = @posts.joins(:commentries).where("title ILIKE :search OR main_url ILIKE :search OR
-                                                     commentries.description ILIKE :search", {search: "%#{params[:search]}%"})
+                                                     commentries.description ILIKE :search", {search: "%#{params[:search]}%"}).distinct
       end
-      @posts = @posts.where(tags: { id: params[:tag_ids] }) if params[:tag_ids].present?
     else
       @posts = @posts.all
     end
   end
 
   def share
-    share_post(@post.id, current_user.id, params[:commentry])
-    @post.increment!(:shared_count)
+    response = share_post(@post.id, current_user.id, params[:commentry].strip)
+    @post.increment!(:shared_count) if response["id"].present?
     redirect_to posts_path
   end
 
@@ -43,10 +45,19 @@ class PostsController < ApplicationController
     end
   end
 
+  def validate_tag
+    return render plain: false unless params[:tag_ids].present?
+
+    @tags = @post.tags.where(id: params[:tag_ids].split(","))
+    render json: @tags
+  end
+
   def edit; end
 
   def update
-    if @post.update(posts_params)
+    params_object = posts_params.merge(status: "live") if params["commit"]  == "Update Post"
+
+    if @post.update(params_object)
       redirect_to posts_path, notice: "Post updated Successfully."
     else
       render :edit
@@ -86,6 +97,6 @@ class PostsController < ApplicationController
 
   def posts_params
     params.require(:post).permit(:title, :main_url, :notification, :image, platform_name: [], commentries_attributes:
-      [:description], tag_ids: [], tags_attributes: [:name, :company_id])
+      [:id, :description], tag_ids: [], tags_attributes: [:name, :company_id])
   end
 end

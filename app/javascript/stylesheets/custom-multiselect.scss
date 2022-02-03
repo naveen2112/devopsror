@@ -22,6 +22,8 @@
     display: block;
   }
   .multiselect-btn {
+    position: relative;
+    z-index: 9;
     display: flex;
     flex: auto;
     flex-wrap: wrap;

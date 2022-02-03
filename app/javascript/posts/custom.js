@@ -1,5 +1,6 @@
 $(document).on('turbolinks:load', function () {
     $('.selected_tag').hide();
+
     //tags List Start
     var customSelectTags;
     //converting data into json value
@@ -37,23 +38,50 @@ $(document).on('turbolinks:load', function () {
         defaultSelectArray: [],
         onSelectFunction: function (list, value) {
 
+            if($("#post-id").val()){
+
+                $.ajax({
+                    url: `validate_tag?tag_ids=${value.Tag}`,
+                    type: 'GET',
+                    success: function(res) {
+                       if(! res.length == 0){
+                           var tag_names = []
+                           $.each(res, function (index, value) {
+                              tag_names.push(value.name)
+                           })
+                           alert(`Tag with name ${tag_names.join(", ")} already exists`)
+                       }
+                       else{
+                           getSelectedTags(list)
+                       }
+                    }
+                });
+            }
+            else{
+                getSelectedTags(list)
+            }
+
             var tags_ids = []
             var tag_name = []
+            $("#posts-tags-ids").empty()
+
             $.each(value.Tag, function (index, value) {
                 if ($.isNumeric(value)) {
+                    $("#posts-tags-ids").append(`<input type="hidden" name="post[tag_ids][]" value="${value}">`)
                     tags_ids.push(value)
                 } else {
                     var number = Math.floor((Math.random() * 10) + 1);
                     var company_id = $("#tag-company-id").val()
                     tag_name.push(value)
-                    $("#new-tags-name").append(`<input type='hidden' value='${value}' name='post[tags_attributes][${number}][name]'> <br>
+                    $("#new-tags-name").empty()
+                    $.each(tag_name, function (index, value) {
+                        $("#new-tags-name").append(`<input type='hidden' value='${value}' name='post[tags_attributes][${number}][name]'> <br>
                  <input type="hidden"  value='${company_id}' name='post[tags_attributes][${number}][company_id]' >`)
+                    })
                 }
             })
 
-            $("#posts-tags-ids").val(tags_ids)
 
-            getSelectedTags(list)
         }
     });
 
@@ -168,7 +196,8 @@ $(document).on('turbolinks:load', function () {
         DropDownList: dropDownList,
         defaultSelectArray: [],
         onSelectFunction: function (list, value) {
-            filterTags(value)
+            $("#posts-tags-ids").val(value.Tag)
+            filterTags(value.Tag, $("#search-bar").val())
             getSelectedPostTags(list)
         }
     });
@@ -190,13 +219,16 @@ $(document).on('turbolinks:load', function () {
         }
     }
 
-    function filterTags(value) {
+    $('#posts-search-form #search-bar').keyup(function () {
+        filterTags($("#posts-tags-ids").val().split(","), $("#search-bar").val())
+    })
 
+    function filterTags(value, search) {
         $.ajax({
             url: "/posts",
             method: "get",
             dataType: 'script',
-            data: {tag_ids: value.Tag}
+            data: {tag_ids: value, search: search}
         });
     }
 

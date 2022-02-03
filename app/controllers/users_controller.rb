@@ -10,6 +10,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def delete_account
+    current_user.integrated_accounts.with_platform("linked_in").destroy_all
+  end
+
   def unsubscribe
     current_user.update(subscribe: false)
     redirect_to posts_path

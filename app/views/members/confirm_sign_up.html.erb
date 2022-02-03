@@ -1,0 +1,99 @@
+<section class="auth">
+  <div class="container-fluid">
+    <div class="row auth-wrap">
+      <div class="col-md-12 col-lg-6 col-sm-12 position-relative left-column">
+
+        <div class="authentication-container signUpFormAr">
+          <div class="signInFormWrap">
+            <div class="container-wrap">
+
+              <h2 class="formTitle">Let’s Get Started</h2>
+              <p class="formText">Enter your details below to sign up for an account.</p>
+
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width:50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+
+              <div class="formWrap">
+
+                <%= form_for(@user, url: confirm_member_path(@user, company_id: @company.id), method: :post, html: {id: "confirm-sign-up", class: "needs-validation"}) do |f| %>
+
+                    <%= f.fields_for "company_attributes" do |form| %>
+                      <div class="form-group required">
+                        <label class="control-label" for="InputOrganisationName">Organisation name</label>
+                        <%= form.text_field :name, class: "form-control", placeholder: "Organisation name", value: @user.company.name, disabled: true %>
+                      </div>
+
+                      <div class="form-group required">
+                        <label class="control-label" for="InputOrganisationName">Organisation url</label>
+                        <%= form.url_field :url, class: "form-control", placeholder: "Organisation url", value: @user.company.url, disabled: true %>
+                      </div>
+                    <% end %>
+
+                    <div class="form-group required">
+                      <label class="control-label" for="InputFirstName">First name</label>
+                      <%= f.text_field :first_name, class: "form-control", placeholder: "First name", disabled: true %>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label" for="InputLastName">Last name</label>
+                      <%= f.text_field :last_name, class: "form-control", placeholder: "Last name", disabled: true %>
+                    </div>
+
+                    <div class="form-group required">
+                      <label class="control-label" for="InputBusinessName">Business email</label>
+                      <%= f.email_field :email, class: "form-control", placeholder: "Business email", disabled: true %>
+                    </div>
+
+
+                    <div class="form-group required position-relative">
+                      <label class="control-label" for="InputPassword">Password</label>
+                      <%= f.password_field :password, class: "form-control password-field", placeholder: "Password" %>
+                      <button class="btn user-password-button" id="user-password-button" type="button">
+                    <span class="icon visible">
+                        <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M23.8999 9.12C21.4767 3.492 16.9183 0 12 0C7.08171 0 2.5233 3.492 0.100147 9.12C0.0340939 9.2714 0 9.43481 0 9.6C0 9.76519 0.0340939 9.9286 0.100147 10.08C2.5233 15.708 7.08171 19.2 12 19.2C16.9183 19.2 21.4767 15.708 23.8999 10.08C23.9659 9.9286 24 9.76519 24 9.6C24 9.43481 23.9659 9.2714 23.8999 9.12ZM12 16.8C8.19732 16.8 4.59858 14.052 2.5233 9.6C4.59858 5.148 8.19732 2.4 12 2.4C15.8027 2.4 19.4014 5.148 21.4767 9.6C19.4014 14.052 15.8027 16.8 12 16.8ZM12 4.8C11.051 4.8 10.1233 5.08152 9.33419 5.60895C8.54511 6.13638 7.9301 6.88603 7.56692 7.76312C7.20375 8.6402 7.10873 9.60532 7.29387 10.5364C7.47901 11.4675 7.93601 12.3228 8.60707 12.9941C9.27813 13.6654 10.1331 14.1226 11.0639 14.3078C11.9947 14.493 12.9595 14.3979 13.8362 14.0346C14.713 13.6713 15.4624 13.0561 15.9897 12.2667C16.5169 11.4774 16.7983 10.5494 16.7983 9.6C16.7983 8.32696 16.2928 7.10606 15.3929 6.20589C14.4931 5.30571 13.2726 4.8 12 4.8ZM12 12C11.5255 12 11.0616 11.8592 10.6671 11.5955C10.2726 11.3318 9.96505 10.957 9.78346 10.5184C9.60187 10.0799 9.55436 9.59734 9.64694 9.13178C9.73951 8.66623 9.96801 8.23859 10.3035 7.90294C10.6391 7.5673 11.0666 7.33872 11.5319 7.24612C11.9973 7.15351 12.4797 7.20104 12.9181 7.38269C13.3565 7.56434 13.7312 7.87195 13.9948 8.26663C14.2585 8.66131 14.3992 9.12533 14.3992 9.6C14.3992 10.2365 14.1464 10.847 13.6965 11.2971C13.2465 11.7471 12.6363 12 12 12Z" fill="#6F6C99"/>
+                        </svg>
+                    </span>
+                        <span class="icon hide">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd" stroke="#6F6C99" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" transform="translate(1 1)"><path d="M16.94 16.94A10.07 10.07 0 0111 19c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M8.9 3.24A9.12 9.12 0 0111 3c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M0 0l22 22"/></g></svg>
+                    </span>
+                      </button>
+                    </div>
+
+                    <div class="form-group required position-relative">
+                      <label class="control-label" for="InputPasswordConfirmation">Password Confirmation</label>
+                      <%= f.password_field :password_confirmation, class: "form-control password-field", placeholder: "Password confirmation" %>
+                      <button class="btn user-password-confirmation-button" id="user-password-confirmation-button" type="button">
+                    <span class="icon visible">
+                        <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M23.8999 9.12C21.4767 3.492 16.9183 0 12 0C7.08171 0 2.5233 3.492 0.100147 9.12C0.0340939 9.2714 0 9.43481 0 9.6C0 9.76519 0.0340939 9.9286 0.100147 10.08C2.5233 15.708 7.08171 19.2 12 19.2C16.9183 19.2 21.4767 15.708 23.8999 10.08C23.9659 9.9286 24 9.76519 24 9.6C24 9.43481 23.9659 9.2714 23.8999 9.12ZM12 16.8C8.19732 16.8 4.59858 14.052 2.5233 9.6C4.59858 5.148 8.19732 2.4 12 2.4C15.8027 2.4 19.4014 5.148 21.4767 9.6C19.4014 14.052 15.8027 16.8 12 16.8ZM12 4.8C11.051 4.8 10.1233 5.08152 9.33419 5.60895C8.54511 6.13638 7.9301 6.88603 7.56692 7.76312C7.20375 8.6402 7.10873 9.60532 7.29387 10.5364C7.47901 11.4675 7.93601 12.3228 8.60707 12.9941C9.27813 13.6654 10.1331 14.1226 11.0639 14.3078C11.9947 14.493 12.9595 14.3979 13.8362 14.0346C14.713 13.6713 15.4624 13.0561 15.9897 12.2667C16.5169 11.4774 16.7983 10.5494 16.7983 9.6C16.7983 8.32696 16.2928 7.10606 15.3929 6.20589C14.4931 5.30571 13.2726 4.8 12 4.8ZM12 12C11.5255 12 11.0616 11.8592 10.6671 11.5955C10.2726 11.3318 9.96505 10.957 9.78346 10.5184C9.60187 10.0799 9.55436 9.59734 9.64694 9.13178C9.73951 8.66623 9.96801 8.23859 10.3035 7.90294C10.6391 7.5673 11.0666 7.33872 11.5319 7.24612C11.9973 7.15351 12.4797 7.20104 12.9181 7.38269C13.3565 7.56434 13.7312 7.87195 13.9948 8.26663C14.2585 8.66131 14.3992 9.12533 14.3992 9.6C14.3992 10.2365 14.1464 10.847 13.6965 11.2971C13.2465 11.7471 12.6363 12 12 12Z" fill="#6F6C99"/>
+                        </svg>
+                    </span>
+                        <span class="icon hide">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd" stroke="#6F6C99" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" transform="translate(1 1)"><path d="M16.94 16.94A10.07 10.07 0 0111 19c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M8.9 3.24A9.12 9.12 0 0111 3c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M0 0l22 22"/></g></svg>
+                    </span>
+                      </button>
+                    </div>
+
+                    <div class="buttonWrap">
+                      <input  type="submit" value="Confirm" class="btn btn-primary btn-block" id="sign-up-page-one" role="button">
+                      <p class="text-center login-link">Do you already have an account?
+                        <a class="text-link" href="/users/sign_in">Log in</a></p>
+                    </div>
+
+
+                <% end %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-12 col-sm-12 col-lg-6 position-relative px-0 bg-linear">
+        <%= render "devise/shared/right_side_content" %>
+      </div>
+    </div>
+  </div>
+</section>
