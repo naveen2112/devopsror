@@ -1,4 +1,5 @@
 include LinkedinAuthentication
+
 class PostsController < ApplicationController
   load_and_authorize_resource param_method: :posts_params
   before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share, :validate_tag]
@@ -12,7 +13,7 @@ class PostsController < ApplicationController
 
       if params[:search].present?
         @posts = @posts.joins(:commentries).where("title ILIKE :search OR main_url ILIKE :search OR
-                                                     commentries.description ILIKE :search", {search: "%#{params[:search]}%"}).distinct
+                                                     commentries.description ILIKE :search", { search: "%#{params[:search]}%" }).distinct
       end
     else
       @posts = @posts.all
@@ -55,7 +56,7 @@ class PostsController < ApplicationController
   def edit; end
 
   def update
-    params_object = posts_params.merge(status: "live") if params["commit"]  == "Update Post"
+    params_object = posts_params.merge(status: "live") if params["commit"] == "Update Post"
 
     if @post.update(params_object)
       redirect_to posts_path, notice: "Post updated Successfully."
