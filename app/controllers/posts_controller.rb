@@ -1,6 +1,6 @@
 include LinkedinAuthentication
 class PostsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource param_method: :posts_params
   before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share, :validate_tag]
   before_action :set_tags, only: [:new, :create, :edit, :update]
 
