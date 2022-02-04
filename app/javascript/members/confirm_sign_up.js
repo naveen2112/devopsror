@@ -2,6 +2,9 @@ $(document).on('turbolinks:load', function() {
 
     $("#confirm-sign-up").validate({
         rules: {
+            "user[first_name]": {
+                required: true
+            },
             "user[password]": {
                 required: true,
                 minlength: 6,

@@ -20,15 +20,19 @@
 
   <body>
      <% if current_user.present? %>
-       <div>
-         <div class="sideBar">
-           <%= render "shared/sidebar" %>
-         </div>
-         <div class="dashboard_wrap position-relative">
-           <div id="alert-popup"></div>
-           <%= yield %>
-         </div>
-       </div>
+       <% if controller_name == "members" && action_name == "confirm_sign_up" %>
+         <%= yield %>
+       <% else %>
+          <div>
+            <div class="sideBar">
+              <%= render "shared/sidebar" %>
+            </div>
+            <div class="dashboard_wrap position-relative">
+              <div id="alert-popup"></div>
+             <%= yield %>
+            </div>
+          </div>
+       <% end %>
      <% else %>
         <%= yield %>
      <% end %>
