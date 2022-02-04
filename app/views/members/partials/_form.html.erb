@@ -78,8 +78,10 @@
                 $("#email-error").html(`<div for="exampleInputPassword" generated="true" class="error">This field is required.</div>`)
             } else {
 
+                var url = <%= user.new_record? ? "users/validate_email" : "/users/validate_email_without_current_user" %>
+
                 $.ajax({
-                    url: "users/validate_email",
+                    url: url,
                     method: "get",
                     data: {user: {email: $("#user_email").val()}},
                     success: function (result) {

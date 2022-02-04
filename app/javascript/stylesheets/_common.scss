@@ -1234,3 +1234,10 @@ img {
     display: inline;
   }
 }
+
+.read-more{
+  cursor: pointer;
+  color: $primary-blue-bg;
+  font-size: 14px;
+  text-decoration: underline;
+}

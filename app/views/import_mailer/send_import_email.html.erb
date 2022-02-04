@@ -33,6 +33,8 @@
         <p style="font-size:48px; line-height: 1.2; color: #0C1014; font-weight: 700; margin: 0;">Hi <%= @email %>,</p>
         <% if @status == "success" %>
           <p>Your import is successfully completed.</p>
+        <% elsif @total_records_count != @error_records_count && @error_records_count > 0  %>
+          <p>Your import is successfully completed, Only <%= (@total_records_count - @error_records_count) %> out of <%= @total_records_count %> users were added successfully.</p>
         <% else %>
           <p>Your import is failed due to some errors. Please refer the attached csv for more information out of <%= @total_records_count %> records <%= @error_records_count %> failed.</p>
         <% end %>

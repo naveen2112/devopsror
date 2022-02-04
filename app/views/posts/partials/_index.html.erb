@@ -49,12 +49,12 @@
               <h6 class="user-name"><%= current_user.name %></h6>
             </div>
           </div>
-          <input type="hidden" value="15" id="post-read-more-<%= post.id %>">
+          <input type="hidden" value="20" id="post-read-more-<%= post.id %>">
           <div class="post_comments">
             <p class="comment-<%= post.id %>">
               <span id="post-commentries-<%= post.id %>"><%= post.commentries&.first&.description %></span>
-              <span id="read-more-<%= post.id %>" class="text-primary">read more</span>
-              <span id="read-less-<%= post.id %>" class="text-primary">read less</span>
+              <span id="read-more-<%= post.id %>" class="text-primary read-more">read more</span>
+              <span id="read-less-<%= post.id %>" class="text-primary read-more">read less</span>
             </p>
             <div class="comment_navigation_wrap">
               <div class="row">
@@ -153,30 +153,19 @@
         }
 
         $("#read-more-<%= post.id %>").click(function () {
-            $("#post-read-more-<%= post.id %>").val(parseInt($("#post-read-more-<%= post.id %>").val()) + 15)
-            $("#post-commentries-<%= post.id %>").text(getWords(read_more_text_<%= post.id %>, (parseInt($("#post-read-more-<%= post.id %>").val()) + 15)))
-            if((read_more_text_<%= post.id %>).split(/\s+/).length < (parseInt($("#post-read-more-<%= post.id %>").val()) + 15))
-            {
-                $("#read-more-<%= post.id %>").hide()
-                $("#read-less-<%= post.id %>").show()
-            }else {
-                $("#read-more-<%= post.id %>").show()
-                $("#read-less-<%= post.id %>").hide()
-            }
+            $("#post-read-more-<%= post.id %>").val(parseInt($("#post-read-more-<%= post.id %>").val()) + (read_more_text_<%= post.id %>).split(/\s+/).length)
+            $("#post-commentries-<%= post.id %>").text(getWords(read_more_text_<%= post.id %>, (parseInt($("#post-read-more-<%= post.id %>").val()) + (read_more_text_<%= post.id %>).split(/\s+/).length)))
+
+            $("#read-more-<%= post.id %>").hide()
+            $("#read-less-<%= post.id %>").show()
         })
 
         $("#read-less-<%= post.id %>").click(function () {
-            $("#post-read-more-<%= post.id %>").val(parseInt($("#post-read-more-<%= post.id %>").val()) - 15)
-            $("#post-commentries-<%= post.id %>").text(getWords(read_more_text_<%= post.id %>, (parseInt($("#post-read-more-<%= post.id %>").val()) - 15)))
+            $("#post-read-more-<%= post.id %>").val(20)
+            $("#post-commentries-<%= post.id %>").text(getWords(read_more_text_<%= post.id %>, 20))
 
-            if((parseInt($("#post-read-more-<%= post.id %>").val())) == 30)
-            {
-                $("#read-more-<%= post.id %>").show()
-                $("#read-less-<%= post.id %>").hide()
-            }else {
-                $("#read-more-<%= post.id %>").hide()
-                $("#read-less-<%= post.id %>").show()
-            }
+            $("#read-more-<%= post.id %>").show()
+            $("#read-less-<%= post.id %>").hide()
         })
 
         function getWords(str, words_count) {
