@@ -78,7 +78,7 @@
                 $("#email-error").html(`<div for="exampleInputPassword" generated="true" class="error">This field is required.</div>`)
             } else {
 
-                var url = "<%= user.new_record? ? "users/validate_email" : "/users/validate_email_without_current_user" %>"
+                var url = "<%= user.new_record? ? "users/validate_email" : "/users/validate_email_without_current_user?user_id=#{user.id}" %>"
 
                 $.ajax({
                     url: url,
@@ -86,8 +86,13 @@
                     data: {user: {email: $("#user_email").val()}},
                     success: function (result) {
                         if (result == 'true') {
-                            var $form = $('#new-member');
-                            $form.submit()
+                            <% if user.new_record? %>
+                              var $form = $('#new-member');
+                              $form.submit()
+                            <% else %>
+                              var $form = $('#edit-member');
+                              $form.submit()
+                            <% end %>
                         } else {
                             $("#user_email").addClass("invalid")
                             $("#email-error").html(`<div for="exampleInputPassword" generated="true" class="error">${$("#user_email").val()} is already in use.</div>`)

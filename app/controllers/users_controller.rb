@@ -22,7 +22,8 @@ class UsersController < ApplicationController
   def validate_email_without_current_user
     return render plain: false unless params[:user][:email].present?
 
-    user = current_company.users.where.not(id: current_user.id).where("LOWER(email) = ?", params[:user][:email].downcase)
+    user_selected = params[:user_id].present? ? current_company.users.find(params[:user_id]) : current_user
+    user = current_company.users.where.not(id: user_selected.id).where("LOWER(email) = ?", params[:user][:email].downcase)
     render plain: user.empty? ? 'true' : 'false'
   end
 
