@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_03_111822) do
+ActiveRecord::Schema.define(version: 2022_02_06_134858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 2022_02_03_111822) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "first_name"
     t.string "last_name"
+    t.boolean "terms_and_condition", default: false
     t.integer "role", default: 0
     t.bigint "company_id"
     t.string "stripe_customer_id"
@@ -162,9 +163,10 @@ ActiveRecord::Schema.define(version: 2022_02_03_111822) do
     t.string "linked_in_id"
     t.boolean "active", default: false
     t.integer "login_count", default: 0
-    t.integer "status"
+    t.boolean "invited", default: false
+    t.integer "cards_count", default: 0
     t.index ["company_id"], name: "index_users_on_company_id"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email", "company_id"], name: "index_users_on_email_and_company_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

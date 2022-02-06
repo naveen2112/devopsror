@@ -97,7 +97,7 @@ class MembersController < ApplicationController
   end
 
   def confirm_params
-    params.require(:user).permit(:password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation)
   end
 
   def users_params
