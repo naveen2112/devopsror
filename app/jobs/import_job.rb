@@ -15,7 +15,7 @@ class ImportJob < ApplicationJob
       users_data.each do |user|
         current_user = company.users.new(first_name: user["firstname"], last_name: user["lastname"],
                                          email: user["email"], role: user["role"].downcase,
-                                         password: SecureRandom.hex.first(8))
+                                         password: SecureRandom.hex.first(8), invited: import.invite)
         errors_data << user.merge(reason: current_user.errors.full_messages.join(", ")) unless current_user.save
       end
 
