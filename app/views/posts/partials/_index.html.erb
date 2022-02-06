@@ -41,6 +41,9 @@
             <path d="M3.66636 1.88512C3.66636 2.92597 2.84562 3.76975 1.83318 3.76975C0.820742 3.76975 0 2.92597 0 1.88512C0 0.844265 0.820742 0.000488281 1.83318 0.000488281C2.84562 0.000488281 3.66636 0.844265 3.66636 1.88512Z" fill="#696969"/>
           </svg>
         </button>
+        <% if post.draft? %>
+          <span class="badge badge-secondary draft-intimation">Draft</span>
+        <% end %>
         <div class="card-body">
           <h5 class="post_title"><%= post.title %></h5>
           <div class="user_detail row">

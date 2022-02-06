@@ -32,12 +32,6 @@ class Company < ApplicationRecord
   end
 
   def total_users_connected_one_social_account
-    total_users = []
-
-    User.all.each do |user|
-      total_users << user if user.social_account_integrated > 0
-    end
-
-    total_users.count
+    IntegratedAccount.pluck(:user_id).uniq.count
   end
 end

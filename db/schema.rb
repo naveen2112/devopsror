@@ -162,7 +162,7 @@ ActiveRecord::Schema.define(version: 2022_02_03_111822) do
     t.string "linked_in_id"
     t.boolean "active", default: false
     t.integer "login_count", default: 0
-    t.integer "status", default: 0
+    t.integer "status"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

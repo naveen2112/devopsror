@@ -19,7 +19,7 @@ class ImportJob < ApplicationJob
 
     if errors_data.size == 0
       import.update(status: "success")
-      ImportMailer.send_import_email(import, email).deliver_later
+      ImportMailer.import_notification(import, email).deliver_later
     else
       create_error_csv_from_hash(errors_data, import, email, users_data.count)
     end
@@ -40,7 +40,7 @@ class ImportJob < ApplicationJob
     import.error_file.attach(io: File.open(tmp_file), filename: 'error_list.csv', content_type: 'text/csv')
     import.status = total_records_count == error_list.count ? "failed" : "success"
     import.save
-    ImportMailer.send_import_email(import, email, total_records_count, error_list.count).deliver_later
+    ImportMailer.import_notification(import, email, total_records_count, error_list.count).deliver_later
 
     File.delete tmp_file if File.exists? tmp_file
   end

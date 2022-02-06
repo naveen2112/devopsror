@@ -20,6 +20,9 @@
 <script>
     $(document).ready(function () {
 
+        $("#send-invite-for-selected").attr("type", "hidden")
+        $("#batch-delete-user").attr("type", "hidden")
+
         $("#members-search").keyup(function () {
             $.ajax({
                 url: `/members?search=${$(this).val()}`,
@@ -27,7 +30,6 @@
                 dataType: 'script'
             });
         })
-
 
         $("#add-user").click(function () {
             $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: current_company.users.new, url: members_path, method: "post", button_name: "Save", id: "new-member" }) %>");
@@ -38,6 +40,17 @@
         })
 
         <% @users.each do |user| %>
+
+        $("#members-checkbox-<%= user.id %>").change(function (){
+            if($('input[type="checkbox"]:checked').length > 0){
+                $("#send-invite-for-selected").attr("type", "submit")
+                $("#batch-delete-user").attr("type", "submit")
+            }
+            else{
+                $("#send-invite-for-selected").attr("type", "hidden")
+                $("#batch-delete-user").attr("type", "hidden")
+            }
+        })
 
         $("#users-delete-button-<%= user.id %>").click(function (e) {
             e.preventDefault()

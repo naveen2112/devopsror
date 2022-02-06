@@ -20,6 +20,7 @@ class MembersController < ApplicationController
     if params["send_invite_email"].present?
       @users.each do |user|
         user.send_invite_email
+        user.update(invited: true) unless user.invited
       end
     else
       @users.destroy_all
@@ -30,7 +31,7 @@ class MembersController < ApplicationController
   def confirm_sign_up; end
 
   def confirm
-    if @user.update(confirm_params.merge(status: "accepted"))
+    if @user.update(confirm_params)
       redirect_to root_path
     else
       render :confirm_sign_up
@@ -39,6 +40,7 @@ class MembersController < ApplicationController
 
   def create
     @user = current_company.users.new(users_params)
+    @user.status = "invited" if users_params[:send_invite] == 1
     @user.password = SecureRandom.hex.first(8)
 
     @user.save
@@ -47,6 +49,7 @@ class MembersController < ApplicationController
 
   def resend_invite
     @user.send_invite_email
+    @user.update(invited: true) unless @user.invited
     redirect_to members_path
   end
 
@@ -98,6 +101,6 @@ class MembersController < ApplicationController
   end
 
   def users_params
-    params.require(:user).permit(:first_name, :last_name, :email, :role, :send_invite)
+    params.require(:user).permit(:first_name, :last_name, :email, :role, :invited)
   end
 end

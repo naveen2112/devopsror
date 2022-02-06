@@ -14,11 +14,7 @@ class User < ApplicationRecord
 
   #========================================= Callbacks =============================================================
 
-  after_create :send_invite_email, if: -> { self.poster? || self.editor? && send_invite }
-
-  #==================================== Attribute Accessors =======================================================
-
-  attr_accessor :send_invite
+  after_create :send_invite_email, if: -> { (self.poster? || self.editor?) && invited }
 
   #========================================= Scope ==================================================================
 
@@ -31,7 +27,6 @@ class User < ApplicationRecord
   #======================================== Enum ======================================================================
 
   enum role: { admin: 0, poster: 1, editor: 2 }
-  enum status: { invited: 0, accepted: 1 }
 
   #============================================ Nested attributes =====================================================
 
