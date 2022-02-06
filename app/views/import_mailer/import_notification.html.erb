@@ -35,6 +35,8 @@
           <p>Your import is successfully completed.</p>
         <% elsif @total_records_count != @error_records_count && @error_records_count > 0  %>
           <p>Your import is successfully completed, Only <%= (@total_records_count - @error_records_count) %> out of <%= @total_records_count %> users were added successfully.</p>
+        <% elsif @headers == true %>
+          <p>Invalid headers. Please add a valid headers to your csv file.</p>
         <% else %>
           <p>Your import is failed due to some errors. Please refer the attached csv for more information out of <%= @total_records_count %> records <%= @error_records_count %> failed.</p>
         <% end %>
