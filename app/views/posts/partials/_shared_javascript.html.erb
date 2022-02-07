@@ -70,7 +70,7 @@
 
 
                 <% unless @post.image.url.nil? %>
-                 $("#preview-post-image").html(` <img src='<%= @post.image.url %>' style='height: 13rem;'/>`)
+                   $("#preview-post-image").html(` <img src='<%= @post.image.url %>' style='height: 13rem;'/>`)
                 <% end %>
 
                 if ($("#post_image")[0].files[0]) {

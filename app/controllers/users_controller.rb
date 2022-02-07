@@ -22,7 +22,12 @@ class UsersController < ApplicationController
   def validate_email_without_current_user
     return render plain: false unless params[:user][:email].present?
 
-    user_selected = params[:user_id].present? ? User.find(params[:user_id]) : current_user
+    # While updating we need to remove the validation for that user
+    user_selected = if params[:user_id].present?
+                      User.find(params[:user_id])
+                    else
+                      current_user
+                    end
     user = User.where.not(id: user_selected.id).where("LOWER(email) = ?", params[:user][:email].downcase)
     render plain: user.empty? ? 'true' : 'false'
   end
