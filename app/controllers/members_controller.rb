@@ -1,6 +1,5 @@
 class MembersController < ApplicationController
   load_and_authorize_resource :user, except: [:confirm_sign_up, :confirm]
-  before_action :set_company, only: [:confirm_sign_up, :confirm]
   skip_before_action :authenticate_user!, only: [:confirm_sign_up, :confirm]
   before_action :set_member, only: [:update, :destroy, :resend_invite, :confirm_sign_up, :confirm]
 
@@ -81,15 +80,7 @@ class MembersController < ApplicationController
   private
 
   def set_member
-    @user =  if @company.nil?
-               current_company.users.find(params[:id])
-             else
-               @company.users.find(params[:id])
-             end
-  end
-
-  def set_company
-    @company = Company.find(params[:company_id])
+    @user = current_company.users.find(params[:id])
   end
 
   def imports_params

@@ -7,7 +7,7 @@
           <div class="signInFormWrap">
             <div class="container-wrap">
 
-              <h2 class="formTitle">Join <%= @company.name %> on SoVocal</h2>
+              <h2 class="formTitle">Join <%= current_company.name %> on SoVocal</h2>
               <p class="formText">Enter your details below to claim your account.</p>
 
               <div class="progress">
@@ -16,7 +16,7 @@
 
               <div class="formWrap">
 
-                <%= form_for(@user, url: confirm_member_path(@user, company_id: @company.id), method: :post, html: { id: "confirm-sign-up", class: "needs-validation" }) do |f| %>
+                <%= form_for(@user, url: confirm_member_path(@user, company_id: current_company.id), method: :post, html: { id: "confirm-sign-up", class: "needs-validation" }) do |f| %>
 
                   <div class="form-group required">
                     <label class="control-label" for="InputBusinessName">Business email</label>
