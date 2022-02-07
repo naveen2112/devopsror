@@ -64,6 +64,7 @@
 
         $("#users-edit-button-<%= user.id %>").click(function (e) {
             e.preventDefault()
+            $(".dashboard_wrap").addClass("show-add-form")
             $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: user, url: member_path(user), method: "put", button_name: "Update", id: "edit-member" }) %>");
         })
 

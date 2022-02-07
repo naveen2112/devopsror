@@ -34,7 +34,8 @@ $(document).on('turbolinks:load', function () {
                 required: true
             },
             "user[email]": {
-                required: true
+                required: true,
+                remote: "/users/validate_email"
             },
             "user[company_attributes][name]": {
                 required: true,
