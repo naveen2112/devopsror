@@ -23,14 +23,19 @@
                     <%= f.email_field :email, class: "form-control", placeholder: "Business email", disabled: true %>
                   </div>
 
-                  <div class="form-group required">
-                    <label class="control-label" for="InputFirstName">First name</label>
-                    <%= f.text_field :first_name, class: "form-control", placeholder: "First name" %>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="control-label" for="InputLastName">Last name</label>
-                    <%= f.text_field :last_name, class: "form-control", placeholder: "Last name" %>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group required">
+                        <label class="control-label" for="InputFirstName">First name</label>
+                        <%= f.text_field :first_name, class: "form-control", placeholder: "First name" %>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label class="control-label" for="InputLastName">Last name</label>
+                        <%= f.text_field :last_name, class: "form-control", placeholder: "Last name" %>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="form-group required position-relative">

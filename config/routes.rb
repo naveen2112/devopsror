@@ -47,6 +47,7 @@ Rails.application.routes.draw do
       get :send_email_notification
       get :validate_tag
       post :share
+      delete :destroy_image
     end
     collection do
       get :validate_title

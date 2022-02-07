@@ -70,7 +70,7 @@
 
 
                 <% unless @post.image.url.nil? %>
-                $("#preview-post-image").html(` <img src='<%= @post.image.url %>' style='height: 13rem;'/>`)
+                 $("#preview-post-image").html(` <img src='<%= @post.image.url %>' style='height: 13rem;'/>`)
                 <% end %>
 
                 if ($("#post_image")[0].files[0]) {
@@ -93,6 +93,13 @@
 
         $("#preview-image-button").click(function () {
             $("#post_image").val("")
+            <% if @post.image.attached? %>
+               $.ajax({
+                  url: "/posts/<%= @post.id %>/destroy_image",
+                  headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
+                  method: "delete"
+               });
+            <% end %>
             $("#preview-post-image").empty()
             $("#remove-image-text").hide()
             $("#upload-image-text").show()

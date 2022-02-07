@@ -1,9 +1,5 @@
 <div class="member-wrap">
   <div class="title-wrap"></div>
-  <div class="d-flex action-btn">
-    <button class="btn btn-primary" id="add-user">Add User</button>
-    <button class="btn btn-primary" id="multiple-user">Add Multiple via CSV</button>
-  </div>
   <div class="form-group search-wrap position-relative">
     <span class="icon">
       <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -14,8 +10,8 @@
     <input type="text" id="members-search" class="form-control" placeholder="Search for members...">
   </div>
   <div id="members-list"><%= render "members/partials/index" %></div>
-  <div id="new-user-form"></div>
 </div>
+<div id="new-user-form"></div>
 
 <script>
     $(document).ready(function () {
@@ -32,10 +28,12 @@
         })
 
         $("#add-user").click(function () {
+            $(".dashboard_wrap").addClass("show-add-form")
             $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: current_company.users.new, url: members_path, method: "post", button_name: "Save", id: "new-member" }) %>");
         })
 
         $("#multiple-user").click(function () {
+            $(".dashboard_wrap").addClass("show-add-form")
             $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/csv_form' ) %>");
         })
 

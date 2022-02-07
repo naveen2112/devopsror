@@ -1,64 +1,66 @@
-<div class="add-member">
-  <div class="d-flex justify-content-between align-items-center">
-    <h6 class="add-member-title mb-0"><%= user.new_record? ? "Add new user" : "Edit user" %></h6>
-    <button class="transparent-button add-member-close-btn" id="member-form-close-btn">
-      <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17.4053 10.6553C17.6982 10.3624 17.6982 9.88756 17.4053 9.59467C17.1124 9.30178 16.6375 9.30178 16.3446 9.59467L17.4053 10.6553ZM9.59461 16.3447C9.30171 16.6376 9.30171 17.1124 9.59461 17.4053C9.8875 17.6982 10.3624 17.6982 10.6553 17.4053L9.59461 16.3447ZM10.6554 9.59468C10.3625 9.30178 9.88765 9.30177 9.59475 9.59466C9.30185 9.88755 9.30184 10.3624 9.59473 10.6553L10.6554 9.59468ZM16.3447 17.4053C16.6376 17.6982 17.1125 17.6982 17.4054 17.4053C17.6983 17.1124 17.6983 16.6375 17.4054 16.3447L16.3447 17.4053ZM22.6427 15.584C22.551 15.988 22.8042 16.3897 23.2081 16.4814C23.6121 16.5731 24.0139 16.3199 24.1055 15.916L22.6427 15.584ZM20.7502 21.6057C21.0588 21.3295 21.0851 20.8553 20.8089 20.5467C20.5326 20.238 20.0585 20.2118 19.7498 20.488L20.7502 21.6057ZM11.2822 12.3428C11.575 12.6357 12.0499 12.6357 12.3428 12.3428C12.6357 12.05 12.6357 11.5751 12.3428 11.2822L11.2822 12.3428ZM14.0303 12.9697C13.7374 12.6768 13.2626 12.6768 12.9697 12.9697C12.6768 13.2626 12.6768 13.7374 12.9697 14.0303L14.0303 12.9697ZM16.3446 9.59467L9.59461 16.3447L10.6553 17.4053L17.4053 10.6553L16.3446 9.59467ZM13.5 22.875C8.32233 22.875 4.125 18.6777 4.125 13.5H2.625C2.625 19.5061 7.4939 24.375 13.5 24.375V22.875ZM4.125 13.5C4.125 8.32233 8.32233 4.125 13.5 4.125V2.625C7.4939 2.625 2.625 7.4939 2.625 13.5H4.125ZM13.5 4.125C18.6777 4.125 22.875 8.32233 22.875 13.5H24.375C24.375 7.4939 19.5061 2.625 13.5 2.625V4.125ZM22.875 13.5C22.875 14.2171 22.7946 14.9145 22.6427 15.584L24.1055 15.916C24.282 15.1383 24.375 14.3295 24.375 13.5H22.875ZM19.7498 20.488C18.0907 21.973 15.9016 22.875 13.5 22.875V24.375C16.2848 24.375 18.8267 23.3273 20.7502 21.6057L19.7498 20.488ZM9.59473 10.6553L11.2822 12.3428L12.3428 11.2822L10.6554 9.59468L9.59473 10.6553ZM12.9697 14.0303L16.3447 17.4053L17.4054 16.3447L14.0303 12.9697L12.9697 14.0303Z" fill="#8692A6"/>
-      </svg>
-    </button>
-  </div>
-  <div class="form-wrap">
-    <%= form_for user, url: url, method: method, html: { id: id } do |form| %>
-      <div class="single-user-form">
-        <div class="row">
-          <div class="col-6">
-            <div class="form-group">
-              <label class="control-label">First Name</label>
-              <%= form.text_field :first_name, class: "form-control", placeholder: "First Name" %>
-              <div id="first-name-error"></div>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="form-group">
-              <label class="control-label">Last Name</label>
-              <%= form.text_field :last_name, class: "form-control", placeholder: "Last Name" %>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label">Email</label>
-          <%= form.email_field :email, class: "form-control", placeholder: "Email Address" %>
-          <div id="email-error"></div>
-        </div>
-        <div class="form-group">
-          <label class="control-label mb-0">Role</label>
-          <p class="mb-0 secondary-label">Choose the employee role</p>
-          <div class="custom-radio-btn-group">
-            <div class="position-relative d-flex">
-              <div class="position-relative">
-                <%= form.radio_button :role, "admin", id: "admin", class: "custom-radio-input" %>
-                <p class="custom-radio mb-0" for="#admin">Admin</p>
+<div class="add-member-wrap justify-content-center align-items-center">
+  <div class="add-member">
+    <div class="d-flex justify-content-between align-items-center">
+      <h6 class="add-member-title mb-0"><%= user.new_record? ? "Add new user" : "Edit user" %></h6>
+      <button class="transparent-button add-member-close-btn" id="member-form-close-btn">
+        <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.4053 10.6553C17.6982 10.3624 17.6982 9.88756 17.4053 9.59467C17.1124 9.30178 16.6375 9.30178 16.3446 9.59467L17.4053 10.6553ZM9.59461 16.3447C9.30171 16.6376 9.30171 17.1124 9.59461 17.4053C9.8875 17.6982 10.3624 17.6982 10.6553 17.4053L9.59461 16.3447ZM10.6554 9.59468C10.3625 9.30178 9.88765 9.30177 9.59475 9.59466C9.30185 9.88755 9.30184 10.3624 9.59473 10.6553L10.6554 9.59468ZM16.3447 17.4053C16.6376 17.6982 17.1125 17.6982 17.4054 17.4053C17.6983 17.1124 17.6983 16.6375 17.4054 16.3447L16.3447 17.4053ZM22.6427 15.584C22.551 15.988 22.8042 16.3897 23.2081 16.4814C23.6121 16.5731 24.0139 16.3199 24.1055 15.916L22.6427 15.584ZM20.7502 21.6057C21.0588 21.3295 21.0851 20.8553 20.8089 20.5467C20.5326 20.238 20.0585 20.2118 19.7498 20.488L20.7502 21.6057ZM11.2822 12.3428C11.575 12.6357 12.0499 12.6357 12.3428 12.3428C12.6357 12.05 12.6357 11.5751 12.3428 11.2822L11.2822 12.3428ZM14.0303 12.9697C13.7374 12.6768 13.2626 12.6768 12.9697 12.9697C12.6768 13.2626 12.6768 13.7374 12.9697 14.0303L14.0303 12.9697ZM16.3446 9.59467L9.59461 16.3447L10.6553 17.4053L17.4053 10.6553L16.3446 9.59467ZM13.5 22.875C8.32233 22.875 4.125 18.6777 4.125 13.5H2.625C2.625 19.5061 7.4939 24.375 13.5 24.375V22.875ZM4.125 13.5C4.125 8.32233 8.32233 4.125 13.5 4.125V2.625C7.4939 2.625 2.625 7.4939 2.625 13.5H4.125ZM13.5 4.125C18.6777 4.125 22.875 8.32233 22.875 13.5H24.375C24.375 7.4939 19.5061 2.625 13.5 2.625V4.125ZM22.875 13.5C22.875 14.2171 22.7946 14.9145 22.6427 15.584L24.1055 15.916C24.282 15.1383 24.375 14.3295 24.375 13.5H22.875ZM19.7498 20.488C18.0907 21.973 15.9016 22.875 13.5 22.875V24.375C16.2848 24.375 18.8267 23.3273 20.7502 21.6057L19.7498 20.488ZM9.59473 10.6553L11.2822 12.3428L12.3428 11.2822L10.6554 9.59468L9.59473 10.6553ZM12.9697 14.0303L16.3447 17.4053L17.4054 16.3447L14.0303 12.9697L12.9697 14.0303Z" fill="#8692A6"/>
+        </svg>
+      </button>
+    </div>
+    <div class="form-wrap">
+      <%= form_for user, url: url, method: method, html: { id: id } do |form| %>
+        <div class="single-user-form">
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label class="control-label">First Name</label>
+                <%= form.text_field :first_name, class: "form-control", placeholder: "First Name" %>
+                <div id="first-name-error"></div>
               </div>
-              <div class="position-relative">
-                <%= form.radio_button :role, "editor", id: "editor", class: "custom-radio-input" %>
-                <p class="custom-radio mb-0" for="#editor">Editor</p>
-              </div>
-              <div class="position-relative">
-                <%= form.radio_button :role, "poster", id: "poster", class: "custom-radio-input" %>
-                <p class="custom-radio mb-0" for="#poster">Poster</p>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label class="control-label">Last Name</label>
+                <%= form.text_field :last_name, class: "form-control", placeholder: "Last Name" %>
               </div>
             </div>
           </div>
+          <div class="form-group">
+            <label class="control-label">Email</label>
+            <%= form.email_field :email, class: "form-control", placeholder: "Email Address" %>
+            <div id="email-error"></div>
+          </div>
+          <div class="form-group">
+            <label class="control-label mb-0">Role</label>
+            <p class="mb-0 secondary-label">Choose the employee role</p>
+            <div class="custom-radio-btn-group">
+              <div class="position-relative d-flex">
+                <div class="position-relative">
+                  <%= form.radio_button :role, "admin", id: "admin", class: "custom-radio-input" %>
+                  <p class="custom-radio mb-0" for="#admin">Admin</p>
+                </div>
+                <div class="position-relative">
+                  <%= form.radio_button :role, "editor", id: "editor", class: "custom-radio-input" %>
+                  <p class="custom-radio mb-0" for="#editor">Editor</p>
+                </div>
+                <div class="position-relative">
+                  <%= form.radio_button :role, "poster", id: "poster", class: "custom-radio-input" %>
+                  <p class="custom-radio mb-0" for="#poster">Poster</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="custom-control custom-switch form-group">
-        <%= form.check_box :invited, class: "custom-control-input", id: "switch1" %>
-        <label class="custom-control-label" for="switch1"><span>Send email invitation to user</span></label>
-      </div>
-      <div class="text-center btn-wrap">
-        <button id="submit-button" class="btn btn-primary">Save</button>
-      </div>
-    <% end %>
+        <div class="custom-control custom-switch form-group">
+          <%= form.check_box :invited, class: "custom-control-input", id: "switch1" %>
+          <label class="custom-control-label" for="switch1"><span>Send email invitation to user</span></label>
+        </div>
+        <div class="text-center btn-wrap">
+          <button id="submit-button" class="btn btn-primary">Save</button>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 
@@ -69,7 +71,7 @@
             $('#new-user-form').html("");
         })
 
-        function form_validation(){
+        function form_validation() {
             if ($("#user_first_name").val().length == 0) {
                 $("#user_first_name").addClass("invalid")
                 $("#first-name-error").html(`<div for="exampleInputPassword" generated="true" class="error">This field is required.</div>`)
@@ -87,11 +89,13 @@
                     success: function (result) {
                         if (result == 'true') {
                             <% if user.new_record? %>
-                              var $form = $('#new-member');
-                              $form.submit()
+                            var $form = $('#new-member');
+                            $form.submit()
+                            $(".dashboard_wrap").removeClass("show-add-form")
                             <% else %>
-                              var $form = $('#edit-member');
-                              $form.submit()
+                            var $form = $('#edit-member');
+                            $form.submit()
+                            $(".dashboard_wrap").removeClass("show-add-form")
                             <% end %>
                         } else {
                             $("#user_email").addClass("invalid")
