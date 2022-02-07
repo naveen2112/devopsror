@@ -7,7 +7,7 @@ class ImportMailer < ApplicationMailer
     @error_records_count = error_records_count
     @headers = headers
 
-    attachments['error_list.csv'] = URI.open(import.error_file.url).read if import.failed?
+    attachments['error_list.csv'] = URI.open(import.error_file.url).read if import.failed? && ! headers
 
     mail to: email, subject: "Import progress"
   end
