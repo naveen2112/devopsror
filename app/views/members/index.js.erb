@@ -1,3 +1,37 @@
 $("#members-list").html("<%= escape_javascript(render("members/partials/index")) %>");
 $("#send-invite-for-selected").attr("type", "hidden")
 $("#batch-delete-user").attr("type", "hidden")
+
+$(document).ready(function () {
+
+    $("#add-user").click(function () {
+        $(".dashboard_wrap").addClass("show-add-form")
+        $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: current_company.users.new, url: members_path, method: "post", button_name: "Save", id: "new-member" }) %>");
+    })
+
+    $("#multiple-user").click(function () {
+        $(".dashboard_wrap").addClass("show-add-form")
+        $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/csv_form' ) %>");
+    })
+
+    <% @users.each do |user| %>
+
+    $("#members-checkbox-<%= user.id %>").change(function (){
+        if($('input[type="checkbox"]:checked').length > 0){
+            $("#send-invite-for-selected").attr("type", "submit")
+            $("#batch-delete-user").attr("type", "submit")
+        }
+        else{
+            $("#send-invite-for-selected").attr("type", "hidden")
+            $("#batch-delete-user").attr("type", "hidden")
+        }
+    })
+
+    $("#users-edit-button-<%= user.id %>").click(function (e) {
+        e.preventDefault()
+        $(".dashboard_wrap").addClass("show-add-form")
+        $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: user, url: member_path(user), method: "put", button_name: "Update", id: "edit-member" }) %>");
+    })
+
+    <% end %>
+})
