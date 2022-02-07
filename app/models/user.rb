@@ -7,13 +7,14 @@ class User < ApplicationRecord
   #========================================= Relationships ============================================================
 
   belongs_to :company
+  has_many :posts, foreign_key: :created_by
   has_many :cards, dependent: :destroy
   has_many :integrated_accounts, dependent: :destroy
   has_one_attached :logo
 
   #========================================= Callbacks =============================================================
 
-  after_create :send_invite_email, if: -> { self.poster? || self.editor? }
+  after_create :send_invite_email, if: -> { (self.poster? || self.editor?) && invited }
 
   #========================================= Scope ==================================================================
 
@@ -25,7 +26,7 @@ class User < ApplicationRecord
 
   #======================================== Enum ======================================================================
 
-  enum role: [:admin, :editor,  :poster]
+  enum role: { admin: 0, poster: 1, editor: 2 }
 
   #============================================ Nested attributes =====================================================
 
@@ -43,7 +44,7 @@ class User < ApplicationRecord
   end
 
   def send_invite_email
-    UserMailer.invite_email(company_id, id).deliver_later if invite
+    UserMailer.invite_email(company_id, id).deliver_later
   end
 
   def linked_in_code
@@ -51,10 +52,10 @@ class User < ApplicationRecord
   end
 
   def social_account_integrated
-    integrated_accounts.pluck(:platform).uniq.size
+    integrated_accounts.pluck(:platform).uniq.count
   end
 
   def total_posts
-    company.posts.where(created_by: id).size
+    posts.count
   end
 end

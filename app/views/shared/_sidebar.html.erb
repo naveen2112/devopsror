@@ -10,7 +10,7 @@
     <div class="nav_wrap">
       <div class="link_wrap">
         <ul>
-          <% if can? :manage, User %>
+          <% if can? :manage, Post %>
             <li class="<%= "active" if request.fullpath == "/posts/new" %>">
               <a data-turbolinks="false" href="/posts/new" class="position-relative nav_link">
                 <span class="icon">

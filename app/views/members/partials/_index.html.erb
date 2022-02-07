@@ -1,7 +1,9 @@
 <form action="/members/batch_event" method="get">
   <div class="d-flex justify-content-end table-btn">
-    <input type="submit" name="send_invite_email" class="btn btn-outline-primary" value="Send Invites for Selected">
-    <input type="submit" name="delete_user" class="btn btn-outline-primary" value="Delete selected">
+    <button type="button" class="btn btn-primary" id="add-user">Add User</button>
+    <button type="button" class="btn btn-primary" id="multiple-user">Add Multiple via CSV</button>
+    <input type="submit" id="send-invite-for-selected" name="send_invite_email" class="btn btn-outline-primary" value="Send Invites for Selected">
+    <input type="submit" id="batch-delete-user" name="delete_user" class="btn btn-outline-primary" value="Delete selected">
   </div>
   <div class="members-table">
     <table>
@@ -33,7 +35,7 @@
         <tr>
           <td>
             <div class="form-check position-relative">
-              <input type="checkbox" class="form-check-input" name="member_ids[]" value="<%= user.id %>">
+              <input type="checkbox" class="form-check-input" id="members-checkbox-<%= user.id %>" name="member_ids[]" value="<%= user.id %>">
               <span class="custom-checkbox"></span><span class="check-symbol"></span>
             </div>
           </td>
@@ -56,7 +58,7 @@
             <span class="role"><%= user.role&.capitalize %></span>
           </td>
           <td class="text-center">
-            <div class="<%= user.invite == true ? "sent" : "" %>">
+            <div class="<%= user.invited? || user.cards.count > 0 ? "sent" : "" %>">
               <span class="checked-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect width="24" height="24" rx="4" fill="#63C178"/>

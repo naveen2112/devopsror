@@ -1,61 +1,77 @@
-<div class="add-member">
-  <div class="d-flex justify-content-between align-items-center">
-    <h6 class="add-member-title mb-0">Add multiple users via CSV</h6>
-    <button class="transparent-button add-multiple-member-close-btn" id="member-form-close-btn">
-      <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17.4053 10.6553C17.6982 10.3624 17.6982 9.88756 17.4053 9.59467C17.1124 9.30178 16.6375 9.30178 16.3446 9.59467L17.4053 10.6553ZM9.59461 16.3447C9.30171 16.6376 9.30171 17.1124 9.59461 17.4053C9.8875 17.6982 10.3624 17.6982 10.6553 17.4053L9.59461 16.3447ZM10.6554 9.59468C10.3625 9.30178 9.88765 9.30177 9.59475 9.59466C9.30185 9.88755 9.30184 10.3624 9.59473 10.6553L10.6554 9.59468ZM16.3447 17.4053C16.6376 17.6982 17.1125 17.6982 17.4054 17.4053C17.6983 17.1124 17.6983 16.6375 17.4054 16.3447L16.3447 17.4053ZM22.6427 15.584C22.551 15.988 22.8042 16.3897 23.2081 16.4814C23.6121 16.5731 24.0139 16.3199 24.1055 15.916L22.6427 15.584ZM20.7502 21.6057C21.0588 21.3295 21.0851 20.8553 20.8089 20.5467C20.5326 20.238 20.0585 20.2118 19.7498 20.488L20.7502 21.6057ZM11.2822 12.3428C11.575 12.6357 12.0499 12.6357 12.3428 12.3428C12.6357 12.05 12.6357 11.5751 12.3428 11.2822L11.2822 12.3428ZM14.0303 12.9697C13.7374 12.6768 13.2626 12.6768 12.9697 12.9697C12.6768 13.2626 12.6768 13.7374 12.9697 14.0303L14.0303 12.9697ZM16.3446 9.59467L9.59461 16.3447L10.6553 17.4053L17.4053 10.6553L16.3446 9.59467ZM13.5 22.875C8.32233 22.875 4.125 18.6777 4.125 13.5H2.625C2.625 19.5061 7.4939 24.375 13.5 24.375V22.875ZM4.125 13.5C4.125 8.32233 8.32233 4.125 13.5 4.125V2.625C7.4939 2.625 2.625 7.4939 2.625 13.5H4.125ZM13.5 4.125C18.6777 4.125 22.875 8.32233 22.875 13.5H24.375C24.375 7.4939 19.5061 2.625 13.5 2.625V4.125ZM22.875 13.5C22.875 14.2171 22.7946 14.9145 22.6427 15.584L24.1055 15.916C24.282 15.1383 24.375 14.3295 24.375 13.5H22.875ZM19.7498 20.488C18.0907 21.973 15.9016 22.875 13.5 22.875V24.375C16.2848 24.375 18.8267 23.3273 20.7502 21.6057L19.7498 20.488ZM9.59473 10.6553L11.2822 12.3428L12.3428 11.2822L10.6554 9.59468L9.59473 10.6553ZM12.9697 14.0303L16.3447 17.4053L17.4054 16.3447L14.0303 12.9697L12.9697 14.0303Z" fill="#8692A6"/>
-      </svg>
-    </button>
-  </div>
-  <div class="form-wrap">
-    <%= form_for current_company.imports.new, url: import_members_path, method: :post do |form| %>
+<div class="add-member-wrap justify-content-center align-items-center">
+  <div class="add-member">
+    <div class="d-flex justify-content-between align-items-center">
+      <h6 class="add-member-title mb-0">Add multiple users via CSV</h6>
+      <button class="transparent-button add-multiple-member-close-btn" id="member-form-close-btn">
+        <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.4053 10.6553C17.6982 10.3624 17.6982 9.88756 17.4053 9.59467C17.1124 9.30178 16.6375 9.30178 16.3446 9.59467L17.4053 10.6553ZM9.59461 16.3447C9.30171 16.6376 9.30171 17.1124 9.59461 17.4053C9.8875 17.6982 10.3624 17.6982 10.6553 17.4053L9.59461 16.3447ZM10.6554 9.59468C10.3625 9.30178 9.88765 9.30177 9.59475 9.59466C9.30185 9.88755 9.30184 10.3624 9.59473 10.6553L10.6554 9.59468ZM16.3447 17.4053C16.6376 17.6982 17.1125 17.6982 17.4054 17.4053C17.6983 17.1124 17.6983 16.6375 17.4054 16.3447L16.3447 17.4053ZM22.6427 15.584C22.551 15.988 22.8042 16.3897 23.2081 16.4814C23.6121 16.5731 24.0139 16.3199 24.1055 15.916L22.6427 15.584ZM20.7502 21.6057C21.0588 21.3295 21.0851 20.8553 20.8089 20.5467C20.5326 20.238 20.0585 20.2118 19.7498 20.488L20.7502 21.6057ZM11.2822 12.3428C11.575 12.6357 12.0499 12.6357 12.3428 12.3428C12.6357 12.05 12.6357 11.5751 12.3428 11.2822L11.2822 12.3428ZM14.0303 12.9697C13.7374 12.6768 13.2626 12.6768 12.9697 12.9697C12.6768 13.2626 12.6768 13.7374 12.9697 14.0303L14.0303 12.9697ZM16.3446 9.59467L9.59461 16.3447L10.6553 17.4053L17.4053 10.6553L16.3446 9.59467ZM13.5 22.875C8.32233 22.875 4.125 18.6777 4.125 13.5H2.625C2.625 19.5061 7.4939 24.375 13.5 24.375V22.875ZM4.125 13.5C4.125 8.32233 8.32233 4.125 13.5 4.125V2.625C7.4939 2.625 2.625 7.4939 2.625 13.5H4.125ZM13.5 4.125C18.6777 4.125 22.875 8.32233 22.875 13.5H24.375C24.375 7.4939 19.5061 2.625 13.5 2.625V4.125ZM22.875 13.5C22.875 14.2171 22.7946 14.9145 22.6427 15.584L24.1055 15.916C24.282 15.1383 24.375 14.3295 24.375 13.5H22.875ZM19.7498 20.488C18.0907 21.973 15.9016 22.875 13.5 22.875V24.375C16.2848 24.375 18.8267 23.3273 20.7502 21.6057L19.7498 20.488ZM9.59473 10.6553L11.2822 12.3428L12.3428 11.2822L10.6554 9.59468L9.59473 10.6553ZM12.9697 14.0303L16.3447 17.4053L17.4054 16.3447L14.0303 12.9697L12.9697 14.0303Z" fill="#8692A6"/>
+        </svg>
+      </button>
+    </div>
+    <div class="form-wrap">
+      <%= form_for current_company.imports.new, url: import_members_path, method: :post do |form| %>
 
-      <%= form.hidden_field :user_id, value: current_user.id %>
+        <%= form.hidden_field :user_id, value: current_user.id %>
 
-      <div class="multiple-member-form">
-        <div class="example-csv">
-          <p class="title mb-0">Your CSV needs to be arranged in this order</p>
-          <p class="description mb-0">The header row must contain: firstname, lastname, email, role</p>
-          <div class="image-wrap position-relative">
-            <img src="<%= asset_path("member-csv.png") %>">
+        <div class="multiple-member-form">
+          <div class="example-csv">
+            <p class="title mb-0">Your CSV needs to be arranged in this order</p>
+            <p class="description mb-0">The header row must contain: firstname, lastname, email, role</p>
+            <div class="image-wrap position-relative">
+              <img src="<%= asset_path("member-csv.png") %>">
+            </div>
           </div>
-        </div>
-        <div class="upload-btn position-relative">
-          <%= form.file_field :file, accept: ".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" %>
-          <span class="icon">
+          <div class="upload-btn position-relative">
+            <%= form.file_field :file, accept: ".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" %>
+            <span class="icon">
                         <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M14.6668 8.16667V14C14.6668 14.9205 13.9206 15.6667 13.0002 15.6667H12.1668M1.3335 8.16667V14C1.3335 14.9205 2.07969 15.6667 3.00016 15.6667H8.8335M8.00016 11.5L8.00016 1.5L11.3335 4.83333M4.66683 4.83333L6.3335 3.16667" stroke="#656E7C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </span>
-          <span class="text">Upload CSV File</span>
+            <span class="text">Upload CSV File</span>
+          </div>
+          <div class="uploaded text-center position-relative" id="csv-filename"><p class="mb-0" id="csv-filename-display"></p>
+            <button type="button" class="transparent-button delete-selected-file">
+              <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.4053 10.6553C17.6982 10.3624 17.6982 9.88756 17.4053 9.59467C17.1124 9.30178 16.6375 9.30178 16.3446 9.59467L17.4053 10.6553ZM9.59461 16.3447C9.30171 16.6376 9.30171 17.1124 9.59461 17.4053C9.8875 17.6982 10.3624 17.6982 10.6553 17.4053L9.59461 16.3447ZM10.6554 9.59468C10.3625 9.30178 9.88765 9.30177 9.59475 9.59466C9.30185 9.88755 9.30184 10.3624 9.59473 10.6553L10.6554 9.59468ZM16.3447 17.4053C16.6376 17.6982 17.1125 17.6982 17.4054 17.4053C17.6983 17.1124 17.6983 16.6375 17.4054 16.3447L16.3447 17.4053ZM22.6427 15.584C22.551 15.988 22.8042 16.3897 23.2081 16.4814C23.6121 16.5731 24.0139 16.3199 24.1055 15.916L22.6427 15.584ZM20.7502 21.6057C21.0588 21.3295 21.0851 20.8553 20.8089 20.5467C20.5326 20.238 20.0585 20.2118 19.7498 20.488L20.7502 21.6057ZM11.2822 12.3428C11.575 12.6357 12.0499 12.6357 12.3428 12.3428C12.6357 12.05 12.6357 11.5751 12.3428 11.2822L11.2822 12.3428ZM14.0303 12.9697C13.7374 12.6768 13.2626 12.6768 12.9697 12.9697C12.6768 13.2626 12.6768 13.7374 12.9697 14.0303L14.0303 12.9697ZM16.3446 9.59467L9.59461 16.3447L10.6553 17.4053L17.4053 10.6553L16.3446 9.59467ZM13.5 22.875C8.32233 22.875 4.125 18.6777 4.125 13.5H2.625C2.625 19.5061 7.4939 24.375 13.5 24.375V22.875ZM4.125 13.5C4.125 8.32233 8.32233 4.125 13.5 4.125V2.625C7.4939 2.625 2.625 7.4939 2.625 13.5H4.125ZM13.5 4.125C18.6777 4.125 22.875 8.32233 22.875 13.5H24.375C24.375 7.4939 19.5061 2.625 13.5 2.625V4.125ZM22.875 13.5C22.875 14.2171 22.7946 14.9145 22.6427 15.584L24.1055 15.916C24.282 15.1383 24.375 14.3295 24.375 13.5H22.875ZM19.7498 20.488C18.0907 21.973 15.9016 22.875 13.5 22.875V24.375C16.2848 24.375 18.8267 23.3273 20.7502 21.6057L19.7498 20.488ZM9.59473 10.6553L11.2822 12.3428L12.3428 11.2822L10.6554 9.59468L9.59473 10.6553ZM12.9697 14.0303L16.3447 17.4053L17.4054 16.3447L14.0303 12.9697L12.9697 14.0303Z" fill="#8692A6"/>
+              </svg>
+            </button>
+          </div>
         </div>
-        <div class="uploaded text-center position-relative">
-          <p class="mb-0">MultipleUsersFile.csv</p>
-          <button class="transparent-button">
-            <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17.4053 10.6553C17.6982 10.3624 17.6982 9.88756 17.4053 9.59467C17.1124 9.30178 16.6375 9.30178 16.3446 9.59467L17.4053 10.6553ZM9.59461 16.3447C9.30171 16.6376 9.30171 17.1124 9.59461 17.4053C9.8875 17.6982 10.3624 17.6982 10.6553 17.4053L9.59461 16.3447ZM10.6554 9.59468C10.3625 9.30178 9.88765 9.30177 9.59475 9.59466C9.30185 9.88755 9.30184 10.3624 9.59473 10.6553L10.6554 9.59468ZM16.3447 17.4053C16.6376 17.6982 17.1125 17.6982 17.4054 17.4053C17.6983 17.1124 17.6983 16.6375 17.4054 16.3447L16.3447 17.4053ZM22.6427 15.584C22.551 15.988 22.8042 16.3897 23.2081 16.4814C23.6121 16.5731 24.0139 16.3199 24.1055 15.916L22.6427 15.584ZM20.7502 21.6057C21.0588 21.3295 21.0851 20.8553 20.8089 20.5467C20.5326 20.238 20.0585 20.2118 19.7498 20.488L20.7502 21.6057ZM11.2822 12.3428C11.575 12.6357 12.0499 12.6357 12.3428 12.3428C12.6357 12.05 12.6357 11.5751 12.3428 11.2822L11.2822 12.3428ZM14.0303 12.9697C13.7374 12.6768 13.2626 12.6768 12.9697 12.9697C12.6768 13.2626 12.6768 13.7374 12.9697 14.0303L14.0303 12.9697ZM16.3446 9.59467L9.59461 16.3447L10.6553 17.4053L17.4053 10.6553L16.3446 9.59467ZM13.5 22.875C8.32233 22.875 4.125 18.6777 4.125 13.5H2.625C2.625 19.5061 7.4939 24.375 13.5 24.375V22.875ZM4.125 13.5C4.125 8.32233 8.32233 4.125 13.5 4.125V2.625C7.4939 2.625 2.625 7.4939 2.625 13.5H4.125ZM13.5 4.125C18.6777 4.125 22.875 8.32233 22.875 13.5H24.375C24.375 7.4939 19.5061 2.625 13.5 2.625V4.125ZM22.875 13.5C22.875 14.2171 22.7946 14.9145 22.6427 15.584L24.1055 15.916C24.282 15.1383 24.375 14.3295 24.375 13.5H22.875ZM19.7498 20.488C18.0907 21.973 15.9016 22.875 13.5 22.875V24.375C16.2848 24.375 18.8267 23.3273 20.7502 21.6057L19.7498 20.488ZM9.59473 10.6553L11.2822 12.3428L12.3428 11.2822L10.6554 9.59468L9.59473 10.6553ZM12.9697 14.0303L16.3447 17.4053L17.4054 16.3447L14.0303 12.9697L12.9697 14.0303Z" fill="#8692A6"/>
-            </svg>
-          </button>
+
+        <div class="custom-control custom-switch form-group">
+          <%= form.check_box :invite, class: "custom-control-input", id: "switch1" %>
+          <label class="custom-control-label" for="switch1"><span>Send email invitation to users</span></label>
         </div>
-      </div>
 
-      <div class="custom-control custom-switch form-group">
-        <%= form.check_box :invite, class: "custom-control-input", id: "switch1" %>
-        <label class="custom-control-label" for="switch1"><span>Send email invitation to users</span></label>
-      </div>
-
-      <div class="text-center btn-wrap">
-        <input type="submit" class="btn btn-primary" value="Save">
-      </div>
-    <% end %>
+        <div class="text-center btn-wrap">
+          <input type="submit" class="btn btn-primary" value="Save">
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 
-
 <script>
-    $(document).ready(function (){
-        $(".add-multiple-member-close-btn").click(function (){
+    $(document).ready(function () {
+        $(".add-multiple-member-close-btn").click(function () {
             $('#new-user-form').html("");
+        })
+
+        $("#csv-filename").css("display", "none")
+
+        $("#import_file").change(function () {
+            if ($(this)[0].files[0]) {
+                $("#csv-filename").css("display", "block")
+                $("#csv-filename-display").text($(this)[0].files[0].name)
+            }
+        })
+
+        $(".delete-selected-file").on("click", function () {
+            if ($("#import_file")[0].files[0]) {
+                $("#csv-filename").css("display", "none")
+                $("#import_file").val("")
+            }
         })
     })
 </script>

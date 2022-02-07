@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_company
-    @current_company ||= current_user&.company
+    @current_company ||= current_user&.company || Company.find_by(id: params[:company_id])
   end
 
   helper_method :current_company

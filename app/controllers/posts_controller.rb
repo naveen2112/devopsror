@@ -2,7 +2,8 @@ include LinkedinAuthentication
 
 class PostsController < ApplicationController
   load_and_authorize_resource param_method: :posts_params
-  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share, :validate_tag]
+  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share, :validate_tag,
+                                  :destroy_image]
   before_action :set_tags, only: [:new, :create, :edit, :update]
 
   def index
@@ -85,6 +86,11 @@ class PostsController < ApplicationController
 
   def send_email_notification
     @post.send_email
+  end
+
+  def destroy_image
+    @post.image.destroy
+    head :ok
   end
 
   private

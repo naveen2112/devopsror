@@ -1,22 +1,25 @@
 class MembersController < ApplicationController
   load_and_authorize_resource :user, except: [:confirm_sign_up, :confirm]
-  before_action :set_company, only: [:confirm_sign_up, :confirm]
-  before_action :set_user, only: [:confirm_sign_up, :confirm]
   skip_before_action :authenticate_user!, only: [:confirm_sign_up, :confirm]
-  before_action :set_member, only: [:update, :destroy, :resend_invite]
+  before_action :set_member, only: [:update, :destroy, :resend_invite, :confirm_sign_up, :confirm]
 
   def index
     users = current_company.users.includes(:logo_attachment)
-    @users = params[:search].present? ? users.where("email ILIKE :search OR first_name ILIKE :search OR
-                                                     last_name ILIKE :search", { search: "%#{params[:search]}%" }) : users
+    @users = if params[:search].present?
+               users.where("email ILIKE :search OR first_name ILIKE :search OR
+                                                     last_name ILIKE :search", { search: "%#{params[:search]}%" })
+             else
+               users
+             end
   end
 
+  # Destroy or Send invite email to users select in list page
   def batch_event
     @users = current_company.users.where(id: params[:member_ids])
     if params["send_invite_email"].present?
       @users.each do |user|
         user.send_invite_email
-        user.update(invite: true)
+        user.update(invited: true) unless user.invited
       end
     else
       @users.destroy_all
@@ -36,6 +39,7 @@ class MembersController < ApplicationController
 
   def create
     @user = current_company.users.new(users_params)
+    @user.status = "invited" if users_params[:send_invite] == 1
     @user.password = SecureRandom.hex.first(8)
 
     @user.save
@@ -44,7 +48,7 @@ class MembersController < ApplicationController
 
   def resend_invite
     @user.send_invite_email
-    @user.update(invite: true)
+    @user.update(invited: true) unless @user.invited
     redirect_to members_path
   end
 
@@ -57,9 +61,9 @@ class MembersController < ApplicationController
 
   def update
     if @user.update(users_params)
-      redirect_to members_path, notice: "Member updated Successfully."
+      redirect_to members_path
     else
-      redirect_to members_path, alert: "Something went wrong, please try later."
+      redirect_to members_path
     end
   end
 
@@ -69,7 +73,7 @@ class MembersController < ApplicationController
         format.js
       end
     else
-      redirect_to posts_path, alert: "Something went wrong, please try later."
+      redirect_to posts_path
     end
   end
 
@@ -79,23 +83,15 @@ class MembersController < ApplicationController
     @user = current_company.users.find(params[:id])
   end
 
-  def set_company
-    @company = Company.find(params[:company_id])
-  end
-
-  def set_user
-    @user = @company.users.find(params[:id])
-  end
-
   def imports_params
     params.require(:import).permit(:file, :user_id, :invite)
   end
 
   def confirm_params
-    params.require(:user).permit(:password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation)
   end
 
   def users_params
-    params.require(:user).permit(:first_name, :last_name, :email, :role, :invite)
+    params.require(:user).permit(:first_name, :last_name, :email, :role, :invited)
   end
 end

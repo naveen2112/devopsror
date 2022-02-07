@@ -473,6 +473,7 @@
         line-height: 1.6;
         text-align: justify;
         color: $secondary-grey-title;
+        word-break: break-word;
       }
     }
   }
@@ -621,7 +622,7 @@
       line-height: 1.2;
       color: $post-title-grey;
       margin-bottom: 22px;
-      padding-right: 30px;
+      padding-right: 90px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

@@ -4,7 +4,7 @@
       <div class="card position-relative mb-3" id="post-cards-<%= post.id %>">
         <div class="post-options">
           <div>
-            <button id="posts-delete-button-<%= post.id %>"  class="transparent-button d-block">
+            <button id="posts-delete-button-<%= post.id %>" class="transparent-button d-block">
               <span class="icon">
                 <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M15 4V12M15 16C15 17.1046 14.1046 18 13 18H5C3.89543 18 3 17.1046 3 16V11M3 4V7M12 4V3C12 1.89543 11.1046 1 10 1H8C6.89543 1 6 1.89543 6 3V4M1 4H17M7 8V14M11 8V14" stroke="#8692A6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -41,6 +41,9 @@
             <path d="M3.66636 1.88512C3.66636 2.92597 2.84562 3.76975 1.83318 3.76975C0.820742 3.76975 0 2.92597 0 1.88512C0 0.844265 0.820742 0.000488281 1.83318 0.000488281C2.84562 0.000488281 3.66636 0.844265 3.66636 1.88512Z" fill="#696969"/>
           </svg>
         </button>
+        <% if post.draft? %>
+          <span class="badge badge-secondary draft-intimation">Draft</span>
+        <% end %>
         <div class="card-body">
           <h5 class="post_title"><%= post.title %></h5>
           <div class="user_detail row">
@@ -49,9 +52,12 @@
               <h6 class="user-name"><%= current_user.name %></h6>
             </div>
           </div>
+          <input type="hidden" value="20" id="post-read-more-<%= post.id %>">
           <div class="post_comments">
             <p class="comment-<%= post.id %>">
-              <%= post.commentries&.first&.description %>
+              <span id="post-commentries-<%= post.id %>"><%= post.commentries&.first&.description %></span>
+              <span id="read-more-<%= post.id %>" class="text-primary read-more">read more</span>
+              <span id="read-less-<%= post.id %>" class="text-primary read-more">read less</span>
             </p>
             <div class="comment_navigation_wrap">
               <div class="row">
@@ -118,7 +124,7 @@
                 </span>
               </div>
               <% if post.draft? %>
-                <a href="/posts/<%= post.id %>/edit" class="btn btn-outline-primary">Draft</a>
+                <a href="/posts/<%= post.id %>/edit" class="btn btn-outline-primary">Edit Post</a>
               <% else %>
                 <a href="/posts/<%= post.id %>" class="btn btn-primary">Share</a>
               <% end %>
@@ -131,77 +137,138 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-       post_list()
+    $(document).ready(function () {
+        post_list()
     })
 
 
-  function post_list(){
-      <% @posts.each do |post| %>
+    function post_list() {
+        <% @posts.each do |post| %>
 
-      $("#posts-delete-button-<%= post.id %>").click(function(){
-          $(".dashboard_wrap").addClass("show-alert")
-          $("#alert-popup").html("<%= escape_javascript (render partial: 'shared/alert', locals: { text: "post", url: "/posts/" + post.id.to_s  }) %>")
+        var read_more_text_<%= post.id %> = $("#post-commentries-<%= post.id %>").text()
+        $("#read-less-<%= post.id %>").hide()
 
-          $.ajax({
-              url: "/posts/" + <%= post.id %>,
-              method: "delete",
-              dataType: 'script'
-          });
+        if((read_more_text_<%= post.id %>).split(/\s+/).length > 15){
+            $("#post-commentries-<%= post.id %>").text(getWords($("#post-commentries-<%= post.id %>").text(), 15))
+        }
+        else{
+            $("#read-more-<%= post.id %>").hide()
+        }
 
-      })
+        $("#read-more-<%= post.id %>").click(function () {
+            $("#post-read-more-<%= post.id %>").val(parseInt($("#post-read-more-<%= post.id %>").val()) + (read_more_text_<%= post.id %>).split(/\s+/).length)
+            $("#post-commentries-<%= post.id %>").text(getWords(read_more_text_<%= post.id %>, (parseInt($("#post-read-more-<%= post.id %>").val()) + (read_more_text_<%= post.id %>).split(/\s+/).length)))
 
+            $("#read-more-<%= post.id %>").hide()
+            $("#read-less-<%= post.id %>").show()
+        })
 
-      $(document).on("click", "#post-edit-delete-<%= post.id %>", function () {
-          var classes = $("#post-cards-<%= post.id %>").attr("class")
-          if (classes.split(" ").includes('show-post-option')) {
-              $("#post-cards-<%= post.id %>").removeClass("show-post-option")
-          } else {
-              $("#post-cards-<%= post.id %>").addClass("show-post-option")
-          }
-      })
+        $("#read-less-<%= post.id %>").click(function () {
+            $("#post-read-more-<%= post.id %>").val(20)
+            $("#post-commentries-<%= post.id %>").text(getWords(read_more_text_<%= post.id %>, 20))
 
-      $("#post-next-commentry-<%= post.id %>").click(function () {
-          <%= "post_commentry_button_#{post.id}" %>("next")
-      })
+            $("#read-more-<%= post.id %>").show()
+            $("#read-less-<%= post.id %>").hide()
+        })
 
-      $("#post-previous-commentry-<%= post.id %>").click(function () {
-          <%= "post_commentry_button_#{post.id}" %>("prevoius")
-      })
+        function getWords(str, words_count) {
+            return str.split(/\s+/).slice(0, words_count).join(" ");
+        }
 
-      function <%= "post_commentry_button_#{post.id}" %>(button) {
+        $("#posts-delete-button-<%= post.id %>").click(function () {
+            $(".dashboard_wrap").addClass("show-alert")
+            $("#alert-popup").html("<%= escape_javascript (render partial: 'shared/alert', locals: { text: "post", url: "/posts/" + post.id.to_s  }) %>")
 
-          var <%= "cycle_count_#{post.id}" %> = button == "next" ? (parseInt($("#post-commetries-count-<%= post.id %>").text()) + 1) : (parseInt($("#post-commetries-count-<%= post.id %>").text()) - 1)
-          $("#post-commetries-count-<%= post.id %>").text(<%= "cycle_count_#{post.id}" %>)
+            $.ajax({
+                url: "/posts/" + <%= post.id %>,
+                method: "delete",
+                dataType: 'script'
+            });
 
-          $(".comment-<%= post.id %>").empty()
-          var <%= "commentries_#{post.id}" %> = []
+        })
 
-          <% post.commentries.each do |commentry| %>
-          <%= "commentries_#{post.id}" %>.push(`<%= commentry.description.to_s %>`)
-          <% end %>
+        $(document).on("click", "#post-edit-delete-<%= post.id %>", function () {
+            var classes = $("#post-cards-<%= post.id %>").attr("class")
+            if (classes.split(" ").includes('show-post-option')) {
+                $("#post-cards-<%= post.id %>").removeClass("show-post-option")
+            } else {
+                $("#post-cards-<%= post.id %>").addClass("show-post-option")
+            }
+        })
 
-          var <%= "comment_count_#{post.id}" %> = <%= "cycle_count_#{post.id}" %> - 1
-          if ("<%= "comment_count_#{post.id}" %>" == 0) {
-              $(".post-commentries-previous-button-<%= post.id %>").addClass("single_button")
-              $(".comment-<%= post.id %>").append(<%= "commentries_#{post.id}" %>[<%= "comment_count_#{post.id}" %>])
-          } else {
-              $(".post-commentries-previous-button-<%= post.id %>").removeClass("single_button")
-              $(".comment-<%= post.id %>").append(<%= "commentries_#{post.id}" %>[<%= "comment_count_#{post.id}" %>])
-          }
+        $("#post-next-commentry-<%= post.id %>").click(function () {
+            <%= "post_commentry_button_#{post.id}" %>("next")
+        })
 
-          if (<%= "cycle_count_#{post.id}" %> >= <%= post.commentries.size %>) {
-              $("#post-next-commentry-<%= post.id %>").hide()
-              $("#post-previous-commentry-<%= post.id %>").show()
-          } else if(<%= "cycle_count_#{post.id}" %> <= 1) {
-              $("#post-previous-commentry-<%= post.id %>").hide()
-              $("#post-next-commentry-<%= post.id %>").show()
-          }else {
-              $("#post-previous-commentry-<%= post.id %>").show()
-              $("#post-next-commentry-<%= post.id %>").show()
-          }
-      }
-      <% end %>
+        $("#post-previous-commentry-<%= post.id %>").click(function () {
+            <%= "post_commentry_button_#{post.id}" %>("prevoius")
+        })
 
-  }
+        function <%= "post_commentry_button_#{post.id}" %>(button) {
+            $("#read-less-<%= post.id %>").hide()
+
+            var <%= "cycle_count_#{post.id}" %> =
+            button == "next" ? (parseInt($("#post-commetries-count-<%= post.id %>").text()) + 1) : (parseInt($("#post-commetries-count-<%= post.id %>").text()) - 1)
+            $("#post-commetries-count-<%= post.id %>").text(<%= "cycle_count_#{post.id}" %>)
+
+            $("#post-commentries-<%= post.id %>").empty()
+            var <%= "commentries_#{post.id}" %> =
+            []
+
+            <% post.commentries.each do |commentry| %>
+            <%= "commentries_#{post.id}" %>.push(`<%= commentry.description.to_s %>`)
+            <% end %>
+
+            var <%= "comment_count_#{post.id}" %> =
+            <%= "cycle_count_#{post.id}" %>
+            -1
+            if ("<%= "comment_count_#{post.id}" %>" == 0) {
+                read_more_text_<%= post.id %> = <%= "commentries_#{post.id}" %>[<%= "comment_count_#{post.id}" %>]
+
+                if((read_more_text_<%= post.id %>).split(/\s+/).length < 15){
+                    $("#read-more-<%= post.id %>").hide()
+                }
+                else{
+                    $("#read-more-<%= post.id %>").show()
+                }
+
+                $(".post-commentries-previous-button-<%= post.id %>").addClass("single_button")
+                $("#post-commentries-<%= post.id %>").append(getWords(<%= "commentries_#{post.id}" %>[<%= "comment_count_#{post.id}" %>], 15))
+            } else {
+                read_more_text_<%= post.id %> = <%= "commentries_#{post.id}" %>[<%= "comment_count_#{post.id}" %>]
+
+                if((read_more_text_<%= post.id %>).split(/\s+/).length < 15){
+                    $("#read-more-<%= post.id %>").hide()
+                }else{
+                    $("#read-more-<%= post.id %>").show()
+                }
+
+                $(".post-commentries-previous-button-<%= post.id %>").removeClass("single_button")
+                $("#post-commentries-<%= post.id %>").append(getWords(<%= "commentries_#{post.id}" %>[<%= "comment_count_#{post.id}" %>], 15))
+            }
+
+            if (<%= "cycle_count_#{post.id}" %> >=
+            <%= post.commentries.size %>)
+            {
+                $("#post-next-commentry-<%= post.id %>").hide()
+                $("#post-previous-commentry-<%= post.id %>").show()
+            }
+        else
+            if (<%= "cycle_count_#{post.id}" %> <=
+            1
+        )
+            {
+                $("#post-previous-commentry-<%= post.id %>").hide()
+                $("#post-next-commentry-<%= post.id %>").show()
+            }
+        else
+            {
+                $("#post-previous-commentry-<%= post.id %>").show()
+                $("#post-next-commentry-<%= post.id %>").show()
+            }
+        }
+
+        <% end %>
+
+    }
 </script>

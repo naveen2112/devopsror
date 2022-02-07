@@ -7,26 +7,32 @@ class ImportJob < ApplicationJob
   def perform(id, company_id, email)
     import = Import.find(id)
     company = Company.find(company_id)
-    users_data = get_data(import)
+    headers = csv_headers(import)
+    if headers.compact == ["firstname", "lastname", "email", "role"]
+      users_data = get_data(import)
 
-    errors_data = []
-    users_data.each do |user|
-      current_user = company.users.new(first_name: user["firstname"], last_name: user["lastname"],
-                                       email: user["email"], role: user["role"].downcase,
-                                       password: SecureRandom.hex.first(8), invite: import.invite)
-      errors_data << user.merge(reason: current_user.errors.full_messages.join(", "))  unless current_user.save
-    end
+      errors_data = []
+      users_data.each do |user|
+        current_user = company.users.new(first_name: user["firstname"], last_name: user["lastname"],
+                                         email: user["email"], role: user["role"].downcase,
+                                         password: SecureRandom.hex.first(8), invited: import.invite)
+        errors_data << user.merge(reason: current_user.errors.full_messages.join(", ")) unless current_user.save
+      end
 
-    if errors_data.size == 0
-      import.update(status: "success")
-      ImportMailer.send_import_email(import, "kishore@gmail.com").deliver_later
+      if errors_data.size == 0
+        import.update(status: "success")
+        ImportMailer.import_notification(import, email).deliver_later
+      else
+        create_error_csv_from_hash(errors_data, import, email, users_data.count)
+      end
     else
-      create_error_csv_from_hash(errors_data, import, email)
+      import.update(status: "failed")
+      ImportMailer.import_notification(import, email, nil , nil, true).deliver_later
     end
   end
 
   # creates and error csv file from the attributes and deliver it attach it the import
-  def create_error_csv_from_hash(error_list, import, email)
+  def create_error_csv_from_hash(error_list, import, email, total_records_count)
     tmp_file = Rails.root.join('tmp', "#{SecureRandom.alphanumeric(10)}.csv")
 
     CSV.open(tmp_file, "wb") do |csv|
@@ -36,11 +42,10 @@ class ImportJob < ApplicationJob
       end
     end
 
-
     import.error_file.attach(io: File.open(tmp_file), filename: 'error_list.csv', content_type: 'text/csv')
-    import.status = "failed"
+    import.status = total_records_count == error_list.count ? "failed" : "success"
     import.save
-    ImportMailer.send_import_email(import, "kishore@gmail.com").deliver_later
+    ImportMailer.import_notification(import, email, total_records_count, error_list.count).deliver_later
 
     File.delete tmp_file if File.exists? tmp_file
   end
@@ -53,5 +58,9 @@ class ImportJob < ApplicationJob
     end
 
     users
+  end
+
+  def csv_headers(import)
+    CSV.parse(URI.open(import.file.url), headers: true, skip_blanks: true).headers
   end
 end
