@@ -76,7 +76,7 @@
             </div>
           </div>
           <div class="share-content collapse" id="linkedin_content">
-            <p>
+            <p contenteditable="true" >
              <%= @post.commentries&.first&.description %>
             </p>
           </div>
@@ -84,7 +84,9 @@
       </div>
     <% end %>
     <div class="buttonWrap">
-      <button id="share-button" class="btn btn-primary btn-block">Share</button>
+      <button id="share-button" class="btn btn-primary btn-block"><span id="post-share-button">Share</span><div class="spinner-border text-light" id="post-share-button-spinner" role="status">
+        <span class="sr-only">Loading...</span>
+      </div></button>
     </div>
   </form>
 </div>
@@ -92,6 +94,8 @@
 
 <script>
   $(document).ready(function (){
+
+      $("#post-share-button-spinner").hide()
 
       $("#switch2").is(":checked") ? $("#share-button").removeAttr("disabled") : $("#share-button").attr("disabled", "true")
 
@@ -112,6 +116,8 @@
       })
 
       $("#share-button").click(function (e){
+          $("#post-share-button").hide()
+          $("#post-share-button-spinner").show()
           e.preventDefault()
 
           $.ajax({

@@ -52,7 +52,7 @@
             <div class="form-group">
               <label class="control-label">Organisation Name</label>
               <div class="position-relative">
-                <%= f.text_field :name, class: "form-control", value: current_company.name %>
+                <%= f.text_field :name, class: "form-control", value: current_company.name, disabled: true %>
                 <button class="transparent-button edit-button">
                   <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.8333 4L14.5 8M4.64584 10.75L7.625 7.5L13.5833 1L17.25 5L14.2708 8.25L13.526 9.0625M2.41146 13.1875L1.66667 14V18H5.33334L8.3125 14.75L11.2917 11.5" stroke="#6D7684" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -64,7 +64,7 @@
             <div class="form-group">
               <label class="control-label">Organisation URL</label>
               <div class="position-relative">
-                <%= f.url_field :url, class: "form-control", value: current_company.url %>
+                <%= f.url_field :url, class: "form-control", value: current_company.url, disabled: true %>
                 <button class="transparent-button edit-button">
                   <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.8333 4L14.5 8M4.64584 10.75L7.625 7.5L13.5833 1L17.25 5L14.2708 8.25L13.526 9.0625M2.41146 13.1875L1.66667 14V18H5.33334L8.3125 14.75L11.2917 11.5" stroke="#6D7684" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
