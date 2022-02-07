@@ -4,9 +4,10 @@ require 'open-uri'
 class ImportJob < ApplicationJob
   queue_as :default
 
-  def perform(id, company_id, email)
+  def perform(id, company_id, user_id)
     import = Import.find(id)
     company = Company.find(company_id)
+    imported_user = company.users.find(user_id)
     headers = csv_headers(import)
     if headers.compact == ["firstname", "lastname", "email", "role"]
       users_data = get_data(import)
@@ -21,9 +22,9 @@ class ImportJob < ApplicationJob
 
       if errors_data.size == 0
         import.update(status: "success")
-        ImportMailer.import_notification(import, email).deliver_later
+        ImportMailer.import_notification(import, imported_user).deliver_later
       else
-        create_error_csv_from_hash(errors_data, import, email, users_data.count)
+        create_error_csv_from_hash(errors_data, import, imported_user, users_data.count)
       end
     else
       import.update(status: "failed")
@@ -32,7 +33,7 @@ class ImportJob < ApplicationJob
   end
 
   # creates and error csv file from the attributes and deliver it attach it the import
-  def create_error_csv_from_hash(error_list, import, email, total_records_count)
+  def create_error_csv_from_hash(error_list, import, imported_user, total_records_count)
     tmp_file = Rails.root.join('tmp', "#{SecureRandom.alphanumeric(10)}.csv")
 
     CSV.open(tmp_file, "wb") do |csv|
@@ -45,7 +46,7 @@ class ImportJob < ApplicationJob
     import.error_file.attach(io: File.open(tmp_file), filename: 'error_list.csv', content_type: 'text/csv')
     import.status = total_records_count == error_list.count ? "failed" : "success"
     import.save
-    ImportMailer.import_notification(import, email, total_records_count, error_list.count).deliver_later
+    ImportMailer.import_notification(import, imported_user, total_records_count, error_list.count).deliver_later
 
     File.delete tmp_file if File.exists? tmp_file
   end
