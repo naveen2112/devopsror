@@ -33,5 +33,17 @@ $(document).ready(function () {
         $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: user, url: member_path(user), method: "put", button_name: "Update", id: "edit-member" }) %>");
     })
 
+    $("#users-delete-button-<%= user.id %>").click(function (e) {
+        e.preventDefault()
+        $(".dashboard_wrap").addClass("show-alert")
+        $("#alert-popup").html("<%= escape_javascript (render partial: 'shared/alert', locals: { text: "user", url: "/members/" + user.id.to_s  }) %>")
+
+        $.ajax({
+            url: "/posts/" + <%= user.id %>,
+            method: "delete",
+            dataType: 'script'
+        });
+    })
+
     <% end %>
 })
