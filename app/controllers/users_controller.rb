@@ -14,6 +14,11 @@ class UsersController < ApplicationController
     current_user.integrated_accounts.with_platform("linked_in").destroy_all
   end
 
+  def reset_password
+    current_user.send_reset_password_instructions
+    redirect_to profile_users_path, notice: "Reset password instructions sent successfully."
+  end
+
   def unsubscribe
     current_user.update(subscribe: false)
     redirect_to posts_path

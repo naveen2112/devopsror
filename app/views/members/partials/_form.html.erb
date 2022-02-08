@@ -81,7 +81,7 @@
             }
             else  if ($("#user_email").val().split("@").length == 1) {
                 $("#user_email").addClass("invalid")
-                $("#email-error").html(`<div for="exampleInputPassword" generated="true" class="error">Please enter a valid email.</div>`)
+                $("#email-error").html(`<div for="exampleInputPassword" generated="true" class="error">Please enter a valid email address.</div>`)
             } else {
 
                 var url = "<%= user.new_record? ? "users/validate_email" : "/users/validate_email_without_current_user?user_id=#{user.id}" %>"
@@ -123,12 +123,17 @@
         })
 
         $("#user_email").keyup(function () {
-            if ($("#user_email").val().length > 0) {
-                $("#user_email").removeClass("invalid")
-                $("#email-error").html('')
-            } else {
+            if ($("#user_email").val().length == 0) {
                 $("#user_email").addClass("invalid")
                 $("#email-error").html(`<div for="exampleInputPassword" generated="true" class="error">This field is required.</div>`)
+            }
+            else if($("#user_email").val().split("@").length == 1) {
+                $("#user_email").addClass("invalid")
+                $("#email-error").html(`<div for="exampleInputPassword" generated="true" class="error">Please enter a valid email address.</div>`)
+            }
+            else {
+                $("#user_email").removeClass("invalid")
+                $("#email-error").html('')
             }
         })
 

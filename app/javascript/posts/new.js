@@ -7,17 +7,11 @@ $(document).on('turbolinks:load', function () {
             },
             "post[main_url]": {
                 maxlength: 240,
-                url: true
+                url: true,
+                required: true
             },
             "post[commentries_attributes[1]][description]": {
-                required: function(element) {
-                    if($("#post_main_url").val().length > 0){
-                        return false;
-                    }
-                    else{
-                        return true;
-                    }
-                }
+                required: true
             }
         },
         messages: {

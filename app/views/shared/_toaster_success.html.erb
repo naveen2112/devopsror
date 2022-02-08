@@ -1,0 +1,10 @@
+<div class="so-toast">
+  <%= flash[:notice] %>
+</div>
+
+<script>
+    $(".so-toast").addClass('in');
+     setTimeout(function(){
+        $(".so-toast").removeClass('in');
+    },5000);
+</script>

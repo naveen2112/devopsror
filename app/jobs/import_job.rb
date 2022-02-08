@@ -14,10 +14,14 @@ class ImportJob < ApplicationJob
 
       errors_data = []
       users_data.each do |user|
-        current_user = company.users.new(first_name: user["firstname"], last_name: user["lastname"],
-                                         email: user["email"], role: user["role"].downcase,
-                                         password: SecureRandom.hex.first(8), invited: import.invite)
-        errors_data << user.merge(reason: current_user.errors.full_messages.join(", ")) unless current_user.save
+        begin
+          current_user = company.users.new(first_name: user["firstname"], last_name: user["lastname"],
+                                           email: user["email"], role: user["role"].downcase,
+                                           password: SecureRandom.hex.first(8), invited: import.invite)
+          errors_data << user.merge(reason: current_user.errors.full_messages.join(", ")) unless current_user.save
+        rescue ActiveRecord::RecordNotUnique => e
+          errors_data << user.merge(reason: "Email already taken.")
+        end
       end
 
       if errors_data.size == 0
@@ -28,7 +32,7 @@ class ImportJob < ApplicationJob
       end
     else
       import.update(status: "failed")
-      ImportMailer.import_notification(import, email, nil , nil, true).deliver_later
+      ImportMailer.import_notification(import, email, nil, nil, true).deliver_later
     end
   end
 

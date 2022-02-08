@@ -27,14 +27,17 @@
 
         $(document).on("keyup", "#post_main_url", function () {
             render_html()
+            $("#preview-post-title").text($("#post_title").val())
         })
 
         $(document).on("keyup", "#post_commentries_attributes_1__description", function () {
             render_html()
+            $("#preview-post-title").text($("#post_title").val())
         })
 
         $("#post_image").change(function () {
             render_html()
+            $("#preview-post-title").text($("#post_title").val())
         })
 
         function render_html() {

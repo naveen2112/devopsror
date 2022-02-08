@@ -28,6 +28,12 @@
               <%= render "shared/sidebar" %>
             </div>
             <div class="dashboard_wrap position-relative">
+              <% if flash[:notice].present? %>
+                <%= render "shared/toaster_success" %>
+              <% end %>
+              <% if flash[:alert].present? %>
+                <%= render "shared/toaster_alert" %>
+              <% end %>
               <div id="alert-popup"></div>
              <%= yield %>
             </div>

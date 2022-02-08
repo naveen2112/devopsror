@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:update] do
     collection do
+      get :reset_password
       get :profile
       get :unsubscribe
       get :validate_email_without_current_user
