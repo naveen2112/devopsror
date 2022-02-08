@@ -57,10 +57,7 @@ class PostsController < ApplicationController
   def edit; end
 
   def update
-    params_object = posts_params.merge(status: "live") if params["commit"] == "Update Post"
-    param = params_object.nil? ? posts_params : params_object
-
-    if @post.update(param)
+    if @post.update(posts_params)
       redirect_to posts_path, notice: "Post updated Successfully."
     else
       render :edit
@@ -104,7 +101,14 @@ class PostsController < ApplicationController
   end
 
   def posts_params
-    params.require(:post).permit(:title, :main_url, :notification, :image, platform_name: [], commentries_attributes:
+    param_object = params.require(:post).permit(:title, :main_url, :notification, :image, platform_name: [], commentries_attributes:
       [:id, :description], tag_ids: [], tags_attributes: [:name, :company_id])
+
+    param = if params["commit"] == "Update Post"
+              param_object.merge(status: "live")
+            else
+              param_object
+            end
+    param
   end
 end

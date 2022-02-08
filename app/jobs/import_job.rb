@@ -9,7 +9,7 @@ class ImportJob < ApplicationJob
     company = Company.find(company_id)
     imported_user = company.users.find(user_id)
     headers = csv_headers(import)
-    if headers.compact == ["firstname", "lastname", "email", "role"]
+    if headers.compact&.sort == ["firstname", "lastname", "email", "role"].sort
       users_data = get_data(import)
 
       errors_data = []
