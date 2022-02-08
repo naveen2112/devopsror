@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def profile; end
 
   def update
-    if current_user.update(users_params)
+    if current_user.update(users_params.compact_blank)
       redirect_to profile_users_path, notice: "Your profile update successfully."
     else
       render :profile
@@ -28,7 +28,8 @@ class UsersController < ApplicationController
                     else
                       current_user
                     end
-    user = User.where.not(id: user_selected.id).where("LOWER(email) = ?", params[:user][:email].downcase)
+    user_selected.id
+    user = current_company.users.where("LOWER(email) = ?", params[:user][:email].downcase).where.not(id: user_selected.id)
     render plain: user.empty? ? 'true' : 'false'
   end
 
@@ -42,6 +43,7 @@ class UsersController < ApplicationController
   private
 
   def users_params
-    params.require(:user).permit(:first_name, :last_name, :email, :logo, :subscribe, company_attributes: [:id, :name, :url])
+    params.require(:user).permit(:first_name, :last_name, :email, :logo, :subscribe, :password, :password_confirmation,
+                                 company_attributes: [:id, :name, :url])
   end
 end
