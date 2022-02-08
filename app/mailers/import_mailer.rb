@@ -15,7 +15,7 @@ class ImportMailer < ApplicationMailer
 
     attachments['error_list.csv'] = URI.open(import.error_file.url).read if import.failed? && ! headers
 
-    mail from: "#{import.company.name}(via SoVocal)  <#{ENV["DEFAULT_EMAIL_SENDER"]}>", to: "#{import.company.name} #{imported_user.email}", subject: subject
+    mail from: "#{import.company.name.capitalize}(via SoVocal)  <#{ENV["DEFAULT_EMAIL_SENDER"]}>", to: "#{import.company.name} #{imported_user.email}", subject: subject
   end
 
 end
