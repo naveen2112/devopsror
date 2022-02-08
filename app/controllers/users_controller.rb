@@ -28,7 +28,6 @@ class UsersController < ApplicationController
                     else
                       current_user
                     end
-    user_selected.id
     user = current_company.users.where("LOWER(email) = ?", params[:user][:email].downcase).where.not(id: user_selected.id)
     render plain: user.empty? ? 'true' : 'false'
   end

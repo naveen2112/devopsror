@@ -76,7 +76,7 @@
             </div>
           </div>
           <div class="share-content collapse" id="linkedin_content">
-            <p contenteditable="true" >
+            <p contenteditable="true" id="post-share-content" >
              <%= @post.commentries&.first&.description %>
             </p>
           </div>
@@ -124,7 +124,7 @@
               url: "/posts/<%= @post.id %>/share",
               method: "post",
               headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
-              data: { commentry: $(".comment").text() }
+              data: { commentry: $("#post-share-content").text() }
           });
       })
   })
