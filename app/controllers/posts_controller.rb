@@ -59,7 +59,7 @@ class PostsController < ApplicationController
   def update
     params_object = posts_params.merge(status: "live") if params["commit"] == "Update Post"
     param = params_object.nil? ? posts_params : params_object
-    
+
     if @post.update(param)
       redirect_to posts_path, notice: "Post updated Successfully."
     else

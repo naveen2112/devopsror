@@ -69,8 +69,10 @@
                 $("#preview-post-comment-one-1").text($("#post_commentries_attributes_1__description").val())
 
 
-                <% unless @post.image.url.nil? %>
-                   $("#preview-post-image").html(` <img src='<%= @post.image.url %>' style='height: 13rem;'/>`)
+                <% if @post.image.attached? %>
+                  if ($("#remove-image-text").is(":visible")) {
+                    $("#preview-post-image").html(` <img src='<%= @post.image.url %>' style='height: 13rem;'/>`)
+                  }
                 <% end %>
 
                 if ($("#post_image")[0].files[0]) {
