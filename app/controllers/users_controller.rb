@@ -10,13 +10,15 @@ class UsersController < ApplicationController
     end
   end
 
-  def delete_account
-    current_user.integrated_accounts.with_platform("linked_in").destroy_all
+  def validate_current_password
+    return render plain: false unless params[:user][:current_password].present?
+
+    password = current_user.valid_password?(params[:user][:current_password])
+    render plain: password.to_s
   end
 
-  def reset_password
-    current_user.send_reset_password_instructions
-    redirect_to profile_users_path, notice: "Reset password instructions sent successfully."
+  def delete_account
+    current_user.integrated_accounts.with_platform("linked_in").destroy_all
   end
 
   def unsubscribe

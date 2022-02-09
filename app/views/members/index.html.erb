@@ -29,7 +29,7 @@
 
         $("#add-user").click(function () {
             $(".dashboard_wrap").addClass("show-add-form")
-            $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: current_company.users.new, url: members_path, method: "post", button_name: "Save", id: "new-member" }) %>");
+            $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: current_company.users.new, url: members_path, method: "post", button_name: "Add Team Member", id: "new-member" }) %>");
         })
 
         $("#multiple-user").click(function () {
@@ -65,7 +65,7 @@
         $("#users-edit-button-<%= user.id %>").click(function (e) {
             e.preventDefault()
             $(".dashboard_wrap").addClass("show-add-form")
-            $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: user, url: member_path(user), method: "put", button_name: "Update", id: "edit-member" }) %>");
+            $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: user, url: member_path(user), method: "put", button_name: "Update Team Member", id: "edit-member" }) %>");
         })
 
         <% end %>

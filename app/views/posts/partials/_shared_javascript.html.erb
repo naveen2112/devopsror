@@ -1,6 +1,6 @@
 <script>
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('[data-toggle="popover"]').popover({
             trigger: 'hover',
             html: true,
@@ -8,13 +8,13 @@
         })
 
         <% if @post.new_record? %>
-          $("#remove-image-text").hide()
+        $("#remove-image-text").hide()
         <% else %>
         <% if @post.image.attached? %>
-          $("#upload-image-text").hide()
-          $("#preview-image-button").css("z-index", "2")
+        $("#upload-image-text").hide()
+        $("#preview-image-button").css("z-index", "2")
         <% else %>
-          $("#remove-image-text").hide()
+        $("#remove-image-text").hide()
         <% end %>
         <% end %>
 
@@ -73,9 +73,9 @@
 
 
                 <% if @post.image.attached? %>
-                  if ($("#remove-image-text").is(":visible")) {
+                if ($("#remove-image-text").is(":visible")) {
                     $("#preview-post-image").html(` <img src='<%= @post.image.url %>' style='height: 13rem;'/>`)
-                  }
+                }
                 <% end %>
 
                 if ($("#post_image")[0].files[0]) {
@@ -99,11 +99,11 @@
         $("#preview-image-button").click(function () {
             $("#post_image").val("")
             <% if @post.image.attached? %>
-               $.ajax({
-                  url: "/posts/<%= @post.id %>/destroy_image",
-                  headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
-                  method: "delete"
-               });
+            $.ajax({
+                url: "/posts/<%= @post.id %>/destroy_image",
+                headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
+                method: "delete"
+            });
             <% end %>
             $("#preview-post-image").empty()
             $("#remove-image-text").hide()
@@ -116,6 +116,7 @@
 
             $(".preview-commentries-count").text(commentries_count)
 
+            <% if @post.new_record? %>
             if (commentries_count == 1) {
                 $(".post-next-commentry-button").hide()
             } else {
@@ -125,6 +126,14 @@
                     $(".post-next-commentry-button").hide()
                 }
             }
+            <% else %>
+            if (commentries_count == 1) {
+                $("#post-next-commentry").hide()
+            } else {
+                $("#post-next-commentry").show()
+            }
+            <% end %>
+
 
             var regexp;
             regexp = new RegExp($(this).data('id'), 'g');
@@ -132,5 +141,68 @@
             return event.preventDefault();
         });
 
+        <% unless @post.new_record? %>
+
+        <% if @post.commentries.size > 1 %>
+        $("#post-next-commentry").show()
+        <% else %>
+        $("#post-next-commentry").hide()
+        <% end %>
+
+        $("#post-next-commentry").click(function () {
+            post_commentry("next")
+        })
+
+        $("#post-previous-commentry").click(function () {
+            post_commentry("prevoius")
+        })
+
+        function post_commentry(button) {
+
+            var cycle_count = button == "next" ? (parseInt($(".current-commentry-index").text()) + 1) : (parseInt($(".current-commentry-index").text()) - 1)
+            $(".current-commentry-index").text(cycle_count)
+
+            $(".comment").empty()
+            $(".share-content").empty()
+            var commentries = []
+
+            var commetry_count = $(".preview-commentries-count").text()
+            console.log(commetry_count)
+
+            for (var i = 1; i <= commetry_count; i++) {
+                if (i == 1) {
+                    commentries.push($(`#post_commentries_attributes_${i}__description`).val())
+                } else {
+                    commentries.push($(`#post_commentries_attributes_${i}_description`).val())
+                }
+            }
+
+            console.log(commentries)
+
+            var comment_count = cycle_count - 1
+            if (comment_count == 0) {
+                $(".post-commentries-previous-button").addClass("single_button")
+                $(".comment").append(commentries[comment_count])
+                $(".share-content").append(`<p contenteditable="true" id="post-share-content">${commentries[comment_count]}</p>`)
+            } else {
+                $(".post-commentries-previous-button").removeClass("single_button")
+                $(".comment").append(commentries[comment_count])
+                $(".share-content").append(`<p contenteditable="true" id="post-share-content">${commentries[comment_count]}</p>`)
+            }
+
+
+            if (cycle_count >= parseInt($(".preview-commentries-count").text())) {
+                $("#post-next-commentry").hide()
+                $("#post-previous-commentry").show()
+            } else if (cycle_count <= 1) {
+                $("#post-previous-commentry").hide()
+                $("#post-next-commentry").show()
+            } else {
+                $("#post-previous-commentry").show()
+                $("#post-next-commentry").show()
+            }
+        }
+
+        <% end %>
     })
 </script>

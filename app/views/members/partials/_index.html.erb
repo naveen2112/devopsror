@@ -35,8 +35,12 @@
         <tr>
           <td>
             <div class="form-check position-relative">
-              <input type="checkbox" class="form-check-input" id="members-checkbox-<%= user.id %>" name="member_ids[]" value="<%= user.id %>">
-              <span class="custom-checkbox"></span><span class="check-symbol"></span>
+              <% if user != current_user %>
+                <% if user.cards.count == 0 %>
+                  <input type="checkbox" class="form-check-input" id="members-checkbox-<%= user.id %>" name="member_ids[]" value="<%= user.id %>">
+                  <span class="custom-checkbox"></span><span class="check-symbol"></span>
+                <% end %>
+              <% end %>
             </div>
           </td>
           <td>
@@ -71,7 +75,7 @@
                   <path d="M16 8L7.99997 16M7.99999 8L9.99997 10M16 16L12 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </span>
-              <a href="/members/<%= user.id %>/resend_invite"   class="msg-icon">
+              <a href="/members/<%= user.id %>/resend_invite" class="msg-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.5 5.5L5 7M20.5 5.5L13.4142 12.5858C12.6332 13.3668 11.3668 13.3668 10.5858 12.5858L7.5 9.5M18 19H20C20.5523 19 21 18.5523 21 18V6C21 5.44772 20.5523 5 20 5H4C3.44772 5 3 5.44772 3 6V18C3 18.5523 3.44772 19 4 19H14" stroke="#697882" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -100,12 +104,15 @@
                 <path d="M14 6L18 10M7.25 12.75L10.5 9.5L17 3L21 7L17.75 10.25L16.9375 11.0625M4.8125 15.1875L4 16V20H8L11.25 16.75L14.5 13.5" stroke="#697882" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
+
             <% if user != current_user %>
-              <button class="d-inline-block transparent-button" id="users-delete-button-<%= user.id %>">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18 6V14M18 18C18 19.1046 17.1046 20 16 20H8C6.89543 20 6 19.1046 6 18V13M6 6V9M15 6V5C15 3.89543 14.1046 3 13 3H11C9.89543 3 9 3.89543 9 5V6M4 6H20M10 10V16M14 10V16" stroke="#697882" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
+              <% if user.cards.count == 0 %>
+                <button class="d-inline-block transparent-button" id="users-delete-button-<%= user.id %>">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6V14M18 18C18 19.1046 17.1046 20 16 20H8C6.89543 20 6 19.1046 6 18V13M6 6V9M15 6V5C15 3.89543 14.1046 3 13 3H11C9.89543 3 9 3.89543 9 5V6M4 6H20M10 10V16M14 10V16" stroke="#697882" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              <% end %>
             <% end %>
           </td>
         </tr>
