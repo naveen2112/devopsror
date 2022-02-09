@@ -78,6 +78,10 @@
             } else if ($("#user_email").val().length == 0) {
                 $("#user_email").addClass("invalid")
                 $("#email-error").html(`<div for="exampleInputPassword" generated="true" class="error">This field is required.</div>`)
+            }
+            else  if ($("#user_email").val().split("@").length == 1) {
+                $("#user_email").addClass("invalid")
+                $("#email-error").html(`<div for="exampleInputPassword" generated="true" class="error">Please enter a valid email.</div>`)
             } else {
 
                 var url = "<%= user.new_record? ? "users/validate_email" : "/users/validate_email_without_current_user?user_id=#{user.id}" %>"
@@ -89,12 +93,12 @@
                     success: function (result) {
                         if (result == 'true') {
                             <% if user.new_record? %>
-                            var $form = $('#new-member');
-                            $form.submit()
+                             var $form = $('#new-member');
+                             $form.submit()
                             $(".dashboard_wrap").removeClass("show-add-form")
                             <% else %>
-                            var $form = $('#edit-member');
-                            $form.submit()
+                             var $form = $('#edit-member');
+                             $form.submit()
                             $(".dashboard_wrap").removeClass("show-add-form")
                             <% end %>
                         } else {

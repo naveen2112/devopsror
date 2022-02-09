@@ -45,11 +45,11 @@
   <table style="width: 100%;height: 100%;border-spacing: 0px; padding: 0 70px;">
     <tbody>
     <tr>
+      <% if @post.image.attached? %>
       <td style="width: 90px">
-        <% if @post.image.attached? %>
-          <img style="width: 100%" src="<%= @post.image.url %>"  />
-        <% end %>
+        <img style="width: 100%" src="<%= @post.image.url %>"  />
       </td>
+      <% end %>
 
       <td style="width: 359px; padding-left: 20px">
         <p style="margin: 0; font-size: 18px;font-weight: 700;line-height: 1.2;color: #0C1014;"><%= @post.title %></p>
@@ -83,7 +83,7 @@
     <tr>
       <td style="padding-top: 45px">
         <p style="margin: 0 auto; max-width: 434px; font-size: 14px;line-height: 1.8;font-weight: 400;text-align: center;color: #B1BCC0;">If you prefer not to receive emails like this, you may <%= link_to "unsubscribe", unsubscribe_users_url %>
-          (c) 2020 SoVocal. All rights reserved.</p>
+          (c) <%= Data.current.year %> SoVocal. All rights reserved.</p>
       </td>
     </tr>
     <tr>

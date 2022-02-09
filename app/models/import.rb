@@ -22,6 +22,6 @@ class Import < ApplicationRecord
 
   def process_import
     user = company.users.find(user_id)
-    ImportJob.set(wait: 8.seconds).perform_later(id, company_id, user.email)
+    ImportJob.set(wait: 8.seconds).perform_later(id, company_id, user.id)
   end
 end

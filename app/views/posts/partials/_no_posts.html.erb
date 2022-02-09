@@ -17,7 +17,9 @@
         <rect x="20.1875" y="139.445" width="21" height="4" rx="2" transform="rotate(-7.5 20.1875 139.445)" fill="#EEEEEE"/>
       </svg>
       <p>No Posts Yet</p>
-      <a class="btn btn-primary" href="/posts/new">Create a new post</a>
+      <% if can? :manage, Post %>
+       <a class="btn btn-primary" href="/posts/new">Create a new post</a>
+      <% end %>
     </div>
   </div>
 </div>

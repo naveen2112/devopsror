@@ -172,11 +172,11 @@
             if (comment_count == 0) {
                 $(".post-commentries-previous-button").addClass("single_button")
                 $(".comment").append(commentries[comment_count])
-                $(".share-content").append(`<p>${commentries[comment_count]}</p>`)
+                $(".share-content").append(`<p contenteditable="true" id="post-share-content">${commentries[comment_count]}</p>`)
             } else {
                 $(".post-commentries-previous-button").removeClass("single_button")
                 $(".comment").append(commentries[comment_count])
-                $(".share-content").append(`<p>${commentries[comment_count]}</p>`)
+                $(".share-content").append(`<p contenteditable="true" id="post-share-content">${commentries[comment_count]}</p>`)
             }
 
             if (cycle_count >= <%= @post.commentries.size %>) {
