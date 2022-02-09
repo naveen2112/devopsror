@@ -170,7 +170,7 @@
             console.log(commetry_count)
 
             for (var i = 1; i <= commetry_count; i++) {
-                if (i == 1) {
+                if ($(`#post_commentries_attributes_${i}__description`).length > 0) {
                     commentries.push($(`#post_commentries_attributes_${i}__description`).val())
                 } else {
                     commentries.push($(`#post_commentries_attributes_${i}_description`).val())
