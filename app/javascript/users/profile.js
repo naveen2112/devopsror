@@ -52,7 +52,8 @@ $(document).on('turbolinks:load', function() {
             "user[password]": {
                 required: true,
                 minlength: 6,
-                maxlength: 60
+                maxlength: 60,
+                remote: "/users/validate_new_password"
             },
             "user[password_confirmation]": {
                 equalTo: "#user_password",
@@ -62,10 +63,11 @@ $(document).on('turbolinks:load', function() {
         },
         messages: {
             "user[current_password]": {
-                remote: "Please enter a valid current password."
+                remote: "Incorrect Current Password."
             },
             "user[password]": {
-                maxlength: "Please enter not more than 60 characters."
+                maxlength: "Please enter not more than 60 characters.",
+                remote: "Please enter a new password"
             },
             "user[password_confirmation]": {
                 equalTo: "Password does not match"
