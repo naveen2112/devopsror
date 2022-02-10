@@ -122,7 +122,7 @@
             }
         })
 
-        $("#user_email").keyup(function () {
+        $("#user_email").change(function () {
             if ($("#user_email").val().length == 0) {
                 $("#user_email").addClass("invalid")
                 $("#email-error").html(`<div for="exampleInputPassword" generated="true" class="error">This field is required.</div>`)
