@@ -167,7 +167,6 @@
             var commentries = []
 
             var commetry_count = $(".preview-commentries-count").text()
-            console.log(commetry_count)
 
             for (var i = 1; i <= commetry_count; i++) {
                 if ($(`#post_commentries_attributes_${i}__description`).length > 0) {
@@ -176,8 +175,6 @@
                     commentries.push($(`#post_commentries_attributes_${i}_description`).val())
                 }
             }
-
-            console.log(commentries)
 
             var comment_count = cycle_count - 1
             if (comment_count == 0) {
