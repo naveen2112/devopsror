@@ -67,7 +67,7 @@ $(document).on('turbolinks:load', function() {
             },
             "user[password]": {
                 maxlength: "Please enter not more than 60 characters.",
-                remote: "Please enter a new password"
+                remote: "Your New Password Can Not be Same As Your Current Password."
             },
             "user[password_confirmation]": {
                 equalTo: "Password does not match"
