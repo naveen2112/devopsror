@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def update
     if current_user.update(users_params.compact_blank)
+      sign_in(current_user, :bypass => true) if users_params[:password].present?
       redirect_to profile_users_path, notice: "Your profile update successfully."
     else
       render :profile
