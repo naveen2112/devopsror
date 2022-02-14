@@ -10,6 +10,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def validate_current_password
+    return render plain: false unless params[:user][:current_password].present?
+
+    password = current_user.valid_password?(params[:user][:current_password])
+    render plain: password.to_s
+  end
+
+  def validate_new_password
+    return render plain: false unless params[:user][:password].present?
+
+    password = current_user.valid_password?(params[:user][:password])
+    render plain: password ? 'false' : 'true'
+  end
+
   def delete_account
     current_user.integrated_accounts.with_platform("linked_in").destroy_all
   end

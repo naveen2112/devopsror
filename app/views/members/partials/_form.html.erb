@@ -57,7 +57,7 @@
           <label class="custom-control-label" for="switch1"><span>Send email invitation to user</span></label>
         </div>
         <div class="text-center btn-wrap">
-          <button id="submit-button" class="btn btn-primary">Save</button>
+          <button id="submit-button" class="btn btn-primary"><%= button_name %></button>
         </div>
       <% end %>
     </div>
@@ -81,7 +81,7 @@
             }
             else  if ($("#user_email").val().split("@").length == 1) {
                 $("#user_email").addClass("invalid")
-                $("#email-error").html(`<div for="exampleInputPassword" generated="true" class="error">Please enter a valid email.</div>`)
+                $("#email-error").html(`<div for="exampleInputPassword" generated="true" class="error">Please enter a valid email address.</div>`)
             } else {
 
                 var url = "<%= user.new_record? ? "users/validate_email" : "/users/validate_email_without_current_user?user_id=#{user.id}" %>"
@@ -122,13 +122,18 @@
             }
         })
 
-        $("#user_email").keyup(function () {
-            if ($("#user_email").val().length > 0) {
-                $("#user_email").removeClass("invalid")
-                $("#email-error").html('')
-            } else {
+        $("#user_email").change(function () {
+            if ($("#user_email").val().length == 0) {
                 $("#user_email").addClass("invalid")
                 $("#email-error").html(`<div for="exampleInputPassword" generated="true" class="error">This field is required.</div>`)
+            }
+            else if($("#user_email").val().split("@").length == 1) {
+                $("#user_email").addClass("invalid")
+                $("#email-error").html(`<div for="exampleInputPassword" generated="true" class="error">Please enter a valid email address.</div>`)
+            }
+            else {
+                $("#user_email").removeClass("invalid")
+                $("#email-error").html('')
             }
         })
 

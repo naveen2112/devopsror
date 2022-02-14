@@ -56,7 +56,7 @@ class MembersController < ApplicationController
     @import = current_company.imports.new(imports_params)
 
     @import.save
-    redirect_to members_path
+    redirect_to members_path, notice: "Please wait while we process your file. We’ll send you an email updating you on the progress shortly."
   end
 
   def update

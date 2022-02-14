@@ -14,3 +14,63 @@
     </div>
   </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#post-share-content").keyup(function (){
+            $(".comment").text($(this).text())
+        })
+
+        <% if @post.commentries.size > 1 %>
+        $("#post-next-commentry").show()
+        <% else %>
+        $("#post-next-commentry").hide()
+        <% end %>
+
+        $("#post-next-commentry").click(function () {
+            post_commentry("next")
+        })
+
+        $("#post-previous-commentry").click(function () {
+            post_commentry("prevoius")
+        })
+
+        function post_commentry(button) {
+
+            var cycle_count = button == "next" ? (parseInt($(".current-commentry-index").text()) + 1) : (parseInt($(".current-commentry-index").text()) - 1)
+            $(".current-commentry-index").text(cycle_count)
+
+            $(".comment").empty()
+            $("#post-share-content").empty()
+            var commentries = []
+
+            <% @post.commentries.each do |commentry| %>
+              commentries.push(`<%= commentry.description %>`)
+            <% end %>
+
+            var comment_count = cycle_count - 1
+            if (comment_count == 0) {
+                $(".post-commentries-previous-button").addClass("single_button")
+                $(".comment").append(commentries[comment_count])
+                $("#post-share-content").append(`${commentries[comment_count]}`)
+            } else {
+                $(".post-commentries-previous-button").removeClass("single_button")
+                $(".comment").append(commentries[comment_count])
+                $("#post-share-content").append(`${commentries[comment_count]}`)
+            }
+
+
+            if (cycle_count >= parseInt($(".preview-commentries-count").text())) {
+                $("#post-next-commentry").hide()
+                $("#post-previous-commentry").show()
+            } else if (cycle_count <= 1) {
+                $("#post-previous-commentry").hide()
+                $("#post-next-commentry").show()
+            } else {
+                $("#post-previous-commentry").show()
+                $("#post-next-commentry").show()
+            }
+        }
+    })
+</script>

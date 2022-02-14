@@ -1249,3 +1249,35 @@ img {
   background-color: rgba(108,117,125,0.6);
   color: rgba(28,32,34, 0.6);
 }
+
+.so-toast{
+  padding: 10px 20px;
+  background: #ffffff;
+  border-radius: 50px;
+  position:fixed;
+  box-shadow: 0px 12px 35px rgba(0,0,0,0.25);
+  right: 0;
+  top: 20px;
+  transition: all ease-out 0.15s;
+  opacity:0;
+  transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+}
+.so-toast.in{
+
+  transform: translateX(-15px);
+  -webkit-transform: translateX(-15px);
+  -moz-transform: translateX(-15px);
+  opacity:1;
+  transition: all ease-in 0.25s;
+}
+
+.so-danger{
+  background-color: rgba(255, 51, 0, 1);
+  color: #ffffff
+}
+
+#profile-password-update{
+  margin-top: 20px;
+}
