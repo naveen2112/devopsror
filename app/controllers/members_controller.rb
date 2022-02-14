@@ -13,7 +13,7 @@ class MembersController < ApplicationController
              end
   end
 
-  # Destroy or Send invite email to users select in list page
+  # Destroy or Send invite email to users select in members page
   def batch_event
     @users = current_company.users.where(id: params[:member_ids])
     if params["send_invite_email"].present?
