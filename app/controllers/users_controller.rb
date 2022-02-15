@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if current_user.valid_password?(password_params[:current_password])
       current_user.update(password_params)
       sign_in(current_user, :bypass => true)
-      redirect_to profile_users_path, notice: "Your password update successfully."
+      redirect_to profile_users_path, notice: "Your password has been updated successfully."
     else
       redirect_to profile_users_path, alert: "Invalid current password."
     end
