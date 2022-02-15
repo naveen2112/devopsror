@@ -12,6 +12,10 @@ class User < ApplicationRecord
   has_many :integrated_accounts, dependent: :destroy
   has_one_attached :logo
 
+  #======================================== Attribute accessors ====================================================
+
+  attr_accessor :current_password
+
   #========================================= Callbacks =============================================================
 
   after_create :send_invite_email, if: -> { (self.poster? || self.editor?) && invited }
