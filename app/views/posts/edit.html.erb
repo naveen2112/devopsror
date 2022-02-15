@@ -15,6 +15,17 @@
 
 <script type="text/javascript">
     $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/preview_filled') %>");
+
+    $(document).ready(function (){
+        $(".selected_tag").removeAttr("style")
+        <% @post.tags.each do |tag| %>
+           $(".close_icon-<%= tag.id %>").click(function (){
+              $("#edit-remove-tag-<%= tag.id %>").hide()
+              $("#edit-form-tag-id-<%= tag.id %>").val('')
+           })
+        <% end %>
+    })
+
 </script>
 
 <%= render "posts/partials/shared_javascript" %>

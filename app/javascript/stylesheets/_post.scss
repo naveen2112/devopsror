@@ -465,6 +465,7 @@
       padding-left: 18px;
       padding-right: 10px;
       p {
+        outline: none;
         padding-top: 34px;
         font: {
           size: 14px;
@@ -473,6 +474,7 @@
         line-height: 1.6;
         text-align: justify;
         color: $secondary-grey-title;
+        word-break: break-word;
       }
     }
   }
@@ -621,7 +623,7 @@
       line-height: 1.2;
       color: $post-title-grey;
       margin-bottom: 22px;
-      padding-right: 30px;
+      padding-right: 90px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -717,5 +719,13 @@
         margin-top: 0;
       }
     }
+  }
+}
+
+#share-button{
+  .spinner-border{
+    width: 19px;
+    height: 19px;
+    border-width: 3px;
   }
 }

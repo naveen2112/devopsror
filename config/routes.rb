@@ -2,6 +2,9 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
   # Pg engines routes
   mount PgHero::Engine, at: "pghero"
 
@@ -17,19 +20,35 @@ Rails.application.routes.draw do
     get "users/validate_presence_of_email", to: "users/passwords#validate_presence_of_email"
   end
 
+  resources :members, only: [:index, :update, :destroy, :create] do
+    member do
+      post :confirm
+      get :confirm_sign_up
+      get :resend_invite
+    end
+    collection do
+      post :import
+      get :batch_event
+    end
+  end
+
   resources :users, only: [:update] do
     collection do
+      put :update_password
       get :profile
       get :unsubscribe
       get :validate_email_without_current_user
       get :validate_organisation_without_current_company
+      get :delete_account
     end
   end
 
   resources :posts do
     member do
       get :send_email_notification
+      get :validate_tag
       post :share
+      delete :destroy_image
     end
     collection do
       get :validate_title

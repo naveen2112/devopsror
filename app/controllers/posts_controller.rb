@@ -1,26 +1,34 @@
 include LinkedinAuthentication
+
 class PostsController < ApplicationController
-  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share]
+  load_and_authorize_resource param_method: :posts_params, except: [:share]
+  before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share, :validate_tag,
+                                  :destroy_image]
   before_action :set_tags, only: [:new, :create, :edit, :update]
 
   def index
-    @posts = current_company.posts.order("posts.created_at DESC").with_includes
+    @posts = current_company.posts.order("posts.updated_at DESC").with_includes
 
     if params[:search].present? || params[:tag_ids].present?
+      @posts = @posts.joins(:tags).where(tags: { id: params[:tag_ids] }).distinct unless params[:tag_ids].reject(&:blank?).empty? if params[:tag_ids].present?
+
       if params[:search].present?
         @posts = @posts.joins(:commentries).where("title ILIKE :search OR main_url ILIKE :search OR
-                                                     commentries.description ILIKE :search", {search: "%#{params[:search]}%"})
+                                                     commentries.description ILIKE :search", { search: "%#{params[:search]}%" }).distinct
       end
-      @posts = @posts.where(tags: { id: params[:tag_ids] }) if params[:tag_ids].present?
     else
       @posts = @posts.all
     end
   end
 
   def share
-    share_post(@post.id, current_user.id, params[:commentry])
-    @post.increment!(:shared_count)
-    redirect_to posts_path
+    response = share_post(@post.id, current_user.id, params[:commentry].strip)
+    if response["id"].present?
+      @post.increment!(:shared_count)
+      redirect_to posts_path, notice: "Your Post Was Shared Successfully."
+    else
+      redirect_to posts_path, alert: "Some thing went wrong."
+    end
   end
 
   def new
@@ -41,6 +49,13 @@ class PostsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def validate_tag
+    return render plain: false unless params[:tag_ids].present?
+
+    @tags = @post.tags.where(id: params[:tag_ids].split(","))
+    render json: @tags
   end
 
   def edit; end
@@ -74,6 +89,11 @@ class PostsController < ApplicationController
     @post.send_email
   end
 
+  def destroy_image
+    @post.image.destroy
+    head :ok
+  end
+
   private
 
   def set_post
@@ -85,7 +105,14 @@ class PostsController < ApplicationController
   end
 
   def posts_params
-    params.require(:post).permit(:title, :main_url, :notification, :image, platform_name: [], commentries_attributes:
-      [:description], tag_ids: [], tags_attributes: [:name, :company_id])
+    param_object = params.require(:post).permit(:title, :main_url, :notification, :image, platform_name: [], commentries_attributes:
+      [:id, :description], tag_ids: [], tags_attributes: [:name, :company_id])
+
+    param = if params["commit"] == "Update Post"
+              param_object.merge(status: "live")
+            else
+              param_object
+            end
+    param
   end
 end

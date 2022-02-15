@@ -69,7 +69,7 @@ $(document).on('turbolinks:load', function () {
             $(renderDropdown).on('click', function () {
                 $(renderDropdown).addClass('open');
             });
-            $('.' + settings.parentClass + ' .custom-dropdown-select').on('click', function(event) {
+            $('.' + settings.parentClass + ' .custom-dropdown-select .multiselect-btn').on('click', function(event) {
                 if ($(renderDropdown).hasClass('open')) {
                     $(renderDropdown).removeClass('open');
                     $(renderDropdown).removeClass('show');
@@ -95,7 +95,9 @@ $(document).on('turbolinks:load', function () {
                     let event = new Event("custom-event:closed", {
                         bubbles: true, // only bubbles and cancelable
                     });
-                    document.querySelector('#' + settings.renderId).dispatchEvent(event)
+                   if(document.querySelector('#' + settings.renderId) != null) {
+                       document.querySelector('#' + settings.renderId).dispatchEvent(event)
+                   }
                 }
             });
             //multi

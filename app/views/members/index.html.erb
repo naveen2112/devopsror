@@ -1,0 +1,79 @@
+<div class="member-wrap">
+  <div class="title-wrap"></div>
+  <div class="form-group search-wrap position-relative">
+    <span class="icon">
+      <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="14.5" cy="14.5" r="9.5" stroke="#6ABEF8" stroke-width="2"/>
+        <path d="M21 22L25.7929 26.7929" stroke="#6ABEF8" stroke-width="2"/>
+      </svg>
+    </span>
+    <input type="text" id="members-search" class="form-control" placeholder="Search for members...">
+  </div>
+  <div id="members-list"><%= render "members/partials/index" %></div>
+</div>
+<div id="new-user-form"></div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#send-invite-for-selected").attr("type", "hidden")
+        $("#batch-delete-user").attr("type", "hidden")
+
+        $("#batch-delete-user").click(function (e){
+            e.preventDefault()
+            $(".dashboard_wrap").addClass("show-alert")
+            $("#alert-popup").html("<%= escape_javascript (render partial: 'members/partials/batch_delete_alert') %>")
+        })
+
+        $("#members-search").keyup(function () {
+            $.ajax({
+                url: `/members?search=${$(this).val()}`,
+                method: "get",
+                dataType: 'script'
+            });
+        })
+
+        $("#add-user").click(function () {
+            $(".dashboard_wrap").addClass("show-add-form")
+            $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: current_company.users.new, url: members_path, method: "post", button_name: "Add Team Member", id: "new-member" }) %>");
+        })
+
+        $("#multiple-user").click(function () {
+            $(".dashboard_wrap").addClass("show-add-form")
+            $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/csv_form' ) %>");
+        })
+
+        <% @users.each do |user| %>
+
+        $("#members-checkbox-<%= user.id %>").change(function (){
+            if($('input[type="checkbox"]:checked').length > 0){
+                $("#send-invite-for-selected").attr("type", "submit")
+                $("#batch-delete-user").attr("type", "submit")
+            }
+            else{
+                $("#send-invite-for-selected").attr("type", "hidden")
+                $("#batch-delete-user").attr("type", "hidden")
+            }
+        })
+
+        $("#users-delete-button-<%= user.id %>").click(function (e) {
+            e.preventDefault()
+            $(".dashboard_wrap").addClass("show-alert")
+            $("#alert-popup").html("<%= escape_javascript (render partial: 'shared/alert', locals: { text: "user", url: "/members/" + user.id.to_s  }) %>")
+
+            $.ajax({
+                url: "/posts/" + <%= user.id %>,
+                method: "delete",
+                dataType: 'script'
+            });
+        })
+
+        $("#users-edit-button-<%= user.id %>").click(function (e) {
+            e.preventDefault()
+            $(".dashboard_wrap").addClass("show-add-form")
+            $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: user, url: member_path(user), method: "put", button_name: "Update Team Member", id: "edit-member" }) %>");
+        })
+
+        <% end %>
+    })
+</script>

@@ -12,7 +12,7 @@
               <label class="control-label">First name</label>
               <div class="position-relative">
                 <%= form.text_field :first_name, class: "form-control" %>
-                <button class="transparent-button edit-button">
+                <button type="button" class="transparent-button edit-button">
                   <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.8333 4L14.5 8M4.64584 10.75L7.625 7.5L13.5833 1L17.25 5L14.2708 8.25L13.526 9.0625M2.41146 13.1875L1.66667 14V18H5.33334L8.3125 14.75L11.2917 11.5" stroke="#6D7684" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
@@ -25,7 +25,7 @@
               <label class="control-label">Last name</label>
               <div class="position-relative">
                 <%= form.text_field :last_name, class: "form-control" %>
-                <button class="transparent-button edit-button">
+                <button type="button" class="transparent-button edit-button">
                   <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.8333 4L14.5 8M4.64584 10.75L7.625 7.5L13.5833 1L17.25 5L14.2708 8.25L13.526 9.0625M2.41146 13.1875L1.66667 14V18H5.33334L8.3125 14.75L11.2917 11.5" stroke="#6D7684" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
@@ -34,11 +34,12 @@
             </div>
           </div>
         </div>
+
         <div class="form-group">
           <label class="control-label">Email</label>
           <div class="position-relative">
             <%= form.email_field :email, class: "form-control" %>
-            <button class="transparent-button edit-button">
+            <button type="button" class="transparent-button edit-button">
               <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10.8333 4L14.5 8M4.64584 10.75L7.625 7.5L13.5833 1L17.25 5L14.2708 8.25L13.526 9.0625M2.41146 13.1875L1.66667 14V18H5.33334L8.3125 14.75L11.2917 11.5" stroke="#6D7684" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -52,24 +53,14 @@
             <div class="form-group">
               <label class="control-label">Organisation Name</label>
               <div class="position-relative">
-                <%= f.text_field :name, class: "form-control", value: current_company.name %>
-                <button class="transparent-button edit-button">
-                  <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.8333 4L14.5 8M4.64584 10.75L7.625 7.5L13.5833 1L17.25 5L14.2708 8.25L13.526 9.0625M2.41146 13.1875L1.66667 14V18H5.33334L8.3125 14.75L11.2917 11.5" stroke="#6D7684" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
+                <%= f.text_field :name, class: "form-control", value: current_company.name, disabled: true %>
               </div>
             </div>
 
             <div class="form-group">
               <label class="control-label">Organisation URL</label>
               <div class="position-relative">
-                <%= f.url_field :url, class: "form-control", value: current_company.url %>
-                <button class="transparent-button edit-button">
-                  <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.8333 4L14.5 8M4.64584 10.75L7.625 7.5L13.5833 1L17.25 5L14.2708 8.25L13.526 9.0625M2.41146 13.1875L1.66667 14V18H5.33334L8.3125 14.75L11.2917 11.5" stroke="#6D7684" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
+                <%= f.url_field :url, class: "form-control", value: current_company.url, disabled: true %>
               </div>
             </div>
           <% end %>
@@ -77,39 +68,91 @@
 
         <div class="custom-control custom-switch form-group">
           <%= form.check_box :subscribe, class: "custom-control-input", id: "email-notification" %>
-          <label class="custom-control-label" for="email-notification"><span>Receive email notification</span></label>
+          <label class="custom-control-label" for="email-notification"><span>Receive email notifications</span></label>
         </div>
       </div>
 
-        <div class="picture_wrap">
-          <div class="form-group">
-            <label class="control-label">Profile Photo</label>
-            <div class="position-relative image_wrap">
-              <img src="<%= current_user.image_url %>" alt="user thumb"/>
-              <span>
-                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="23.75" cy="23.75" r="23.5" fill="url(#paint0_linear_32_2686)"/>
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M28.6907 21.7936L25.2096 18.3125L27.7258 15.7951L31.2055 19.2748L28.6907 21.7936ZM19.7278 30.7655L15.8825 31.1155L16.2235 27.2973L23.4788 20.0421L26.9611 23.5244L19.7278 30.7655ZM33.063 17.4781L33.0617 17.4768L29.5251 13.9402C28.568 12.9857 26.9237 12.9405 26.0169 13.8511L14.3971 25.4709C13.976 25.8907 13.7151 26.4487 13.6608 27.039L13.1713 32.4253C13.1377 32.8063 13.2733 33.1835 13.5446 33.4547C13.7887 33.6988 14.1181 33.8332 14.4578 33.8332C14.4978 33.8332 14.5366 33.8319 14.5753 33.828L19.9616 33.3385C20.5532 33.2842 21.1099 33.0246 21.5297 32.6048L33.1508 20.9837C34.0911 20.0408 34.0511 18.4675 33.063 17.4781Z" fill="white"/>
-                                <defs>
-                                    <linearGradient id="paint0_linear_32_2686" x1="23.75" y1="0.25" x2="23.75" y2="47.25" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="#82CBFC"/>
-                                        <stop offset="1" stop-color="#68BDF8"/>
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                        </span>
-              <%= form.file_field :logo %>
-            </div>
+      <div class="picture_wrap">
+        <div class="form-group">
+          <label class="control-label">Profile Photo</label>
+          <div class="position-relative image_wrap">
+            <img src="<%= current_user.image_url %>" id="user-logo-display" alt="user thumb"/>
+            <span>
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="23.75" cy="23.75" r="23.5" fill="url(#paint0_linear_32_2686)"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M28.6907 21.7936L25.2096 18.3125L27.7258 15.7951L31.2055 19.2748L28.6907 21.7936ZM19.7278 30.7655L15.8825 31.1155L16.2235 27.2973L23.4788 20.0421L26.9611 23.5244L19.7278 30.7655ZM33.063 17.4781L33.0617 17.4768L29.5251 13.9402C28.568 12.9857 26.9237 12.9405 26.0169 13.8511L14.3971 25.4709C13.976 25.8907 13.7151 26.4487 13.6608 27.039L13.1713 32.4253C13.1377 32.8063 13.2733 33.1835 13.5446 33.4547C13.7887 33.6988 14.1181 33.8332 14.4578 33.8332C14.4978 33.8332 14.5366 33.8319 14.5753 33.828L19.9616 33.3385C20.5532 33.2842 21.1099 33.0246 21.5297 32.6048L33.1508 20.9837C34.0911 20.0408 34.0511 18.4675 33.063 17.4781Z" fill="white"/>
+                  <defs>
+                    <linearGradient id="paint0_linear_32_2686" x1="23.75" y1="0.25" x2="23.75" y2="47.25" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#82CBFC"/>
+                      <stop offset="1" stop-color="#68BDF8"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </span>
+            <%= form.file_field :logo %>
           </div>
         </div>
-        </div>
+      </div>
+    </div>
 
     <%= form.submit "Update", class: "btn btn-primary update" %>
   <% end %>
 
-  <% if flash[:notice] == "Your profile update successfully." %>
-    <div class="d-flex justify-content-center alert-wrap">
-      <p class="alert position-relative alert-primary" role="alert">Your information has been updated successfully</p>
+  <div class="title-wrap mt-5">
+    <h6 class="title">Change password</h6>
+  </div>
+
+  <%= form_for current_user, url: update_password_users_path, method: :put, html: { id: "profile-password-update" } do |form| %>
+
+    <div class="form-group">
+      <label class="control-label">Current Password</label>
+      <div class="position-relative">
+        <%= form.password_field :current_password, class: "form-control" %>
+        <button type="button" class="transparent-button edit-button">
+          <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.8333 4L14.5 8M4.64584 10.75L7.625 7.5L13.5833 1L17.25 5L14.2708 8.25L13.526 9.0625M2.41146 13.1875L1.66667 14V18H5.33334L8.3125 14.75L11.2917 11.5" stroke="#6D7684" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
     </div>
+
+    <div class="form-group">
+      <label class="control-label">New Password</label>
+      <div class="position-relative">
+        <%= form.password_field :password, class: "form-control" %>
+        <button type="button" class="transparent-button edit-button">
+          <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.8333 4L14.5 8M4.64584 10.75L7.625 7.5L13.5833 1L17.25 5L14.2708 8.25L13.526 9.0625M2.41146 13.1875L1.66667 14V18H5.33334L8.3125 14.75L11.2917 11.5" stroke="#6D7684" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label">Confirm New Password</label>
+      <div class="position-relative">
+        <%= form.password_field :password_confirmation, class: "form-control" %>
+        <button type="button" class="transparent-button edit-button">
+          <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.8333 4L14.5 8M4.64584 10.75L7.625 7.5L13.5833 1L17.25 5L14.2708 8.25L13.526 9.0625M2.41146 13.1875L1.66667 14V18H5.33334L8.3125 14.75L11.2917 11.5" stroke="#6D7684" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <%= form.submit "Update", class: "btn btn-primary update" %>
   <% end %>
+
 </div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#user_logo").change(function () {
+            if ($("#user_logo")[0].files[0]) {
+                $("#user-logo-display").attr("src", URL.createObjectURL($("#user_logo")[0].files[0]))
+            }
+        })
+
+    })
+</script>

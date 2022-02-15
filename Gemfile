@@ -38,6 +38,9 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "brakeman"
 
+  # Accessing environment variables in development
+  gem 'dotenv-rails'
+
   gem "rubocop"
   gem "rubocop-performance"
   gem "rubocop-rails"
@@ -65,9 +68,6 @@ group :development do
 
   # Kills the N+1 query problem
   gem 'bullet'
-
-  # Accessing environment variables in development
-  gem 'dotenv-rails'
 end
 
 group :test do
@@ -99,3 +99,7 @@ gem 'aws-sdk-s3', require: false
 gem 'activerecord-import'
 
 gem 'linkedin'
+
+gem 'activeadmin'
+
+gem 'cancancan'

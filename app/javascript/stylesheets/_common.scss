@@ -193,6 +193,7 @@ img {
   padding: 40px 59px 40px 84px;
   min-width: 1024px;
   overflow-x: auto;
+  min-height: 800px;
 
   &.show-alert {
     position: fixed;
@@ -1013,6 +1014,213 @@ img {
     }
   }
 }
+
+.card_names {
+  p {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: $input-label;
+  }
+  &>* {
+    display: inline-block;
+  }
+  .card_logos {
+    padding-left: 41px;
+  }
+}
+
+.card-secure-text {
+  span {
+    display: inline-block;
+    vertical-align: bottom;
+  }
+
+  .text {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.2;
+    color: $text-light-grey;
+    padding-left: 11px;
+  }
+}
+
+.search-wrap {
+  margin-top: 25px;
+  max-width: 948px;
+  .form-control {
+    padding: 16px 16px 16px 69px;
+    height: auto;
+  }
+  .icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 21px;
+  }
+}
+
+.custom-checkbox {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-color: $checkbox-background-color;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  border-radius: 4px;
+}
+
+.check-symbol {
+  position: absolute;
+  left: 9px;
+  top: 3px;
+  width: 7px;
+  height: 14px;
+  display: none;
+  border: solid $bg-white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.form-check-input {
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+  opacity: 0;
+}
+
+.form-check-input:checked {
+  &~.custom-checkbox {
+    background-color: $check-box-blue;
+    border: 3px solid $check-box-border-grey;
+  }
+  &~.check-symbol {
+    display: block;
+  }
+}
+
+.custom-radio {
+  min-width: 131px;
+  text-align: center;
+  border: 1px solid $terms-text-color;
+  border-radius: 10px;
+  background-color: $input-bg;
+  padding: 11px 0;
+  font: {
+    size: 14px;
+    weight: 700;
+    family: 'Mulish', sans-serif;
+  };
+  line-height: 1.2;
+  letter-spacing: 0.3px;
+  color: $secondary-grey-title;
+  cursor: pointer;
+}
+
+.custom-radio-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 25px);
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.custom-radio-input {
+  &:checked+.custom-radio {
+    background-color: $alert-primary-bg;
+    border-color: $primary-blue-bg;
+    color: $primary-blue-bg;
+  }
+}
+
+.secondary-label {
+  font: {
+    size: 14px;
+    weight: 300;
+  };
+  line-height: 1;
+  color: $terms-text-color;
+}
+
+.custom-dropdown-select .multiselect-btn {
+  overflow: auto !important;
+}
+
+.primary-label {
+  color: $secondary-grey-title;
+}
+
+.pop-alert {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $bg-white;
+  box-shadow: 0px 8px 24px rgba(27, 46, 94, 0.08);
+  border-radius: 8px;
+  padding: 42px 60px 27px;
+  text-align: center;
+  display: none;
+  .alert-title {
+    margin-top: 27px;
+    margin-bottom: 0;
+    font: {
+      size: 24px;
+      weight: 600;
+    }
+    line-height: 1.2;
+    color: $secondary-grey-title;
+  }
+
+  .alert-message {
+    margin-top: 9px;
+    margin-bottom: 0;
+    font: {
+      size: 24px;
+      weight: 300;
+    }
+    line-height: 1.2;
+    color: $secondary-grey-title;
+  }
+
+  .button-wrap {
+    margin-top: 30px;
+    .btn {
+      font: {
+        size: 16px;
+        weight: 500;
+      }
+      border-radius: 5px;
+    }
+    .btn-dangerous {
+      color: $bg-white;
+      background-color: $danger;
+      line-height: 1.2;
+      padding: 8px 21px;
+      border: none;
+      &:hover {
+        box-shadow: 0px 0px 3px 0px #ff2a00;
+      }
+    }
+    .white-btn {
+      color: $white-btn-color;
+      padding: 8px 34px;
+      margin-left: 25px;
+      border: 1px solid $white-btn-color;
+      letter-spacing: 0.3px;
+      line-height: 1.1;
+      &:hover {
+        background-color: $white-btn-color;
+        color: $bg-white;
+      }
+    }
+  }
+}
 .show-alert {
   .pop-alert {
     display: block;
@@ -1025,4 +1233,51 @@ img {
   & ~.invalid-feedback {
     display: inline;
   }
+}
+
+.read-more{
+  cursor: pointer;
+  color: $primary-blue-bg;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.draft-intimation {
+  position: absolute;
+  top: 15px;
+  right: 40px;
+  background-color: rgba(108,117,125,0.6);
+  color: rgba(28,32,34, 0.6);
+}
+
+.so-toast{
+  padding: 10px 20px;
+  background: #ffffff;
+  border-radius: 50px;
+  position:fixed;
+  box-shadow: 0px 12px 35px rgba(0,0,0,0.25);
+  right: 0;
+  top: 20px;
+  transition: all ease-out 0.15s;
+  opacity:0;
+  transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  z-index: 999;
+}
+.so-toast.in{
+  transform: translateX(-15px);
+  -webkit-transform: translateX(-15px);
+  -moz-transform: translateX(-15px);
+  opacity:1;
+  transition: all ease-in 0.25s;
+}
+
+.so-danger{
+  background-color: rgba(255, 51, 0, 1);
+  color: #ffffff
+}
+
+#profile-password-update{
+  margin-top: 20px;
 }
