@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   # Sidekiq activities
   mount Sidekiq::Web => '/sidekiq'
 
-  devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions",
+  devise_for :users, controllers: { registrations: "users/registrations",
                                     passwords: "users/passwords"}
 
   devise_scope :user do
@@ -34,8 +34,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:update] do
     collection do
-      get :validate_current_password
-      get :validate_new_password
+      put :update_password
       get :profile
       get :unsubscribe
       get :validate_email_without_current_user

@@ -10,18 +10,14 @@ class UsersController < ApplicationController
     end
   end
 
-  def validate_current_password
-    return render plain: false unless params[:user][:current_password].present?
-
-    password = current_user.valid_password?(params[:user][:current_password])
-    render plain: password.to_s
-  end
-
-  def validate_new_password
-    return render plain: false unless params[:user][:password].present?
-
-    password = current_user.valid_password?(params[:user][:password])
-    render plain: password ? 'false' : 'true'
+  def update_password
+    if current_user.valid_password?(password_params[:current_password])
+      current_user.update(password_params)
+      sign_in(current_user, :bypass => true)
+      redirect_to profile_users_path, notice: "Your password has been updated successfully."
+    else
+      redirect_to profile_users_path, alert: "Invalid current password."
+    end
   end
 
   def delete_account
@@ -57,6 +53,10 @@ class UsersController < ApplicationController
 
   def users_params
     params.require(:user).permit(:first_name, :last_name, :email, :logo, :subscribe, :password, :password_confirmation,
-                                 company_attributes: [:id, :name, :url])
+                                 :current_password, company_attributes: [:id, :name, :url])
+  end
+
+  def password_params
+    params.require(:user).permit(:password, :password_confirmation, :current_password)
   end
 end

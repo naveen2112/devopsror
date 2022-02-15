@@ -19,6 +19,12 @@
         $("#send-invite-for-selected").attr("type", "hidden")
         $("#batch-delete-user").attr("type", "hidden")
 
+        $("#batch-delete-user").click(function (e){
+            e.preventDefault()
+            $(".dashboard_wrap").addClass("show-alert")
+            $("#alert-popup").html("<%= escape_javascript (render partial: 'members/partials/batch_delete_alert') %>")
+        })
+
         $("#members-search").keyup(function () {
             $.ajax({
                 url: `/members?search=${$(this).val()}`,

@@ -46,14 +46,12 @@ $(document).on('turbolinks:load', function() {
             "user[current_password]": {
                 required: true,
                 minlength: 6,
-                maxlength: 60,
-                remote: "/users/validate_current_password"
+                maxlength: 60
             },
             "user[password]": {
                 required: true,
                 minlength: 6,
-                maxlength: 60,
-                remote: "/users/validate_new_password"
+                maxlength: 60
             },
             "user[password_confirmation]": {
                 equalTo: "#user_password",
@@ -62,9 +60,6 @@ $(document).on('turbolinks:load', function() {
             }
         },
         messages: {
-            "user[current_password]": {
-                remote: "Incorrect Current Password."
-            },
             "user[password]": {
                 maxlength: "Please enter not more than 60 characters.",
                 remote: "Your New Password Can Not be Same As Your Current Password."

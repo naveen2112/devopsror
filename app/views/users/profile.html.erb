@@ -102,7 +102,7 @@
     <h6 class="title">Change password</h6>
   </div>
 
-  <%= form_for current_user, url: user_path(current_user), html: { id: "profile-password-update" } do |form| %>
+  <%= form_for current_user, url: update_password_users_path, method: :put, html: { id: "profile-password-update" } do |form| %>
 
     <div class="form-group">
       <label class="control-label">Current Password</label>
