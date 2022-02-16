@@ -19,6 +19,7 @@ class PostsController < ApplicationController
     else
       @posts = @posts.all
     end
+    @posts = @posts.page(params[:page]).per_page(8)
   end
 
   def share
@@ -94,6 +95,17 @@ class PostsController < ApplicationController
     head :ok
   end
 
+  # Pulling image from given main URL using LinkThumbnailer
+  def preview_image_from_url
+    begin
+      page = LinkThumbnailer.generate(posts_params[:main_url])
+      preview_image_url =  page.images.first&.src.to_s
+    rescue LinkThumbnailer::Exceptions => e
+      preview_image_url = nil
+    end
+
+    render plain: preview_image_url || 'false'
+  end
   private
 
   def set_post

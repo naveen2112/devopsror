@@ -28,10 +28,26 @@ class Post < ApplicationRecord
   #============================== Callbacks ======================================================================
 
   after_create_commit :send_email, if: -> { notification && status == "live" }
+  after_save :update_preview_image_url, if: -> {main_url_previously_changed?}
 
   #============================== Methods ========================================================================
 
   def send_email
     PostsNotificationJob.set(wait: 5.seconds).perform_later(id)
+  end
+
+  def update_preview_image_url
+    update(preview_image_url: get_preview_image_url)
+  end
+
+  def get_preview_image_url
+    # Pulling image from given main URL using LinkThumbnailer
+    begin
+      page = LinkThumbnailer.generate(main_url)
+      preview_image_url =  page.images.first&.src.to_s
+    rescue LinkThumbnailer::Exceptions => e
+      preview_image_url = nil
+    end
+    preview_image_url
   end
 end

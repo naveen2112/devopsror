@@ -103,3 +103,7 @@ gem 'linkedin'
 gem 'activeadmin'
 
 gem 'cancancan'
+
+gem 'will_paginate'
+
+gem 'link_thumbnailer'

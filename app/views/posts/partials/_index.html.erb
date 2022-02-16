@@ -35,7 +35,7 @@
           </div>
         </div>
         <% if can? :manage, Post %>
-          <button class="post-info" id="post-edit-delete-<%= post.id %>">
+          <button class="post-info" id="post-edit-delete">
              <svg width="17" height="4" viewBox="0 0 17 4" fill="none" xmlns="http://www.w3.org/2000/svg">
              <path d="M16.8653 1.88463C16.8653 2.92548 16.0445 3.76926 15.0321 3.76926C14.0196 3.76926 13.1989 2.92548 13.1989 1.88463C13.1989 0.843777 14.0196 0 15.0321 0C16.0445 0 16.8653 0.843777 16.8653 1.88463Z" fill="#696969"/>
              <path d="M10.2658 1.88463C10.2658 2.92548 9.44507 3.76926 8.43263 3.76926C7.42019 3.76926 6.59945 2.92548 6.59945 1.88463C6.59945 0.843777 7.42019 0 8.43263 0C9.44507 0 10.2658 0.843777 10.2658 1.88463Z" fill="#696969"/>
@@ -92,8 +92,10 @@
           <div class="post_image_wrap">
             <% if post.image.attached? %>
               <img src="<%= post.image.url %>">
+            <% elsif post.preview_image_url.present? %>
+              <img src="<%= post.preview_image_url %>" >
             <% end %>
-            <p class="text"><%= post.commentries&.first&.description %></p>
+            <p class="text"><%= simple_format(post.commentries&.first&.description).gsub(URI.regexp, '<a href="\0">\0</a>').html_safe %></p>
             <% unless post.main_url.nil? || post.main_url.blank? %>
               <div class="post-desc">
                 <a href="<%= post.main_url %>" class="post-link"><%= post.main_url.gsub("http://", "") %></a>
@@ -159,7 +161,7 @@
 
         $("#read-more-<%= post.id %>").click(function () {
             $("#post-read-more-<%= post.id %>").val(parseInt($("#post-read-more-<%= post.id %>").val()) + (read_more_text_<%= post.id %>).split(/\s+/).length)
-            $("#post-commentries-<%= post.id %>").text(getWords(read_more_text_<%= post.id %>, (parseInt($("#post-read-more-<%= post.id %>").val()) + (read_more_text_<%= post.id %>).split(/\s+/).length)))
+            $("#post-commentries-<%= post.id %>").html(getWords(read_more_text_<%= post.id %>, (parseInt($("#post-read-more-<%= post.id %>").val()) + (read_more_text_<%= post.id %>).split(/\s+/).length)))
 
             $("#read-more-<%= post.id %>").hide()
             $("#read-less-<%= post.id %>").show()
@@ -167,11 +169,18 @@
 
         $("#read-less-<%= post.id %>").click(function () {
             $("#post-read-more-<%= post.id %>").val(20)
-            $("#post-commentries-<%= post.id %>").text(getWords(read_more_text_<%= post.id %>, 20))
+            $("#post-commentries-<%= post.id %>").html(getWords(read_more_text_<%= post.id %>, 20))
 
             $("#read-more-<%= post.id %>").show()
             $("#read-less-<%= post.id %>").hide()
         })
+
+        function recognize_url(text) {
+            var urlRegex = /(https?:\/\/[^\s]+)/g;
+            return text.replace(urlRegex, function(url) {
+                return '<a href="' + url + '">' + url + '</a>';
+            })
+        }
 
         function getWords(str, words_count) {
             return str.split(/\s+/).slice(0, words_count).join(" ");
@@ -189,14 +198,6 @@
 
         })
 
-        $(document).on("click", "#post-edit-delete-<%= post.id %>", function () {
-            var classes = $("#post-cards-<%= post.id %>").attr("class")
-            if (classes.split(" ").includes('show-post-option')) {
-                $("#post-cards-<%= post.id %>").removeClass("show-post-option")
-            } else {
-                $("#post-cards-<%= post.id %>").addClass("show-post-option")
-            }
-        })
 
         $("#post-next-commentry-<%= post.id %>").click(function () {
             <%= "post_commentry_button_#{post.id}" %>("next")

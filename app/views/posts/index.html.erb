@@ -42,7 +42,9 @@
       <div id="posts-list">
         <%= render "posts/partials/index" %>
       </div>
-
+    <div id ="paginate-infinite-scrolling" class="pagination hidden">
+    <%= will_paginate @posts %>
+    </div>
     </div>
   <% else %>
     <%= render "posts/partials/no_posts" %>
