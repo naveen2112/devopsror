@@ -15,3 +15,10 @@ $(document).ready(function () {
         });
     }
 })
+$(document).on('click', "#post-edit-delete", (function () {
+    if ($(this).parent().attr("class").split(" ").includes('show-post-option')) {
+        $(this).parent().removeClass("show-post-option")
+    } else {
+        $(this).parent().addClass("show-post-option")
+    }
+}))

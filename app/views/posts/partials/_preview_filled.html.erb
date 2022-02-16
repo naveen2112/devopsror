@@ -63,7 +63,9 @@
         </div>
         <div class="post_image_wrap">
           <% if @post.image.attached? %>
-            <div id="preview-post-image"><img src="<%= @post.image.url %>"  style="height: 13rem;"></div>
+            <div id="preview-post-image"><img src="<%= @post.image.url %>" style="height: 13rem;"></div>
+          <% elsif @post.preview_image_url.present? %>
+            <div id="preview-post-image"><img src="<%= @post.preview_image_url %>" style="height: 13rem;"></div>
           <% end %>
           <p class="text"> <%= @post.commentries.first&.description %></p>
           <% unless @post.main_url.nil? || @post.main_url.blank? %>

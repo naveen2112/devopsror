@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 2022_02_06_134858) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "created_by"
     t.integer "shared_count", default: 0
+    t.string "preview_image_url"
     t.index ["company_id"], name: "index_posts_on_company_id"
   end
 

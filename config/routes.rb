@@ -49,9 +49,11 @@ Rails.application.routes.draw do
       get :validate_tag
       post :share
       delete :destroy_image
+      get :preview_image_from_url
     end
     collection do
       get :validate_title
+      get :preview_image_from_url
     end
   end
 
