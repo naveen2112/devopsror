@@ -149,13 +149,12 @@
     function post_list() {
         <% @posts.each do |post| %>
 
-        var read_more_text_<%= post.id %> = $("#post-commentries-<%= post.id %>").text()
+        var read_more_text_<%= post.id %> = recognize_url($("#post-commentries-<%= post.id %>").text())
         $("#read-less-<%= post.id %>").hide()
 
-        if((read_more_text_<%= post.id %>).split(/\s+/).length > 15){
-            $("#post-commentries-<%= post.id %>").text(getWords($("#post-commentries-<%= post.id %>").text(), 15))
-        }
-        else{
+        $("#post-commentries-<%= post.id %>").html(getWords(recognize_url($("#post-commentries-<%= post.id %>").text()), 15))
+
+        if((read_more_text_<%= post.id %>).split(/\s+/).length < 15){
             $("#read-more-<%= post.id %>").hide()
         }
 
@@ -219,7 +218,7 @@
             []
 
             <% post.commentries.each do |commentry| %>
-            <%= "commentries_#{post.id}" %>.push(`<%= commentry.description.to_s %>`)
+            <%= "commentries_#{post.id}" %>.push(recognize_url(`<%= commentry.description.to_s %>`))
             <% end %>
 
             var <%= "comment_count_#{post.id}" %> =
