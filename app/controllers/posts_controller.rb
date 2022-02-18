@@ -28,7 +28,7 @@ class PostsController < ApplicationController
       @post.increment!(:shared_count)
       redirect_to posts_path, notice: "Your Post Was Shared Successfully."
     else
-      redirect_to posts_path, alert: "Some thing went wrong."
+      redirect_to posts_path, alert: "Something went wrong."
     end
   end
 

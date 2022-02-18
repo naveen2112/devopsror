@@ -49,7 +49,7 @@ class MembersController < ApplicationController
   def resend_invite
     @user.send_invite_email
     @user.update(invited: true) unless @user.invited
-    redirect_to members_path
+    redirect_to members_path, notice: "Email invite to the user was sent successfully"
   end
 
   def import
