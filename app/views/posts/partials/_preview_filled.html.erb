@@ -67,7 +67,7 @@
           <% elsif @post.preview_image_url.present? %>
             <div id="preview-post-image"><img src="<%= @post.preview_image_url %>" style="height: 13rem;"></div>
           <% end %>
-          <p class="text"> <%= @post.commentries.first&.description %></p>
+
           <% unless @post.main_url.nil? || @post.main_url.blank? %>
             <div class="post-desc">
               <a href="<%= @post.main_url %>" class="post-link"><%= @post.main_url&.gsub("http://", "") %></a>

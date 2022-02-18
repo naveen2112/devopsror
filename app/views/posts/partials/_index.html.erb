@@ -95,7 +95,7 @@
             <% elsif post.preview_image_url.present? %>
               <img src="<%= post.preview_image_url %>" >
             <% end %>
-            <p class="text"><%= simple_format(post.commentries&.first&.description).gsub(URI.regexp, '<a href="\0">\0</a>').html_safe %></p>
+
             <% unless post.main_url.nil? || post.main_url.blank? %>
               <div class="post-desc">
                 <a href="<%= post.main_url %>" class="post-link"><%= post.main_url.gsub("http://", "") %></a>
