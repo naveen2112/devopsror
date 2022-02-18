@@ -88,6 +88,7 @@ class PostsController < ApplicationController
 
   def send_email_notification
     @post.send_email
+    flash[:notice] = "Email notification for the post sent successfully"
   end
 
   def destroy_image
