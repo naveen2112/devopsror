@@ -28,7 +28,7 @@ class PostsController < ApplicationController
       @post.increment!(:shared_count)
       redirect_to posts_path, notice: "Your Post Was Shared Successfully."
     else
-      redirect_to posts_path, alert: "Some thing went wrong."
+      redirect_to posts_path, alert: "Something went wrong."
     end
   end
 
@@ -88,6 +88,7 @@ class PostsController < ApplicationController
 
   def send_email_notification
     @post.send_email
+    flash[:notice] = "Email notification for the post sent successfully"
   end
 
   def destroy_image
