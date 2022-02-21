@@ -13,11 +13,6 @@ $(document).on('turbolinks:load', function () {
                 required: true
             }
         },
-        messages: {
-            "post[url]":{
-                url: "Please enter not more than 240 chars."
-            }
-        },
         highlight: function (element) {
             $(element).addClass("invalid")
         },

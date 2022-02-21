@@ -18,9 +18,6 @@ $(document).on('turbolinks:load', function () {
             "post[title]": {
                 remote: jQuery.validator.format("{0} is already in use.")
             },
-            "post[url]":{
-                url: "Please enter not more than 240 chars."
-            },
             "post[commentries_attributes[1]][description]": {
                 maxlength: "Please enter not more than 3000 characters"
             }
