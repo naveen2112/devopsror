@@ -21,6 +21,7 @@ class MembersController < ApplicationController
         user.send_invite_email
         user.update(invited: true) unless user.invited
       end
+      flash[:notice] = "Email invite to the users was sent successfully"
     else
       @users.destroy_all
     end
