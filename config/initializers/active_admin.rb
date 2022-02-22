@@ -330,6 +330,8 @@ ActiveAdmin.setup do |config|
   #
   # config.order_clause = MyOrderClause
 
+  config.skip_before_action :authenticate_user!
+
   # == Webpacker
   #
   # By default, Active Admin uses Sprocket's asset pipeline.

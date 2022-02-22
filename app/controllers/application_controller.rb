@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
       resource.increment!(:login_count)
       root_path
     else
-      admin_companies_path
+      admin_root_path
     end
   end
 end
