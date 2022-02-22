@@ -25,7 +25,9 @@ ActiveAdmin.register User do
       row :email
       row :role
       row :login_count
-      row :social_account_integrated
+      row "Social Account Integrated" do |object|
+        object.social_account_integrated > 0 ? "Yes" : "No"
+      end
       row :total_posts
     end
   end
