@@ -37,8 +37,6 @@ ActiveAdmin.register User do
       f.input :last_name
       f.input :email
       f.input :role
-      f.input :password
-      f.input :password_confirmation
     end
     f.actions
   end
