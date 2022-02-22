@@ -1,6 +1,6 @@
 ActiveAdmin.register Company do
 
-  permit_params :name, :url, users_attributes: [:id, :first_name, :last_name, :role, :email, :password, :password_confirmation]
+  permit_params :name, :url, :user_limit, users_attributes: [:id, :first_name, :last_name, :role, :email, :password, :password_confirmation]
 
   filter :name
   filter :url
