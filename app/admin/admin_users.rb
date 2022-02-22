@@ -11,7 +11,9 @@ ActiveAdmin.register User do
     end
     column :role
     column :login_count
-    column :social_account_integrated
+    column "social_account_integrated" do |object|
+      object.social_account_integrated > 0 ? "Yes" : "No"
+    end
     column :total_posts
     actions
   end

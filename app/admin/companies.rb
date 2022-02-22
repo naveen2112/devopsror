@@ -13,7 +13,9 @@ ActiveAdmin.register Company do
     column :user_limit
     column :total_login_count
     column :total_posts
-    column :total_users_connected_one_social_account
+    column "total_users_connected_one_social_account" do |object|
+      object.total_users_connected_one_social_account > 0 ? "Yes" : "No"
+    end
     actions
   end
 
