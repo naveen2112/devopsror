@@ -37,6 +37,7 @@ ActiveAdmin.register User do
       f.input :last_name
       f.input :email
       f.input :role
+      f.input :company, prompt: "Select company"
     end
     f.actions
   end
