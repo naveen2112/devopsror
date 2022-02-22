@@ -7,6 +7,7 @@ class Company < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :tags, dependent: :destroy
   has_many :imports, dependent: :destroy
+  has_many :integrated_accounts, dependent: :destroy
 
   #======================================= Nested Attributes ========================================================
 
@@ -32,6 +33,6 @@ class Company < ApplicationRecord
   end
 
   def total_users_connected_one_social_account
-    IntegratedAccount.pluck(:user_id).uniq.count
+    integrated_accounts.pluck(:user_id).uniq.count
   end
 end
