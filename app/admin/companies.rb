@@ -39,7 +39,7 @@ ActiveAdmin.register Company do
         f.input :last_name
         f.input :email, required: true
         f.input :role
-        if object.new_record?
+        if f.object.new_record?
           f.input :password, required: true
           f.input :password_confirmation, required: true
         end
