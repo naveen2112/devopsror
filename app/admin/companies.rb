@@ -38,7 +38,7 @@ ActiveAdmin.register Company do
         f.input :first_name, required: true
         f.input :last_name
         f.input :email, required: true
-        f.input :role, input_html:  { value: "admin", disabled: true }
+        f.input :role
         if object.new_record?
           f.input :password, required: true
           f.input :password_confirmation, required: true
