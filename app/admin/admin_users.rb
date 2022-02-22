@@ -29,7 +29,7 @@ ActiveAdmin.register User do
   end
 
   filter :email
-  filter :role
+  filter :company
 
   form do |f|
     f.inputs do
