@@ -10,7 +10,7 @@ ActiveAdmin.register User do
       user.company.name
     end
     column :role
-    column :sign_in_count
+    column :login_count
     column :social_account_integrated
     column :total_posts
     actions
@@ -22,7 +22,7 @@ ActiveAdmin.register User do
       row :last_name
       row :email
       row :role
-      row :sign_in_count
+      row :login_count
       row :social_account_integrated
       row :total_posts
     end
