@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :first_name, :last_name, :email, :role, :password, :password_confirmation
+  permit_params :first_name, :last_name, :email, :role, :password, :password_confirmation, :company_id
 
   includes(:company)
 

@@ -32,6 +32,7 @@ ActiveAdmin.register Company do
     form.inputs do
       form.input :name
       form.input :url
+      form.input :user_limit
     end
     span class: "has-one" do
       form.has_many :users, class: 'has_one' do |f|
