@@ -20,7 +20,11 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    resource.increment!(:login_count)
-    root_path
+    if resource.class == User
+      resource.increment!(:login_count)
+      root_path
+    else
+      admin_companies_path
+    end
   end
 end
