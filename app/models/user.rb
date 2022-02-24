@@ -23,7 +23,7 @@ class User < ApplicationRecord
   #========================================= Scope ==================================================================
 
   scope :subscribers, -> { where(subscribe: true) }
-  scope :owner_admin, -> { where("cards_count > ?", 1)&.first }
+  scope :owner_admin, -> { where("cards_count > ?", 0) }
   scope :date_filter, lambda { |star_date, end_date| where('DATE(created_at) > ? AND DATE(created_at) <= ?', star_date,
                                                            end_date) }
   scope :old_users, lambda { |star_date, end_date| where.not('DATE(created_at) > ? AND DATE(created_at) <= ?', star_date,

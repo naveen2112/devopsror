@@ -7,7 +7,7 @@ class BillingCalculationsJob < ApplicationJob
         response = Stripe::Charge.create({
                                 amount: (company.billed_amount.to_s + "00").to_i,
                                 currency: 'usd',
-                                customer: company.users.owner_admin.stripe_customer_id
+                                customer: company.users.owner_admin&.first&.stripe_customer_id
                               })
 
         company.update(next_billing_date: (Date.current + 30.days))  if response.status == "succeeded"
