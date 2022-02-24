@@ -57,6 +57,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :billings, only: [:index, :create] do
+    collection do
+      put :cancel_subscription
+    end
+  end
+
   resources :linkedin, only: [] do
     collection do
       get :callback

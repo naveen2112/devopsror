@@ -34,6 +34,7 @@
                       <div class="form-group">
                         <label class="control-label" for="InputLastName">Last name</label>
                         <%= f.text_field :last_name, class: "form-control", placeholder: "Last name" %>
+                        <%= f.hidden_field :accepted, value: true %>
                       </div>
                     </div>
                   </div>

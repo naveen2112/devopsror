@@ -8,6 +8,18 @@ class ImportJob < ApplicationJob
     import = Import.find(id)
     company = Company.find(company_id)
     imported_user = company.users.find(user_id)
+    if company.sales_led?
+      if (company.users.count + get_data(import).count) >= company.user_limit
+        ImportMailer.import_notification(import, imported_user, nil, nil, nil, true).deliver_later
+      else
+        process_import(import, company, imported_user)
+      end
+    else
+      process_import(import, company, imported_user)
+    end
+  end
+
+  def process_import(import, company, imported_user)
     headers = csv_headers(import)
     if headers.compact&.sort == ["firstname", "lastname", "email", "role"].sort
       users_data = get_data(import)

@@ -7,7 +7,12 @@ class PostsController < ApplicationController
   before_action :set_tags, only: [:new, :create, :edit, :update]
 
   def index
-    @posts = current_company.posts.order("posts.updated_at DESC").with_includes
+    @posts = if current_user.admin? || current_user.editor?
+               current_company.posts
+             else
+               current_company.posts.where.not(status: "draft")
+             end
+    @posts = @posts.order("posts.updated_at DESC").with_includes
 
     if params[:search].present? || params[:tag_ids].present?
       @posts = @posts.joins(:tags).where(tags: { id: params[:tag_ids] }).distinct unless params[:tag_ids].reject(&:blank?).empty? if params[:tag_ids].present?
@@ -121,10 +126,10 @@ class PostsController < ApplicationController
     param_object = params.require(:post).permit(:title, :main_url, :notification, :image, platform_name: [], commentries_attributes:
       [:id, :description], tag_ids: [], tags_attributes: [:name, :company_id])
 
-    param = if params["commit"] == "Update Post"
+    param = if params["commit"] == "Update Post" || params[:commit] == "Create Post"
               param_object.merge(status: "live")
             else
-              param_object
+              param_object.merge(status: "draft")
             end
     param
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_22_084852) do
+ActiveRecord::Schema.define(version: 2022_02_24_061439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 2022_02_22_084852) do
     t.date "trail_start_date"
     t.date "trail_end_date"
     t.date "next_billing_date"
+    t.date "subscription_cancelled_at"
   end
 
   create_table "imports", force: :cascade do |t|
@@ -174,6 +175,7 @@ ActiveRecord::Schema.define(version: 2022_02_22_084852) do
     t.integer "login_count", default: 0
     t.boolean "invited", default: false
     t.integer "cards_count", default: 0
+    t.boolean "accepted", default: false
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

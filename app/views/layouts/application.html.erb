@@ -10,7 +10,7 @@
 
      <link rel="preconnect" href="https://fonts.googleapis.com">
      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <% if controller_name == "registrations" || controller_name == "sessions" %>
+     <% if controller_name == "registrations" || controller_name == "sessions" || controller_name == "billings" %>
        <script src="https://js.stripe.com/v3/"></script>
      <% end %>
      <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -40,6 +40,11 @@
           </div>
        <% end %>
      <% else %>
+        <% if flash[:alert].present? %>
+          <% unless controller_name == "sessions" && action_name == "new" %>
+            <%= render "shared/toaster_alert" %>
+          <% end %>
+        <% end %>
         <%= yield %>
      <% end %>
   </body>

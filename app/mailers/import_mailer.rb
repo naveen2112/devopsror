@@ -1,10 +1,11 @@
 class ImportMailer < ApplicationMailer
 
-  def import_notification(import, imported_user, total_records_count=nil, error_records_count=nil, headers=nil)
+  def import_notification(import, imported_user, total_records_count=nil, error_records_count=nil, headers=nil, user_limit_reached=nil)
     @status = import.status
     @user = imported_user
     @total_records_count = total_records_count
     @error_records_count = error_records_count
+    @user_limit_reached = user_limit_reached
     @headers = headers
 
     subject = if import.success?

@@ -26,6 +26,9 @@
                         <%= form.text_field :name, class: "form-control", placeholder: "Organisation name" %>
                       </div>
 
+                      <%= form.hidden_field :trail_start_date, value: Date.current %>
+                      <%= form.hidden_field :plan_type, value: "product_led" %>
+
                       <div class="form-group required">
                         <label class="control-label" for="InputOrganisationName">Organisation url</label>
                         <%= form.url_field :url, class: "form-control", placeholder: "Organisation url" %>
@@ -88,14 +91,12 @@
 
                   <div id="page-2">
 
-
                     <%= f.fields_for "cards_attributes[0]" do |form| %>
                       <%= form.hidden_field :last_four_digits %>
                       <%= form.hidden_field :expiry %>
                       <%= form.hidden_field :token %>
                       <%= form.hidden_field :stripe_card_id %>
                     <% end %>
-
 
                     <div class="card_names">
                       <p>Credit or debit card</p>

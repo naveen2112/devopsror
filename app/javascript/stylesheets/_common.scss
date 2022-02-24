@@ -1281,3 +1281,58 @@ img {
 #profile-password-update{
   margin-top: 20px;
 }
+
+.StripeElement.StripeElement--complete{
+  background-color: $input-grey-background;
+  border: none;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 500;
+  padding: 14px 12px;
+  color: $input-color;
+  border-radius: 2px;
+}
+
+.StripeElement.StripeElement--focus{
+  background-color: $input-grey-background;
+  border: none;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 500;
+  padding: 14px 12px;
+  color: $input-color;
+  border-radius: 2px;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+}
+
+.StripeElement.StripeElement--empty{
+  background-color: $input-grey-background;
+  border: none;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 500;
+  padding: 14px 12px;
+  color: $input-color;
+  border-radius: 2px;
+}
+
+.StripeElement.StripeElement--invalid{
+  background-color: $input-grey-background;
+  border: none;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 500;
+  padding: 14px 12px;
+  color: $input-color;
+}
+
+.StripeElement.StripeElement--webkit-autofill{
+  background-color: $input-grey-background;
+  border: none;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 500;
+  padding: 23px 12px;
+  color: $input-color;
+}

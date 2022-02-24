@@ -33,10 +33,25 @@
             });
         })
 
-        $("#add-user").click(function () {
-            $(".dashboard_wrap").addClass("show-add-form")
-            $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: current_company.users.new, url: members_path, method: "post", button_name: "Add Team Member", id: "new-member" }) %>");
-        })
+        <% if current_company.product_led? %>
+          add_user()
+        <% else %>
+           <% if current_company.users.count >= current_company.user_limit %>
+             $("#add-user").click(function () {
+                 $(".dashboard_wrap").addClass("show-alert")
+                 $("#alert-popup").html("<%= escape_javascript (render partial: 'members/partials/restrict_member_alert') %>")
+             })
+           <% else %>
+              add_user()
+           <% end %>
+        <% end %>
+
+        function add_user(){
+            $("#add-user").click(function () {
+                $(".dashboard_wrap").addClass("show-add-form")
+                $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: current_company.users.new, url: members_path, method: "post", button_name: "Add Team Member", id: "new-member" }) %>");
+            })
+        }
 
         $("#multiple-user").click(function () {
             $(".dashboard_wrap").addClass("show-add-form")
@@ -60,12 +75,6 @@
             e.preventDefault()
             $(".dashboard_wrap").addClass("show-alert")
             $("#alert-popup").html("<%= escape_javascript (render partial: 'shared/alert', locals: { text: "user", url: "/members/" + user.id.to_s  }) %>")
-
-            $.ajax({
-                url: "/posts/" + <%= user.id %>,
-                method: "delete",
-                dataType: 'script'
-            });
         })
 
         $("#users-edit-button-<%= user.id %>").click(function (e) {

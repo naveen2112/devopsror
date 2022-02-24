@@ -1,6 +1,7 @@
 .profile-wrap {
   .title-wrap {
     max-width: 560px;
+
     .title {
       font: {
         size: 24px;
@@ -9,6 +10,7 @@
       line-height: 1.2;
       color: $secondary-grey-title;
     }
+
     .text {
       font: {
         size: 18px;
@@ -44,18 +46,22 @@
       padding-left: 54px;
       width: 100%;
       max-width: 320px;
+
       .control-label {
         margin-bottom: 0;
       }
+
       .image_wrap {
         width: 122px;
         height: 122px;
         margin: 50px auto 0;
         border-radius: 50%;
+
         img {
           width: 100%;
           height: 100%;
         }
+
         input {
           position: absolute;
           width: 0;
@@ -66,6 +72,7 @@
           cursor: pointer;
           opacity: 0;
         }
+
         span {
           position: absolute;
           right: 12px;
@@ -77,6 +84,7 @@
     .btn-primary {
       min-width: 253px;
     }
+
     .btn-primary.update {
       .hide-text {
         display: none;
@@ -103,12 +111,14 @@
 }
 
 .billing-wrap {
-  margin-top: 72px;
+  margin-top: 24px;
   max-width: 562px;
+
   .user-available-wrap {
     p {
       margin-bottom: 0;
     }
+
     .second-lev-title {
       font: {
         size: 16px;
@@ -117,6 +127,7 @@
       line-height: 1;
       color: $terms-text-color;
     }
+
     .count {
       font: {
         size: 36px;
@@ -126,6 +137,7 @@
       color: $user-name;
       margin-top: 15px;
     }
+
     .error-msg {
       .text {
         font: {
@@ -134,49 +146,58 @@
         color: $danger-text-color;
         line-height: 0.7;
       }
+
       margin-top: 10px;
     }
+
     .btn {
       margin-top: 35px;
       border-radius: 5px;
       padding: 7px 45px;
     }
   }
+
   .form-wrap {
     margin-top: 32px;
     border-top: 0.8px solid rgba(216, 216, 216, 0.6);
     padding-top: 36px;
 
     .card_names {
-      p{
+      p {
         margin-bottom: 0;
+
         .icon {
           padding-right: 14px;
         }
       }
     }
+
     .card-secure-text {
       margin-top: 25px;
       margin-bottom: 35px;
     }
   }
 }
+
 .member-wrap {
-  .action-btn{
+  .action-btn {
     .btn {
-      &:last-child{
+      &:last-child {
         margin-left: 21px;
       }
     }
   }
+
   .search-wrap {
     max-width: none;
   }
 
   .table-btn {
     padding-right: 35px;
+
     .btn {
       margin-left: 19px;
+
       &:first-child {
         margin-left: 0;
       }
@@ -212,6 +233,7 @@
               padding-top: 23px;
             }
           }
+
           &:last-child {
             td {
               padding-bottom: 50px;
@@ -221,6 +243,7 @@
 
         td {
           padding-top: 38px;
+
           &:first-child {
             padding-left: 17px;
           }
@@ -316,6 +339,7 @@
 
     .progress {
       height: 3px;
+
       .progress-bar {
         background-color: $primary-blue-bg;
       }
@@ -358,12 +382,15 @@
 
   .form-wrap {
     margin-top: 59px;
+
     .form-group {
       margin-bottom: 38px;
+
       .control-label {
         color: $terms-text-color;
         font-weight: 600;
       }
+
       .custom-control-label {
         span {
           color: $terms-text-color;
@@ -374,14 +401,18 @@
         }
       }
     }
+
     .custom-radio-btn-group {
       margin-top: 24px;
-      .custom-radio{
+
+      .custom-radio {
         margin-right: 25px;
       }
     }
+
     .btn-wrap {
       padding-top: 50px;
+
       .btn {
         min-width: 253px;
       }
@@ -392,6 +423,7 @@
         padding: 24px 27px 32px 24px;
         background-color: rgba(243, 244, 248, 0.5);
         border-radius: 6px;
+
         .title {
           font: {
             size: 16px;
@@ -400,6 +432,7 @@
           line-height: 0.8;
           color: $terms-text-color;
         }
+
         .description {
           margin-top: 13px;
           font: {
@@ -409,20 +442,23 @@
           line-height: 0.8;
           color: $terms-text-color;
         }
+
         .image-wrap {
           margin-top: 24px;
           margin-bottom: 27px;
+
           img {
             box-shadow: 0px 81px 119px rgba(0, 0, 0, 0.07);
             z-index: 2;
             position: relative;
           }
+
           &::after {
             content: "";
             position: absolute;
             left: 22px;
             top: 27px;
-            width:calc(100% - 35px);
+            width: calc(100% - 35px);
             height: 100%;
             background: $input-grey-background;
             box-shadow: 0px 81px 119px rgba(0, 0, 0, 0.07);
@@ -431,12 +467,13 @@
           }
         }
       }
+
       .upload-btn {
         width: 100%;
         max-width: 365px;
         margin: 41px auto 39px;
         background-color: $input-bg;
-        border:  1px solid $terms-text-color;
+        border: 1px solid $terms-text-color;
         border-radius: 10px;
         text-align: center;
         padding: 11px;
@@ -453,6 +490,7 @@
           color: $dotted_button_color;
           margin-left: 30px;
         }
+
         input {
           position: absolute;
           width: 100%;
@@ -464,6 +502,7 @@
           left: 0;
         }
       }
+
       .uploaded {
         border: 1px dashed #8692A6;
         border-radius: 6px;
@@ -472,12 +511,14 @@
         margin: 28px auto 31px;
         padding: 25px 34px;
         background-color: rgba(249, 250, 252, 0.5);
+
         p {
           padding-right: 45px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
+
         button {
           position: absolute;
           top: 50%;
@@ -494,25 +535,35 @@
   .add-member-wrap {
     display: flex;
   }
+
   .member-wrap {
     position: absolute;
     width: calc(100% - 143px);
   }
+
   &.multiple {
-    .add-member{
+    .add-member {
       padding: 18px 47px 44px 37px;
+
       .form-wrap {
         margin-top: 50px;
+
         .multiple-member-form {
           display: block;
         }
+
         .single-user-form {
           display: none;
         }
+
         .custom-control {
           margin-bottom: 9px;
         }
       }
     }
   }
+}
+
+.profile-wrap #update-subscription, #new-card-form {
+  margin-top: 30px;
 }

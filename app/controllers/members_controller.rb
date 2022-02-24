@@ -32,6 +32,7 @@ class MembersController < ApplicationController
 
   def confirm
     if @user.update(confirm_params)
+      sign_in(@user, :bypass => true)
       redirect_to root_path
     else
       render :confirm_sign_up
@@ -89,7 +90,7 @@ class MembersController < ApplicationController
   end
 
   def confirm_params
-    params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation, :accepted)
   end
 
   def users_params
