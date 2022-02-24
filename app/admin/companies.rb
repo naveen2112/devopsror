@@ -1,6 +1,6 @@
 ActiveAdmin.register Company do
 
-  permit_params :name, :url, :user_limit, users_attributes: [:id, :first_name, :last_name, :role, :email, :password, :password_confirmation]
+  permit_params :name, :url, :user_limit, :plan_type, users_attributes: [:id, :first_name, :last_name, :role, :email, :password, :password_confirmation]
 
   filter :name
   filter :url
@@ -37,6 +37,7 @@ ActiveAdmin.register Company do
       form.input :name
       form.input :url
       form.input :user_limit
+      form.input :plan_type
     end
     span class: "has-one" do
       form.has_many :users, class: 'has_one' do |f|
