@@ -152,9 +152,9 @@
         var read_more_text_<%= post.id %> = recognize_url($("#post-commentries-<%= post.id %>").text())
         $("#read-less-<%= post.id %>").hide()
 
-        $("#post-commentries-<%= post.id %>").html(getWords(recognize_url($("#post-commentries-<%= post.id %>").text()), 15))
+        $("#post-commentries-<%= post.id %>").html(getWords(recognize_url($("#post-commentries-<%= post.id %>").text()), 20))
 
-        if((read_more_text_<%= post.id %>).split(/\s+/).length < 15){
+        if((read_more_text_<%= post.id %>).split(/\s+/).length < 20){
             $("#read-more-<%= post.id %>").hide()
         }
 
@@ -220,7 +220,7 @@
             if ("<%= "comment_count_#{post.id}" %>" == 0) {
                 read_more_text_<%= post.id %> = <%= "commentries_#{post.id}" %>[<%= "comment_count_#{post.id}" %>]
 
-                if((read_more_text_<%= post.id %>).split(/\s+/).length < 15){
+                if((read_more_text_<%= post.id %>).split(/\s+/).length < 20){
                     $("#read-more-<%= post.id %>").hide()
                 }
                 else{
@@ -228,18 +228,18 @@
                 }
 
                 $(".post-commentries-previous-button-<%= post.id %>").addClass("single_button")
-                $("#post-commentries-<%= post.id %>").append(getWords(<%= "commentries_#{post.id}" %>[<%= "comment_count_#{post.id}" %>], 15))
+                $("#post-commentries-<%= post.id %>").append(getWords(<%= "commentries_#{post.id}" %>[<%= "comment_count_#{post.id}" %>], 20))
             } else {
                 read_more_text_<%= post.id %> = <%= "commentries_#{post.id}" %>[<%= "comment_count_#{post.id}" %>]
 
-                if((read_more_text_<%= post.id %>).split(/\s+/).length < 15){
+                if((read_more_text_<%= post.id %>).split(/\s+/).length < 20){
                     $("#read-more-<%= post.id %>").hide()
                 }else{
                     $("#read-more-<%= post.id %>").show()
                 }
 
                 $(".post-commentries-previous-button-<%= post.id %>").removeClass("single_button")
-                $("#post-commentries-<%= post.id %>").append(getWords(<%= "commentries_#{post.id}" %>[<%= "comment_count_#{post.id}" %>], 15))
+                $("#post-commentries-<%= post.id %>").append(getWords(<%= "commentries_#{post.id}" %>[<%= "comment_count_#{post.id}" %>], 20))
             }
 
             if (<%= "cycle_count_#{post.id}" %> >=

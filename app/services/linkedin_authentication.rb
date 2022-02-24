@@ -50,7 +50,7 @@ module LinkedinAuthentication
                   "width":1600,
                   "height":900
                 },
-                "resolvedUrl": post.image.attached? ? post.image.url : ""
+                "resolvedUrl": post.image.url || post.preview_image_url || ""
               }
             ]
           }

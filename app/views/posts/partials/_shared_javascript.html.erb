@@ -21,12 +21,12 @@
         var commentries_count = <%= @post.new_record? ? 1 : @post.commentries.size %>
         var preview_image_url = ""
 
-            $(document).on("keyup", "#post_title", function () {
-                render_html()
-                $("#preview-post-title").text($(this).val())
-            })
+        $(document).on("input", "#post_title", function () {
+            render_html()
+            $("#preview-post-title").text($(this).val())
+        })
 
-        $(document).on("keyup", "#post_main_url", function () {
+        $(document).on("input", "#post_main_url", function () {
             render_html()
             $("#preview-post-title").text($("#post_title").val())
         })
@@ -35,7 +35,7 @@
             get_image_from_url($("#post_main_url").val())
         })
 
-        $(document).on("keyup", "#post_commentries_attributes_1__description", function () {
+        $(document).on("input", "#post_commentries_attributes_1__description", function () {
             render_html()
             $("#preview-post-title").text($("#post_title").val())
         })
@@ -102,13 +102,6 @@
 
         $("#preview-image-button").click(function () {
             $("#post_image").val("")
-            <% if @post.image.attached? %>
-            $.ajax({
-                url: "/posts/<%= @post.id %>/destroy_image",
-                headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
-                method: "delete"
-            });
-            <% end %>
             $("#preview-post-image").empty()
             $("#remove-image-text").hide()
             $("#upload-image-text").show()
@@ -214,9 +207,7 @@
                     method: "get",
                     data: {post: {main_url: main_url}},
                     success: function (result) {
-                        if (result != 'false'){
-                            preview_image_url = result
-                        }
+                        preview_image_url = result
                         if ($("#upload-image-text").is(":visible")) {
                             if (result == 'false') {
                                 $("#preview-post-image").empty()
@@ -231,7 +222,9 @@
 
         function preview_image_from_url(){
             if ( $("#post_main_url").val().length > 0) {
-                if (preview_image_url.length > 0) {
+                if (preview_image_url == 'false'){
+                    return
+                }else if (preview_image_url.length > 0) {
                     $("#preview-post-image").html(` <img src=${preview_image_url} style='height: 13rem;'/>`)
                 } else {
                     get_image_from_url($("#post_main_url").val())
@@ -240,15 +233,10 @@
         }
 
         function isValidHttpUrl(string) {
-            let url;
-
-            try {
-                url = new URL(string);
-            } catch (_) {
-                return false;
+            var regex = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+            if (regex.test(string)) {
+                return true;
             }
-
-            return url.protocol === "http:" || url.protocol === "https:";
         }
 
     })

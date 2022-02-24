@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share, :validate_tag,
                                   :destroy_image]
   before_action :set_tags, only: [:new, :create, :edit, :update]
+  before_action :destroy_image, only: [:update], if: -> { params[:image].blank?}
 
   def index
     @posts = if current_user.admin? || current_user.editor?
@@ -70,7 +71,7 @@ class PostsController < ApplicationController
     if @post.update(posts_params)
       redirect_to posts_path, notice: "Post updated Successfully."
     else
-      render :edit
+      redirect_to edit_post_path, alert: @post.errors.full_messages.join(', ')
     end
   end
 
@@ -97,16 +98,17 @@ class PostsController < ApplicationController
   end
 
   def destroy_image
-    @post.image.destroy
-    head :ok
+    @post.image.destroy if @post.image.present?
   end
 
   # Pulling image from given main URL using LinkThumbnailer
   def preview_image_from_url
     begin
-      page = LinkThumbnailer.generate(posts_params[:main_url])
-      preview_image_url =  page.images.first&.src.to_s
-    rescue LinkThumbnailer::Exceptions => e
+      page = MetaInspector.new(posts_params[:main_url], faraday_options: { ssl: { verify: false } },
+                               :connection_timeout => 5, :read_timeout => 5)
+
+      preview_image_url = page.images.best if page.images.best != 'http:/'
+    rescue MetaInspector::TimeoutError, MetaInspector::RequestError, MetaInspector::ParserError, MetaInspector::NonHtmlError => e
       preview_image_url = nil
     end
 
