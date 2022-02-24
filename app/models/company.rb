@@ -23,6 +23,7 @@ class Company < ApplicationRecord
   #======================================== Callbacks ================================================================
 
   after_create :create_tags
+  before_create :set_next_billing_date
 
   #======================================== Enum ====================================================================
 
@@ -40,13 +41,22 @@ class Company < ApplicationRecord
     posts.count
   end
 
+  def set_next_billing_date
+    self.next_billing_date = (Date.current + 14)
+  end
+
   def billed_amount
     amount = 0
-    amount += (users.old_users((Date.current - 30.days), Date.current).count * 10)
 
-    amount += (((users.date_filter((Date.current - 18.days), (Date.current - 12.days)).count * 10) * 80) / 100)
-    amount += (((users.date_filter((Date.current - 12.days), (Date.current - 6.days)).count * 10) * 60) / 100)
-    amount += (((users.date_filter((Date.current - 6.days), Date.current).count * 10) * 20) / 100)
+    if (Date.current - 14) == trail_start_date
+      amount += (users.count * 10)
+    else
+      amount += (users.old_users((Date.current - 30.days), Date.current).count * 10)
+
+      amount += (((users.date_filter((Date.current - 18.days), (Date.current - 12.days)).count * 10) * 80) / 100)
+      amount += (((users.date_filter((Date.current - 12.days), (Date.current - 6.days)).count * 10) * 60) / 100)
+      amount += (((users.date_filter((Date.current - 6.days), Date.current).count * 10) * 20) / 100)
+    end
 
     final_amount = amount < 200 ? 200 : amount
 
