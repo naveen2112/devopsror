@@ -71,13 +71,13 @@ class Company < ApplicationRecord
 
   def access_allowed?
 
-    company_access = if self.active?
-                       true
+    company_access = if self.sales_led?
+                       self.active? ? true : false
                      else
-                       if self.cancelled? && subscription_cancelled_at < next_billing_date
+                       if self.active?
                          true
                        else
-                         false
+                         self.cancelled? && subscription_cancelled_at < next_billing_date ? true : false
                        end
                      end
 
