@@ -43,9 +43,11 @@ class Post < ApplicationRecord
   def get_preview_image_url
     # Pulling image from given main URL using LinkThumbnailer
     begin
-      page = LinkThumbnailer.generate(main_url)
-      preview_image_url =  page.images.first&.src.to_s
-    rescue LinkThumbnailer::Exceptions => e
+      page = MetaInspector.new(main_url, faraday_options: { ssl: { verify: false } },
+                               :connection_timeout => 5, :read_timeout => 5)
+
+      preview_image_url = page.images.best if page.images.best != 'http:/'
+    rescue MetaInspector::TimeoutError, MetaInspector::RequestError, MetaInspector::ParserError, MetaInspector::NonHtmlError => e
       preview_image_url = nil
     end
     preview_image_url
