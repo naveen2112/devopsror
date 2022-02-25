@@ -154,7 +154,7 @@
 
         $("#post-commentries-<%= post.id %>").html(getWords(recognize_url($("#post-commentries-<%= post.id %>").text()), 20))
 
-        if((read_more_text_<%= post.id %>).split(/\s+/).length < 20){
+        if((read_more_text_<%= post.id %>).split(/\s+/).length <= 20){
             $("#read-more-<%= post.id %>").hide()
         }
 
