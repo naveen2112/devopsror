@@ -102,6 +102,13 @@
 
         $("#preview-image-button").click(function () {
             $("#post_image").val("")
+            <% if @post.image.attached? %>
+            $.ajax({
+                url: "/posts/<%= @post.id %>/destroy_image",
+                headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
+                method: "delete"
+            });
+            <% end %>
             $("#preview-post-image").empty()
             $("#remove-image-text").hide()
             $("#upload-image-text").show()
