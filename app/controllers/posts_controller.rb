@@ -5,7 +5,6 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share, :validate_tag,
                                   :destroy_image]
   before_action :set_tags, only: [:new, :create, :edit, :update]
-  before_action :destroy_image, only: [:update], if: -> { params[:image].blank?}
 
   def index
     @posts = if current_user.admin? || current_user.editor?
@@ -71,7 +70,7 @@ class PostsController < ApplicationController
     if @post.update(posts_params)
       redirect_to posts_path, notice: "Post updated Successfully."
     else
-      redirect_to edit_post_path, alert: @post.errors.full_messages.join(', ')
+      render :edit
     end
   end
 
@@ -98,7 +97,8 @@ class PostsController < ApplicationController
   end
 
   def destroy_image
-    @post.image.destroy if @post.image.present?
+    @post.image.destroy
+    head :ok
   end
 
   # Pulling image from given main URL using LinkThumbnailer
