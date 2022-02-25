@@ -14,6 +14,10 @@ class Company < ApplicationRecord
 
   accepts_nested_attributes_for :users
 
+  #===================================== Validations ===============================================================
+
+  validates_presence_of :name, :url
+
   #=================================== Scopes =======================================================================
 
   scope :product_led_plan, -> { where(plan_type: "product_led") }

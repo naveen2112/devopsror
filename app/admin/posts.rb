@@ -3,6 +3,8 @@ ActiveAdmin.register Post do
   permit_params :title, :main_url, :preview_image_url, :company_id, :notification, :created_by, :status, :platform_name,
                 :image, commentries: [:description], tag_ids: []
 
+  includes(:user, :company)
+
   filter :company
   filter :user
   filter :title
