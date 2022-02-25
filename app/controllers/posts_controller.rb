@@ -107,7 +107,9 @@ class PostsController < ApplicationController
       page = MetaInspector.new(posts_params[:main_url], faraday_options: { ssl: { verify: false } },
                                :connection_timeout => 5, :read_timeout => 5)
 
-      preview_image_url = page.images.best if page.images.best != 'http:/'
+      if page.meta_tags['property']['og:image'].present?
+        preview_image_url = page.meta_tags['property']['og:image'].first if page.meta_tags['property']['og:image'].first != 'http:/'
+      end
     rescue MetaInspector::TimeoutError, MetaInspector::RequestError, MetaInspector::ParserError, MetaInspector::NonHtmlError => e
       preview_image_url = nil
     end
