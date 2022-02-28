@@ -70,7 +70,7 @@ RUN touch /var/run/nginx.pid
 RUN chmod -R 777 /var/run/*
 RUN chmod -R 777 /var/log/*
 RUN chmod -R 777 /var/lib/*
-
+RUN usermod -aG sudo ruby
 USER ruby
 
 COPY --chown=ruby:ruby bin/ ./bin
