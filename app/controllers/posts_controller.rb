@@ -91,6 +91,13 @@ class PostsController < ApplicationController
     render plain: post.empty? ? 'true' : 'false'
   end
 
+  def validate_title_except_current
+    return render plain: false unless params[:post][:title].present?
+
+    post = current_company.posts.where("LOWER(title) = ? AND id != ?", params[:post][:title].downcase, params[:id])
+    render plain: post.empty? ? 'true' : 'false'
+  end
+
   def send_email_notification
     @post.send_email
     flash[:notice] = "Email notification for the post sent successfully"

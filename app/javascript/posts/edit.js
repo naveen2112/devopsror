@@ -2,7 +2,8 @@ $(document).on('turbolinks:load', function () {
     $("#edit-post").validate({
         rules: {
             "post[title]": {
-                required: true
+                required: true,
+                remote: "validate_title_except_current"
             },
             "post[main_url]": {
                 maxlength: 240,
@@ -11,6 +12,10 @@ $(document).on('turbolinks:load', function () {
             },
             "post[commentries_attributes[1]][description]": {
                 required: true
+            }
+        }, messages: {
+            "post[title]": {
+                remote: jQuery.validator.format("{0} is already in use.")
             }
         },
         highlight: function (element) {

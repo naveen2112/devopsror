@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       post :share
       delete :destroy_image
       get :preview_image_from_url
+      get :validate_title_except_current
     end
     collection do
       get :validate_title
