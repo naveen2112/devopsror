@@ -68,7 +68,7 @@ RUN echo '    shared_credential_profile="AmazonCloudWatchAgent"' >> /opt/aws/ama
 
 RUN touch /var/run/nginx.pid
 RUN chmod -R 777 /var/run/*
-RUN chmod -R 777 /var/log/nginx/*
+RUN chmod -R 777 /var/log/*
 RUN chmod -R 777 /var/lib/*
 
 USER ruby

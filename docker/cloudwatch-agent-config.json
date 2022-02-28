@@ -2,8 +2,8 @@
     "agent": {
             "metrics_collection_interval": 60,
             "region": "us-east-2",
-            "run_as_user": "root",
-            "credentials_path":"/myapp/.aws/credentials"
+            "run_as_user": "ruby",
+            "credentials_path":"/app/.aws/credentials"
     },
     "logs": {
             "logs_collected": {
