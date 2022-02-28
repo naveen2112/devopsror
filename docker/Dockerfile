@@ -44,9 +44,7 @@ WORKDIR /app
 RUN apt-get update \
   && apt-get install -y --no-install-recommends build-essential curl libpq-dev supervisor vim nginx \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
-  && apt-get clean \
-  && useradd --create-home ruby \
-  && chown ruby:ruby -R /app
+  && apt-get clean 
 
 #Config for Cloudwatch logs
 RUN curl -o /root/amazon-cloudwatch-agent.deb https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/arm64/latest/amazon-cloudwatch-agent.deb
@@ -65,25 +63,14 @@ RUN echo "[credentials]" >> /opt/aws/amazon-cloudwatch-agent/etc/common-config.t
 RUN echo '    shared_credential_file = "/app/.aws/credentials"' >> /opt/aws/amazon-cloudwatch-agent/etc/common-config.toml
 RUN echo '    shared_credential_profile="AmazonCloudWatchAgent"' >> /opt/aws/amazon-cloudwatch-agent/etc/common-config.toml
 
-
-RUN touch /var/run/nginx.pid
-RUN chmod -R 777 /var/run/*
-RUN chmod -R 777 /var/log/*
-RUN chmod -R 777 /var/lib/*
-RUN usermod -aG sudo ruby
-USER ruby
-
-COPY --chown=ruby:ruby bin/ ./bin
-RUN chmod 0755 bin/*
+COPY bin/ ./bin
 
 ARG RAILS_ENV="production"
-ENV RAILS_ENV="${RAILS_ENV}" \
-    PATH="${PATH}:/home/ruby/.local/bin" \
-    USER="ruby"
+ENV RAILS_ENV="${RAILS_ENV}" 
 
-COPY --chown=ruby:ruby --from=assets /usr/local/bundle /usr/local/bundle
-COPY --chown=ruby:ruby --from=assets /app/public /public
-COPY --chown=ruby:ruby . .
+COPY --from=assets /usr/local/bundle /usr/local/bundle
+COPY --from=assets /app/public /public
+COPY . .
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/sovocal-nginx.conf /etc/nginx/conf.d/
