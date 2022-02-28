@@ -47,6 +47,11 @@ RUN apt-get update \
   && apt-get clean 
 
 #Config for Cloudwatch logs
+ARG CW_KEY
+ENV CW_KEY=${CW_KEY}
+ARG CW_SECRET
+ENV CW_SECRET=${CW_SECRET}
+
 RUN curl -o /root/amazon-cloudwatch-agent.deb https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/arm64/latest/amazon-cloudwatch-agent.deb
 RUN dpkg -i -E /root/amazon-cloudwatch-agent.deb
 RUN mkdir /app/.aws
