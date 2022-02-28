@@ -14,4 +14,4 @@ services:
     #     target: /var/www/html
     env_file: 
       - sovocal-testing.env
-    command: rails s
+    command: /usr/bin/supervisord -c /etc/supervisord.conf
