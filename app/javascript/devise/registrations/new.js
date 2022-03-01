@@ -127,7 +127,7 @@ $(document).on('turbolinks:load', function () {
             if (event.which == 13 && event.shiftKey) {
                 event.stopPropagation();
             }
-            else if (event.which == 13) {
+            else if (event.which == 13 && sign_up_form.valid() == true) {
                 if($("#user_first_name").is(":visible")){
                     cardNumber.mount('#card-number');
                     cardExpiry.mount('#card-expiry');
