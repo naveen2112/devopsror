@@ -74,7 +74,7 @@
                 }
 
 
-                $("#preview-post-comment-1").text($("#post_commentries_attributes_1__description").val())
+               $("#preview-post-comment-1").html($("#post_commentries_attributes_1__description").val()?.replace(/(?:\r\n|\r|\n)/g, '<br>'))
 
                 <% if @post.image.attached? %>
                 if ($("#remove-image-text").is(":visible")) {
@@ -184,11 +184,11 @@
             var comment_count = cycle_count - 1
             if (comment_count == 0) {
                 $(".post-commentries-previous-button").addClass("single_button")
-                $(".comment").append(commentries[comment_count])
+                $(".comment").html(commentries[comment_count].replace(/(?:\r\n|\r|\n)/g, '<br>'))
                 $(".share-content").append(`<p contenteditable="true" id="post-share-content">${commentries[comment_count]}</p>`)
             } else {
                 $(".post-commentries-previous-button").removeClass("single_button")
-                $(".comment").append(commentries[comment_count])
+                $(".comment").html(commentries[comment_count].replace(/(?:\r\n|\r|\n)/g, '<br>'))
                 $(".share-content").append(`<p contenteditable="true" id="post-share-content">${commentries[comment_count]}</p>`)
             }
 
@@ -206,6 +206,7 @@
         }
 
         <% end %>
+
         // Ajax call to pull image from given main URL
         function get_image_from_url(main_url) {
             if (isValidHttpUrl(main_url)) {
@@ -227,11 +228,11 @@
             }
         }
 
-        function preview_image_from_url(){
-            if ( $("#post_main_url").val().length > 0) {
-                if (preview_image_url == 'false'){
+        function preview_image_from_url() {
+            if ($("#post_main_url").val().length > 0) {
+                if (preview_image_url == 'false') {
                     return
-                }else if (preview_image_url.length > 0) {
+                } else if (preview_image_url.length > 0) {
                     $("#preview-post-image").html(` <img src=${preview_image_url} style='height: 13rem;'/>`)
                 } else {
                     get_image_from_url($("#post_main_url").val())

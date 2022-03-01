@@ -31,7 +31,7 @@
         </div>
         <div class="post_comments" id="preview-post-comment-list">
           <p class="comment">
-            <%= @post.commentries&.first&.description %>
+            <%= (@post.commentries&.first&.description).html_safe %>
           </p>
           <div class="comment_navigation_wrap">
             <div class="row">
@@ -139,3 +139,9 @@
   </div>
 </div>
 </div>
+
+<script>
+  $(document).ready(function (){
+      $(".comment").html($(".comment").text().replace(/(?:\r\n|\r|\n)/g, '<br>'))
+  })
+</script>

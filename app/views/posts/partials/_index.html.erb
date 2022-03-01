@@ -175,8 +175,9 @@
         })
 
         function recognize_url(text) {
+            var text_one = text.replace(/(?:\r\n|\r|\n)/g, '<br>')
             var urlRegex = /(https?:\/\/[^\s]+)/g;
-            return text.replace(urlRegex, function(url) {
+            return text_one.replace(urlRegex, function(url) {
                 return '<a href="' + url + '">' + url + '</a>';
             })
         }

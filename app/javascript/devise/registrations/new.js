@@ -87,16 +87,11 @@ $(document).on('turbolinks:load', function () {
         }
     });
 
-    $("#sign-up").on("keypress", function (event) {
-        if (event.which == 13) {
-            var $form = $('#sign-up');
-            $form.submit()
-        }
-    })
-
 
     $("#page-1").show()
+    $("#right-page-1").show()
     $("#page-2").hide()
+    $("#right-page-2").hide()
 
 
     if ($("#sign-up").length > 0) {
@@ -121,14 +116,40 @@ $(document).on('turbolinks:load', function () {
                 cardCvc.mount('#card-cvc');
 
                 $("#page-1").hide()
+                $("#right-page-1").hide()
                 $("#page-2").show()
+                $("#right-page-2").show()
 
+            }
+        })
+
+        $("#sign-up").on("keypress", function (event) {
+            if (event.which == 13 && event.shiftKey) {
+                event.stopPropagation();
+            }
+            else if (event.which == 13) {
+                if($("#user_first_name").is(":visible")){
+                    cardNumber.mount('#card-number');
+                    cardExpiry.mount('#card-expiry');
+                    cardCvc.mount('#card-cvc');
+
+                    $("#page-1").hide()
+                    $("#right-page-1").hide()
+                    $("#page-2").show()
+                    $("#right-page-2").show()
+                }
+                else{
+                    var $form = $('#sign-up');
+                    $form.submit()
+                }
             }
         })
 
         $("#sign-up-page-two").click(function () {
             $("#page-1").show()
+            $("#right-page-1").show()
             $("#page-2").hide()
+            $("#right-page-2").hide()
         })
 
         $("#sign-up").submit(function (event) {
@@ -143,18 +164,29 @@ $(document).on('turbolinks:load', function () {
                     errorElement.textContent = result.error.message;
                 } else {
                     // Send the token to your server.
-                    cardNumber.unmount('#card-number');
-                    cardExpiry.unmount('#card-expiry');
-                    cardCvc.unmount('#card-cvc');
 
                     $("#user_cards_attributes_0__last_four_digits").val(result.token.card.last4)
                     $("#user_cards_attributes_0__expiry").val(result.token.card.exp_month.toString() + "/" + result.token.card.exp_year.toString())
                     $("#user_cards_attributes_0__token").val(result.token.id)
                     $("#user_cards_attributes_0__stripe_card_id").val(result.token.card.id)
 
-                    $form.get(0).submit();
+                    if ($("#user_terms_and_conditions").is(":checked")) {
+                        cardNumber.unmount('#card-number');
+                        cardExpiry.unmount('#card-expiry');
+                        cardCvc.unmount('#card-cvc');
+                        $form.get(0).submit();
+                    } else {
+                        alert("Please agree to terms and conditions")
+                        $(this).find(":submit").removeAttr('disabled');
+                    }
                 }
             });
         })
     }
+
+    $("#user_terms_and_conditions").change(function () {
+        if ($(this).is(":checked")) {
+            $("#sign-up").find(":submit").removeAttr('disabled');
+        }
+    })
 })

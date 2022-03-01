@@ -206,7 +206,14 @@
 
       </div>
       <div class="col-md-12 col-sm-12 col-lg-6 position-relative px-0 bg-linear">
-        <%= render "devise/shared/right_side_content" %>
+        <img src="<%= asset_path("corner_one.png") %>" class="corner-bg-top"/>
+        <img src="<%= asset_path("corner_two.png") %>" class="corner-bg-bottom"/>
+        <span id="right-page-1">
+          <%= render "devise/shared/right_side_content" %>
+        </span>
+        <span id="right-page-2">
+          <%= render "devise/shared/sign_up_right_two" %>
+        </span>
       </div>
     </div>
   </div>

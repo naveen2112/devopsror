@@ -16,7 +16,7 @@ $(document).on('turbolinks:load', function () {
         },
         messages: {
             "post[title]": {
-                remote: jQuery.validator.format("{0} is already in use.")
+                remote: jQuery.validator.format("Title is already in use.")
             },
             "post[commentries_attributes[1]][description]": {
                 maxlength: "Please enter not more than 3000 characters"
@@ -41,7 +41,10 @@ $(document).on('turbolinks:load', function () {
     });
 
     $("#new-post").on( "keypress", function(event) {
-        if (event.which == 13) {
+        if (event.which == 13 && event.shiftKey) {
+            event.stopPropagation();
+        }
+        else if(event.which == 13){
             var $form = $('#new-post');
             $form.submit()
         }

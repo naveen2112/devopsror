@@ -143,8 +143,8 @@
     }
   }
 
-  .toggleButton.password-visible, .user-password-button.password-visible, user-password-confirmation-button.password-visible
-  .passwords-users-password-confirmation.password-visible, passwords-users-password.password-visible{
+  .toggleButton.password-visible, .user-password-button.password-visible, .user-password-confirmation-button.password-visible,
+  .passwords-users-password-confirmation.password-visible, .passwords-users-password.password-visible{
     .visible {
       display: none;
     }

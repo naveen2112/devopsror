@@ -164,10 +164,10 @@
 
             if (comment_count == 0) {
                 $(".post-commentries-div").addClass("single_button")
-                $(".comment").html(commentries_array[comment_count])
+                $(".comment").html(commentries_array[comment_count].replace(/(?:\r\n|\r|\n)/g, '<br>'))
             } else {
                 $(".post-commentries-div").removeClass("single_button")
-                $(".comment").html(commentries_array[comment_count])
+                $(".comment").html(commentries_array[comment_count].replace(/(?:\r\n|\r|\n)/g, '<br>'))
             }
 
             if (cycle_count >= commetry_count) {

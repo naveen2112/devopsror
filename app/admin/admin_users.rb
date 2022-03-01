@@ -42,6 +42,10 @@ ActiveAdmin.register User do
       f.input :email
       f.input :role
       f.input :company, prompt: "Select company"
+      if f.object.new_record?
+        f.input :password, required: true
+        f.input :password_confirmation, required: true
+      end
     end
     f.actions
   end
