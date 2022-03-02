@@ -1,7 +1,7 @@
 ActiveAdmin.register Company do
 
   permit_params :name, :url, :user_limit, :plan_type, :subscription_status,
-  users_attributes: [:id, :first_name, :last_name, :role, :email, :password, :password_confirmation]
+                users_attributes: [:id, :first_name, :last_name, :role, :email, :password, :password_confirmation]
 
   filter :name
   filter :url
@@ -24,7 +24,13 @@ ActiveAdmin.register Company do
     attributes_table do
       row :name
       row :url
-      row :user_limit
+      if company.sales_led?
+        row :user_limit
+      else
+        row "No of users" do
+          company.users.count
+        end
+      end
       row :total_login_count
       row :total_posts
       row :total_users_connected_one_social_account
@@ -37,7 +43,11 @@ ActiveAdmin.register Company do
     form.inputs do
       form.input :name
       form.input :url
-      form.input :user_limit
+      if form.object.new_record?
+        form.input :user_limit
+      else
+        form.input :user_limit if form.object.sales_led?
+      end
       form.input :plan_type
       form.input :subscription_status
     end
@@ -55,6 +65,5 @@ ActiveAdmin.register Company do
     end
     form.actions
   end
-
 
 end

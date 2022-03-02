@@ -10,6 +10,15 @@
     <input type="text" id="members-search" class="form-control" placeholder="Search for members...">
   </div>
   <div id="members-list"><%= render "members/partials/index" %></div>
+  <% if current_company.sales_led? %>
+    <div class="members-count">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <p class="mb-0 text text-center">You have used <%= @users.count %> of your <%= current_company.user_limit %> user
+        limit</p>
+    </div>
+  <% end %>
 </div>
 <div id="new-user-form"></div>
 
