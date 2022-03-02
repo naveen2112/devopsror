@@ -21,7 +21,7 @@ ActiveAdmin.register Company do
       links = []
       links << link_to('View', admin_company_path(company))
       links << link_to('Edit', edit_admin_company_path(company)) if company.sales_led?
-      links << link_to('Delete', admin_company_path(company), method: :delete, confirm: 'Are you sure?')
+      links << link_to('Delete', admin_company_path(company), method: :delete, data: { confirm: 'Are you sure?' })
       links.join(' ').html_safe
     end
   end
