@@ -17,7 +17,13 @@ ActiveAdmin.register Company do
     column :total_users_connected_one_social_account
     column :total_users_invited
     column :total_users_accepted
-    actions
+    column :actions do |company|
+      links = []
+      links << link_to('View', admin_company_path(company))
+      links << link_to('Edit', edit_admin_company_path(company)) if company.sales_led?
+      links << link_to('Delete', admin_company_path(company), method: :delete, confirm: 'Are you sure?')
+      links.join(' ').html_safe
+    end
   end
 
   show do

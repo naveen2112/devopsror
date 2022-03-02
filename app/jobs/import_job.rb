@@ -33,6 +33,8 @@ class ImportJob < ApplicationJob
           errors_data << user.merge(reason: current_user.errors.full_messages.join(", ")) unless current_user.save
         rescue ActiveRecord::RecordNotUnique => e
           errors_data << user.merge(reason: "Email already taken.")
+        rescue ArgumentError => e
+          errors_data << user.merge(reason: e.message)
         end
       end
 
@@ -60,7 +62,8 @@ class ImportJob < ApplicationJob
     end
 
     import.error_file.attach(io: File.open(tmp_file), filename: 'error_list.csv', content_type: 'text/csv')
-    import.status = total_records_count == error_list.count ? "failed" : "success"
+    import.status = "failed"
+    total_records_count == error_list.count
     import.save
     ImportMailer.import_notification(import, imported_user, total_records_count, error_list.count).deliver_later
 
