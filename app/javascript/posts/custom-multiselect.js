@@ -301,7 +301,7 @@ $(document).on('turbolinks:load', function () {
                 var selectedValue = settings.selectedArray;
                 selectedValue = [];
                 createArray(selectedValue);
-                createArray1(selectedValue);
+                //createArray1(selectedValue);
                 //Append text
                 if (settings.AppendText) {
                     textAppend(selectedValue);
