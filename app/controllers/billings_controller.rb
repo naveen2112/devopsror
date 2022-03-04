@@ -1,10 +1,16 @@
 class BillingsController < ApplicationController
+  skip_before_action :authenticate_user!
   rescue_from Stripe::CardError do |e|
     redirect_to billings_path, alert: e.message
   end
 
   def index
     @new_card = current_user.cards.new
+  end
+
+  def company_tags
+    company = Company.find(params[:id])
+    render json: company.tags
   end
 
   def create

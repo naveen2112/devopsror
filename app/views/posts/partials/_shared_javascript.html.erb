@@ -1,3 +1,4 @@
+<input type="hidden" id="commentries_count" value="<%= @post.new_record? ? 1 : @post.commentries.size %>">
 <script>
 
     $(document).ready(function () {
@@ -39,6 +40,35 @@
             render_html()
             $("#preview-post-title").text($("#post_title").val())
         })
+
+        <% unless @post.new_record? %>
+        <% 2.upto(@post.commentries.count) do |num| %>
+        $(document).on("input", "#post_commentries_attributes_<%= num %>__description", function () {
+            render_html()
+
+            if ($(`#post_commentries_attributes_<%= num %>__description`).val()?.length > 0) {
+                $(".preview-post-pagination").html(`<span class="current-commentry-index"><%= num %></span>/ <span class="preview-commentries-count"><%= num %></span>`)
+            }
+
+            $(".comment").html($(`#post_commentries_attributes_<%= num %>__description`).val()?.replace(/(?:\r\n|\r|\n)/g, '<br>'))
+
+            if ((<%= num %>) == <%= @post.commentries.count %>) {
+                $(".post-next-commentry-button").hide()
+                $(".post-previous-commentry-button").show()
+            } else if (<%= num <= 1  %>) {
+                $(".post-next-commentry-button").show()
+                $(".post-previous-commentry-button").hide()
+            } else {
+                $(".post-next-commentry-button").show()
+                $(".post-previous-commentry-button").show()
+            }
+
+            $(".current-commentry-index").text(<%= num %>)
+
+            $("#preview-post-title").text($("#post_title").val())
+        })
+        <% end %>
+        <% end %>
 
         $("#post_image").change(function () {
             render_html()
@@ -118,6 +148,7 @@
 
         $('form').on('click', '.add_fields', function (event) {
             commentries_count += 1
+            $("#commentries_count").val(commentries_count)
 
             $(".preview-commentries-count").text(commentries_count)
 
@@ -142,7 +173,9 @@
 
             var regexp;
             regexp = new RegExp($(this).data('id'), 'g');
+
             $('.fields').append($(this).data('fields').replace(regexp, commentries_count));
+            $('.fields').append("<%= escape_javascript (render partial: 'posts/partials/commentries_js') %>")
             return event.preventDefault();
         });
 

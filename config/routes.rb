@@ -61,6 +61,9 @@ Rails.application.routes.draw do
     collection do
       put :cancel_subscription
     end
+    member do
+      get :company_tags
+    end
   end
 
   resources :linkedin, only: [] do

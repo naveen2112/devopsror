@@ -1,15 +1,14 @@
 ActiveAdmin.register Post do
 
-  permit_params :title, :main_url, :preview_image_url, :company_id, :notification, :created_by, :status, :platform_name,
-                :image, commentries: [:description], tag_ids: []
+  permit_params :title, :main_url, :preview_image_url, :company_id, :notification, :created_by, :status,
+                :image, platform_name: [], commentries_attributes: [:id, :description], tag_ids: []
 
   includes(:user, :company)
 
   filter :company
   filter :user
   filter :title
-  filter :platform_name
-  filter :status
+  filter :status, as: :select, collection: {'live' => 0, 'draft' => 1}
 
   index do
     selectable_column
@@ -18,7 +17,9 @@ ActiveAdmin.register Post do
     column "Platform Name" do |object|
       object.platform_name&.first&.titleize
     end
-    column :main_url
+    column "Main url" do |object|
+      "<a href=#{object.main_url} target='_blank'>#{object.main_url}</a>".html_safe
+    end
     column :status
     column :user
     column :notification
@@ -29,14 +30,15 @@ ActiveAdmin.register Post do
     attributes_table do
       row :company
       row :title
-      row :main_url
+      row "Main url" do |object|
+        "<a href=#{object.main_url} target='_blank'>#{object.main_url}</a>".html_safe
+      end
       row "Platform Name" do |object|
         object.platform_name&.first&.titleize
       end
       row :status
       row :notification
       row :user
-      row :preview_image_url
       row :created_at
       row :updated_at
       row :tags
@@ -56,19 +58,21 @@ ActiveAdmin.register Post do
   form do |form|
     form.inputs do
       form.input :company
-      form.input :user
       form.input :title
       form.input :main_url
       form.input :status
       form.input :preview_image_url
-      form.input :tags
-      form.input :platform_name, as: :select, collection: ["linked_in", "twitter", "facebook"]
-      form.input :notification
+      if form.object.new_record?
+        form.input :tags
+      else
+        form.input :tags, collection: form.object.company.tags
+      end
+      form.input :platform_name, input_html: { value: "linked_in", name: "post[platform_name][]", disabled: true }
       form.input :image, :as => :file
     end
     span class: "commentries" do
       form.has_many :commentries, class: 'has_one' do |f|
-        f.input :description
+        f.input :description, input_html: { maxlength: 3000 }
       end
     end
     form.actions
