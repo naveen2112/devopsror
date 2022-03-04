@@ -71,7 +71,7 @@ class Company < ApplicationRecord
     users.sum(:login_count)
   end
 
-  def total_users_connected_one_social_account
+  def total_no_users_connected_to_linkedin
     integrated_accounts.pluck(:user_id).uniq.count
   end
 

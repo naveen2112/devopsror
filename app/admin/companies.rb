@@ -10,7 +10,9 @@ ActiveAdmin.register Company do
   index do
     selectable_column
     column :name
-    column :url
+    column "Url" do |object|
+      "<a href=#{object.url} target='_blank'>#{object.url}</a>".html_safe
+    end
     column "Organisation Type" do |object|
       object.sales_led? ? "S" : "P"
     end
@@ -20,7 +22,7 @@ ActiveAdmin.register Company do
     column :total_users
     column :total_login_count
     column :total_posts
-    column :total_users_connected_one_social_account
+    column :total_no_users_connected_to_linkedin
     column :total_users_invited
     column :total_users_accepted
     column :actions do |company|
@@ -35,7 +37,9 @@ ActiveAdmin.register Company do
   show do
     attributes_table do
       row :name
-      row :url
+      row "Url" do |object|
+        "<a href=#{object.url} target='_blank'>#{object.url}</a>".html_safe
+      end
       row "Organisation Type" do |object|
         object.sales_led? ? "S" : "P"
       end
