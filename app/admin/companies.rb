@@ -11,7 +11,13 @@ ActiveAdmin.register Company do
     selectable_column
     column :name
     column :url
-    column :user_limit
+    column "Organisation Type" do |object|
+      object.sales_led? ? "S" : "P"
+    end
+    column  "User Limit" do |object|
+      object.sales_led? ? object.user_limit : "-"
+    end
+    column :total_users
     column :total_login_count
     column :total_posts
     column :total_users_connected_one_social_account
@@ -30,6 +36,9 @@ ActiveAdmin.register Company do
     attributes_table do
       row :name
       row :url
+      row "Organisation Type" do |object|
+        object.sales_led? ? "S" : "P"
+      end
       if company.sales_led?
         row :user_limit
       else

@@ -102,6 +102,10 @@ class Company < ApplicationRecord
     users.where(invited: true).count
   end
 
+  def total_users
+    users.count
+  end
+
   def total_users_accepted
     users.where(accepted: true).count
   end
