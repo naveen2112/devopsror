@@ -2,11 +2,6 @@
 
 set -e
 
-sed -i \
-      -e "s|REPLACE_WITH_REAL_APPNAME|$NEW_RELIC_APPNAME|" \
-      -e "s|REPLACE_WITH_REAL_KEY|$NEW_RELIC_KEY|" \
-      /app/config/newrelic.yml
-
 # Always keep this here as it ensures your latest built assets make their way
 # into your volume persisted public directory.
 cp -r /public /app
