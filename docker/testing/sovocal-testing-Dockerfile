@@ -46,6 +46,11 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
   && apt-get clean 
 
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
+RUN yum install -y unzip
+RUN unzip awscliv2.zip
+RUN ./aws/install
+
 #Config for Cloudwatch logs
 ARG CW_KEY
 ENV CW_KEY=${CW_KEY}
