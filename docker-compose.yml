@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+      - 3000:3000
+    # volumes:
+    #   - type: bind
+    #     source: .
+    #     target: /var/www/html
+    env_file: 
+      - sovocal-testing.env
+    command: /usr/bin/supervisord -c /etc/supervisord.conf
