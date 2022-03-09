@@ -63,7 +63,7 @@ RUN echo "region = us-east-2" >> /app/.aws/config
 RUN echo "[AmazonCloudWatchAgent]" >> /app/.aws/credentials
 RUN echo "aws_access_key_id = $CW_KEY" >> /app/.aws/credentials
 RUN echo "aws_secret_access_key = $CW_SECRET" >> /app/.aws/credentials
-COPY docker/cloudwatch-agent-config.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+COPY docker/testing/sovocal-testing-cloudwatch-agent-config.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
 RUN echo "[credentials]" >> /opt/aws/amazon-cloudwatch-agent/etc/common-config.toml
 RUN echo '    shared_credential_file = "/app/.aws/credentials"' >> /opt/aws/amazon-cloudwatch-agent/etc/common-config.toml
 RUN echo '    shared_credential_profile="AmazonCloudWatchAgent"' >> /opt/aws/amazon-cloudwatch-agent/etc/common-config.toml
@@ -78,10 +78,10 @@ COPY --from=assets /app/public /public
 COPY . .
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
-COPY docker/sovocal-nginx.conf /etc/nginx/conf.d/
-COPY docker/supervisord.conf /etc/supervisord.conf
+COPY docker/testing/sovocal-testing-nginx.conf /etc/nginx/conf.d/
+COPY docker/testing/sovocal-testing-supervisord.conf /etc/supervisord.conf
 
-ENTRYPOINT ["/app/bin/docker-entrypoint-web"]
+ENTRYPOINT ["/app/bin/sovocal-testing-entrypoint"]
 
 EXPOSE 3000
 

@@ -1,0 +1,40 @@
+[
+    {
+        "environmentFiles": [
+            {
+                "type": "s3",
+                "value": "<envfile>"
+            }
+        ],
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group": "sovocal-testing-tdf",
+                "awslogs-region": "us-east-2",
+                "awslogs-stream-prefix": "ecs"
+            }
+        },
+        "entryPoint": [
+            "/app/bin/sovocal-testing-entrypoint"
+        ],
+        "portMappings": [
+            {
+              "hostPort": 80,
+              "protocol": "tcp",
+              "containerPort": 80
+            }
+        ],
+        "command": [
+            "/usr/bin/supervisord",
+            "-c",
+            "/etc/supervisord.conf"
+        ],
+        "cpu": <cpu>,
+        "memory": <memory>,
+        "memoryReservation": <memory-reservation>,
+        "workingDirectory": "/app",
+        "image": "<IMG>",
+        "essential": true,
+        "name": "<container-name>"
+    }
+]
