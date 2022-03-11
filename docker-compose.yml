@@ -3,7 +3,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/testing/sovocal-testing-Dockerfile
     ports:
       - 80:80
       - 443:443

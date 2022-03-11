@@ -2,16 +2,6 @@
 
 set -e
 
-# mkdir ~/.aws 
-# touch ~/.aws/config
-# touch ~/.aws/credentials
-# echo "[s3-user]" >> ~/.aws/config
-# echo "output = text" >> ~/.aws/config
-# echo "region = us-east-2" >> ~/.aws/config
-# echo "[s3-user]" >> ~/.aws/credentials
-# echo "aws_access_key_id = ${S3_ACCESS_KEY}" >> ~/.aws/credentials
-# echo "aws_secret_access_key = ${S3_SECRET_KEY}" >> ~/.aws/credentials
-
 aws s3 cp s3://sovocal-ssl-certificates/privkey.pem  /etc/letsencrypt/live/staging.sovocal.co/ 
 aws s3 cp s3://sovocal-ssl-certificates/fullchain.pem  /etc/letsencrypt/live/staging.sovocal.co/
 
