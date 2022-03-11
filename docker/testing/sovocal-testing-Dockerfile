@@ -42,12 +42,11 @@ FROM ruby:3.0.2-slim-bullseye AS app
 WORKDIR /app
 
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends build-essential curl libpq-dev supervisor vim nginx \
+  && apt-get install -y --no-install-recommends build-essential curl libpq-dev supervisor vim nginx unzip \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
   && apt-get clean 
 
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
-RUN yum install -y unzip
 RUN unzip awscliv2.zip
 RUN ./aws/install
 
