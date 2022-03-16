@@ -16,11 +16,11 @@ phases:
       - LATEST_IMAGE_ID=$(aws ecr describe-images --repository-name $ECR_REPO_NAME --query "sort_by(imageDetails, &imagePushedAt)[-1].imageTags" --output text)
       - docker pull $AWS_REGISTRY_URL:$LATEST_IMAGE_ID || true
       - echo Building the Docker image...
-      - docker build -t $AWS_REGISTRY_URL:${CODEBUILD_RESOLVED_SOURCE_VERSION} --build-arg CW_KEY=$CW_KEY --build-arg CW_SECRET=$CW_SECRET --file docker/Dockerfile --cache-from $AWS_REGISTRY_URL:$LATEST_IMAGE_ID .
+      - docker build -t $AWS_REGISTRY_URL:${CODEBUILD_RESOLVED_SOURCE_VERSION} --build-arg CW_KEY=$CW_KEY --build-arg CW_SECRET=$CW_SECRET --file docker/testing/sovocal-testing-Dockerfile --cache-from $AWS_REGISTRY_URL:$LATEST_IMAGE_ID .
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $AWS_REGISTRY_URL:${CODEBUILD_RESOLVED_SOURCE_VERSION}
   post_build:
     commands:
-      - bash docker/deploy-ecs.sh
+      - bash docker/testing/sovocal-testing-deploy-ecs.sh
       - echo "successfully finished Deploying!!"

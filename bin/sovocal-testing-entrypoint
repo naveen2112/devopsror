@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+aws s3 cp s3://sovocal-ssl-certificates/privkey.pem  /etc/letsencrypt/live/staging.sovocal.co/ 
+aws s3 cp s3://sovocal-ssl-certificates/fullchain.pem  /etc/letsencrypt/live/staging.sovocal.co/
+
+
+# Always keep this here as it ensures your latest built assets make their way
+# into your volume persisted public directory.
+cp -r /public /app
+
+exec "$@"

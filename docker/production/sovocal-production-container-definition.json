@@ -9,13 +9,13 @@
         "logConfiguration": {
             "logDriver": "awslogs",
             "options": {
-                "awslogs-group": "sovocal-testing-tdf",
+                "awslogs-group": "sovocal-production-tdf",
                 "awslogs-region": "us-east-2",
                 "awslogs-stream-prefix": "ecs"
             }
         },
         "entryPoint": [
-            "/app/bin/docker-entrypoint-web"
+            "/app/bin/sovocal-production-entrypoint"
         ],
         "portMappings": [
             {
