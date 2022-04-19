@@ -15,7 +15,7 @@ $(document).on('turbolinks:load', function () {
             }
         }, messages: {
             "post[title]": {
-                remote: jQuery.validator.format("{0} is already in use.")
+                remote: jQuery.validator.format("Title is already in use.")
             }
         },
         highlight: function (element) {
