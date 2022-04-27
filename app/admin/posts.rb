@@ -43,7 +43,8 @@ ActiveAdmin.register Post do
       row :updated_at
       row :tags
       row "Image" do |object|
-        image_tag object.image, style: 'height: 150px; width: auto;'
+        image_tag object.image, style: 'height: 150px; width: auto;' if object.image.present?
+        image_tag object.preview_image_url, style: 'height: 150px; width: auto;' if object.preview_image_url.present?
       end
     end
 
@@ -56,23 +57,26 @@ ActiveAdmin.register Post do
 
 
   form do |form|
+    form.semantic_errors *form.object.errors.keys
+    form.object.status = 'draft' #set default draft for create post
     form.inputs do
-      form.input :company
-      form.input :title
-      form.input :main_url
-      form.input :status
-      form.input :preview_image_url
       if form.object.new_record?
-        form.input :tags
-      else
-        form.input :tags, collection: form.object.company.tags
+        form.input :company
       end
-      form.input :platform_name, input_html: { value: "linked_in", name: "post[platform_name][]", disabled: true }
+      form.input :title
+      form.input :main_url, input_html: { maxlength: 240 }, hint: "*Maximum 240 characters allowed"
+      if form.object.new_record?
+        form.input :status, input_html: { disabled: true }
+      else
+        form.input :status
+        form.input :tags, collection: form.object.company.tags, as: :check_boxes
+      end
+      form.input :platform_name, input_html: { value: "linked_in", name: "post[platform_name][]", disabled: true, cols: "5", rows: "1" }
       form.input :image, :as => :file
     end
     span class: "commentries" do
       form.has_many :commentries, class: 'has_one' do |f|
-        f.input :description, input_html: { maxlength: 3000 }
+        f.input :description, input_html: { maxlength: 3000 }, hint: "*Maximum 3000 characters allowed"
       end
     end
     form.actions

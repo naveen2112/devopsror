@@ -3,7 +3,7 @@ class Post < ApplicationRecord
   #================================= Relationships ===============================================================
 
   belongs_to :company
-  belongs_to :user, class_name: "User", foreign_key: :created_by
+  belongs_to :user, class_name: "User", foreign_key: :created_by, optional: true
   has_many :commentries, dependent: :destroy
   has_and_belongs_to_many :tags, join_table: :posts_tags
   has_one_attached :image
@@ -29,6 +29,7 @@ class Post < ApplicationRecord
 
   after_create_commit :send_email, if: -> { notification && status == "live" }
   after_save :update_preview_image_url, if: -> {main_url_previously_changed?}
+  after_create :change_post_status, if: -> {user.blank?}
 
   #============================== Methods ========================================================================
 
@@ -41,7 +42,7 @@ class Post < ApplicationRecord
   end
 
   def get_preview_image_url
-    # Pulling image from given main URL using LinkThumbnailer
+    # Pulling image from given main URL using MetaInspector
     begin
       page = MetaInspector.new(main_url, faraday_options: { ssl: { verify: false } },
                                :connection_timeout => 5, :read_timeout => 5)
@@ -53,5 +54,9 @@ class Post < ApplicationRecord
       preview_image_url = nil
     end
     preview_image_url
+  end
+
+  def change_post_status
+    update_columns(status: 'draft')
   end
 end

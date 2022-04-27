@@ -2,6 +2,10 @@ require 'activerecord-import'
 
 class Company < ApplicationRecord
 
+  #============================================ Constants =========================================================
+
+  PRICE_PER_USER_PER_MONTH = 15
+  MINIMUM_USERS = 20
   #============================================ Relationships =========================================================
 
   has_many :users, dependent: :destroy
@@ -17,6 +21,7 @@ class Company < ApplicationRecord
   #===================================== Validations ===============================================================
 
   validates_presence_of :name, :url
+  validates :name, uniqueness: true
 
   #=================================== Scopes =======================================================================
 
@@ -50,21 +55,7 @@ class Company < ApplicationRecord
   end
 
   def billed_amount
-    amount = 0
-
-    if (Date.current - 14) == trail_start_date
-      amount += (users.count * 10)
-    else
-      amount += (users.old_users((Date.current - 30.days), Date.current).count * 10)
-
-      amount += (((users.date_filter((Date.current - 18.days), (Date.current - 12.days)).count * 10) * 80) / 100)
-      amount += (((users.date_filter((Date.current - 12.days), (Date.current - 6.days)).count * 10) * 60) / 100)
-      amount += (((users.date_filter((Date.current - 6.days), Date.current).count * 10) * 20) / 100)
-    end
-
-    final_amount = amount < 200 ? 200 : amount
-
-    final_amount
+    Company::PRICE_PER_USER_PER_MONTH * (users.count <= Company::MINIMUM_USERS ? Company::MINIMUM_USERS : users.count)
   end
 
   def total_login_count
@@ -108,5 +99,9 @@ class Company < ApplicationRecord
 
   def total_users_accepted
     users.where(accepted: true).count
+  end
+
+  def billable?
+    plan_type == 'product_led' && trail_end_date.present? && subscription_status == 'active' && users.count > Company::MINIMUM_USERS
   end
 end

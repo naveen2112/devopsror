@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
   #========================================= Callbacks =============================================================
 
-  after_create :send_invite_email, if: -> { (self.poster? || self.editor?) && invited }
+  after_create_commit :send_invite_email, if: -> { invited }
 
   #========================================= Scope ==================================================================
 
@@ -32,6 +32,7 @@ class User < ApplicationRecord
   #========================================= Validations ==============================================================
 
   validates_presence_of :first_name
+  validate :check_user_limit, on: :create
 
   #======================================== Enum ======================================================================
 
@@ -66,5 +67,9 @@ class User < ApplicationRecord
 
   def total_posts
     posts.count
+  end
+
+  def check_user_limit
+    errors.add(:user, "limit reached") if company.user_limit.present? && company.users.count >= company.user_limit
   end
 end

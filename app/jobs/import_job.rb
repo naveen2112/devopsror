@@ -41,6 +41,13 @@ class ImportJob < ApplicationJob
       if errors_data.size == 0
         import.update(status: "success")
         ImportMailer.import_notification(import, imported_user).deliver_later
+        company_user_count = company.users.count
+        billable_user_count = if(company_user_count - users_data.size) < Company::MINIMUM_USERS
+                                company_user_count - Company::MINIMUM_USERS
+                              else
+                                users_data.size
+                              end
+        InstantBillingJob.perform_later(company, users_count: billable_user_count) if company.billable?
       else
         create_error_csv_from_hash(errors_data, import, imported_user, users_data.count)
       end

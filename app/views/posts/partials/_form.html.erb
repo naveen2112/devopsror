@@ -139,12 +139,26 @@
   <div class="form-group buttonWrap update">
     <div class="d-flex">
       <% if @post.new_record? %>
-        <%= form.submit "Create Post", class: "btn btn-block btn-primary" %>
+        <%= form.submit "Create Post", id: "create", class: "btn btn-block btn-primary" %>
       <% else %>
-        <%= form.submit "Update Post", class: "btn btn-block btn-primary" %>
+        <%= form.submit "Update Post", id: "update", class: "btn btn-block btn-primary" %>
       <% end %>
-      <%= form.submit "Save As Draft", class: "btn btn-block btn-outline-primary" %>
+      <%= form.submit "Save As Draft", id: "draft", class: "btn btn-block btn-outline-primary" %>
     </div>
   </div>
 
 <% end %>
+
+<script>
+    function disableButtonAndSubmit()
+    {
+        var input = $("<input type='hidden' />").attr("name", $(this)[0].name).attr("value", $(this)[0].value);
+        $(this).closest('form').append(input);
+        $(this).attr('disabled', 'disabled').html('Loading…');
+        $(this).closest('form').submit();
+    }
+
+    $('#create').click(disableButtonAndSubmit);
+    $('#update').click(disableButtonAndSubmit);
+    $('#draft').click(disableButtonAndSubmit);
+</script>

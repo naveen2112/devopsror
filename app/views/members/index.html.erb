@@ -58,7 +58,7 @@
         function add_user(){
             $("#add-user").click(function () {
                 $(".dashboard_wrap").addClass("show-add-form")
-                $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: current_company.users.new, url: members_path, method: "post", button_name: "Add Team Member", id: "new-member" }) %>");
+                $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: current_company.users.new, url: members_path, method: "post", button_name: "Add Team Member", id: "new-member"}) %>");
             })
         }
 

@@ -108,7 +108,7 @@ class PostsController < ApplicationController
     head :ok
   end
 
-  # Pulling image from given main URL using LinkThumbnailer
+  # Pulling image from given main URL using MetaInspector
   def preview_image_from_url
     begin
       page = MetaInspector.new(posts_params[:main_url], faraday_options: { ssl: { verify: false } },

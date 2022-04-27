@@ -33,6 +33,7 @@ class MembersController < ApplicationController
   def confirm
     if @user.update(confirm_params)
       sign_in(@user, :bypass => true)
+      @user.increment!(:login_count)
       redirect_to root_path
     else
       render :confirm_sign_up
@@ -45,7 +46,8 @@ class MembersController < ApplicationController
     @user.password = SecureRandom.hex.first(8)
 
     @user.save
-    redirect_to members_path
+    InstantBillingJob.perform_later(current_company) if current_company.billable?
+    redirect_to members_path, notice: "Team member added successfully"
   end
 
   def resend_invite

@@ -13,7 +13,7 @@ ActiveAdmin.register Company do
     column "Url" do |object|
       "<a href=#{object.url} target='_blank'>#{object.url}</a>".html_safe
     end
-    column "Organisation Type" do |object|
+    column "Plan Type" do |object|
       object.sales_led? ? "S" : "P"
     end
     column  "User Limit" do |object|
@@ -59,6 +59,7 @@ ActiveAdmin.register Company do
   end
 
   form do |form|
+    form.semantic_errors *form.object.errors.keys
     form.inputs do
       form.input :name
       form.input :url
@@ -66,9 +67,9 @@ ActiveAdmin.register Company do
         form.input :user_limit
       else
         form.input :user_limit if form.object.sales_led?
+        form.input :subscription_status
       end
-      form.input :plan_type
-      form.input :subscription_status
+      form.input :plan_type, input_html: { value: 'Sales led', disabled: true }
     end
     span class: "has-one" do
       form.has_many :users, class: 'has_one' do |f|
