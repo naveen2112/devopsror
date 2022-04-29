@@ -126,7 +126,7 @@ class PostsController < ApplicationController
   private
 
   def set_post
-    @post = current_company.posts.find(params[:id])
+    @post = current_company.posts.find_by(id: params[:id])
   end
 
   def set_tags

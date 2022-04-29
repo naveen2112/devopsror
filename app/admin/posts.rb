@@ -22,7 +22,6 @@ ActiveAdmin.register Post do
     end
     column :status
     column :user
-    column :notification
     actions
   end
 
@@ -37,7 +36,6 @@ ActiveAdmin.register Post do
         object.platform_name&.first&.titleize
       end
       row :status
-      row :notification
       row :user
       row :created_at
       row :updated_at
@@ -72,7 +70,7 @@ ActiveAdmin.register Post do
         form.input :tags, collection: form.object.company.tags, as: :check_boxes
       end
       form.input :platform_name, input_html: { value: "linked_in", name: "post[platform_name][]", disabled: true, cols: "5", rows: "1" }
-      form.input :image, :as => :file
+      form.input :image, :as => :file, hint: "*Maximum size 5MB"
     end
     span class: "commentries" do
       form.has_many :commentries, class: 'has_one' do |f|

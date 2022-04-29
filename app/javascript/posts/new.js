@@ -49,4 +49,12 @@ $(document).on('turbolinks:load', function () {
             $form.submit()
         }
     })
+    function disableButtonAndSubmit()
+    {
+        var input = $("<input type='hidden' />").attr("name", $(this)[0].name).attr("value", $(this)[0].value);
+        $(this).closest('form').append(input);
+        $(this).closest('form').submit();
+    }
+    $('#update').click(disableButtonAndSubmit);
+    $('#draft').click(disableButtonAndSubmit);
 })
