@@ -41,8 +41,11 @@ ActiveAdmin.register Post do
       row :updated_at
       row :tags
       row "Image" do |object|
-        image_tag object.image, style: 'height: 150px; width: auto;' if object.image.present?
-        image_tag object.preview_image_url, style: 'height: 150px; width: auto;' if object.preview_image_url.present?
+        if object.image.present?
+          image_tag object.image, style: 'height: 150px; width: auto;'
+        elsif object.preview_image_url.present?
+          image_tag object.preview_image_url, style: 'height: 150px; width: auto;'
+        end
       end
     end
 

@@ -2,16 +2,10 @@
     $(document).ready(function () {
         var current_commentry = $("#commentries_count").val()
         $(document).on("input", `#post_commentries_attributes_${$("#commentries_count").val()}_description`, function () {
-
-            $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/preview_post') %>");
-
-
             if ($(`#post_commentries_attributes_${$("#commentries_count").val()}_description`).val()?.length > 0) {
                 $(".preview-post-pagination").html(`<span class="current-commentry-index">${current_commentry}</span>/ <span class="preview-commentries-count">${$("#commentries_count").val()}</span>`)
             }
-
-
-            $("#preview-post-comment-1").html($(`#post_commentries_attributes_${$("#commentries_count").val()}_description`).val()?.replace(/(?:\r\n|\r|\n)/g, '<br>'))
+            $("#preview-post-comment-1").html($(`#post_commentries_attributes_${$(".current-commentry-index").text()}_description`).val()?.replace(/(?:\r\n|\r|\n)/g, '<br>'))
             $("#preview-post-title").text($("#post_title").val())
 
             if (current_commentry == parseInt($("#commentries_count").val())) {
