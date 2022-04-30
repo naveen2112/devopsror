@@ -177,18 +177,20 @@
         function recognize_url(text) {
             var text_one = text.replace(/(?:\r\n|\r|\n)/g, '<br>')
             var urlRegex = /(https?:\/\/[^\s]+)/g;
-            var without_http_regex = /(www\.[^\s]+)/g;
-            if(((text_one || '').match(urlRegex) || []).length >0) {
-                return text_one.replace(urlRegex, function(url) {
+            var without_http_regex = /(?<!https?:\/\/)(www\.[^\s]+)/g;
+            var replaced_text = text_one
+            if(((text_one || '').match(without_http_regex) || []).length >0) {
+                replaced_text = text_one.replace(without_http_regex, function(url) {
+                    return 'http://'+ url;
+                })
+            }
+            if(((replaced_text || '').match(urlRegex) || []).length >0) {
+                return replaced_text.replace(urlRegex, function(url) {
                     return '<a href="' + url + '">' + url + '</a>';
                 })
             }
-            else if(((text_one || '').match(without_http_regex) || []).length >0) {
-                return text_one.replace(without_http_regex, function(url) {
-                    return '<a href="' + 'http://' + url + '">' + url + '</a>';
-                })
-            }else{
-                return text_one;
+            else{
+                return replaced_text;
             }
         }
 
