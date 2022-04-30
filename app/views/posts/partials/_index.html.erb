@@ -179,19 +179,17 @@
             var urlRegex = /(https?:\/\/[^\s]+)/g;
             var without_http_regex = /(?<!https?:\/\/)(www\.[^\s]+)/g;
             var replaced_text = text_one
-            if(((text_one || '').match(without_http_regex) || []).length >0) {
-                replaced_text = text_one.replace(without_http_regex, function(url) {
-                    return 'http://'+ url;
-                })
-            }
             if(((replaced_text || '').match(urlRegex) || []).length >0) {
-                return replaced_text.replace(urlRegex, function(url) {
+                replaced_text = replaced_text.replace(urlRegex, function(url) {
                     return '<a href="' + url + '">' + url + '</a>';
                 })
             }
-            else{
-                return replaced_text;
+            if(((text_one || '').match(without_http_regex) || []).length >0) {
+                 return replaced_text.replace(without_http_regex, function(url) {
+                    return '<a href="' + 'http://' + url + '">' + url + '</a>';
+                })
             }
+            return replaced_text;
         }
 
         function getWords(str, words_count) {
