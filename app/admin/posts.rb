@@ -72,7 +72,7 @@ ActiveAdmin.register Post do
         form.input :status
         form.input :tags, collection: form.object.company.tags, as: :check_boxes
       end
-      form.input :platform_name, input_html: { value: "linked_in", name: "post[platform_name][]", disabled: true, cols: "5", rows: "1" }
+      form.input :platform_name, input_html: { value: "LinkedIn", name: "post[platform_name][]", disabled: true, cols: "5", rows: "1" }
       form.input :image, :as => :file, hint: "*Maximum size 5MB"
     end
     span class: "commentries" do
