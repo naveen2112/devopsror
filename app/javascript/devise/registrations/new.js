@@ -57,10 +57,10 @@ $(document).on('turbolinks:load', function () {
         },
         messages: {
             "user[email]": {
-                remote: jQuery.validator.format("{0} is already in use.")
+                remote: jQuery.validator.format("Entered email is already in use.")
             },
             "user[company_attributes][name]": {
-                remote: jQuery.validator.format("{0} is already in use.")
+                remote: jQuery.validator.format("Entered name is already in use.")
             },
             "user[password]": {
                 maxlength: "Please enter not more than 60 characters."

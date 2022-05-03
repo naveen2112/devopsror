@@ -9,7 +9,7 @@ $(document).on('turbolinks:load', function () {
         },
         messages: {
             "user[email]": {
-                remote: jQuery.validator.format("{0} is not in use.")
+                remote: jQuery.validator.format("Entered email is not in use.")
             }
         },
         highlight: function (element) {

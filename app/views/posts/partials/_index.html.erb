@@ -177,7 +177,7 @@
         function recognize_url(text) {
             var text_one = text.replace(/(?:\r\n|\r|\n)/g, '<br>')
             var urlRegex = /(https?:\/\/[^\s]+)/g;
-            var without_http_regex = /(?<!https?:\/\/)(www\.[^\s]+)/g;
+            var without_http_regex = /^(www\.[^\s]+)|([\s]+(www\.[^\s]+))/g;
             var replaced_text = text_one
             if(((replaced_text || '').match(urlRegex) || []).length >0) {
                 replaced_text = replaced_text.replace(urlRegex, function(url) {
@@ -186,7 +186,7 @@
             }
             if(((text_one || '').match(without_http_regex) || []).length >0) {
                  return replaced_text.replace(without_http_regex, function(url) {
-                    return '<a href="' + 'http://' + url + '">' + url + '</a>';
+                    return '<a href="' + 'http://' + url.trim() + '">' + url + '</a>';
                 })
             }
             return replaced_text;
