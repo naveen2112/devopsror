@@ -70,6 +70,6 @@ class User < ApplicationRecord
   end
 
   def check_user_limit
-    errors.add(:user, "limit reached") if company.user_limit.present? && company.users.count >= company.user_limit
+    errors.add(:user, "limit reached") if company&.user_limit.present? && company.users.count >= company.user_limit
   end
 end
