@@ -99,7 +99,8 @@
                 if ($("#post_main_url").val().length > 0) {
                     $("#preview-post-link").empty()
                     var name = $("#post_main_url").val().replace("http://", "")
-                    $("#preview-post-link").append("<div class='post-desc'><a href=" + $("#post_main_url").val() + " class='post-link'>" + name + "</a></div>")
+                    var title = $("#post_title").val()
+                    $("#preview-post-link").append("<div class='post-desc'><p class='title'>"+title+"</p><a href=" + $("#post_main_url").val() + " class='post-link'>" + name + "</a></div>")
                     preview_image_from_url()
                 }
 
@@ -108,7 +109,7 @@
 
                 <% if @post.image.attached? %>
                 if ($("#remove-image-text").is(":visible")) {
-                    $("#preview-post-image").html(` <img src='<%= @post.image.url %>' style='height: 13rem;'/>`)
+                    $("#preview-post-image").html(` <img src='<%= @post.image.url %>' style='height: auto;'/>`)
                 }
                 <% end %>
 
@@ -120,7 +121,7 @@
                         $("#preview-post-image").empty()
                         $("#upload-image-text").hide()
                         $("#remove-image-text").show()
-                        $("#preview-post-image").append(` <img src='${URL.createObjectURL($("#post_image")[0].files[0])}' style='height: 13rem;'/>`)
+                        $("#preview-post-image").append(` <img src='${URL.createObjectURL($("#post_image")[0].files[0])}' style='height: auto;'/>`)
                         $("#preview-image-button").css("z-index", "2")
                     }
                 }
@@ -253,7 +254,7 @@
                             if (result == 'false') {
                                 $("#preview-post-image").empty()
                             } else {
-                                $("#preview-post-image").html(` <img src=${result} style='height: 13rem;'/>`)
+                                $("#preview-post-image").html(` <img src=${result} style='height: auto;'/>`)
                             }
                         }
                     }
@@ -266,7 +267,7 @@
                 if (preview_image_url == 'false') {
                     return
                 } else if (preview_image_url.length > 0) {
-                    $("#preview-post-image").html(` <img src=${preview_image_url} style='height: 13rem;'/>`)
+                    $("#preview-post-image").html(` <img src=${preview_image_url} style='height: auto;'/>`)
                 } else {
                     get_image_from_url($("#post_main_url").val())
                 }

@@ -63,13 +63,14 @@
         </div>
         <div class="post_image_wrap">
           <% if @post.image.attached? %>
-            <div id="preview-post-image"><img src="<%= @post.image.url %>" style="height: 13rem;"></div>
+            <div id="preview-post-image"><img src="<%= @post.image.url %>" style="height: auto;"></div>
           <% elsif @post.preview_image_url.present? %>
-            <div id="preview-post-image"><img src="<%= @post.preview_image_url %>" style="height: 13rem;"></div>
+            <div id="preview-post-image"><img src="<%= @post.preview_image_url %>" style="height: auto;"></div>
           <% end %>
 
           <% unless @post.main_url.nil? || @post.main_url.blank? %>
             <div class="post-desc">
+              <p class="title"><%= @post.title.capitalize %></p>
               <a href="<%= @post.main_url %>" class="post-link"><%= @post.main_url&.gsub("http://", "") %></a>
             </div>
           <% end %>

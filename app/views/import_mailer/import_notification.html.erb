@@ -24,19 +24,19 @@
         <p style="font-size:48px; line-height: 1.2; color: #0C1014; font-weight: 700; margin: 0;">Hi <%= @user.first_name %>
           ,</p>
         <% if @user_limit_reached %>
-          <p>You don't have enough user seats to add those users. Please contact your SoVocal representative to increase
+          <p style="font-size: 18px;line-height: 1.5;font-weight: 400;color: #515759;margin: 18px 0 0;">You don't have enough user seats to add those users. Please contact your SoVocal representative to increase
             your seat limit</p>
         <% else %>
           <% if @status == "success" %>
-            <p>Your team members are successfully imported into SoVocal.</p>
+            <p style="font-size: 18px;line-height: 1.5;font-weight: 400;color: #515759;margin: 18px 0 0;">Your team members are successfully imported into SoVocal.</p>
           <% elsif @total_records_count != @error_records_count && @error_records_count > 0 %>
-            <p>Your import is successfully completed, Only <%= (@total_records_count - @error_records_count) %> out
+            <p style="font-size: 18px;line-height: 1.5;font-weight: 400;color: #515759;margin: 18px 0 0;">Your import is successfully completed, Only <%= (@total_records_count - @error_records_count) %> out
               of <%= @total_records_count %> users were added successfully.</p>
           <% elsif @headers == true %>
-            <p>Your import was unsuccessful due to invalid headers. Please update your csv file with valid headers and
+            <p style="font-size: 18px;line-height: 1.5;font-weight: 400;color: #515759;margin: 18px 0 0;">Your import was unsuccessful due to invalid headers. Please update your csv file with valid headers and
               continue.</p>
           <% else %>
-            <p>Your import is failed due to some errors. Please refer the attached CSV file for more information.</p>
+            <p style="font-size: 18px;line-height: 1.5;font-weight: 400;color: #515759;margin: 18px 0 0;">Your import is failed due to some errors. Please refer the attached CSV file for more information.</p>
           <% end %>
         <% end %>
       </td>

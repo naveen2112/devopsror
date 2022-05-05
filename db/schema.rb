@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_24_061439) do
+ActiveRecord::Schema.define(version: 2022_04_30_120815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 2022_02_24_061439) do
     t.date "trail_end_date"
     t.date "next_billing_date"
     t.date "subscription_cancelled_at"
+    t.float "charged_amount", default: 0.0
   end
 
   create_table "imports", force: :cascade do |t|
@@ -122,6 +123,30 @@ ActiveRecord::Schema.define(version: 2022_02_24_061439) do
     t.bigint "company_id"
     t.index ["company_id"], name: "index_integrated_accounts_on_company_id"
     t.index ["user_id"], name: "index_integrated_accounts_on_user_id"
+  end
+
+  create_table "linkedin_social_actions", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.bigint "company_id", null: false
+    t.integer "action_type"
+    t.integer "platform"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_linkedin_social_actions_on_company_id"
+    t.index ["post_id"], name: "index_linkedin_social_actions_on_post_id"
+  end
+
+  create_table "post_user_shares", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "company_id", null: false
+    t.string "share_id"
+    t.integer "engagement_count", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_post_user_shares_on_company_id"
+    t.index ["post_id"], name: "index_post_user_shares_on_post_id"
+    t.index ["user_id"], name: "index_post_user_shares_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -171,15 +196,23 @@ ActiveRecord::Schema.define(version: 2022_02_24_061439) do
     t.boolean "terms_and_conditions", default: false
     t.boolean "subscribe", default: true
     t.string "linked_in_id"
+    t.boolean "invite", default: false
     t.boolean "active", default: false
     t.integer "login_count", default: 0
     t.boolean "invited", default: false
     t.integer "cards_count", default: 0
     t.boolean "accepted", default: false
     t.index ["company_id"], name: "index_users_on_company_id"
+    t.index ["email", "company_id"], name: "index_users_on_email_and_company_id", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "linkedin_social_actions", "companies"
+  add_foreign_key "linkedin_social_actions", "posts"
+  add_foreign_key "post_user_shares", "companies"
+  add_foreign_key "post_user_shares", "posts"
+  add_foreign_key "post_user_shares", "users"
 end

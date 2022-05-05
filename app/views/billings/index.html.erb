@@ -1,7 +1,7 @@
 <div class="profile-wrap">
   <div class="title-wrap">
-    <h6 class="title">Account Settings</h6>
-    <p class="text">Enter the required information below to register. You can change it anytime you want.</p>
+    <h6 class="title">Billing Settings</h6>
+    <p class="text">Edit any of your details by changing the relevant field below.</p>
   </div>
   <div class="billing-wrap">
     <div class="user-available-wrap">
@@ -14,6 +14,10 @@
       <% end %>
       <p class="second-lev-title mt-3">Number of users available</p>
       <p class="count"><%= current_company.users.count %></p>
+      <% if current_company.billable? %>
+      <p class="second-lev-title mt-3">Monthly subscription total</p>
+      <p class="count">$ <%= current_company.charged_amount %></p>
+      <% end %>
       <% if current_company.user_limit_warning == current_company.users.count && current_company.sales_led? %>
         <p class="error-msg d-flex align-items-center">
         <span class="icon">
