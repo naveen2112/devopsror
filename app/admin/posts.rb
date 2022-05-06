@@ -59,7 +59,9 @@ ActiveAdmin.register Post do
 
   form do |form|
     form.semantic_errors *form.object.errors.keys
-    form.object.status = 'draft' #set default draft for create post
+    if form.object.new_record?
+      form.object.status = 'draft' #set default draft for create post by admin
+    end
     form.inputs do
       if form.object.new_record?
         form.input :company
@@ -69,7 +71,7 @@ ActiveAdmin.register Post do
       if form.object.new_record?
         form.input :status, input_html: { disabled: true }
       else
-        form.input :status
+        form.input :status, input_html: { value: form.object.status, disabled: true }
         form.input :tags, collection: form.object.company.tags, as: :check_boxes
       end
       form.input :platform_name, input_html: { value: "LinkedIn", name: "post[platform_name][]", disabled: true, cols: "5", rows: "1" }
