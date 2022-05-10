@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "variables";
 body {
   font-family: 'Inter', sans-serif;
@@ -940,6 +941,198 @@ img {
   }
 }
 
+.w-60 {
+  width: 60%;
+}
+
+.w-20 {
+  width: 20%;
+}
+
+.daterangepicker {
+  box-shadow: 8px 4px 24px rgba(27, 46, 94, 0.08);
+  border-radius: 12px !important;
+  border: none !important;
+  padding: 20px 24px 8px 0 !important;
+  .drp-calendar {
+    max-width: none !important;
+    &.left {
+      padding-right: 32px !important;
+      padding-left: 24px !important;
+      border-left: none !important;
+    }
+  }
+  .ranges {
+    &::after {
+      content: "";
+      width: 1px;
+      height: 100%;
+      background-color: rgba(83, 185, 234, 0.2);
+      position: absolute;
+      top: 0;
+      left: 160px;
+    }
+    ul{
+      min-width: 160px;
+      li {
+        position: relative;
+        font: {
+          size: 13px !important;
+          weight: 300;
+          family: 'Inter', sans-serif;
+        }
+        padding-left: 24px !important;
+        line-height: 1.8;
+        color: $post-share-color;
+
+        &.active {
+          background: rgba(130, 203, 251, 0.47) !important;
+          color: $date-range-primary-btn !important;
+          font-weight: 600 !important;
+
+          &::after {
+            content: "";
+            position: absolute;
+            width: 4px;
+            height: 100%;
+            background-color: $date-range-primary-btn;
+            top: 0;
+            right: 0;
+          }
+        }
+      }
+    }
+  }
+
+  td {
+    font:{
+      size: 13px !important;
+      weight: 400 !important;
+      family: 'Inter', sans-serif;
+    }
+    line-height: 1.8 !important;
+    color: $post-share-color !important;
+    padding: 8px !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+  }
+
+  th {
+    font: {
+      size: 13px !important;
+      weight: 600;
+      family: 'Inter', sans-serif;
+    };
+    line-height: 1.8 !important;
+    color: $post-share-color !important;
+
+    &.prev, &.next {
+      width: 40px !important;
+      height: 40px !important;
+      border-radius: 8px !important;
+      span {
+        border-color: $post-share-color !important;
+      }
+      &:hover {
+        background: $date-range-default-btn !important;
+      }
+    }
+  }
+
+  td {
+    &:hover {
+      background-color: $date-range-default-btn !important;
+      font-weight: 600 !important;
+    }
+    &.off {
+      color: $date-off-color !important;
+    }
+  }
+
+  td.active, td.off.active {
+    color: $bg-white !important;
+    background-color: $date-range-primary-btn !important;
+    font-weight: 600 !important;
+  }
+
+  td.in-range.available {
+    color: $date-range-primary-btn !important;
+    background: $date-range-default-btn !important;
+  }
+
+  td.start-date.in-range.available, td.end-date.in-range.available {
+    background: $date-range-primary-btn !important;
+    color: $bg-white !important;
+  }
+
+  .td.start-date {
+    border-radius: 8px 0 0 8px !important;
+  }
+
+  .td.end-date {
+    border-radius: 0px 8px 8px 0px !important;
+  }
+
+  .drp-buttons {
+    padding-top: 40px !important;
+    border: none !important;
+    max-width: calc(100% - 160px);
+    margin-left: auto;
+    position: relative;
+    .drp-selected {
+      position: absolute;
+      bottom: 19px;
+      left: 28px;
+      width: 60% !important;
+      text-align: left !important;
+      padding-bottom: 7px !important;
+      .custom-drp{
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        background-color: $bg-white;
+        .text {
+          font: {
+            size: 13px !important;
+            weight: 500 !important;
+            family: 'Inter', sans-serif;
+          };
+          line-height: 1.8 !important;
+          color: $subtext_grey !important;
+        }
+        .icon {
+          padding-right: 7px;
+        }
+      }
+    }
+  }
+
+  .date-submit-btn {
+    background: $date-range-primary-btn !important;
+    padding: 8px 16px !important;
+    font: {
+      size: 14px !important;
+      weight: 600 !important;
+    };
+    line-height: 1.7 !important;
+    border-radius: 8px !important;
+  }
+
+  .date-cancel-btn {
+    border-radius: 8px !important;
+    background: $date-range-default-btn !important;
+    padding: 8px 16px !important;
+    font: {
+      size: 14px !important;
+      weight: 400 !important;
+    };
+    line-height: 1.7 !important;
+    color: $post-share-color;
+  }
+
+}
 .custom-dropdown-select {
   background: #F9FAFC;
   border: 1px solid rgba(225, 227, 230, 0.5);

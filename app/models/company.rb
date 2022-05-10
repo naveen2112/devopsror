@@ -13,6 +13,8 @@ class Company < ApplicationRecord
   has_many :tags, dependent: :destroy
   has_many :imports, dependent: :destroy
   has_many :integrated_accounts, dependent: :destroy
+  has_many :post_user_shares, dependent: :destroy
+  has_many :linkedin_social_actions, dependent: :destroy
 
   #======================================= Nested Attributes ========================================================
 

@@ -7,6 +7,8 @@ class Post < ApplicationRecord
   has_many :commentries, dependent: :destroy
   has_and_belongs_to_many :tags, join_table: :posts_tags
   has_one_attached :image
+  has_many :post_user_shares, dependent: :destroy
+  has_many :linkedin_social_actions
 
   #================================ Validations ==================================================================
 
@@ -58,5 +60,9 @@ class Post < ApplicationRecord
 
   def change_post_status
     update_columns(status: 'draft')
+  end
+
+  def encode_id
+    Hashids.new('E/D object id', 8).encode(id)
   end
 end

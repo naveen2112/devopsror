@@ -1,0 +1,17 @@
+<div id="user_details">
+  <% @users.zip(@users_shared_count).each do |user, shared_count| %>
+    <div class="post-list position-relative">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="w-60 user d-flex align-items-center">
+          <% if current_user.logo.url.present? %>
+            <img class="thumb" src="<%= current_user.logo.url %>"/>
+          <% else %>
+            <img class="thumb" src="<%= asset_path("user_thumb.png") %>"/>
+          <% end %>
+          <span class="name"><%= user.first_name + ' ' + user.last_name %></span>
+        </div>
+        <p class="w-20 posts text-center"><%= shared_count || 0 %></p>
+      </div>
+    </div>
+  <% end %>
+</div>

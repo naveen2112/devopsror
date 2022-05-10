@@ -1,7 +1,8 @@
 include LinkedinAuthentication
 
 class PostsController < ApplicationController
-  load_and_authorize_resource param_method: :posts_params, except: [:share]
+  load_and_authorize_resource param_method: :posts_params, except: [:share, :track_link_click]
+  skip_before_action :authenticate_user!, only: :track_link_click
   before_action :set_post, only: [:edit, :update, :destroy, :send_email_notification, :show, :share, :validate_tag,
                                   :destroy_image]
   before_action :set_tags, only: [:new, :create, :edit, :update]
@@ -29,8 +30,10 @@ class PostsController < ApplicationController
 
   def share
     response = share_post(@post.id, current_user.id, params[:commentry].strip)
+    response = JSON.parse(response)
     if response["id"].present?
       @post.increment!(:shared_count)
+      @post.post_user_shares.create(share_id: response["id"], user_id: current_user.id, company_id: @current_company.id)
       redirect_to posts_path, notice: "Your Post Was Shared Successfully."
     else
       redirect_to posts_path, alert: "Something went wrong."
@@ -114,6 +117,12 @@ class PostsController < ApplicationController
     head :ok
   end
 
+  def track_link_click
+    @post = Post.find_by(id: decode_id(params[:secret]))
+    @post.linkedin_social_actions.create(company_id: @post.company.id, action_type: 'link_click', platform: params[:source])
+    redirect_to @post.main_url
+  end
+
   # Pulling image from given main URL using MetaInspector
   def preview_image_from_url
     begin
@@ -143,6 +152,10 @@ class PostsController < ApplicationController
 
   def set_post
     @post = current_company.posts.find_by(id: params[:id])
+  end
+
+  def decode_id(encoded_id)
+    Hashids.new('E/D object id', 8).decode(encoded_id).first
   end
 
   def set_tags

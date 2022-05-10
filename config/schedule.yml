@@ -10,3 +10,8 @@ billing_calculation_cron:
   cron: "0 0 * * *"
   class: "BillingCalculationsJob"
   queue: default
+
+post_user_engagement_cron:
+  cron: "0 */2 * * *"
+  class: "PostUserEngagementJob"
+  queue: default

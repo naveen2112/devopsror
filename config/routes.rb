@@ -77,5 +77,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/analytics' => 'post_user_shares#show'
+  get '/shared_details' => 'post_user_shares#shared_details'
+  get '/go' => 'posts#track_link_click'
+
   root "posts#index"
 end

@@ -19,7 +19,7 @@ module LinkedinAuthentication
 
   def linked_in_authorizaion_url
     client = LinkedIn::Client.new(ENV["LINKEDIN_CLIENT_ID"], ENV["LINKEDIN_CLIENT_SECRET"])
-    client.authorize_url(:redirect_uri => ENV["LINKEDIN_REDIRECT_URL"], :state => SecureRandom.uuid, :scope => "w_member_social,w_organization_social,r_basicprofile")
+    client.authorize_url(:redirect_uri => ENV["LINKEDIN_REDIRECT_URL"], :state => SecureRandom.uuid, :scope => "w_member_social,w_organization_social,r_basicprofile,r_member_social")
   end
 
   def get_access_token(encrypted_code)
@@ -53,7 +53,7 @@ module LinkedinAuthentication
       request_body.merge!("content": {
         "contentEntities": [
           {
-            "entityLocation": post.main_url,
+            "entityLocation": ENV['APP_URL']+"/go?source=linkedin&secret=#{post.encode_id}",
             "thumbnails": [
               {
                 "imageSpecificContent": {
@@ -69,5 +69,17 @@ module LinkedinAuthentication
       })
     end
     send_request(url, headers, "post", request_body)
+  end
+
+  def get_engagement_details(share_id:, user:)
+    headers = { 'Content-Type': 'application/json', "Authorization": "Bearer #{Encryptor.decrypt(user.linked_in_code)}" }
+    url = "https://api.linkedin.com/v2/socialActions/urn:li:share:#{share_id}"
+    send_request(url, headers, "get")
+  end
+
+  def get_share(share_id:, user:)
+    headers = { 'Content-Type': 'application/json', "Authorization": "Bearer #{Encryptor.decrypt(user.linked_in_code)}" }
+    url = "https://api.linkedin.com/v2/shares/urn:li:share:#{share_id}"
+    send_request(url, headers, "get")
   end
 end

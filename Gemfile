@@ -110,3 +110,5 @@ gem 'will_paginate'
 gem "sidekiq-cron"
 
 gem 'metainspector'
+
+gem "hashid-rails", "~> 1.0"

@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :cards, dependent: :destroy
   has_many :integrated_accounts, dependent: :destroy
   has_one_attached :logo
+  has_many :post_user_shares, dependent: :destroy
 
   #======================================== Attribute accessors ====================================================
 
