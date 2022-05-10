@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :terms_and_conditions, company_attributes:
-      [:name, :url, :trail_start_date, :plan_type], cards_attributes: [:last_four_digits, :expiry, :stripe_card_id, :token]])
+      [:name, :url, :trail_start_date, :plan_type, :billing_type], cards_attributes: [:last_four_digits, :expiry, :stripe_card_id, :token]])
   end
 
   def after_sign_in_path_for(resource)

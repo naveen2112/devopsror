@@ -58,3 +58,19 @@
     </div>
   </div>
 </div>
+<script>
+    $(document).ready(function () {
+        var monthly = true;
+        $(".switch").on('click', function () {
+            if (monthly) {
+                $(".card-title").replaceWith('<h2 class="card-title">' + '$150/user/year' + '</h2>')
+                document.getElementById('billing_type').value = "yearly";
+                monthly = false;
+            } else {
+                $(".card-title").replaceWith('<h2 class="card-title">' + '$15/user/month' + '</h2>')
+                document.getElementById('billing_type').value = "monthly";
+                monthly = true;
+            }
+        })
+    })
+</script>

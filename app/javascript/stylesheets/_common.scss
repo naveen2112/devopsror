@@ -899,6 +899,29 @@ img {
       background-color: rgba(78, 115, 248, 0.08);
     }
   }
+  .create-tag {
+    position: absolute;
+    z-index: 1001;
+    top: 243px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    color: #fff;
+
+    & ~ .customSelectTagDropdownParentId {
+      .customDropdown-group {
+        min-height: 0;
+        max-height: 105px;
+        overflow-y: auto;
+      }
+    }
+  }
+
+  &.custom-drop-showed {
+    .create-tag {
+      display: block;
+    }
+  }
 }
 
 [aria-expanded="true"] {

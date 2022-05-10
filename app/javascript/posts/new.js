@@ -8,7 +8,6 @@ $(document).on('turbolinks:load', function () {
             "post[main_url]": {
                 maxlength: 240,
                 url: true,
-                required: true
             },
             "post[commentries_attributes[1]][description]": {
                 required: true

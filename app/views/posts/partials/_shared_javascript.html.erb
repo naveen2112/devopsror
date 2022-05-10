@@ -2,7 +2,8 @@
 <script>
 
     $(document).ready(function () {
-        $('[data-toggle="popover"]').popover({
+        var _URL = window.URL || window.webkitURL;
+        $('.custom-upload-btn [data-toggle="popover"]').popover({
             trigger: 'hover',
             html: true,
             offset: 155
@@ -71,6 +72,7 @@
         <% end %>
 
         $("#post_image").change(function () {
+            check_width()
             render_html()
             $("#preview-post-title").text($("#post_title").val())
         })
@@ -114,7 +116,6 @@
                 <% end %>
 
                 if ($("#post_image")[0].files[0]) {
-
                     if ($("#post_image")[0].files[0].size > 5242880) {
                         alert("Please upload image less than 5 mb")
                     } else {
@@ -123,7 +124,10 @@
                         $("#remove-image-text").show()
                         $("#preview-post-image").append(` <img src='${URL.createObjectURL($("#post_image")[0].files[0])}' style='height: auto;'/>`)
                         $("#preview-image-button").css("z-index", "2")
+                        $("#post_main_url").attr("required",true);
                     }
+                }else{
+                    $("#post_main_url").attr("required",false);
                 }
 
             } else {
@@ -144,7 +148,9 @@
             $("#remove-image-text").hide()
             $("#upload-image-text").show()
             $("#preview-image-button").removeAttr("style")
+            $("#post_main_url").attr("required",false);
             preview_image_from_url()
+            render_html()
         })
 
         $('form').on('click', '.add_fields', function (event) {
@@ -278,6 +284,27 @@
             var regex = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
             if (regex.test(string)) {
                 return true;
+            }
+        }
+
+        function check_width() {
+            var file, img, width;
+            if ((file = $("#post_image")[0].files[0])) {
+                img = new Image();
+                var objectUrl = _URL.createObjectURL(file);
+                img.onload = function () {
+                    width = this.width
+                    if (width < 450) {
+                        alert('Please upload a image with width greater than 450');
+                        $("#post_image").val("");
+                        $("#preview-post-image").empty();
+                        $("#upload-image-text").show();
+                        $("#remove-image-text").hide();
+                        render_html();
+                    }
+                    _URL.revokeObjectURL(objectUrl);
+                };
+                img.src = objectUrl;
             }
         }
 

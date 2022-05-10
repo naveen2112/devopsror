@@ -28,9 +28,14 @@ class ImportJob < ApplicationJob
       users_data.each do |user|
         begin
           current_user = company.users.new(first_name: user["firstname"], last_name: user["lastname"],
-                                           email: user["email"], role: user["role"].downcase,
+                                           email: user["email"], role: user["role"]&.downcase,
                                            password: SecureRandom.hex.first(8), invited: import.invite)
-          errors_data << user.merge(reason: current_user.errors.full_messages.join(", ")) unless current_user.save
+          unless current_user.save
+            errors = current_user.errors.full_messages
+            # Removed Duplicate error messages
+            errors = errors.map{ |error| error unless error.start_with?("Company") }.compact
+            errors_data << user.merge(reason: errors.join(", "))
+          end
         rescue ActiveRecord::RecordNotUnique => e
           errors_data << user.merge(reason: "Email already taken.")
         rescue ArgumentError => e
@@ -41,13 +46,7 @@ class ImportJob < ApplicationJob
       if errors_data.size == 0
         import.update(status: "success")
         ImportMailer.import_notification(import, imported_user).deliver_later
-        company_user_count = company.users.count
-        billable_user_count = if(company_user_count - users_data.size) < Company::MINIMUM_USERS
-                                company_user_count - Company::MINIMUM_USERS
-                              else
-                                users_data.size
-                              end
-        InstantBillingJob.perform_later(company, users_count: billable_user_count) if company.billable?
+        InstantBillingJob.perform_later(company, users_count: users_data.size) if company.billable?
       else
         create_error_csv_from_hash(errors_data, import, imported_user, users_data.count)
       end

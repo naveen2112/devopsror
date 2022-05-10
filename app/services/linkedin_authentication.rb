@@ -37,26 +37,9 @@ module LinkedinAuthentication
   def share_post(post_id, user_id, commentry)
     post = current_company.posts.find(post_id)
     user = current_company.users.find(user_id)
-    headers = { 'Content-Type': 'application/json', "Authorization": "Bearer #{Encryptor.decrypt(user.linked_in_code)}"  }
+    headers = { 'Content-Type': 'application/json', "Authorization": "Bearer #{Encryptor.decrypt(user.linked_in_code)}" }
     url = "https://api.linkedin.com/v2/shares"
     request_body = {
-      "content": {
-        "contentEntities": [
-          {
-            "entityLocation": post.main_url,
-            "thumbnails": [
-              {
-                "imageSpecificContent": {
-                  "width":1600,
-                  "height":900
-                },
-                "resolvedUrl": post.image.url || post.preview_image_url || ""
-              }
-            ]
-          }
-        ],
-        "title": post.title
-      },
       "distribution": {
         "linkedInDistributionTarget": {}
       },
@@ -66,6 +49,25 @@ module LinkedinAuthentication
         "text": commentry
       }
     }
-    send_request(url, headers, "post",  request_body)
+    if post.main_url.present? && (post.image.url || post.preview_image_url).present?
+      request_body.merge!("content": {
+        "contentEntities": [
+          {
+            "entityLocation": post.main_url,
+            "thumbnails": [
+              {
+                "imageSpecificContent": {
+                  "width": 1600,
+                  "height": 900
+                },
+                "resolvedUrl": post.image.url || post.preview_image_url
+              }
+            ]
+          }
+        ],
+        "title": post.title
+      })
+    end
+    send_request(url, headers, "post", request_body)
   end
 end

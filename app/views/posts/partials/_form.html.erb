@@ -102,11 +102,10 @@
 
   <div class="form-group">
     <label class="control-label"><span class="primary-label">Add Tags</span></label>
-    <select id="customSelectTag">
-      <% current_company.tags.each do |tag| %>
-        <option value="<%= tag.id %>"><%= tag.name %></option>
-      <% end %>
-    </select>
+    <button type="button" class="btn btn-primary text-center create-tag" data-toggle="modal" data-target="#tagForm">Create tag</button>
+    <div id="tag_lists">
+      <%= render 'posts/partials/tag' %>
+    </div>
     <div class="selected_tag">
       <span id="new-tags-name"></span>
       <label class="control-label">
@@ -146,8 +145,47 @@
       <%= form.submit "Save As Draft", id: "draft", class: "btn btn-block btn-outline-primary" %>
     </div>
   </div>
+  <div class="modal fade" id="tagForm" tabindex="-1" role="dialog" aria-labelledby="tagFormLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create Tag</h5>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <input type="text" placeholder="Tag name" class="form-control" id="tag-value"/>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary tag-cancel-btn" type="button" id="tag-save" data-dismiss="modal">Save</button>
+          <button class="btn btn-secondary tag-cancel-btn" type="button" data-dismiss="modal" aria-label="Close">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <% end %>
 
 <script>
+    $(document).ready(function () {
+        $("#tag-save").on('click', function () {
+            var tag_name = $("#tag-value").val()
+            $.ajax({
+                url: `/posts/create_tag?tag_name=${tag_name}`,
+                method: "get",
+                success: function (result) {
+                    if (result == 'false') {
+                        alert('Tag already Exist')
+                    }else {
+                        $.ajax({
+                            url: "/posts/company_tag_list/",
+                            method: "get",
+                            dataType: 'script'
+                        });
+                    }
+                }
+            });
+        })
+
+    })
 </script>

@@ -80,7 +80,7 @@ class MembersController < ApplicationController
         format.js
       end
     else
-      notice = "You must add a Card before deleting a card holder"
+      notice = "You are about to delete an admin. Please add the card details to proceed further"
     end
     redirect_to members_path, notice: notice
   end

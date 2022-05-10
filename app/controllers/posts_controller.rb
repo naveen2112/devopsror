@@ -37,6 +37,12 @@ class PostsController < ApplicationController
     end
   end
 
+  def company_tag_list
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def new
     @post = current_company.posts.new
   end
@@ -123,6 +129,16 @@ class PostsController < ApplicationController
 
     render plain: preview_image_url || 'false'
   end
+
+  def create_tag
+    return false if params[:tag_name].blank?
+
+    tags = current_company&.tags.where(name: params[:tag_name].downcase)
+    result = tags.present? ? 'false': 'true'
+    current_company.tags.create(name: params[:tag_name]) if result == 'true'
+    render plain: result
+  end
+
   private
 
   def set_post

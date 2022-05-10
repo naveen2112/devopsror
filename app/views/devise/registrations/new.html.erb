@@ -28,6 +28,7 @@
 
                       <%= form.hidden_field :trail_start_date, value: Date.current %>
                       <%= form.hidden_field :plan_type, value: "product_led" %>
+                      <%= form.hidden_field :billing_type, value: "monthly", :id=>"billing_type"%>
 
                       <div class="form-group required">
                         <label class="control-label" for="InputOrganisationName">Organisation url</label>

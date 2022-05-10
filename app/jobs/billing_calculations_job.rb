@@ -6,12 +6,18 @@ class BillingCalculationsJob < ApplicationJob
       if company.next_billing_date&.to_date == Date.current
         billed_amount = company.billed_amount
         response = Stripe::Charge.create({
-                                amount: (billed_amount.to_s + "00").to_i,
-                                currency: 'usd',
-                                customer: company.users.owner_admin&.first&.stripe_customer_id
-                              })
+                                           amount: (billed_amount.to_s + "00").to_i,
+                                           currency: 'usd',
+                                           customer: company.users.owner_admin&.first&.stripe_customer_id
+                                         })
 
-        company.update_columns(next_billing_date: (Date.current + 30.days), charged_amount: billed_amount )  if response.status == "succeeded"
+        if response.status == "succeeded"
+          if company.billing_type == 'monthly'
+            company.update_columns(next_billing_date: (Date.current + 30.days), charged_amount: billed_amount)
+          else
+            company.update_columns(next_billing_date: (Date.current + 365.days), charged_amount: billed_amount)
+          end
+        end
       end
     end
   end

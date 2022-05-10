@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_30_120815) do
+ActiveRecord::Schema.define(version: 2022_05_06_123013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 2022_04_30_120815) do
     t.date "next_billing_date"
     t.date "subscription_cancelled_at"
     t.float "charged_amount", default: 0.0
+    t.integer "billing_type", default: 0
   end
 
   create_table "imports", force: :cascade do |t|

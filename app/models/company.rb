@@ -5,7 +5,7 @@ class Company < ApplicationRecord
   #============================================ Constants =========================================================
 
   PRICE_PER_USER_PER_MONTH = 15
-  MINIMUM_USERS = 20
+  PRICE_PER_USER_PER_YEAR = 150
   #============================================ Relationships =========================================================
 
   has_many :users, dependent: :destroy
@@ -38,6 +38,7 @@ class Company < ApplicationRecord
 
   enum plan_type: { sales_led: 0, product_led: 1 }
   enum subscription_status: { active: 0, cancelled: 1 }
+  enum billing_type: {monthly: 0, yearly: 1}
 
   #===================================== Methods ====================================================================
 
@@ -55,7 +56,7 @@ class Company < ApplicationRecord
   end
 
   def billed_amount
-    Company::PRICE_PER_USER_PER_MONTH * (users.count <= Company::MINIMUM_USERS ? Company::MINIMUM_USERS : users.count)
+    billing_type == 'monthly' ? Company::PRICE_PER_USER_PER_MONTH * users.count : Company::PRICE_PER_USER_PER_YEAR * users.count
   end
 
   def total_login_count
@@ -102,6 +103,6 @@ class Company < ApplicationRecord
   end
 
   def billable?
-    plan_type == 'product_led' && trail_end_date.present? && subscription_status == 'active' && users.count > Company::MINIMUM_USERS
+    plan_type == 'product_led' && trail_end_date.present? && subscription_status == 'active'
   end
 end
