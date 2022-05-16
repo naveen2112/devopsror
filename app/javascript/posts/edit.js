@@ -39,7 +39,7 @@ $(document).on('turbolinks:load', function () {
         if (event.which == 13 && event.shiftKey) {
             event.stopPropagation();
         }
-       else if (event.which == 13) {
+       else if (event.which == 13 && !($("#tagForm").is(':visible'))) {
             var $form = $('#edit-post');
             $form.submit()
         }
