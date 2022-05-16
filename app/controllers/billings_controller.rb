@@ -15,9 +15,14 @@ class BillingsController < ApplicationController
 
   def create
     Card.transaction do
-      Stripe::Customer.update(current_user.stripe_customer_id, card: cards_params[:token])
+      if current_user.stripe_customer_id.present?
+        Stripe::Customer.update(current_user.stripe_customer_id, card: cards_params[:token])
+      else
+        response = Stripe::Customer.create(email: current_user.email, card: cards_params[:token])
+        current_user.update(stripe_customer_id: response.id)
+      end
       card = current_user.cards.new(cards_params)
-      if verify_recaptcha(action: 'changecard', minimum_score: 0.5, secret_key: ENV['RECAPTCHA_SECRET_KEY']) && card.save
+      if verify_recaptcha(action: 'changecard', minimum_score: 0.3, secret_key: ENV['RECAPTCHA_SECRET_KEY']) && card.save
         redirect_to billings_path, notice: "Card updated successfully."
       else
         redirect_to billings_path, alert: "Recaptcha verification failed"
