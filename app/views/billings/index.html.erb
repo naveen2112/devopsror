@@ -80,6 +80,7 @@
           <%= form.hidden_field :expiry %>
           <%= form.hidden_field :token %>
           <%= form.hidden_field :stripe_card_id %>
+          <div ><%= recaptcha_v3(action: 'changecard', turbolinks: true, site_key: ENV['RECAPTCHA_SITE_KEY']) %></div>
 
           <div class="row">
             <div class="col-md-6 col-sm-6">

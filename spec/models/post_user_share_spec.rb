@@ -1,5 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe PostUserShare, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to(:company) }
+  it { should belong_to(:post) }
+  it { should belong_to(:user) }
 end

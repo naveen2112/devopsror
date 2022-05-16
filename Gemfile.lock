@@ -361,6 +361,8 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    recaptcha (5.10.0)
+      json
     redis (4.6.0)
     reek (3.11)
       codeclimate-engine-rb (~> 0.3.1)
@@ -537,6 +539,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.4)
   rails-controller-testing
+  recaptcha
   rspec-rails (~> 5.0.0)
   rubocop
   rubocop-performance

@@ -154,10 +154,11 @@
         <div class="modal-body">
           <div class="form-group">
             <input type="text" placeholder="Tag name" class="form-control" id="tag-value"/>
+            <span style= "color: #ff0033" id="tag-error"></span>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary tag-cancel-btn" type="button" id="tag-save" data-dismiss="modal">Save</button>
+          <button class="btn btn-primary tag-cancel-btn" type="button" id="tag-save">Save</button>
           <button class="btn btn-secondary tag-cancel-btn" type="button" data-dismiss="modal" aria-label="Close">Cancel</button>
         </div>
       </div>
@@ -170,21 +171,31 @@
     $(document).ready(function () {
         $("#tag-save").on('click', function () {
             var tag_name = $("#tag-value").val()
-            $.ajax({
-                url: `/posts/create_tag?tag_name=${tag_name}`,
-                method: "get",
-                success: function (result) {
-                    if (result == 'false') {
-                        alert('Tag already Exist')
-                    }else {
-                        $.ajax({
-                            url: "/posts/company_tag_list/",
-                            method: "get",
-                            dataType: 'script'
-                        });
+            if(tag_name.length) {
+                $.ajax({
+                    url: `/posts/create_tag?tag_name=${tag_name}`,
+                    method: "get",
+                    success: function (result) {
+                        if (result == 'false') {
+                            $("#tag-error").text('Tag already exist');
+                        } else {
+                            $.ajax({
+                                url: "/posts/company_tag_list/",
+                                method: "get",
+                                dataType: 'script'
+                            });
+                            $("#tagForm").modal('hide');
+                        }
                     }
-                }
-            });
+                });
+            }else{
+                $("#tag-error").text('Please enter a valid name');
+            }
+        })
+        $('#tagForm').keypress(function(event){
+            if(event.which == 13) {
+                $('#tag-save').click()
+            }
         })
 
     })

@@ -112,3 +112,5 @@ gem "sidekiq-cron"
 gem 'metainspector'
 
 gem "hashid-rails", "~> 1.0"
+
+gem "recaptcha"

@@ -158,6 +158,7 @@
         </span>
                       <span class="text">Your transaction is secured with SSL encryption</span>
                     </p>
+                    <div ><%= recaptcha_v3(action: 'signup', turbolinks: true, site_key: ENV['RECAPTCHA_SITE_KEY']) %></div>
                     <div class="form-check position-relative">
                       <%= f.check_box :terms_and_conditions, class: "form-check-input" %>
                       <span class="custom-checkbox"></span><span class="check-symbol"></span>
