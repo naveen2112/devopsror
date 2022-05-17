@@ -201,7 +201,9 @@
     }
     .collapseContent {
       max-height: 433px;
+      min-height: 130px;
       overflow: auto;
+      position: relative;
     }
 
   }
@@ -214,6 +216,7 @@
     margin-left: 4px;
   }
   .customDropdown-group {
+    min-height: 145px;
     .dropdown-item.checkedList {
       background: rgba(78, 115, 248, 0.08);
       border-radius: 8px;

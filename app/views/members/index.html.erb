@@ -10,6 +10,16 @@
     <input type="text" id="members-search" class="form-control" placeholder="Search for members...">
   </div>
   <div id="members-list"><%= render "members/partials/index" %></div>
+  <% if current_company.sales_led? %>
+    <% @progress = (current_company.users.count/Float(current_company.user_limit))*100 %>
+    <div class="members-count">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: <%= @progress.to_i %>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <p class="mb-0 text text-center">You have used <%= @users.count %> of your <%= current_company.user_limit %> user
+        limit</p>
+    </div>
+  <% end %>
 </div>
 <div id="new-user-form"></div>
 
@@ -33,10 +43,25 @@
             });
         })
 
-        $("#add-user").click(function () {
-            $(".dashboard_wrap").addClass("show-add-form")
-            $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: current_company.users.new, url: members_path, method: "post", button_name: "Add Team Member", id: "new-member" }) %>");
-        })
+        <% if current_company.product_led? %>
+          add_user()
+        <% else %>
+           <% if current_company.users.count >= current_company.user_limit %>
+             $("#add-user").click(function () {
+                 $(".dashboard_wrap").addClass("show-alert")
+                 $("#alert-popup").html("<%= escape_javascript (render partial: 'members/partials/restrict_member_alert') %>")
+             })
+           <% else %>
+              add_user()
+           <% end %>
+        <% end %>
+
+        function add_user(){
+            $("#add-user").click(function () {
+                $(".dashboard_wrap").addClass("show-add-form")
+                $('#new-user-form').html("<%= escape_javascript (render partial: 'members/partials/form', locals: { user: current_company.users.new, url: members_path, method: "post", button_name: "Add Team Member", id: "new-member"}) %>");
+            })
+        }
 
         $("#multiple-user").click(function () {
             $(".dashboard_wrap").addClass("show-add-form")
@@ -60,12 +85,6 @@
             e.preventDefault()
             $(".dashboard_wrap").addClass("show-alert")
             $("#alert-popup").html("<%= escape_javascript (render partial: 'shared/alert', locals: { text: "user", url: "/members/" + user.id.to_s  }) %>")
-
-            $.ajax({
-                url: "/posts/" + <%= user.id %>,
-                method: "delete",
-                dataType: 'script'
-            });
         })
 
         $("#users-edit-button-<%= user.id %>").click(function (e) {

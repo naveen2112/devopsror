@@ -76,56 +76,59 @@
             </div>
           </div>
           <div class="share-content collapse" id="linkedin_content">
-            <p contenteditable="true" id="post-share-content" >
-             <%= @post.commentries&.first&.description %>
+            <p contenteditable="true" id="post-share-content">
+              <%= @post.commentries&.first&.description %>
             </p>
           </div>
         </div>
       </div>
     <% end %>
-    <div class="buttonWrap">
-      <button id="share-button" class="btn btn-primary btn-block"><span id="post-share-button">Share</span><div class="spinner-border text-light" id="post-share-button-spinner" role="status">
-        <span class="sr-only">Loading...</span>
-      </div></button>
-    </div>
+    <% if current_company.access_allowed? %>
+      <div class="buttonWrap">
+        <button id="share-button" class="btn btn-primary btn-block"><span id="post-share-button">Share</span>
+          <div class="spinner-border text-light" id="post-share-button-spinner" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </button>
+      </div>
+    <% end %>
   </form>
 </div>
 
 
 <script>
-  $(document).ready(function (){
+    $(document).ready(function () {
 
-      $("#post-share-button-spinner").hide()
+        $("#post-share-button-spinner").hide()
 
-      $("#switch2").is(":checked") ? $("#share-button").removeAttr("disabled") : $("#share-button").attr("disabled", "true")
+        $("#switch2").is(":checked") ? $("#share-button").removeAttr("disabled") : $("#share-button").attr("disabled", "true")
 
-      $("input[name=linked_in_share_switch]").click(function (){
-          if($("input[name=linked_in_share_switch]").is(":checked")){
-              $("#share-button").attr("disabled", "false")
-              window.open("<%= linked_in_authorizaion_url %>")
-          }
-          else{
-              $.ajax({
-                  url: "/users/delete_account",
-                  method: "get",
-                  dataType: 'script'
-              });
-              $("#share-button").attr("disabled", "true")
-          }
+        $("input[name=linked_in_share_switch]").click(function () {
+            if ($("input[name=linked_in_share_switch]").is(":checked")) {
+                $("#share-button").attr("disabled", "false")
+                window.open("<%= linked_in_authorizaion_url %>")
+            } else {
+                $.ajax({
+                    url: "/users/delete_account",
+                    method: "get",
+                    dataType: 'script'
+                });
+                $("#share-button").attr("disabled", "true")
+            }
 
-      })
+        })
 
-      $("#share-button").click(function (e){
-          $("#post-share-button").hide()
-          $("#post-share-button-spinner").show()
-          e.preventDefault()
+        $("#share-button").click(function (e) {
+            $("#post-share-button").hide()
+            $("#post-share-button-spinner").show()
+            e.preventDefault()
 
-          $.ajax({
-              url: "/posts/<%= @post.id %>/share",
-              method: "post",
-              headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
-              data: { commentry: $("#post-share-content").text() }
-          });
-      })
-  })
+            $.ajax({
+                url: "/posts/<%= @post.id %>/share",
+                method: "post",
+                headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
+                data: {commentry: $("#post-share-content").text()}
+            });
+        })
+    })
 </script>

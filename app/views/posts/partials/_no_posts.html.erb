@@ -16,9 +16,24 @@
         <rect x="17.5771" y="119.616" width="21" height="4" rx="2" transform="rotate(-7.5 17.5771 119.616)" fill="#EEEEEE"/>
         <rect x="20.1875" y="139.445" width="21" height="4" rx="2" transform="rotate(-7.5 20.1875 139.445)" fill="#EEEEEE"/>
       </svg>
-      <p>No Posts Yet</p>
-      <% if can? :manage, Post %>
-       <a class="btn btn-primary" href="/posts/new">Create a new post</a>
+      <% if current_company.access_allowed? %>
+        <p>No Posts Yet</p>
+        <% if can? :manage, Post %>
+          <a class="btn btn-primary" href="/posts/new">Create a new post</a>
+        <% end %>
+      <% else %>
+        <% if current_company.sales_led? %>
+          <p>Your company SoVocal subscription has been deactivated.
+            Please contact your SoVocal representative to reactivate your subscription.</p>
+        <% else %>
+          <% if current_user.admin? %>
+            <p>Your SoVocal subscription has been deactivated. Please reactivate your subscription to continue using
+              SoVocal.</p>
+          <% else %>
+            <p>Your company SoVocal subscription has been deactivated. Please contact your SoVocal representative to
+              reactivate your subscription.</p>
+          <% end %>
+        <% end %>
       <% end %>
     </div>
   </div>

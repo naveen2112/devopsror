@@ -7,7 +7,9 @@ class LinkedinController < ApplicationController
 
       if response["refresh_token"].present?
         if current_user.integrated_accounts.with_platform("linked_in").first.nil?
-          current_user.integrated_accounts.create(platform: "linked_in", data: { access_token: Encryptor.encrypt(response["access_token"]), referesh_token: Encryptor.encrypt(response["refresh_token"]) })
+          current_user.integrated_accounts.create(platform: "linked_in", company_id: current_company.id,
+                                                  data: { access_token: Encryptor.encrypt(response["access_token"]),
+                                                          referesh_token: Encryptor.encrypt(response["refresh_token"]) })
 
           profile_response = get_profile_information(response["access_token"])
           profile_response = JSON.parse(profile_response)

@@ -1,0 +1,13 @@
+<% if @posts_title.present? %>
+  $('#post_details').replaceWith("<%=j render partial: 'posts_shared_details' %>")
+<% else %>
+  $('#post_details').replaceWith("<%=j render partial: 'no_post_data_found' %>")
+<% end %>
+<% if @users.present? %>
+  $('#user_details').replaceWith("<%=j render partial: 'users_shared_details' %>")
+<% else %>
+  $('#user_details').replaceWith("<%=j render partial: 'no_user_data_found' %>")
+<% end %>
+
+$('#total_post_shared .count').html( '<p class="count"><%= @total_post_shared %></p>' );
+$('#total_link_clicked .count').html( '<p class="count"><%= @total_clicks %></p>' );

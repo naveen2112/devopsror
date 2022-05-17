@@ -50,10 +50,24 @@ Rails.application.routes.draw do
       post :share
       delete :destroy_image
       get :preview_image_from_url
+      get :validate_title_except_current
+      get :create_tag
+      get :company_tag_list
     end
     collection do
       get :validate_title
       get :preview_image_from_url
+      get :create_tag
+      get :company_tag_list
+    end
+  end
+
+  resources :billings, only: [:index, :create] do
+    collection do
+      put :cancel_subscription
+    end
+    member do
+      get :company_tags
     end
   end
 
@@ -62,6 +76,10 @@ Rails.application.routes.draw do
       get :callback
     end
   end
+
+  get '/analytics' => 'post_user_shares#show'
+  get '/shared_details' => 'post_user_shares#shared_details'
+  get '/go' => 'posts#track_link_click'
 
   root "posts#index"
 end

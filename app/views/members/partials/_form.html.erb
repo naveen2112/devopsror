@@ -52,10 +52,12 @@
             </div>
           </div>
         </div>
-        <div class="custom-control custom-switch form-group">
-          <%= form.check_box :invited, class: "custom-control-input", id: "switch1" %>
-          <label class="custom-control-label" for="switch1"><span>Send email invitation to user</span></label>
-        </div>
+        <% if user.new_record? %>
+          <div class="custom-control custom-switch form-group">
+            <%= form.check_box :invited, class: "custom-control-input", id: "switch1" %>
+            <label class="custom-control-label" for="switch1"><span>Send email invitation to user</span></label>
+          </div>
+        <% end %>
         <div class="text-center btn-wrap">
           <button id="submit-button" class="btn btn-primary"><%= button_name %></button>
         </div>

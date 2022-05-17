@@ -2,6 +2,7 @@ class MembersController < ApplicationController
   load_and_authorize_resource :user, except: [:confirm_sign_up, :confirm]
   skip_before_action :authenticate_user!, only: [:confirm_sign_up, :confirm]
   before_action :set_member, only: [:update, :destroy, :resend_invite, :confirm_sign_up, :confirm]
+  before_action :set_admin_users, only: [:batch_event, :destroy] if -> {params["send_invite_email"].blank?}
 
   def index
     users = current_company.users.includes(:logo_attachment)
@@ -21,16 +22,21 @@ class MembersController < ApplicationController
         user.send_invite_email
         user.update(invited: true) unless user.invited
       end
-    else
+      flash[:notice] = "Email invite to the users was sent successfully"
+    elsif @admin_users.present?
       @users.destroy_all
+    else
+      notice = "You must add a Card before deleting a card holder"
     end
-    redirect_to members_path
+    redirect_to members_path, notice: notice
   end
 
   def confirm_sign_up; end
 
   def confirm
     if @user.update(confirm_params)
+      sign_in(@user, :bypass => true)
+      @user.increment!(:login_count)
       redirect_to root_path
     else
       render :confirm_sign_up
@@ -43,7 +49,8 @@ class MembersController < ApplicationController
     @user.password = SecureRandom.hex.first(8)
 
     @user.save
-    redirect_to members_path
+    InstantBillingJob.perform_later(current_company) if current_company.billable?
+    redirect_to members_path, notice: "Team member added successfully"
   end
 
   def resend_invite
@@ -68,16 +75,25 @@ class MembersController < ApplicationController
   end
 
   def destroy
-    if @user.destroy
+    if @admin_users.present? && @user.destroy
       respond_to do |format|
         format.js
       end
     else
-      redirect_to posts_path
+      notice = "You are about to delete an admin. Please add the card details to proceed further"
     end
+    redirect_to members_path, notice: notice
   end
 
   private
+
+  def set_admin_users
+    @admin_users = if @user.present?
+                     current_company.users.owner_admin.where.not(id: params[:id])
+                   else
+                     current_company.users.owner_admin.where.not(id: params[:member_ids])
+                   end
+  end
 
   def set_member
     @user = current_company.users.find(params[:id])
@@ -88,7 +104,7 @@ class MembersController < ApplicationController
   end
 
   def confirm_params
-    params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation, :accepted)
   end
 
   def users_params

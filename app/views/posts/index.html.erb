@@ -1,5 +1,5 @@
 <div class="post-list position-relative">
-  <% if @posts.size > 0 %>
+  <% if @posts.size > 0 && current_company.access_allowed? %>
     <!-- class="empty-post" for empty layout -->
     <div class="title_wrap">
       <h3 class="title">Hi <%= current_user.first_name %>! Here are your posts</h3>

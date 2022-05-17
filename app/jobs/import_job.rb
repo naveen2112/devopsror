@@ -8,6 +8,18 @@ class ImportJob < ApplicationJob
     import = Import.find(id)
     company = Company.find(company_id)
     imported_user = company.users.find(user_id)
+    if company.sales_led?
+      if (company.users.count + get_data(import).count) >= company.user_limit
+        ImportMailer.import_notification(import, imported_user, nil, nil, nil, true).deliver_later
+      else
+        process_import(import, company, imported_user)
+      end
+    else
+      process_import(import, company, imported_user)
+    end
+  end
+
+  def process_import(import, company, imported_user)
     headers = csv_headers(import)
     if headers.compact&.sort == ["firstname", "lastname", "email", "role"].sort
       users_data = get_data(import)
@@ -16,17 +28,25 @@ class ImportJob < ApplicationJob
       users_data.each do |user|
         begin
           current_user = company.users.new(first_name: user["firstname"], last_name: user["lastname"],
-                                           email: user["email"], role: user["role"].downcase,
+                                           email: user["email"], role: user["role"]&.downcase,
                                            password: SecureRandom.hex.first(8), invited: import.invite)
-          errors_data << user.merge(reason: current_user.errors.full_messages.join(", ")) unless current_user.save
+          unless current_user.save
+            errors = current_user.errors.full_messages
+            # Removed Duplicate error messages
+            errors = errors.map{ |error| error unless error.start_with?("Company") }.compact
+            errors_data << user.merge(reason: errors.join(", "))
+          end
         rescue ActiveRecord::RecordNotUnique => e
           errors_data << user.merge(reason: "Email already taken.")
+        rescue ArgumentError => e
+          errors_data << user.merge(reason: e.message)
         end
       end
 
       if errors_data.size == 0
         import.update(status: "success")
         ImportMailer.import_notification(import, imported_user).deliver_later
+        InstantBillingJob.perform_later(company, users_count: users_data.size) if company.billable?
       else
         create_error_csv_from_hash(errors_data, import, imported_user, users_data.count)
       end
@@ -48,7 +68,8 @@ class ImportJob < ApplicationJob
     end
 
     import.error_file.attach(io: File.open(tmp_file), filename: 'error_list.csv', content_type: 'text/csv')
-    import.status = total_records_count == error_list.count ? "failed" : "success"
+    import.status = "failed"
+    total_records_count == error_list.count
     import.save
     ImportMailer.import_notification(import, imported_user, total_records_count, error_list.count).deliver_later
 

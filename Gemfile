@@ -109,4 +109,11 @@ gem 'cancancan'
 
 gem 'will_paginate'
 
-gem 'link_thumbnailer'
+# cron
+gem "sidekiq-cron"
+
+gem 'metainspector'
+
+gem "hashid-rails", "~> 1.0"
+
+gem "recaptcha"

@@ -51,7 +51,7 @@
           <% index += 1 %>
           <div class="post-commentary-fields">
             <input type="hidden" name="post[commentries_attributes][<%= index %>][id]" value="<%= commentry.id %>">
-            <textarea class="form-control mt-3 mb-3" name="post[commentries_attributes][<%= index %>][description]" rows="5" maxlength="3000" id="post_commentries_attributes_<%= index %>__description"><%= commentry.description %></textarea>
+            <textarea class="form-control mt-3 mb-3" name="post[commentries_attributes][<%= index %>][description]" rows="5" maxlength="3000" id="post_commentries_attributes_<%= index %>__description" style="white-space: pre-wrap"><%= commentry.description %></textarea>
           </div>
         <% end %>
         <%= render 'posts/partials/commentry_form', f: builder if @post.new_record? %>
@@ -102,11 +102,10 @@
 
   <div class="form-group">
     <label class="control-label"><span class="primary-label">Add Tags</span></label>
-    <select id="customSelectTag">
-      <% current_company.tags.each do |tag| %>
-        <option value="<%= tag.id %>"><%= tag.name %></option>
-      <% end %>
-    </select>
+    <button type="button" class="btn btn-primary text-center create-tag" data-toggle="modal" data-target="#tagForm">Create tag</button>
+    <div id="tag_lists">
+      <%= render 'posts/partials/tag' %>
+    </div>
     <div class="selected_tag">
       <span id="new-tags-name"></span>
       <label class="control-label">
@@ -115,7 +114,7 @@
       <div class="badge_wrap">
         <% unless @post.new_record? %>
           <% @post.tags.each do |tag| %>
-            <input type="hidden" value="<%= tag.id %>" name="post[tag_ids][]" id="edit-form-tag-id-<%= tag.id %>">
+            <input type="hidden" value="<%= tag.id %>" name="post[tag_ids][]" class="post-edit-tags" id="edit-form-tag-id-<%= tag.id %>">
             <div class="badge badge-primary" id="edit-remove-tag-<%= tag.id %>">
               <span><%= tag.name %></span><span class="close_icon-<%= tag.id %>"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.80471 7.86216C9.06538 8.12283 9.06538 8.54416 8.80471 8.80483C8.67471 8.93483 8.50404 9.00016 8.33337 9.00016C8.16271 9.00016 7.99204 8.93483 7.86204 8.80483L7.00004 7.94283L6.13804 8.80483C6.00804 8.93483 5.83737 9.00016 5.66671 9.00016C5.49604 9.00016 5.32537 8.93483 5.19537 8.80483C4.93471 8.54416 4.93471 8.12283 5.19537 7.86216L6.05737 7.00016L5.19537 6.13816C4.93471 5.8775 4.93471 5.45616 5.19537 5.1955C5.45604 4.93483 5.87737 4.93483 6.13804 5.1955L7.00004 6.0575L7.86204 5.1955C8.12271 4.93483 8.54404 4.93483 8.80471 5.1955C9.06538 5.45616 9.06538 5.8775 8.80471 6.13816L7.94271 7.00016L8.80471 7.86216ZM7.00004 0.333496C3.32404 0.333496 0.333374 3.32416 0.333374 7.00016C0.333374 10.6762 3.32404 13.6668 7.00004 13.6668C10.676 13.6668 13.6667 10.6762 13.6667 7.00016C13.6667 3.32416 10.676 0.333496 7.00004 0.333496Z" fill="#82CBFB"></path></svg></span>
             </div>
@@ -139,12 +138,65 @@
   <div class="form-group buttonWrap update">
     <div class="d-flex">
       <% if @post.new_record? %>
-        <%= form.submit "Create Post", class: "btn btn-block btn-primary" %>
+        <%= form.submit "Create Post", id: "create", class: "btn btn-block btn-primary" %>
       <% else %>
-        <%= form.submit "Update Post", class: "btn btn-block btn-primary" %>
+        <%= form.submit "Update Post", id: "update", class: "btn btn-block btn-primary" %>
       <% end %>
-      <%= form.submit "Save As Draft", class: "btn btn-block btn-outline-primary" %>
+      <%= form.submit "Save As Draft", id: "draft", class: "btn btn-block btn-outline-primary" %>
+    </div>
+  </div>
+  <div class="modal fade" id="tagForm" tabindex="-1" role="dialog" aria-labelledby="tagFormLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create Tag</h5>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <input type="text" placeholder="Tag name" class="form-control" id="tag-value"/>
+            <span style= "color: #ff0033" id="tag-error"></span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary tag-cancel-btn" type="button" id="tag-save">Save</button>
+          <button class="btn btn-secondary tag-cancel-btn" type="button" data-dismiss="modal" aria-label="Close">Cancel</button>
+        </div>
+      </div>
     </div>
   </div>
 
 <% end %>
+
+<script>
+    $(document).ready(function () {
+        $("#tag-save").on('click', function () {
+            var tag_name = $("#tag-value").val()
+            if(tag_name.length) {
+                $.ajax({
+                    url: `/posts/create_tag?tag_name=${tag_name}`,
+                    method: "get",
+                    success: function (result) {
+                        if (result == 'false') {
+                            $("#tag-error").text('Tag already exist');
+                        } else {
+                            $.ajax({
+                                url: "/posts/company_tag_list/",
+                                method: "get",
+                                dataType: 'script'
+                            });
+                            $("#tagForm").modal('hide');
+                        }
+                    }
+                });
+            }else{
+                $("#tag-error").text('Please enter a valid name');
+            }
+        })
+        $('#tagForm').keypress(function(event){
+            if(event.which == 13) {
+                $('#tag-save').click()
+            }
+        })
+
+    })
+</script>

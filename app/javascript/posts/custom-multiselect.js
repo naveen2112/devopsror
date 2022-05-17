@@ -71,10 +71,12 @@ $(document).on('turbolinks:load', function () {
             });
             $('.' + settings.parentClass + ' .custom-dropdown-select .multiselect-btn').on('click', function(event) {
                 if ($(renderDropdown).hasClass('open')) {
+                    $(this).parent().closest('.dropdown').removeClass('custom-drop-showed');
                     $(renderDropdown).removeClass('open');
                     $(renderDropdown).removeClass('show');
                     event.stopPropagation();
                 } else {
+                    $(this).parent().closest('.dropdown').addClass('custom-drop-showed');
                     $(renderDropdown).addClass('open');
                     $(renderDropdown).addClass('show');
                     event.stopPropagation();
@@ -85,19 +87,23 @@ $(document).on('turbolinks:load', function () {
                 if ($(renderDropdown).hasClass('open')) {
                     $(renderDropdown).removeClass('open');
                     $(renderDropdown).removeClass('show');
+                    $(this).parent().closest('.dropdown').removeClass('custom-drop-showed');
                     event.stopPropagation();
                 }
             });
             $(document).on("click", function (event) {
-                if ((!$(event.target).closest(renderDropdown).length) && ($(renderDropdown).hasClass('open') || $(renderDropdown).hasClass('show'))) {
-                    $(renderDropdown).removeClass('open');
-                    $(renderDropdown).removeClass('show');
-                    let event = new Event("custom-event:closed", {
-                        bubbles: true, // only bubbles and cancelable
-                    });
-                   if(document.querySelector('#' + settings.renderId) != null) {
-                       document.querySelector('#' + settings.renderId).dispatchEvent(event)
-                   }
+                if (!event.target.classList.contains('create-tag')) {
+                    if ((!$(event.target).closest(renderDropdown).length) && ($(renderDropdown).hasClass('open') || $(renderDropdown).hasClass('show'))) {
+                        $(renderDropdown).removeClass('open');
+                        $(renderDropdown).removeClass('show');
+                        $(renderDropdown).parent().closest('.dropdown').removeClass('custom-drop-showed');
+                        let event = new Event("custom-event:closed", {
+                            bubbles: true, // only bubbles and cancelable
+                        });
+                        if(document.querySelector('#' + settings.renderId) != null) {
+                            document.querySelector('#' + settings.renderId).dispatchEvent(event)
+                        }
+                    }
                 }
             });
             //multi
@@ -301,7 +307,7 @@ $(document).on('turbolinks:load', function () {
                 var selectedValue = settings.selectedArray;
                 selectedValue = [];
                 createArray(selectedValue);
-                createArray1(selectedValue);
+                //createArray1(selectedValue);
                 //Append text
                 if (settings.AppendText) {
                     textAppend(selectedValue);

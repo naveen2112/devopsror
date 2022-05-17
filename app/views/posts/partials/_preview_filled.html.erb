@@ -31,7 +31,7 @@
         </div>
         <div class="post_comments" id="preview-post-comment-list">
           <p class="comment">
-            <%= @post.commentries&.first&.description %>
+            <%= (@post.commentries&.first&.description).html_safe %>
           </p>
           <div class="comment_navigation_wrap">
             <div class="row">
@@ -63,13 +63,14 @@
         </div>
         <div class="post_image_wrap">
           <% if @post.image.attached? %>
-            <div id="preview-post-image"><img src="<%= @post.image.url %>" style="height: 13rem;"></div>
+            <div id="preview-post-image"><img src="<%= @post.image.url %>" style="height: auto;"></div>
           <% elsif @post.preview_image_url.present? %>
-            <div id="preview-post-image"><img src="<%= @post.preview_image_url %>" style="height: 13rem;"></div>
+            <div id="preview-post-image"><img src="<%= @post.preview_image_url %>" style="height: auto;"></div>
           <% end %>
-          <p class="text"> <%= @post.commentries.first&.description %></p>
+
           <% unless @post.main_url.nil? || @post.main_url.blank? %>
             <div class="post-desc">
+              <p class="title"><%= @post.title.capitalize %></p>
               <a href="<%= @post.main_url %>" class="post-link"><%= @post.main_url&.gsub("http://", "") %></a>
             </div>
           <% end %>
@@ -139,3 +140,9 @@
   </div>
 </div>
 </div>
+
+<script>
+  $(document).ready(function (){
+      $(".comment").html($(".comment").text().replace(/(?:\r\n|\r|\n)/g, '<br>'))
+  })
+</script>

@@ -8,7 +8,6 @@ $(document).on('turbolinks:load', function () {
             "post[main_url]": {
                 maxlength: 240,
                 url: true,
-                required: true
             },
             "post[commentries_attributes[1]][description]": {
                 required: true
@@ -16,10 +15,7 @@ $(document).on('turbolinks:load', function () {
         },
         messages: {
             "post[title]": {
-                remote: jQuery.validator.format("{0} is already in use.")
-            },
-            "post[url]":{
-                maxlength: "Please enter not more than 240 chars."
+                remote: jQuery.validator.format("Title is already in use.")
             },
             "post[commentries_attributes[1]][description]": {
                 maxlength: "Please enter not more than 3000 characters"
@@ -44,9 +40,20 @@ $(document).on('turbolinks:load', function () {
     });
 
     $("#new-post").on( "keypress", function(event) {
-        if (event.which == 13) {
+        if (event.which == 13 && event.shiftKey) {
+            event.stopPropagation();
+        }
+        else if(event.which == 13 && !($("#tagForm").is(':visible'))){
             var $form = $('#new-post');
             $form.submit()
         }
     })
+    function disableButtonAndSubmit()
+    {
+        var input = $("<input type='hidden' />").attr("name", $(this)[0].name).attr("value", $(this)[0].value);
+        $(this).closest('form').append(input);
+        $(this).closest('form').submit();
+    }
+    $('#update').click(disableButtonAndSubmit);
+    $('#draft').click(disableButtonAndSubmit);
 })
