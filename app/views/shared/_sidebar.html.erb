@@ -1,7 +1,11 @@
 <div class="sidebar_wrap">
   <div class="position-relative">
     <div class="user-wrap row">
-      <img class="thumb" src="<%= current_user.image_url %>"/>
+      <% if current_user.logo.url.present? %>
+        <img class="thumb" src="<%= current_user.logo.url %>"/>
+      <% else %>
+        <img class="thumb" src="<%= asset_path("user_thumb.png") %>"/>
+      <% end %>
       <div>
         <p class="sub_text">Welcome back,</p>
         <p class="user_name"><%= current_user.name %></p>
