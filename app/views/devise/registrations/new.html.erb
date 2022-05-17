@@ -26,6 +26,10 @@
                         <%= form.text_field :name, class: "form-control", placeholder: "Organisation name" %>
                       </div>
 
+                      <%= form.hidden_field :trail_start_date, value: Date.current %>
+                      <%= form.hidden_field :plan_type, value: "product_led" %>
+                      <%= form.hidden_field :billing_type, value: "monthly", :id=>"billing_type"%>
+
                       <div class="form-group required">
                         <label class="control-label" for="InputOrganisationName">Organisation url</label>
                         <%= form.url_field :url, class: "form-control", placeholder: "Organisation url" %>
@@ -88,14 +92,12 @@
 
                   <div id="page-2">
 
-
                     <%= f.fields_for "cards_attributes[0]" do |form| %>
                       <%= form.hidden_field :last_four_digits %>
                       <%= form.hidden_field :expiry %>
                       <%= form.hidden_field :token %>
                       <%= form.hidden_field :stripe_card_id %>
                     <% end %>
-
 
                     <div class="card_names">
                       <p>Credit or debit card</p>
@@ -156,11 +158,12 @@
         </span>
                       <span class="text">Your transaction is secured with SSL encryption</span>
                     </p>
+                    <div ><%= recaptcha_v3(action: 'signup', turbolinks: true, site_key: ENV['RECAPTCHA_SITE_KEY']) %></div>
                     <div class="form-check position-relative">
                       <%= f.check_box :terms_and_conditions, class: "form-check-input" %>
                       <span class="custom-checkbox"></span><span class="check-symbol"></span>
                       <label class="form-check-label control-label" for="exampleCheck1">I agree to
-                        <a href="#" class="text-link">terms & conditions</a></label>
+                        <a href="https://www.sovocal.co/terms-of-service" target="_blank" class="text-link">terms & conditions</a></label>
                     </div>
 
                     <div class="form-group required">
@@ -172,13 +175,6 @@
                     </div>
 
                     <div class="terms-wrap">
-                      <p class="term position-relative">
-                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M3.80655 8C3.50233 8 3.2142 7.88399 3.02958 7.68397L0.530817 4.986C0.453562 4.90268 0.397162 4.80774 0.364839 4.70659C0.332516 4.60545 0.324906 4.50009 0.342442 4.39654C0.359979 4.29299 0.402318 4.19329 0.46704 4.10312C0.531762 4.01295 0.617598 3.93409 0.71964 3.87104C0.821645 3.80774 0.937936 3.7615 1.06185 3.73499C1.18576 3.70848 1.31486 3.70221 1.44174 3.71654C1.56862 3.73088 1.6908 3.76553 1.80126 3.81852C1.91172 3.87151 2.0083 3.9418 2.08546 4.02534L3.72962 5.79922L7.86345 0.374717C8.00054 0.195615 8.21897 0.0682581 8.47082 0.0205834C8.72267 -0.0270913 8.98738 0.00880839 9.20689 0.120408C9.66356 0.352429 9.80413 0.843904 9.5188 1.21765L4.63457 7.62397C4.55119 7.73382 4.43627 7.82538 4.29978 7.89071C4.16328 7.95604 4.00934 7.99316 3.85131 7.99886C3.83592 8 3.82193 8 3.80655 8Z" fill="#63C178"/>
-                        </svg>
-                        <span class="text">After signing up you will have 20 users added to your organisation automatically
-                        </span>
-                      </p>
                       <p class="term position-relative">
                         <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M3.80655 8C3.50233 8 3.2142 7.88399 3.02958 7.68397L0.530817 4.986C0.453562 4.90268 0.397162 4.80774 0.364839 4.70659C0.332516 4.60545 0.324906 4.50009 0.342442 4.39654C0.359979 4.29299 0.402318 4.19329 0.46704 4.10312C0.531762 4.01295 0.617598 3.93409 0.71964 3.87104C0.821645 3.80774 0.937936 3.7615 1.06185 3.73499C1.18576 3.70848 1.31486 3.70221 1.44174 3.71654C1.56862 3.73088 1.6908 3.76553 1.80126 3.81852C1.91172 3.87151 2.0083 3.9418 2.08546 4.02534L3.72962 5.79922L7.86345 0.374717C8.00054 0.195615 8.21897 0.0682581 8.47082 0.0205834C8.72267 -0.0270913 8.98738 0.00880839 9.20689 0.120408C9.66356 0.352429 9.80413 0.843904 9.5188 1.21765L4.63457 7.62397C4.55119 7.73382 4.43627 7.82538 4.29978 7.89071C4.16328 7.95604 4.00934 7.99316 3.85131 7.99886C3.83592 8 3.82193 8 3.80655 8Z" fill="#63C178"/>
@@ -205,7 +201,14 @@
 
       </div>
       <div class="col-md-12 col-sm-12 col-lg-6 position-relative px-0 bg-linear">
-        <%= render "devise/shared/right_side_content" %>
+        <img src="<%= asset_path("corner_one.png") %>" class="corner-bg-top"/>
+        <img src="<%= asset_path("corner_two.png") %>" class="corner-bg-bottom"/>
+        <span id="right-page-1">
+          <%= render "devise/shared/right_side_content" %>
+        </span>
+        <span id="right-page-2">
+          <%= render "devise/shared/sign_up_right_two" %>
+        </span>
       </div>
     </div>
   </div>

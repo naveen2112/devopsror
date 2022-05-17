@@ -45,7 +45,7 @@
         </div>
 
         <div class="text-center btn-wrap">
-          <input type="submit" class="btn btn-primary" value="Add Team Members">
+          <button type="submit" class="btn btn-primary" id="csv-form-submit-button">Add Team Members</button>
         </div>
       <% end %>
     </div>
@@ -71,6 +71,16 @@
             if ($("#import_file")[0].files[0]) {
                 $("#csv-filename").css("display", "none")
                 $("#import_file").val("")
+            }
+        })
+
+        $("#csv-form-submit-button").click(function (e) {
+            e.preventDefault()
+            if ($("#import_file")[0].files[0]) {
+                var form = $("#new_import")
+                form.get(0).submit();
+            }else{
+               alert("Please select a CSV file.")
             }
         })
     })

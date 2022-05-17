@@ -1,7 +1,9 @@
+<input type="hidden" id="commentries_count" value="<%= @post.new_record? ? 1 : @post.commentries.size %>">
 <script>
 
     $(document).ready(function () {
-        $('[data-toggle="popover"]').popover({
+        var _URL = window.URL || window.webkitURL;
+        $('.custom-upload-btn [data-toggle="popover"]').popover({
             trigger: 'hover',
             html: true,
             offset: 155
@@ -21,12 +23,12 @@
         var commentries_count = <%= @post.new_record? ? 1 : @post.commentries.size %>
         var preview_image_url = ""
 
-            $(document).on("keyup", "#post_title", function () {
-                render_html()
-                $("#preview-post-title").text($(this).val())
-            })
+        $(document).on("input", "#post_title", function () {
+            render_html()
+            $("#preview-post-title").text($(this).val())
+        })
 
-        $(document).on("keyup", "#post_main_url", function () {
+        $(document).on("input", "#post_main_url", function () {
             render_html()
             $("#preview-post-title").text($("#post_title").val())
         })
@@ -35,12 +37,42 @@
             get_image_from_url($("#post_main_url").val())
         })
 
-        $(document).on("keyup", "#post_commentries_attributes_1__description", function () {
+        $(document).on("input", "#post_commentries_attributes_1__description", function () {
             render_html()
             $("#preview-post-title").text($("#post_title").val())
         })
 
+        <% unless @post.new_record? %>
+        <% 2.upto(@post.commentries.count) do |num| %>
+        $(document).on("input", "#post_commentries_attributes_<%= num %>__description", function () {
+            render_html()
+
+            if ($(`#post_commentries_attributes_<%= num %>__description`).val()?.length > 0) {
+                $(".preview-post-pagination").html(`<span class="current-commentry-index"><%= num %></span>/ <span class="preview-commentries-count"><%= num %></span>`)
+            }
+
+            $(".comment").html($(`#post_commentries_attributes_<%= num %>__description`).val()?.replace(/(?:\r\n|\r|\n)/g, '<br>'))
+
+            if ((<%= num %>) == <%= @post.commentries.count %>) {
+                $(".post-next-commentry-button").hide()
+                $(".post-previous-commentry-button").show()
+            } else if (<%= num <= 1  %>) {
+                $(".post-next-commentry-button").show()
+                $(".post-previous-commentry-button").hide()
+            } else {
+                $(".post-next-commentry-button").show()
+                $(".post-previous-commentry-button").show()
+            }
+
+            $(".current-commentry-index").text(<%= num %>)
+
+            $("#preview-post-title").text($("#post_title").val())
+        })
+        <% end %>
+        <% end %>
+
         $("#post_image").change(function () {
+            check_width()
             render_html()
             $("#preview-post-title").text($("#post_title").val())
         })
@@ -69,32 +101,33 @@
                 if ($("#post_main_url").val().length > 0) {
                     $("#preview-post-link").empty()
                     var name = $("#post_main_url").val().replace("http://", "")
-                    $("#preview-post-link").append("<div class='post-desc'><a href=" + $("#post_main_url").val() + " class='post-link'>" + name + "</a></div>")
+                    var title = $("#post_title").val()
+                    $("#preview-post-link").append("<div class='post-desc'><p class='title'>"+title+"</p><a href=" + $("#post_main_url").val() + " class='post-link'>" + name + "</a></div>")
                     preview_image_from_url()
                 }
 
 
-                $("#preview-post-comment-1").text($("#post_commentries_attributes_1__description").val())
-                $("#preview-post-comment-one-1").text($("#post_commentries_attributes_1__description").val())
-
+               $("#preview-post-comment-1").html($("#post_commentries_attributes_1__description").val()?.replace(/(?:\r\n|\r|\n)/g, '<br>'))
 
                 <% if @post.image.attached? %>
                 if ($("#remove-image-text").is(":visible")) {
-                    $("#preview-post-image").html(` <img src='<%= @post.image.url %>' style='height: 13rem;'/>`)
+                    $("#preview-post-image").html(` <img src='<%= @post.image.url %>' style='height: auto;'/>`)
                 }
                 <% end %>
 
                 if ($("#post_image")[0].files[0]) {
-
                     if ($("#post_image")[0].files[0].size > 5242880) {
                         alert("Please upload image less than 5 mb")
                     } else {
                         $("#preview-post-image").empty()
                         $("#upload-image-text").hide()
                         $("#remove-image-text").show()
-                        $("#preview-post-image").append(` <img src='${URL.createObjectURL($("#post_image")[0].files[0])}' style='height: 13rem;'/>`)
+                        $("#preview-post-image").append(` <img src='${URL.createObjectURL($("#post_image")[0].files[0])}' style='height: auto;'/>`)
                         $("#preview-image-button").css("z-index", "2")
+                        $("#post_main_url").attr("required",true);
                     }
+                }else{
+                    $("#post_main_url").attr("required",false);
                 }
 
             } else {
@@ -115,11 +148,14 @@
             $("#remove-image-text").hide()
             $("#upload-image-text").show()
             $("#preview-image-button").removeAttr("style")
+            $("#post_main_url").attr("required",false);
             preview_image_from_url()
+            render_html()
         })
 
         $('form').on('click', '.add_fields', function (event) {
             commentries_count += 1
+            $("#commentries_count").val(commentries_count)
 
             $(".preview-commentries-count").text(commentries_count)
 
@@ -144,7 +180,9 @@
 
             var regexp;
             regexp = new RegExp($(this).data('id'), 'g');
+
             $('.fields').append($(this).data('fields').replace(regexp, commentries_count));
+            $('.fields').append("<%= escape_javascript (render partial: 'posts/partials/commentries_js') %>")
             return event.preventDefault();
         });
 
@@ -186,11 +224,11 @@
             var comment_count = cycle_count - 1
             if (comment_count == 0) {
                 $(".post-commentries-previous-button").addClass("single_button")
-                $(".comment").append(commentries[comment_count])
+                $(".comment").html(commentries[comment_count].replace(/(?:\r\n|\r|\n)/g, '<br>'))
                 $(".share-content").append(`<p contenteditable="true" id="post-share-content">${commentries[comment_count]}</p>`)
             } else {
                 $(".post-commentries-previous-button").removeClass("single_button")
-                $(".comment").append(commentries[comment_count])
+                $(".comment").html(commentries[comment_count].replace(/(?:\r\n|\r|\n)/g, '<br>'))
                 $(".share-content").append(`<p contenteditable="true" id="post-share-content">${commentries[comment_count]}</p>`)
             }
 
@@ -208,6 +246,7 @@
         }
 
         <% end %>
+
         // Ajax call to pull image from given main URL
         function get_image_from_url(main_url) {
             if (isValidHttpUrl(main_url)) {
@@ -216,14 +255,12 @@
                     method: "get",
                     data: {post: {main_url: main_url}},
                     success: function (result) {
-                        if (result != 'false'){
-                            preview_image_url = result
-                        }
+                        preview_image_url = result
                         if ($("#upload-image-text").is(":visible")) {
                             if (result == 'false') {
                                 $("#preview-post-image").empty()
                             } else {
-                                $("#preview-post-image").html(` <img src=${result} style='height: 13rem;'/>`)
+                                $("#preview-post-image").html(` <img src=${result} style='height: auto;'/>`)
                             }
                         }
                     }
@@ -231,10 +268,12 @@
             }
         }
 
-        function preview_image_from_url(){
-            if ( $("#post_main_url").val().length > 0) {
-                if (preview_image_url.length > 0) {
-                    $("#preview-post-image").html(` <img src=${preview_image_url} style='height: 13rem;'/>`)
+        function preview_image_from_url() {
+            if ($("#post_main_url").val().length > 0) {
+                if (preview_image_url == 'false') {
+                    return
+                } else if (preview_image_url.length > 0) {
+                    $("#preview-post-image").html(` <img src=${preview_image_url} style='height: auto;'/>`)
                 } else {
                     get_image_from_url($("#post_main_url").val())
                 }
@@ -242,15 +281,31 @@
         }
 
         function isValidHttpUrl(string) {
-            let url;
-
-            try {
-                url = new URL(string);
-            } catch (_) {
-                return false;
+            var regex = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+            if (regex.test(string)) {
+                return true;
             }
+        }
 
-            return url.protocol === "http:" || url.protocol === "https:";
+        function check_width() {
+            var file, img, width;
+            if ((file = $("#post_image")[0].files[0])) {
+                img = new Image();
+                var objectUrl = _URL.createObjectURL(file);
+                img.onload = function () {
+                    width = this.width
+                    if (width < 450) {
+                        alert('Please upload a image with width greater than 450');
+                        $("#post_image").val("");
+                        $("#preview-post-image").empty();
+                        $("#upload-image-text").show();
+                        $("#remove-image-text").hide();
+                        render_html();
+                    }
+                    _URL.revokeObjectURL(objectUrl);
+                };
+                img.src = objectUrl;
+            }
         }
 
     })

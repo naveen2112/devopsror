@@ -729,3 +729,8 @@
     border-width: 3px;
   }
 }
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}

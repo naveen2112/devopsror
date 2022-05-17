@@ -3,10 +3,12 @@ class Post < ApplicationRecord
   #================================= Relationships ===============================================================
 
   belongs_to :company
-  belongs_to :user, class_name: "User", foreign_key: :created_by
+  belongs_to :user, class_name: "User", foreign_key: :created_by, optional: true
   has_many :commentries, dependent: :destroy
   has_and_belongs_to_many :tags, join_table: :posts_tags
   has_one_attached :image
+  has_many :post_user_shares, dependent: :destroy
+  has_many :linkedin_social_actions
 
   #================================ Validations ==================================================================
 
@@ -29,6 +31,7 @@ class Post < ApplicationRecord
 
   after_create_commit :send_email, if: -> { notification && status == "live" }
   after_save :update_preview_image_url, if: -> {main_url_previously_changed?}
+  after_create :change_post_status, if: -> {user.blank?}
 
   #============================== Methods ========================================================================
 
@@ -41,13 +44,25 @@ class Post < ApplicationRecord
   end
 
   def get_preview_image_url
-    # Pulling image from given main URL using LinkThumbnailer
+    # Pulling image from given main URL using MetaInspector
     begin
-      page = LinkThumbnailer.generate(main_url)
-      preview_image_url =  page.images.first&.src.to_s
-    rescue LinkThumbnailer::Exceptions => e
+      page = MetaInspector.new(main_url, faraday_options: { ssl: { verify: false } },
+                               :connection_timeout => 5, :read_timeout => 5)
+
+      if page.meta_tags['property']['og:image'].present?
+        preview_image_url = page.meta_tags['property']['og:image'].first if page.meta_tags['property']['og:image'].first != 'http:/'
+      end
+    rescue MetaInspector::TimeoutError, MetaInspector::RequestError, MetaInspector::ParserError, MetaInspector::NonHtmlError => e
       preview_image_url = nil
     end
     preview_image_url
+  end
+
+  def change_post_status
+    update_columns(status: 'draft')
+  end
+
+  def encode_id
+    Hashids.new('E/D object id', 8).encode(id)
   end
 end

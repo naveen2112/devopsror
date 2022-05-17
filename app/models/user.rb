@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :cards, dependent: :destroy
   has_many :integrated_accounts, dependent: :destroy
   has_one_attached :logo
+  has_many :post_user_shares, dependent: :destroy
 
   #======================================== Attribute accessors ====================================================
 
@@ -18,15 +19,21 @@ class User < ApplicationRecord
 
   #========================================= Callbacks =============================================================
 
-  after_create :send_invite_email, if: -> { (self.poster? || self.editor?) && invited }
+  after_create_commit :send_invite_email, if: -> { invited }
 
   #========================================= Scope ==================================================================
 
   scope :subscribers, -> { where(subscribe: true) }
+  scope :owner_admin, -> { where("cards_count > ?", 0) }
+  scope :date_filter, lambda { |star_date, end_date| where('DATE(created_at) > ? AND DATE(created_at) <= ?', star_date,
+                                                           end_date) }
+  scope :old_users, lambda { |star_date, end_date| where.not('DATE(created_at) > ? AND DATE(created_at) <= ?', star_date,
+                                                           end_date) }
 
   #========================================= Validations ==============================================================
 
   validates_presence_of :first_name
+  validate :check_user_limit, on: :create
 
   #======================================== Enum ======================================================================
 
@@ -61,5 +68,9 @@ class User < ApplicationRecord
 
   def total_posts
     posts.count
+  end
+
+  def check_user_limit
+    errors.add(:user, "limit reached") if company&.user_limit.present? && company.users.count >= company.user_limit
   end
 end

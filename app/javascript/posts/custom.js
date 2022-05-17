@@ -88,6 +88,7 @@ $(document).on('turbolinks:load', function () {
     });
 
     function getSelectedTags(list) {
+        $("#selected_tag").show();
         if (Object.keys(list).includes('Tag')) {
             $('.selected_tag').show();
             $('#selected_tag').empty();
@@ -99,7 +100,12 @@ $(document).on('turbolinks:load', function () {
                 var deleteTag = $(this).prev().html()
                 customSelectTags.removeSelectAllFunction(false, deleteTag);
             })
-        } else {
+        }
+        else if($(".post-edit-tags").length > 0) {
+            $('.selected_tag').show();
+            $("#selected_tag").hide();
+        }
+        else {
             $('.selected_tag').hide();
         }
     }

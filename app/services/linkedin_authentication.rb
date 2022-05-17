@@ -19,7 +19,7 @@ module LinkedinAuthentication
 
   def linked_in_authorizaion_url
     client = LinkedIn::Client.new(ENV["LINKEDIN_CLIENT_ID"], ENV["LINKEDIN_CLIENT_SECRET"])
-    client.authorize_url(:redirect_uri => ENV["LINKEDIN_REDIRECT_URL"], :state => SecureRandom.uuid, :scope => "w_member_social,w_organization_social,r_basicprofile")
+    client.authorize_url(:redirect_uri => ENV["LINKEDIN_REDIRECT_URL"], :state => SecureRandom.uuid, :scope => "w_member_social,w_organization_social,r_basicprofile,r_member_social")
   end
 
   def get_access_token(encrypted_code)
@@ -37,26 +37,9 @@ module LinkedinAuthentication
   def share_post(post_id, user_id, commentry)
     post = current_company.posts.find(post_id)
     user = current_company.users.find(user_id)
-    headers = { 'Content-Type': 'application/json', "Authorization": "Bearer #{Encryptor.decrypt(user.linked_in_code)}"  }
+    headers = { 'Content-Type': 'application/json', "Authorization": "Bearer #{Encryptor.decrypt(user.linked_in_code)}" }
     url = "https://api.linkedin.com/v2/shares"
     request_body = {
-      "content": {
-        "contentEntities": [
-          {
-            "entityLocation": post.main_url,
-            "thumbnails": [
-              {
-                "imageSpecificContent": {
-                  "width":1600,
-                  "height":900
-                },
-                "resolvedUrl": post.image.url
-              }
-            ]
-          }
-        ],
-        "title": post.title
-      },
       "distribution": {
         "linkedInDistributionTarget": {}
       },
@@ -66,6 +49,37 @@ module LinkedinAuthentication
         "text": commentry
       }
     }
-    send_request(url, headers, "post",  request_body)
+    if post.main_url.present? && (post.image.url || post.preview_image_url).present?
+      request_body.merge!("content": {
+        "contentEntities": [
+          {
+            "entityLocation": ENV['APP_URL']+"/go?source=linkedin&secret=#{post.encode_id}",
+            "thumbnails": [
+              {
+                "imageSpecificContent": {
+                  "width": 1600,
+                  "height": 900
+                },
+                "resolvedUrl": post.image.url || post.preview_image_url || ""
+              }
+            ]
+          }
+        ],
+        "title": post.title
+      })
+    end
+    send_request(url, headers, "post", request_body)
+  end
+
+  def get_engagement_details(share_id:, user:)
+    headers = { 'Content-Type': 'application/json', "Authorization": "Bearer #{Encryptor.decrypt(user.linked_in_code)}" }
+    url = "https://api.linkedin.com/v2/socialActions/urn:li:share:#{share_id}"
+    send_request(url, headers, "get")
+  end
+
+  def get_share(share_id:, user:)
+    headers = { 'Content-Type': 'application/json', "Authorization": "Bearer #{Encryptor.decrypt(user.linked_in_code)}" }
+    url = "https://api.linkedin.com/v2/shares/urn:li:share:#{share_id}"
+    send_request(url, headers, "get")
   end
 end

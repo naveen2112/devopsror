@@ -311,7 +311,7 @@ ActiveAdmin.setup do |config|
 
   # == Head
   #
-  # You can add your own content to the site head like analytics. Make sure
+  # You can add your own content to the site head like show. Make sure
   # you only pass content you trust.
   #
   # config.head = ''.html_safe
@@ -329,6 +329,8 @@ ActiveAdmin.setup do |config|
   # You can inherit it with own class and inject it for all resources
   #
   # config.order_clause = MyOrderClause
+
+  config.skip_before_action :authenticate_user!
 
   # == Webpacker
   #
