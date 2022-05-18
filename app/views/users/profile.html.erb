@@ -76,7 +76,11 @@
         <div class="form-group">
           <label class="control-label">Profile Photo</label>
           <div class="position-relative image_wrap">
-            <img src="<%= current_user.image_url %>" id="user-logo-display" alt="user thumb"/>
+            <% if current_user.logo.url.present? %>
+              <img src="<%= current_user.logo.url %>" id="user-logo-display" alt="user thumb"/>
+            <% else %>
+              <img src="<%= asset_path("user_thumb.png") %>" id="user-logo-display" alt="user thumb"/>
+            <% end %>
             <span>
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="23.75" cy="23.75" r="23.5" fill="url(#paint0_linear_32_2686)"/>
