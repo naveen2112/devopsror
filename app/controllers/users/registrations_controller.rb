@@ -7,7 +7,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     User.transaction do
       build_resource(sign_up_params)
 
-      if verify_recaptcha(action: 'signup', minimum_score: 0.5, secret_key: ENV['RECAPTCHA_SECRET_KEY']) && resource.save
+      if verify_recaptcha && resource.save
         yield resource if block_given?
         if resource.persisted?
           response = Stripe::Customer.create(email: resource.email, card: resource.cards&.first&.token)

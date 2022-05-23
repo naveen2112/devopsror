@@ -22,7 +22,7 @@ class BillingsController < ApplicationController
         current_user.update(stripe_customer_id: response.id)
       end
       card = current_user.cards.new(cards_params)
-      if verify_recaptcha(action: 'changecard', minimum_score: 0.3, secret_key: ENV['RECAPTCHA_SECRET_KEY']) && card.save
+      if verify_recaptcha && card.save
         redirect_to billings_path, notice: "Card updated successfully."
       else
         redirect_to billings_path, alert: "Recaptcha verification failed"
