@@ -10,7 +10,7 @@
             function GetDates(startDate, daysToAdd) {
                 var aryDates = [];
 
-                for (var i = 0; i <= daysToAdd; i++) {
+                for (var i = 1; i <= daysToAdd; i++) {
                     var currentDate = new Date();
                     currentDate.setDate(startDate.getDate() + i);
                     aryDates.push(DayAsString(currentDate.getDay()));
@@ -33,7 +33,7 @@
             }
 
             var startDate = new Date();
-            var aryDates = GetDates(startDate, 6);
+            var aryDates = GetDates(startDate, 7);
 
             var ctx = document.getElementById('analytic-chart').getContext('2d');
             var gradient = ctx.createLinearGradient(0, 0, 0, 400);
@@ -88,6 +88,9 @@
                     scales: {
                         y: {
                             min: 0,
+                            ticks: {
+                                stepSize: 1
+                            },
                             grid: {
                                 display: true,
                                 drawOnChartArea: false,
@@ -232,7 +235,7 @@
     <div class="reach-wrap">
       <div class="d-flex justify-content-between">
         <div>
-          <p class="reach-text">Total posts</p>
+          <p class="reach-text">Total Posts</p>
           <div class="d-flex reach-count align-items-center">
             <div class="icon">
               <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -259,7 +262,7 @@
           </div>
         </div>
         <div>
-          <p class="reach-text">Total clicks</p>
+          <p class="reach-text">Total Clicks</p>
           <div class="d-flex reach-count align-items-center">
             <div class="icon">
               <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -281,13 +284,40 @@
             </div>
             <div class="text" id="total_link_clicked">
               <p class="count"><%= @total_clicks %></p>
+              <p class="sub-text">Clicks</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="reach-text">Estimated Reach</p>
+          <div class="d-flex reach-count align-items-center">
+            <div class="icon">
+              <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="52" height="52" rx="26" fill="#53B9EA" fill-opacity="0.06"/>
+                <g filter="url(#filter0_b_0_1)">
+                  <rect width="52" height="52" rx="26" fill="#53B9EA" fill-opacity="0.2"/>
+                  <rect x="0.8" y="0.8" width="50.4" height="50.4" rx="25.2" stroke="white" stroke-opacity="0.4" stroke-width="1.6"/>
+                </g>
+                <path d="M17 30L23 24L27 28L35 20V26M29 20H32" stroke="#53B9EA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <defs>
+                  <filter id="filter0_b_0_1" x="-32" y="-32" width="116" height="116" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feGaussianBlur in="BackgroundImage" stdDeviation="16"/>
+                    <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_0_1"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_0_1" result="shape"/>
+                  </filter>
+                </defs>
+              </svg>
+            </div>
+            <div class="text">
+              <p class="count"><%= @total_reach %></p>
               <p class="sub-text">Reach</p>
             </div>
           </div>
         </div>
         <div class="reach-col">
           <p class="reach-text">
-            Total engagements
+            Total Engagements
             <span
               type="button"
               data-container=".reach-col"
@@ -322,7 +352,7 @@
             </div>
             <div class="text" id="total_engagement">
               <p class="count"><%= @total_engagements %></p>
-              <p class="sub-text">Reach</p>
+              <p class="sub-text">Engagements</p>
             </div>
           </div>
         </div>
@@ -331,7 +361,7 @@
     <div class="chart-wrap">
       <div class="chart">
         <div class="chart-head position-relative">
-          <p class="chart-title">Post over the week</p>
+          <p class="chart-title">Post this week</p>
         </div>
         <canvas id="analytic-chart"></canvas>
       </div>
@@ -339,6 +369,7 @@
     <div class="analytic-counts">
       <div class="row">
         <div class="col-6">
+          <h6 class="row-title">Shares by employee</h6>
           <div class="d-flex justify-content-between align-items-center post-list-head">
             <p class="w-60 employee">Employees</p>
             <p class="w-20 text-center post">Posts</p>
@@ -355,7 +386,8 @@
             </div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-6 post-analytic-count">
+          <h6 class="row-title">Shares by post</h6>
           <div class="d-flex justify-content-between align-items-center post-list-head">
             <p class="w-60 employee">Post</p>
             <p class="w-20 text-center">Posts</p>

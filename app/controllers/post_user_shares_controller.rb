@@ -9,7 +9,8 @@ class PostUserSharesController < ApplicationController
   end
 
   def shared_details
-    @total_engagements = @post_users_shares.map(&:engagement_count).sum
+    @total_engagements = @post_users_shares.pluck(:likes_count, :comments_count).map(&:sum).sum
+    @total_reach = @post_users_shares.map(&:reach_count).sum
     @total_clicks = @linkedin_social_actions.filter_date(@from_date, @end_date).count
     posts_share = @post_users_shares.filter_date(@from_date, @end_date).group(:post_id).order('count_id desc').count('id')
     @posts_title = @current_company.posts.find(posts_share.keys).pluck(:title)
@@ -22,9 +23,9 @@ class PostUserSharesController < ApplicationController
 
   def recent_seven_days_share
     @shared_count_per_day = []
-    days = 7
+    days = 6
     post_user_shares = @post_users_shares.where("DATE(updated_at) >= ?", Date.today - days)
-    days.times do
+    while days >= 0
       @shared_count_per_day << post_user_shares.select { |share| (share.created_at).to_date == Date.today - days }.count
       days -= 1
     end

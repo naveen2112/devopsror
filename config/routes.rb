@@ -49,14 +49,14 @@ Rails.application.routes.draw do
       get :validate_tag
       post :share
       delete :destroy_image
-      get :preview_image_from_url
+      get :parse_main_url
       get :validate_title_except_current
       get :create_tag
       get :company_tag_list
     end
     collection do
       get :validate_title
-      get :preview_image_from_url
+      get :parse_main_url
       get :create_tag
       get :company_tag_list
     end

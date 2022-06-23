@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_06_123013) do
+ActiveRecord::Schema.define(version: 2022_06_23_041020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,9 +142,11 @@ ActiveRecord::Schema.define(version: 2022_05_06_123013) do
     t.bigint "user_id", null: false
     t.bigint "company_id", null: false
     t.string "share_id"
-    t.integer "engagement_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "likes_count", default: 0
+    t.integer "comments_count", default: 0
+    t.integer "reach_count", default: 0
     t.index ["company_id"], name: "index_post_user_shares_on_company_id"
     t.index ["post_id"], name: "index_post_user_shares_on_post_id"
     t.index ["user_id"], name: "index_post_user_shares_on_user_id"
@@ -162,6 +164,7 @@ ActiveRecord::Schema.define(version: 2022_05_06_123013) do
     t.integer "created_by"
     t.integer "shared_count", default: 0
     t.string "preview_image_url"
+    t.string "preview_url_title"
     t.index ["company_id"], name: "index_posts_on_company_id"
   end
 

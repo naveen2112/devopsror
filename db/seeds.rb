@@ -10,9 +10,8 @@
 #====================================== Tags ========================================================================
 
 Company.all.each do |company|
-  company.tags.find_or_create_by(name: "Sales")
-  company.tags.find_or_create_by(name: "Announcement")
-  company.tags.find_or_create_by(name: "Other Tag")
+  company.tags.find_or_create_by(name: "Marketing")
+  company.tags.find_or_create_by(name: "HR")
 end
 
 AdminUser.create!(email: 'admin@sovocal.com', password: 'password', password_confirmation: 'password')

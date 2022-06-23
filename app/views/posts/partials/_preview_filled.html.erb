@@ -74,7 +74,7 @@
 
           <% unless @post.main_url.nil? || @post.main_url.blank? %>
             <div class="post-desc">
-              <p class="title"><%= @post.title.capitalize %></p>
+              <p class="title"><%= @post.preview_url_title %></p>
               <a href="<%= @post.main_url %>" class="post-link"><%= @post.main_url&.gsub("http://", "") %></a>
             </div>
           <% end %>

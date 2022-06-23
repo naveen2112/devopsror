@@ -62,8 +62,8 @@
           <div class="post_comments">
             <p class="comment-<%= post.id %>">
               <span id="post-commentries-<%= post.id %>"><%= post.commentries&.first&.description %></span>
-              <span id="read-more-<%= post.id %>" class="text-primary read-more">read more</span>
-              <span id="read-less-<%= post.id %>" class="text-primary read-more">read less</span>
+              <span id="read-more-<%= post.id %>" class="read-more">Read more</span>
+              <span id="read-less-<%= post.id %>" class="read-more">Read less</span>
             </p>
             <div class="comment_navigation_wrap">
               <div class="row">
@@ -102,6 +102,7 @@
 
             <% unless post.main_url.nil? || post.main_url.blank? %>
               <div class="post-desc">
+                <p class="title"><%= post.preview_url_title %></p>
                 <a href="<%= post.main_url %>" class="post-link"><%= post.main_url.gsub("http://", "") %></a>
               </div>
             <% end %>
