@@ -20,8 +20,9 @@
         <% end %>
         <% end %>
 
-        var commentries_count = <%= @post.new_record? ? 1 : @post.commentries.size %>
-        var preview_image_url = ""
+        var commentries_count =
+        <%= @post.new_record? ? 1 : @post.commentries.size %>
+        var preview_image_url = "", preview_url_title = ""
 
         $(document).on("input", "#post_title", function () {
             render_html()
@@ -99,15 +100,11 @@
                 $(".preview-commentries-count").text(commentries_count)
 
                 if ($("#post_main_url").val().length > 0) {
-                    $("#preview-post-link").empty()
-                    var name = $("#post_main_url").val().replace("http://", "")
-                    var title = $("#post_title").val()
-                    $("#preview-post-link").append("<div class='post-desc'><p class='title'>"+title+"</p><a href=" + $("#post_main_url").val() + " class='post-link'>" + name + "</a></div>")
                     preview_image_from_url()
                 }
 
 
-               $("#preview-post-comment-1").html($("#post_commentries_attributes_1__description").val()?.replace(/(?:\r\n|\r|\n)/g, '<br>'))
+                $("#preview-post-comment-1").html($("#post_commentries_attributes_1__description").val()?.replace(/(?:\r\n|\r|\n)/g, '<br>'))
 
                 <% if @post.image.attached? %>
                 if ($("#remove-image-text").is(":visible")) {
@@ -124,10 +121,10 @@
                         $("#remove-image-text").show()
                         $("#preview-post-image").append(` <img src='${URL.createObjectURL($("#post_image")[0].files[0])}' style='height: auto;'/>`)
                         $("#preview-image-button").css("z-index", "2")
-                        $("#post_main_url").attr("required",true);
+                        $("#post_main_url").attr("required", true);
                     }
-                }else{
-                    $("#post_main_url").attr("required",false);
+                } else {
+                    $("#post_main_url").attr("required", false);
                 }
 
             } else {
@@ -148,7 +145,7 @@
             $("#remove-image-text").hide()
             $("#upload-image-text").show()
             $("#preview-image-button").removeAttr("style")
-            $("#post_main_url").attr("required",false);
+            $("#post_main_url").attr("required", false);
             preview_image_from_url()
             render_html()
         })
@@ -251,16 +248,19 @@
         function get_image_from_url(main_url) {
             if (isValidHttpUrl(main_url)) {
                 $.ajax({
-                    url: "preview_image_from_url",
+                    url: "parse_main_url",
                     method: "get",
                     data: {post: {main_url: main_url}},
                     success: function (result) {
-                        preview_image_url = result
+                        result = result.split(",")
+                        preview_image_url = result[0]
+                        preview_url_title = result[1]
                         if ($("#upload-image-text").is(":visible")) {
-                            if (result == 'false') {
+                            set_preview_url_block()
+                            if (preview_image_url == 'false') {
                                 $("#preview-post-image").empty()
                             } else {
-                                $("#preview-post-image").html(` <img src=${result} style='height: auto;'/>`)
+                                $("#preview-post-image").html(` <img src=${preview_image_url} style='height: auto;'/>`)
                             }
                         }
                     }
@@ -269,6 +269,7 @@
         }
 
         function preview_image_from_url() {
+            set_preview_url_block()
             if ($("#post_main_url").val().length > 0) {
                 if (preview_image_url == 'false') {
                     return
@@ -280,6 +281,15 @@
             }
         }
 
+        function set_preview_url_block() {
+            var current_url_title = preview_url_title
+            if (preview_url_title == 'false') {
+                current_url_title = ""
+            }
+            $("#preview-post-link").empty()
+            var name = $("#post_main_url").val().replace("http://", "")
+            $("#preview-post-link").append("<div class='post-desc'><p class='title'>" + current_url_title + "</p><a href=" + $("#post_main_url").val() + " class='post-link'>" + name + "</a></div>")
+        }
         function isValidHttpUrl(string) {
             var regex = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
             if (regex.test(string)) {

@@ -102,8 +102,8 @@
 
   <div class="form-group">
     <label class="control-label"><span class="primary-label">Add Tags</span></label>
-    <button type="button" class="btn btn-primary text-center create-tag" data-toggle="modal" data-target="#tagForm">Create tag</button>
-    <div id="tag_lists">
+    <button type="button" class="btn btn-outline-primary text-center create-tag" data-toggle="modal" data-target="#tagForm">Create Tag</button>
+    <div id="tag_lists" style="margin-top: 10px">
       <%= render 'posts/partials/tag' %>
     </div>
     <div class="selected_tag">
@@ -194,7 +194,7 @@
         })
         $('#tagForm').keypress(function(event){
             if(event.which == 13) {
-                $('#tag-save').click()
+                event.stopPropagation();
             }
         })
 

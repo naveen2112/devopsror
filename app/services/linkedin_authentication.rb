@@ -65,7 +65,7 @@ module LinkedinAuthentication
             ]
           }
         ],
-        "title": post.title
+        "title": post.preview_url_title || post.title
       })
     end
     send_request(url, headers, "post", request_body)

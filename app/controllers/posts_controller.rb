@@ -123,20 +123,21 @@ class PostsController < ApplicationController
     redirect_to @post.main_url
   end
 
-  # Pulling image from given main URL using MetaInspector
-  def preview_image_from_url
+  # Pulling image and title from given main URL using MetaInspector
+  def parse_main_url
     begin
       page = MetaInspector.new(posts_params[:main_url], faraday_options: { ssl: { verify: false } },
                                :connection_timeout => 5, :read_timeout => 5)
 
+      page_title = page.title
       if page.meta_tags['property']['og:image'].present?
         preview_image_url = page.meta_tags['property']['og:image'].first if page.meta_tags['property']['og:image'].first != 'http:/'
       end
     rescue MetaInspector::TimeoutError, MetaInspector::RequestError, MetaInspector::ParserError, MetaInspector::NonHtmlError => e
-      preview_image_url = nil
+      preview_image_url, page_title = nil
     end
 
-    render plain: preview_image_url || 'false'
+    render plain: "#{preview_image_url || 'false'},#{page_title&.titleize || 'false' }"
   end
 
   def create_tag

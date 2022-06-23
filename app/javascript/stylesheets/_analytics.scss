@@ -7,8 +7,10 @@
     line-height: 1.2;
     color: $secondary-grey-title;
   }
+
   .date_range {
     padding-right: 140px;
+
     .date-range-wrap {
       display: inline-block;
       padding: 11px 20px 11px 27px;
@@ -17,9 +19,11 @@
       border-radius: 10px;
       border: 1px solid rgba(130, 203, 251, 0.16);
       cursor: pointer;
+
       &:focus {
         outline: none;
       }
+
       .text {
         padding-left: 16px;
         padding-right: 16px;
@@ -35,10 +39,13 @@
       }
     }
   }
+
   .inner-wrap {
     padding: 0 40px;
+
     .reach-wrap {
       margin-top: 45px;
+
       .reach-text {
         position: relative;
         font: {
@@ -46,6 +53,7 @@
           weight: 600;
         };
         color: $terms-text-color;
+
         .icon {
           position: absolute;
           top: 50%;
@@ -54,13 +62,16 @@
           margin-right: -30px;
         }
       }
+
       .reach-count {
         .text {
           padding-left: 29px;
-          >p {
+
+          > p {
             margin-bottom: 0;
             letter-spacing: 0.01em;
           }
+
           .count {
             font: {
               size: 28px;
@@ -69,22 +80,26 @@
             line-height: 0.8;
             color: $post-share-color;
           }
+
           .sub-text {
             font: {
               size: 14px;
               weight: 400;
             };
             line-height: 1.2;
-            color: $sub-text-grey;
+            color: $post-share-color;
             margin-top: 4px;
           }
         }
       }
     }
+
     .chart-wrap {
       margin-top: 40px;
+
       .chart-head {
         margin-bottom: 15px;
+
         .chart-title {
           font: {
             size: 20px;
@@ -96,36 +111,50 @@
           margin-bottom: 0;
         }
       }
+
       .chart-filter-btn {
         position: absolute;
         top: 0;
         right: 0;
       }
+
       .chart-button {
         text-align: right;
+
         .btn {
           padding: 8px 18px;
+
           &:hover {
             path {
               stroke: $bg-white;
             }
           }
+
           .text {
             padding-left: 18px;
           }
         }
       }
+
       .chart {
         margin-top: 15px;
         min-height: 395px;
       }
     }
+
     .analytic-counts {
+      .row-title {
+        padding: 13px 20px;
+        font-weight: 600;
+        color: #6D7684;
+      }
       margin-top: 75px;
+
       .post-list-head {
         margin-right: 20px;
         padding: 0 20px;
-        >p {
+
+        > p {
           margin-bottom: 0;
           color: $terms-text-color;
           line-height: 0.8;
@@ -134,22 +163,27 @@
             weight: 300;
           }
         }
+
         .employee {
           font-weight: 600;
         }
       }
+
       .scroll-view {
         max-height: 367px;
         overflow-y: auto;
         margin-top: 15px;
+
         .scroll-wrap {
           padding: 20px 21px 52px;
           border-radius: 13px;
           background-color: $input-grey-background;
           margin-right: 20px;
+
           .post-list {
             padding-bottom: 25px;
             margin-bottom: 25px;
+
             &::after {
               content: "";
               position: absolute;
@@ -160,29 +194,33 @@
               height: 1px;
               background-color: rgba(216, 216, 216, 0.4);
             }
+
             &:last-child {
               margin-bottom: 0;
+
               &::after {
                 display: none;
               }
             }
+
             .post-name {
               font: {
-                family: 'Mulish', sans-serif;
                 size: 14px;
                 weight: 700;
               };
-              line-height: 1.2;
-              letter-spacing: 0.01em;
-              color: $sub-text-grey;
-              margin-bottom: 0;
+              line-height: 0.8;
+              color: $post-share-color;
+              padding-left: 15px;
             }
+
             .user {
               width: 60%;
+
               img {
                 width: 41px;
                 border-radius: 50%;
               }
+
               .name {
                 font: {
                   size: 14px;
@@ -193,6 +231,7 @@
                 padding-left: 15px;
               }
             }
+
             .posts, .counts {
               font: {
                 size: 14px;
@@ -203,6 +242,13 @@
               margin-bottom: 0;
             }
           }
+        }
+      }
+
+      .post-analytic-count {
+        .post-list {
+          padding-top: 13px;
+          padding-bottom: 36px !important;
         }
       }
     }

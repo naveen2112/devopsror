@@ -8,7 +8,7 @@ class Post < ApplicationRecord
   has_and_belongs_to_many :tags, join_table: :posts_tags
   has_one_attached :image
   has_many :post_user_shares, dependent: :destroy
-  has_many :linkedin_social_actions
+  has_many :linkedin_social_actions, dependent: :destroy
 
   #================================ Validations ==================================================================
 
@@ -30,7 +30,7 @@ class Post < ApplicationRecord
   #============================== Callbacks ======================================================================
 
   after_create_commit :send_email, if: -> { notification && status == "live" }
-  after_save :update_preview_image_url, if: -> {main_url_previously_changed?}
+  after_save :update_preview_image_url_and_title, if: -> {main_url.present? && main_url_previously_changed?}
   after_create :change_post_status, if: -> {user.blank?}
 
   #============================== Methods ========================================================================
@@ -39,23 +39,25 @@ class Post < ApplicationRecord
     PostsNotificationJob.set(wait: 5.seconds).perform_later(id)
   end
 
-  def update_preview_image_url
-    update(preview_image_url: get_preview_image_url)
+  def update_preview_image_url_and_title
+    preview_image_url, preview_url_title = get_preview_image_url_and_title
+    update(preview_image_url: preview_image_url, preview_url_title: preview_url_title)
   end
 
-  def get_preview_image_url
-    # Pulling image from given main URL using MetaInspector
+  def get_preview_image_url_and_title
+    # Pulling image and title from given main URL using MetaInspector
     begin
       page = MetaInspector.new(main_url, faraday_options: { ssl: { verify: false } },
                                :connection_timeout => 5, :read_timeout => 5)
 
+      page_title = page.title
       if page.meta_tags['property']['og:image'].present?
         preview_image_url = page.meta_tags['property']['og:image'].first if page.meta_tags['property']['og:image'].first != 'http:/'
       end
     rescue MetaInspector::TimeoutError, MetaInspector::RequestError, MetaInspector::ParserError, MetaInspector::NonHtmlError => e
-      preview_image_url = nil
+      preview_image_url, page_title = nil
     end
-    preview_image_url
+    [preview_image_url, page_title&.titleize ]
   end
 
   def change_post_status

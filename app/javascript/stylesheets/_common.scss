@@ -598,8 +598,7 @@ img {
 
   .user_detail {
     align-items: center;
-    padding-left: 13px;
-    padding-right: 13px;
+    padding: 10px 13px;
 
     img {
       border-radius: 50%;
@@ -731,7 +730,7 @@ img {
     }
     .post-desc {
       background-color: $input-bg;
-      padding: 14px 51px 7px;
+      padding: 14px 20px 7px;
       border-radius: 0 0 10px 10px;
       display: flex;
       flex-direction: column;
@@ -742,7 +741,6 @@ img {
           weight: 600;
         };
         line-height: 1.1;
-        text-align: justify;
         color: $post-title-color;
         margin-bottom: 10px;
       }
@@ -764,8 +762,8 @@ img {
           size: 12px;
           weight: 400;
         };
-        margin: 7px -51px 0;
-        padding: 5px 51px;
+        margin: 7px -20px 0;
+        padding: 5px 20px;
         line-height: 1.1;
         color: $secondary-grey-title;
         background-color: $input-bg;
@@ -1452,7 +1450,7 @@ img {
 
 .read-more{
   cursor: pointer;
-  color: $primary-blue-bg;
+  color: #A2a8aa;
   font-size: 14px;
   text-decoration: underline;
 }
