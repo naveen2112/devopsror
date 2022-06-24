@@ -45,7 +45,7 @@ class Company < ApplicationRecord
   #===================================== Methods ====================================================================
 
   def create_tags
-    content = [{ name: "Sales", company_id: id }, { name: "Announcement", company_id: id }, { name: "Other Tag", company_id: id }]
+    content = [{ name: "Sales", company_id: id }, { name: "Announcement", company_id: id }, { name: "HR", company_id: id }, { name: "Marketing", company_id: id }]
     Tag.import content, validate: true
   end
 
