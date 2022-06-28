@@ -73,10 +73,10 @@
           <% end %>
 
           <% unless @post.main_url.nil? || @post.main_url.blank? %>
-            <div class="post-desc">
+            <a class="post-desc"  target="_blank" href="<%= @post.main_url %>" >
               <p class="title"><%= @post.preview_url_title %></p>
-              <a href="<%= @post.main_url %>" class="post-link"><%= @post.main_url&.gsub("http://", "") %></a>
-            </div>
+              <p class="post-link"><%= @post.main_url&.gsub("http://", "") %></p>
+            </a>
           <% end %>
         </div>
       </div>

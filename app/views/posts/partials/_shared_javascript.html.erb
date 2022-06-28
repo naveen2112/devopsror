@@ -288,7 +288,7 @@
             }
             $("#preview-post-link").empty()
             var name = $("#post_main_url").val().replace("http://", "")
-            $("#preview-post-link").append("<div class='post-desc'><p class='title'>" + current_url_title + "</p><a href=" + $("#post_main_url").val() + " class='post-link'>" + name + "</a></div>")
+            $("#preview-post-link").append("<a class='post-desc' target='_blank' href= " + $("#post_main_url").val() + "><p class='title'>" + current_url_title + "</p><p class='post-link'>" + name + "</p></a>")
         }
         function isValidHttpUrl(string) {
             var regex = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
