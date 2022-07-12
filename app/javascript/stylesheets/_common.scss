@@ -288,7 +288,6 @@ img {
         }
         li {
           margin-bottom: 16px;
-          opacity: 0.7;
           list-style-type: none;
 
           ul {
@@ -563,7 +562,7 @@ img {
     display: block;
   }
   .badge {
-    font-size: 14px;
+    font-size: 18px;
   }
 }
 
@@ -1553,4 +1552,16 @@ img {
 
 .profile-password-field{
   width: 575px;
+}
+
+.dropdown-item{
+  position: relative;
+  .tag-trash{
+    z-index: 2;
+    cursor: grab;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
 }

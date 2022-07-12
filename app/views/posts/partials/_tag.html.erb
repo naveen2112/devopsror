@@ -1,8 +1,35 @@
-<div id="tag_lists"><select id="customSelectTag">
-  <% current_company.tags.each do |tag| %>
-    <option value="<%= tag.id %>"><%= tag.name %></option>
-  <% end %>
-</select></div>
+<div id="tag_lists" class="form-group">
+  <label class="control-label"><span class="primary-label" style="margin-right: 10px">Add Tags</span></label>
+  <button type="button" class="btn btn-outline-primary text-center create-tag" data-toggle="modal" data-target="#tagForm">Create
+    Tag
+  </button>
+  <div style="margin-top: 10px">
+    <select id="customSelectTag">
+      <% current_company.tags.each do |tag| %>
+        <option value="<%= tag.id %>"><%= tag.name %></option>
+      <% end %>
+    </select></div>
+  <div class="selected_tag">
+    <span id="new-tags-name"></span>
+    <label class="control-label">
+      <small>Selected Tags</small>
+    </label>
+    <div class="badge_wrap">
+      <% unless @post.nil? ||   @post.new_record? %>
+        <% @post.tags.each do |tag| %>
+          <input type="hidden" value="<%= tag.id %>" name="post[tag_ids][]" class="post-edit-tags" id="edit-form-tag-id-<%= tag.id %>">
+          <div class="badge badge-primary" id="edit-remove-tag-<%= tag.id %>">
+            <span><%= tag.name %></span><span class="close_icon-<%= tag.id %>"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.80471 7.86216C9.06538 8.12283 9.06538 8.54416 8.80471 8.80483C8.67471 8.93483 8.50404 9.00016 8.33337 9.00016C8.16271 9.00016 7.99204 8.93483 7.86204 8.80483L7.00004 7.94283L6.13804 8.80483C6.00804 8.93483 5.83737 9.00016 5.66671 9.00016C5.49604 9.00016 5.32537 8.93483 5.19537 8.80483C4.93471 8.54416 4.93471 8.12283 5.19537 7.86216L6.05737 7.00016L5.19537 6.13816C4.93471 5.8775 4.93471 5.45616 5.19537 5.1955C5.45604 4.93483 5.87737 4.93483 6.13804 5.1955L7.00004 6.0575L7.86204 5.1955C8.12271 4.93483 8.54404 4.93483 8.80471 5.1955C9.06538 5.45616 9.06538 5.8775 8.80471 6.13816L7.94271 7.00016L8.80471 7.86216ZM7.00004 0.333496C3.32404 0.333496 0.333374 3.32416 0.333374 7.00016C0.333374 10.6762 3.32404 13.6668 7.00004 13.6668C10.676 13.6668 13.6667 10.6762 13.6667 7.00016C13.6667 3.32416 10.676 0.333496 7.00004 0.333496Z" fill="#82CBFB"></path></svg></span>
+          </div>
+        <% end %>
+        <span id="posts-tags-ids"></span>
+      <% else %>
+        <span id="posts-tags-ids"></span>
+      <% end %>
+      <div class="row" id="selected_tag"></div>
+    </div>
+  </div>
+</div>
 <script>
     (function ($) {
         $.fn.customSelect = function (options) {
@@ -43,7 +70,7 @@
                     }
                     var listItem = "";
                     $.each(dataList[dataList.name], function (k, list) {
-                        listItem = listItem + ('<a class = "dropdown-item ' + list.className + '"><input id = "' + inputType + list.value + settings.renderId + '" name = "dropdown-input" type="' + inputType + '" value = "' + list.value + '" /><label for = "' + inputType + list.value + settings.renderId + '">' + list.name + '</label></a>');
+                        listItem = listItem + ('<a class = "dropdown-item ' + list.className + '"><input id = "' + inputType + list.value + settings.renderId + '" name = "dropdown-input" type="' + inputType + '" value = "' + list.value + '" /><label for = "' + inputType + list.value + settings.renderId + '">' + list.name + '</label><span id="tag-trash-'+list.value+'" class="tag-trash icon"><svg style="color: red" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path> </svg></span></a>    ');
                     });
                     list = list + listItem + ('</div>');
                 });
@@ -97,7 +124,7 @@
                 }
             });
             $(document).on("click", function (event) {
-                if (!event.target.classList.contains('create-tag')) {
+                if (!event.target.classList.contains('create-tag') && event.target.classList.contains('tag-trash')) {
                     if ((!$(event.target).closest(renderDropdown).length) && ($(renderDropdown).hasClass('open') || $(renderDropdown).hasClass('show'))) {
                         $(renderDropdown).removeClass('open');
                         $(renderDropdown).removeClass('show');
@@ -618,6 +645,17 @@
 
         //post Tag End
 
+        $('.tag-trash').on('click', function () {
+            var tag_name= $(this).prev()[0].textContent
+            $(this).parent().remove()
+            $(this).remove()
+            $.ajax({
+                url: `/posts/delete_tag?tag_name=${tag_name}`,
+                method: "get",
+                dataType: 'script'
+            });
+        })
 
+        $('.selected_tag').show()
     })
 </script>

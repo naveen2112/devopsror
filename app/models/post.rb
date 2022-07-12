@@ -57,7 +57,7 @@ class Post < ApplicationRecord
     rescue MetaInspector::TimeoutError, MetaInspector::RequestError, MetaInspector::ParserError, MetaInspector::NonHtmlError => e
       preview_image_url, page_title = nil
     end
-    [preview_image_url, page_title&.titleize ]
+    [preview_image_url, page_title ]
   end
 
   def change_post_status

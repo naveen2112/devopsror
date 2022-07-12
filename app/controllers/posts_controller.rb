@@ -41,6 +41,7 @@ class PostsController < ApplicationController
   end
 
   def company_tag_list
+    @post = current_company.posts.find_by(id: params[:post_id]) if params[:post_id].present?
     respond_to do |format|
       format.js
     end
@@ -136,8 +137,7 @@ class PostsController < ApplicationController
     rescue MetaInspector::TimeoutError, MetaInspector::RequestError, MetaInspector::ParserError, MetaInspector::NonHtmlError => e
       preview_image_url, page_title = nil
     end
-
-    render plain: "#{preview_image_url || 'false'},#{page_title&.titleize || 'false' }"
+    render plain: "#{preview_image_url || 'false'},#{page_title || 'false' }"
   end
 
   def create_tag
@@ -147,6 +147,15 @@ class PostsController < ApplicationController
     result = tags.present? ? 'false': 'true'
     current_company.tags.create(name: params[:tag_name]) if result == 'true'
     render plain: result
+  end
+
+  def delete_tag
+    return false if params[:tag_name].blank?
+
+    tag = current_company&.tags.find_by(name: params[:tag_name].downcase)
+    if tag.present?
+      p tag.destroy
+    end
   end
 
   private

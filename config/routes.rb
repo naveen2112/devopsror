@@ -53,12 +53,14 @@ Rails.application.routes.draw do
       get :validate_title_except_current
       get :create_tag
       get :company_tag_list
+      get :delete_tag
     end
     collection do
       get :validate_title
       get :parse_main_url
       get :create_tag
       get :company_tag_list
+      get :delete_tag
     end
   end
 

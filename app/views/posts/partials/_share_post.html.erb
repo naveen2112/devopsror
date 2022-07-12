@@ -68,7 +68,7 @@
             <div class="custom-control custom-switch position-relative">
               <input type="checkbox" <%= "checked" unless current_user.linked_in_code.nil? %>  class="custom-control-input" id="switch2" name="linked_in_share_switch"/>
               <label class="custom-control-label" for="switch2"></label>
-              <a class="down-icon" data-toggle="collapse" href="#linkedin_content" aria-expanded="false" aria-controls="linkedin_content">
+              <a class="down-icon" data-toggle="collapse" href="#linkedin_content" aria-expanded="false" aria-controls="linkedin_content", id="content_drop_down">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7 10L9.5 12.5M12 15L17 10" stroke="#697882" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -77,7 +77,7 @@
           </div>
           <div class="share-content collapse" id="linkedin_content">
             <p contenteditable="true" id="post-share-content">
-              <%= @post.commentries&.first&.description %>
+              <%= @post.commentries&.first&.description.gsub(/\n/, '<br/>').html_safe %>
             </p>
           </div>
         </div>
@@ -106,7 +106,7 @@
         $("input[name=linked_in_share_switch]").click(function () {
             if ($("input[name=linked_in_share_switch]").is(":checked")) {
                 $("#share-button").attr("disabled", "false")
-                window.open("<%= linked_in_authorizaion_url %>")
+                window.open("<%= linked_in_authorizaion_url %>","_self")
             } else {
                 $.ajax({
                     url: "/users/delete_account",
@@ -130,5 +130,9 @@
                 data: {commentry: $("#post-share-content").text()}
             });
         })
+
+        if(!<%=current_user.linked_in_code.nil? %>) {
+            $('#content_drop_down').click();
+        }
     })
 </script>
