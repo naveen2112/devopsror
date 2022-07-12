@@ -1,1 +1,1 @@
-$("#tag_lists").replaceWith("<%= j render("posts/partials/tag") %>");
+$("#tag_lists").replaceWith("<%= j render("posts/partials/tag", post: @post) %>");

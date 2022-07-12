@@ -24,14 +24,8 @@
         <%= @post.new_record? ? 1 : @post.commentries.size %>
         var preview_image_url = "", preview_url_title = ""
 
-        $(document).on("input", "#post_title", function () {
-            render_html()
-            $("#preview-post-title").text($(this).val())
-        })
-
         $(document).on("input", "#post_main_url", function () {
             render_html()
-            $("#preview-post-title").text($("#post_title").val())
         })
 
         $(document).on("change", "#post_main_url", function () {
@@ -40,7 +34,6 @@
 
         $(document).on("input", "#post_commentries_attributes_1__description", function () {
             render_html()
-            $("#preview-post-title").text($("#post_title").val())
         })
 
         <% unless @post.new_record? %>
@@ -66,8 +59,6 @@
             }
 
             $(".current-commentry-index").text(<%= num %>)
-
-            $("#preview-post-title").text($("#post_title").val())
         })
         <% end %>
         <% end %>
@@ -75,12 +66,11 @@
         $("#post_image").change(function () {
             check_width()
             render_html()
-            $("#preview-post-title").text($("#post_title").val())
         })
 
         function render_html() {
 
-            if ($("#post_title").val()?.length > 0 || $("#post_main_url").val()?.length > 0 || $("#post_commentries_attributes_1__description").val()?.length > 0 || $("#post_image")[0].files[0]) {
+            if ($("#post_main_url").val()?.length > 0 || $("#post_commentries_attributes_1__description").val()?.length > 0 || $("#post_image")[0].files[0]) {
                 $('#preview-post').html("<%= escape_javascript (render partial: 'posts/partials/preview_post') %>");
 
                 if ($("#post_commentries_attributes_1__description").val()?.length > 0) {

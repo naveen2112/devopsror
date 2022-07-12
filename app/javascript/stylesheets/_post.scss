@@ -40,7 +40,13 @@
     line-height: 1.2;
     font-weight: 700;
     color: $secondary-grey-title;
-    margin-bottom: 38px;
+    margin-bottom: 0;
+  }
+  .section-description{
+    font-size: 15px;
+    line-height: 1.2;
+    color: $subtext_grey;
+    margin-bottom: 30px;
   }
   .row {
     margin: 0;

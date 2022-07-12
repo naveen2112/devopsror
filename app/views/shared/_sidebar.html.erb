@@ -47,7 +47,7 @@
             </a>
           </li>
           <% if current_user.admin? %>
-            <li>
+            <li data-turbolinks="false" class="<%= "active" if request.fullpath == "/analytics" || request.fullpath == "/" %>">
               <a href="/analytics" class="position-relative nav_link">
               <span class="icon">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,7 +63,7 @@
               </a>
             </li>
           <% end %>
-          <li>
+          <li data-turbolinks="false" class="<%= "active" if request.fullpath == "/members" || request.fullpath == "/users/profile" || request.fullpath == "/billings" || request.fullpath == "/" %>">
             <a class="position-relative nav_link" data-toggle="collapse" href="#sub_nav" aria-expanded="false" aria-controls="sub_nav">
               <span class="icon">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
