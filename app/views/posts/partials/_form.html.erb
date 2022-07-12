@@ -180,15 +180,5 @@
                 event.stopPropagation();
             }
         })
-        $('.tag-trash').on('click', function () {
-            var tag_name= $(this).prev()[0].textContent
-            $(this).parent().remove()
-            $(this).remove()
-            $.ajax({
-                url: `/posts/delete_tag?tag_name=${tag_name}`,
-                method: "get",
-                dataType: 'script'
-            });
-        })
     })
 </script>
