@@ -153,9 +153,7 @@ class PostsController < ApplicationController
     return false if params[:tag_name].blank?
 
     tag = current_company&.tags.find_by(name: params[:tag_name].downcase)
-    if tag.present?
-      p tag.destroy
-    end
+    tag.destroy if tag.present?
   end
 
   private
