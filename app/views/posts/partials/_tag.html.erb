@@ -647,13 +647,22 @@
 
         $('.tag-trash').on('click', function () {
             var tag_name= $(this).prev()[0].textContent
-            $(this).parent().remove()
-            $(this).remove()
-            $.ajax({
-                url: `/posts/delete_tag?tag_name=${tag_name}`,
-                method: "get",
-                dataType: 'script'
-            });
+            var flag = 1
+            $('.badge').each(function (i, obj) {
+                if (obj.textContent.trim() == tag_name) {
+                    flag = 0
+                    alert(`Please unselect the tag "${tag_name}" before delete`)
+                }
+            })
+            if (flag == 1) {
+                $(this).parent().remove()
+                $(this).remove()
+                $.ajax({
+                    url: `/posts/delete_tag?tag_name=${tag_name}`,
+                    method: "get",
+                    dataType: 'script'
+                });
+            }
         })
 
         $('.selected_tag').show()
