@@ -106,6 +106,7 @@ $(document).on('turbolinks:load', function () {
             $("#selected_tag").hide();
         }
         else {
+            $('#selected_tag').empty();
             $('.selected_tag').hide();
         }
     }
@@ -241,4 +242,8 @@ $(document).on('turbolinks:load', function () {
     }
 
     //post Tag End
+    var end_url= (window.location.href.split("/").slice(-1))[0];
+    if ( end_url == 'posts' || end_url == ''){
+        $('.tag-trash').hide();
+    }
 });

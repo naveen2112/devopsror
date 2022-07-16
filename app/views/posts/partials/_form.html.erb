@@ -135,7 +135,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-primary tag-cancel-btn" type="button" id="tag-save">Save</button>
-          <button class="btn btn-secondary tag-cancel-btn" type="button" data-dismiss="modal" aria-label="Close">Cancel</button>
+          <button class="btn btn-secondary tag-cancel-btn" type="button" data-dismiss="modal" aria-label="Close" id="tag-cancel">Cancel</button>
         </div>
       </div>
     </div>
@@ -151,6 +151,9 @@
         if(!isNaN(url.slice(-1)[0])){
             post_id = url.slice(-1)[0]
         }
+        $("#tag-cancel").on('click', function () {
+            cleartagform()
+        })
 
         $("#tag-save").on('click', function () {
             var tag_name = $("#tag-value").val()
@@ -167,7 +170,7 @@
                                 method: "get",
                                 dataType: 'script'
                             });
-                            $("#tagForm").modal('hide');
+                            cleartagform()
                         }
                     }
                 });
@@ -180,5 +183,10 @@
                 event.stopPropagation();
             }
         })
+        function cleartagform(){
+            $("#tagForm").closest('form').find("input[type=text], textarea").val("");
+            $("#tagForm").modal('hide');
+            $("#tag-error").text('');
+        }
     })
 </script>
