@@ -299,10 +299,11 @@ img {
             border-radius: 8px;
             padding-right: 40px;
           }
-
+          .active{
+            background-color: $bg_white;
+          }
           .sub_nav_link {
             padding: 15px 19px;
-            background-color: $bg-white;
             border-radius: 8px;
 
             a {

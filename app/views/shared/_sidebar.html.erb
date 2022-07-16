@@ -47,7 +47,7 @@
             </a>
           </li>
           <% if current_user.admin? %>
-            <li data-turbolinks="false" class="<%= "active" if request.fullpath == "/analytics" || request.fullpath == "/" %>">
+            <li data-turbolinks="false" class="<%= "active" if request.fullpath == "/analytics" %>">
               <a href="/analytics" class="position-relative nav_link">
               <span class="icon">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,7 +63,7 @@
               </a>
             </li>
           <% end %>
-          <li data-turbolinks="false" class="<%= "active" if request.fullpath == "/members" || request.fullpath == "/users/profile" || request.fullpath == "/billings" || request.fullpath == "/" %>">
+          <li>
             <a class="position-relative nav_link" data-toggle="collapse" href="#sub_nav" aria-expanded="false" aria-controls="sub_nav">
               <span class="icon">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,7 +81,7 @@
 
               <% if can? :manage, User %>
 
-                <li class="sub_nav_link">
+                <li data-turbolinks="false" class="sub_nav_link <%= "active" if request.fullpath == "/members"%>">
                   <a data-turbolinks="false" href="/members">
                   <span class="icon">
                     <svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -95,7 +95,7 @@
                 </li>
               <% end %>
 
-              <li class="sub_nav_link">
+              <li data-turbolinks="false" class="sub_nav_link <%= "active" if request.fullpath == "/users/profile"%>">
                 <a data-turbolinks="false" href="/users/profile">
                   <span class="icon">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -110,7 +110,7 @@
 
               <% if can? :manage, Company %>
                 <% if current_company.product_led? %>
-                  <li class="sub_nav_link">
+                  <li data-turbolinks="false" class="sub_nav_link <%= "active" if request.fullpath == "/billings"%>">
                     <a data-turbolinks="false" href="/billings">
                     <span class="icon">
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
