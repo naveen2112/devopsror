@@ -143,8 +143,8 @@ class PostsController < ApplicationController
   def create_tag
     return false if params[:tag_name].blank?
 
-    tags = current_company&.tags.where(name: params[:tag_name].downcase)
-    result = tags.present? ? 'false': 'true'
+    tags = current_company&.tags.where('lower(name) = ?', params[:tag_name].downcase)
+    result = tags.present? ? 'false' : 'true'
     current_company.tags.create(name: params[:tag_name]) if result == 'true'
     render plain: result
   end
@@ -152,7 +152,7 @@ class PostsController < ApplicationController
   def delete_tag
     return false if params[:tag_name].blank?
 
-    tag = current_company&.tags.find_by(name: params[:tag_name].downcase)
+    tag = current_company&.tags.find_by(name: params[:tag_name])
     tag.destroy if tag.present?
   end
 
