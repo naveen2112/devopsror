@@ -12,13 +12,13 @@ WORKDIR /var/www/
 RUN git clone https://github.com/naveen2112/devopsror.git 
 WORKDIR /var/www/devopsror
 RUN bundle install
-RUN export SECRET_KEY_BASE=$(bundle exec rake secret) && echo "export SECRET_KEY_BASE=$SECRET_KEY_BASE" >> ~/.bashrc
 ENV RAILS_ENV=production 
 ENV DATABASE_NAME=postgres 
 ENV DATABASE_USERNAME=postgres 
 ENV DATABASE_PASSWORD=admin123 
 ENV DATABASE_HOST=ror.cfetpjdspyv9.ap-south-1.rds.amazonaws.com 
 ENV DATABASE_PORT=5432
+RUN export SECRET_KEY_BASE=$(bundle exec rake secret) && echo "export SECRET_KEY_BASE=$SECRET_KEY_BASE" >> ~/.bashrc
 RUN rake db:create
 RUN rake db:migrate
 RUN rake assets:precompile
