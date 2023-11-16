@@ -18,7 +18,6 @@ DATABASE_USERNAME=postgres \
 DATABASE_PASSWORD=admin123 \
 DATABASE_HOST=ror.cfetpjdspyv9.ap-south-1.rds.amazonaws.com \
 DATABASE_PORT=5432
-RUN export SECRET_KEY_BASE=$(bundle exec rake secret) && echo "export SECRET_KEY_BASE=$SECRET_KEY_BASE" >> ~/.bashrc
 RUN rake db:create
 RUN rake db:migrate
 RUN rake assets:precompile
